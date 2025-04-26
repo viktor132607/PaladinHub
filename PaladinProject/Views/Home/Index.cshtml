@@ -1,0 +1,177 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<style>
+    /* Modern Hero Section */
+    .hero-section {
+        background-color: #1e1e1e;
+        padding: 8rem 2rem;
+        text-align: center;
+        color: #FFD700;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .hero-section h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-section p {
+            font-size: 1.5rem;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 1.5s ease;
+        }
+
+    .btn-hero {
+        font-size: 1.2rem;
+        padding: 0.8rem 2rem;
+        border: 2px solid #FFD700;
+        color: #FFD700;
+        background: transparent;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+        .btn-hero:hover {
+            background: #FFD700;
+            color: black;
+            border-color: #FFD700;
+        }
+
+    /* Side background images */
+    .side-image-left, .side-image-right {
+        position: fixed;
+        top: 0;
+        width: 200px; /* you can adjust */
+        height: 100%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 0;
+    }
+
+    .side-image-left {
+        left: 0;
+        background-image: url('/images/left-image.png'); /* your left image */
+    }
+
+    .side-image-right {
+        right: 0;
+        background-image: url('/images/right-image.png'); /* your right image */
+    }
+
+    /* Main Content after Hero */
+    .content-wrapper {
+        background-color: #1e1e1e;
+        padding: 8rem 2rem 4rem 2rem;
+        width: 80%;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .card {
+        border: none;
+        background: transparent;
+    }
+
+    .view-guide-link {
+        color: #FFD700;
+        font-weight: bold;
+        font-size: 1.5rem;
+        text-decoration: none;
+        transition: text-shadow 0.3s ease;
+    }
+
+        .view-guide-link:hover {
+            text-shadow: 0 0 8px #FFD700, 0 0 12px #FFD700;
+        }
+</style>
+
+<!-- Side Background Images -->
+<div class="side-image-left"></div>
+<div class="side-image-right"></div>
+
+<!-- Main Background -->
+<div style="background-color: #1e1e1e; min-height: 100vh;">
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1>PaladinHub</h1>
+        <p>World of Warcraft Paladin guides.</p>
+        <a href="#guides" class="btn-hero">Explore Guides</a>
+    </div>
+
+    <!-- Content Wrapper (Captions + Guides) -->
+    <div class="content-wrapper">
+
+        <!-- Captions -->
+        <section class="captions-section">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-md-4">
+                        <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">Holy</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">Protection</div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">Retribution</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guides -->
+        <section id="guides">
+            <div class="container">
+                <div class="row text-center">
+
+                    <!-- Holy Paladin -->
+                    <div class="col-md-4 mb-4 d-flex justify-content-center">
+                        <div class="card h-100">
+                            <div class="position-relative">
+                                <img src="~/images/twws1-home-small-1.png" class="img-fluid" style="height: 180px; width: 100%; object-fit: cover;" alt="Holy Paladin">
+                                <div class="position-absolute start-50 translate-middle-x" style="bottom: 10px;">
+                                    <a href="/Home/HolyPaladinGuide" class="view-guide-link">View Guide</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Protection Paladin -->
+                    <div class="col-md-4 mb-4 d-flex justify-content-center">
+                        <div class="card h-100">
+                            <div class="position-relative">
+                                <img src="~/images/twws1-home-small-2.png" class="img-fluid" style="height: 180px; width: 100%; object-fit: cover;" alt="Protection Paladin">
+                                <div class="position-absolute start-50 translate-middle-x" style="bottom: 10px;">
+                                    <a href="/Home/ProtectionPaladinGuide" class="view-guide-link">View Guide</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Retribution Paladin -->
+                    <div class="col-md-4 mb-4 d-flex justify-content-center">
+                        <div class="card h-100">
+                            <div class="position-relative">
+                                <img src="~/images/twws1-home-small-3.png" class="img-fluid" style="height: 180px; width: 100%; object-fit: cover;" alt="Retribution Paladin">
+                                <div class="position-absolute start-50 translate-middle-x" style="bottom: 10px;">
+                                    <a href="/Home/RetributionPaladinGuide" class="view-guide-link">View Guide</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+</div>
