@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\images\\5524f62bfc565c0a979881c3fb9bae04.jpg"
     },
     {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\WoW_icon.svg.png",
+      "PackagePath": "staticwebassets\\images\\WoW_icon.svg.png"
+    },
+    {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\herald-of-the-sun.webp",
       "PackagePath": "staticwebassets\\images\\herald-of-the-sun.webp"
     },

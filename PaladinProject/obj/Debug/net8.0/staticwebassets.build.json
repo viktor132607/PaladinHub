@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tnLJpFZFyzfJXqtcYRmnpb1FEIBvRhxPHGa0WF63bTQ=",
+  "Hash": "qhNiDhlChIfZmJzX92pBmIniglJCz0t6reNniKWobu0=",
   "Source": "PaladinProject",
   "BasePath": "_content/PaladinProject",
   "Mode": "Default",
@@ -205,6 +205,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\twws1-home-small-4.png"
+    },
+    {
+      "Identity": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\WoW_icon.svg.png",
+      "SourceId": "PaladinProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\",
+      "BasePath": "_content/PaladinProject",
+      "RelativePath": "images/WoW_icon.svg.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\WoW_icon.svg.png"
     },
     {
       "Identity": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\js\\site.js",
