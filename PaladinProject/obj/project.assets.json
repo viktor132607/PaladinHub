@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vikto\\source\\repos\\PaladinProject\\PaladinProject\\PaladinProject.csproj",
+      "projectUniqueName": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\PaladinProject.csproj",
       "projectName": "PaladinProject",
-      "projectPath": "C:\\Users\\vikto\\source\\repos\\PaladinProject\\PaladinProject\\PaladinProject.csproj",
+      "projectPath": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\PaladinProject.csproj",
       "packagesPath": "C:\\Users\\vikto\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vikto\\source\\repos\\PaladinProject\\PaladinProject\\obj\\",
+      "outputPath": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "G:\\Visual studio 3\\NuGetPackages"
