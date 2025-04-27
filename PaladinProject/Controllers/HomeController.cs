@@ -12,20 +12,21 @@ namespace PaladinProject.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
         }
-
+        [Route("HolyPaladinguide")]
         public IActionResult HolyPaladinguide()
         {
             return View();
         }
+        [Route("ProtectionPaladinGuide")]
         public IActionResult ProtectionPaladinguide()
         {
             return View();
         }
+        [Route("RetributionPaladinGuide")]
         public IActionResult RetributionPaladinGuide()
         {
             return View();
