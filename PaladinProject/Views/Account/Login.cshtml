@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100" style="background-color: #1c1c1c;">
+    <div class="p-4" style="min-width: 300px; text-align: center;">
+        <h2 class="text-white mb-4">Log in to your Wowhead Account</h2>
+        <form method="post" asp-action="Login">
+            <div class="form-group mb-3 text-start">
+                <label class="text-white" for="Email">Email Address</label>
+                <input type="email" class="form-control light-input" id="Email" name="Email" required />
+            </div>
+            <div class="form-group mb-3 text-start">
+                <label class="text-white" for="Password">Password</label>
+                <input type="password" class="form-control light-input" id="Password" name="Password" required />
+            </div>
+            <div class="form-check mb-3 text-start">
+                <input type="checkbox" class="form-check-input custom-checkbox" id="RememberMe" name="RememberMe" />
+                <label class="form-check-label text-white-50" for="RememberMe">Stay logged in</label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .light-input {
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        color: #212529;
+    }
+
+        .light-input:focus {
+            background-color: #fff;
+            color: #212529;
+            border-color: #86b7fe;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+    .custom-checkbox:checked {
+        background-color: #f5c518; /* Yellow check background */
+        border-color: #f5c518;
+    }
+</style>
