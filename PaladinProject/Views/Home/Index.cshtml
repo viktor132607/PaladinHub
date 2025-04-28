@@ -2,30 +2,35 @@
     ViewData["Title"] = "Home";
 }
 
+<!-- Main Styles -->
 <style>
-    /* Modern Hero Section */
-    .hero-section {
+    /* --- General --- */
+    body {
         background-color: #1e1e1e;
-        padding: 8rem 2rem;
-        text-align: center;
         color: #FFD700;
-        min-height: 100vh;
-        position: relative;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
-        .hero-section h1 {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            animation: fadeInDown 1s ease;
-        }
+    /* --- Hero Section --- */
+    .hero-section {
+        padding: 8rem 2rem;
+        text-align: center;
+        min-height: 100vh;
+        position: relative;
+    }
 
-        .hero-section p {
-            font-size: 1.5rem;
-            margin-bottom: 2.5rem;
-            animation: fadeInUp 1.5s ease;
-        }
+    .hero-section h1 {
+        font-size: 4rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        animation: fadeInDown 1s ease;
+    }
+
+    .hero-section p {
+        font-size: 1.5rem;
+        margin-bottom: 2.5rem;
+        animation: fadeInUp 1.5s ease;
+    }
 
     .btn-hero {
         font-size: 1.2rem;
@@ -37,17 +42,16 @@
         text-decoration: none;
     }
 
-        .btn-hero:hover {
-            background: #FFD700;
-            color: black;
-            border-color: #FFD700;
-        }
+    .btn-hero:hover {
+        background: #FFD700;
+        color: black;
+    }
 
-    /* Side background images */
+    /* --- Side Background Images --- */
     .side-image-left, .side-image-right {
         position: fixed;
         top: 0;
-        width: 200px; /* you can adjust */
+        width: 200px;
         height: 100%;
         background-size: cover;
         background-repeat: no-repeat;
@@ -57,17 +61,16 @@
 
     .side-image-left {
         left: 0;
-        background-image: url('/images/left-image.png'); /* your left image */
+        background-image: url('/images/left-image.png');
     }
 
     .side-image-right {
         right: 0;
-        background-image: url('/images/right-image.png'); /* your right image */
+        background-image: url('/images/right-image.png');
     }
 
-    /* Main Content after Hero */
+    /* --- Content Wrapper --- */
     .content-wrapper {
-        background-color: #1e1e1e;
         padding: 8rem 2rem 4rem 2rem;
         width: 80%;
         margin: 0 auto;
@@ -75,9 +78,77 @@
         z-index: 1;
     }
 
-    .card {
-        border: none;
+    /* --- Captions Section --- */
+    .captions-section .caption {
+        color: #FFD700;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    /* --- Hero Tree Section --- */
+    #hero-tree {
+        padding: 40px 0;
+        text-align: center;
+    }
+
+    .hero-tree-grid {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-top: 20px;
+    }
+
+    .hero-tree-card {
         background: transparent;
+        border: 1px solid #FFD700;
+        padding: 20px;
+        width: 250px;
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        transition: transform 0.3s ease;
+    }
+
+    .hero-tree-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .hero-tree-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #555;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+        margin-bottom: 10px;
+    }
+
+    .hero-tree-img:hover {
+        transform: scale(1.05);
+        border-color: #FFD700;
+    }
+
+    .hero-tree-card h3 {
+        color: white;
+        margin-top: 10px;
+    }
+
+    .hero-tree-card p {
+        color: #ccc;
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    .hero-tree-card p em {
+        display: block;
+        color: #d4af37;
+        font-style: normal;
+        margin-bottom: 10px;
+    }
+
+    /* --- Guides Section --- */
+    #guides .card {
+        background: transparent;
+        border: none;
     }
 
     .view-guide-link {
@@ -85,12 +156,21 @@
         font-weight: bold;
         font-size: 1.5rem;
         text-decoration: none;
+        white-space: nowrap; /* Fix: Don't break "View Guide" into two lines */
+        display: inline-block;
         transition: text-shadow 0.3s ease;
+        padding: 0.3rem 1rem;
     }
 
-        .view-guide-link:hover {
-            text-shadow: 0 0 8px #FFD700, 0 0 12px #FFD700;
-        }
+    .view-guide-link:hover {
+        text-shadow: 0 0 8px #FFD700, 0 0 12px #FFD700;
+    }
+
+    .guide-image {
+        height: 180px;
+        width: 100%;
+        object-fit: cover;
+    }
 </style>
 
 <!-- Side Background Images -->
@@ -98,7 +178,7 @@
 <div class="side-image-right"></div>
 
 <!-- Main Background -->
-<div style="background-color: #1e1e1e; min-height: 100vh;">
+<div>
 
     <!-- Hero Section -->
     <div class="hero-section">
@@ -107,27 +187,55 @@
         <a href="#guides" class="btn-hero">Explore Guides</a>
     </div>
 
-    <!-- Content Wrapper (Captions + Guides) -->
+    <!-- Hero Tree Section -->
+    <section id="hero-tree">
+        <h2>NEW 11.0 Hero Talents</h2>
+
+        <div class="hero-tree-grid">
+            <div class="hero-tree-card">
+                <img src="~/images/Herald.jpg" alt="Herald of the Sun" class="hero-tree-img" />
+                <h3>HERALD OF THE SUN</h3>
+                <p><em>(Holy/Retribution)</em></p>
+                <p>Heralds of the Sun develop a deep bond to the sun and solar energy, using it to burn enemies and cauterize their allies' wounds. They can manifest potent solar rays while fully connected to the Light.</p>
+            </div>
+
+            <div class="hero-tree-card">
+                <img src="~/images/Lightsmith.jpg" alt="Lightsmith" class="hero-tree-img" />
+                <h3>LIGHTSMITH</h3>
+                <p><em>(Holy/Protection)</em></p>
+                <p>Lightsmiths have developed such masterful control over the Light that they are able to wield it tangibly, employing constructs to empower their weapons and defenses and to protect their allies.</p>
+            </div>
+
+            <div class="hero-tree-card">
+                <img src="~/images/Templar.jpg" alt="Templar" class="hero-tree-img" />
+                <h3>TEMPLAR</h3>
+                <p><em>(Protection/Retribution)</em></p>
+                <p>Templars stop at nothing to bring justice to the wicked. They call down hammers of Light and unleash devastating combinations of physical and holy attacks to vanquish their enemies.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Wrapper -->
     <div class="content-wrapper">
 
-        <!-- Captions -->
+        <!-- Captions Section -->
         <section class="captions-section">
             <div class="container">
                 <div class="row text-center mb-5">
                     <div class="col-md-4">
-                        <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">Holy</div>
+                        <div class="caption">Holy</div>
                     </div>
                     <div class="col-md-4">
-                        <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">Protection</div>
+                        <div class="caption">Protection</div>
                     </div>
                     <div class="col-md-4">
-                        <div style="color: #FFD700; font-size: 1.5rem; font-weight: bold;">Retribution</div>
+                        <div class="caption">Retribution</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Guides -->
+        <!-- Guides Section -->
         <section id="guides">
             <div class="container">
                 <div class="row text-center">
@@ -136,7 +244,7 @@
                     <div class="col-md-4 mb-4 d-flex justify-content-center">
                         <div class="card h-100">
                             <div class="position-relative">
-                                <img src="~/images/twws1-home-small-1.png" class="img-fluid" style="height: 180px; width: 100%; object-fit: cover;" alt="Holy Paladin">
+                                <img src="~/images/twws1-home-small-1.png" alt="Holy Paladin" class="guide-image" />
                                 <div class="position-absolute start-50 translate-middle-x" style="bottom: 10px;">
                                     <a href="/Home/HolyPaladinGuide" class="view-guide-link">View Guide</a>
                                 </div>
@@ -148,7 +256,7 @@
                     <div class="col-md-4 mb-4 d-flex justify-content-center">
                         <div class="card h-100">
                             <div class="position-relative">
-                                <img src="~/images/twws1-home-small-2.png" class="img-fluid" style="height: 180px; width: 100%; object-fit: cover;" alt="Protection Paladin">
+                                <img src="~/images/twws1-home-small-2.png" alt="Protection Paladin" class="guide-image" />
                                 <div class="position-absolute start-50 translate-middle-x" style="bottom: 10px;">
                                     <a href="/Home/ProtectionPaladinGuide" class="view-guide-link">View Guide</a>
                                 </div>
@@ -160,7 +268,7 @@
                     <div class="col-md-4 mb-4 d-flex justify-content-center">
                         <div class="card h-100">
                             <div class="position-relative">
-                                <img src="~/images/twws1-home-small-3.png" class="img-fluid" style="height: 180px; width: 100%; object-fit: cover;" alt="Retribution Paladin">
+                                <img src="~/images/twws1-home-small-3.png" alt="Retribution Paladin" class="guide-image" />
                                 <div class="position-absolute start-50 translate-middle-x" style="bottom: 10px;">
                                     <a href="/Home/RetributionPaladinGuide" class="view-guide-link">View Guide</a>
                                 </div>
