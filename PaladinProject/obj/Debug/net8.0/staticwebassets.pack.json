@@ -13,16 +13,60 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\4V995QWRG1KJ1723247072691.jpg",
+      "PackagePath": "staticwebassets\\images\\4V995QWRG1KJ1723247072691.jpg"
+    },
+    {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\5524f62bfc565c0a979881c3fb9bae04.jpg",
       "PackagePath": "staticwebassets\\images\\5524f62bfc565c0a979881c3fb9bae04.jpg"
     },
     {
-      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\WoW_icon.svg.png",
-      "PackagePath": "staticwebassets\\images\\WoW_icon.svg.png"
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\AVIF\\Herald of the Sun.avif",
+      "PackagePath": "staticwebassets\\images\\AVIF\\Herald of the Sun.avif"
     },
     {
-      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\herald-of-the-sun.webp",
-      "PackagePath": "staticwebassets\\images\\herald-of-the-sun.webp"
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\AVIF\\Lightsmith.avif",
+      "PackagePath": "staticwebassets\\images\\AVIF\\Lightsmith.avif"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\AVIF\\Templar.avif",
+      "PackagePath": "staticwebassets\\images\\AVIF\\Templar.avif"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Herald.jpg",
+      "PackagePath": "staticwebassets\\images\\Herald.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Lightsmith.jpg",
+      "PackagePath": "staticwebassets\\images\\Lightsmith.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Templar.jpg",
+      "PackagePath": "staticwebassets\\images\\Templar.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TierSets\\undermine-tier-chest.png",
+      "PackagePath": "staticwebassets\\images\\TierSets\\undermine-tier-chest.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TierSets\\undermine-tier-gloves.png",
+      "PackagePath": "staticwebassets\\images\\TierSets\\undermine-tier-gloves.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TierSets\\undermine-tier-helm.png",
+      "PackagePath": "staticwebassets\\images\\TierSets\\undermine-tier-helm.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TierSets\\undermine-tier-pants.png",
+      "PackagePath": "staticwebassets\\images\\TierSets\\undermine-tier-pants.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TierSets\\undermine-tier-shoulders.png",
+      "PackagePath": "staticwebassets\\images\\TierSets\\undermine-tier-shoulders.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\WoW_icon.svg.png",
+      "PackagePath": "staticwebassets\\images\\WoW_icon.svg.png"
     },
     {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\twws1-home-small-1.png",

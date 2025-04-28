@@ -1,4 +1,20 @@
-﻿<!-- Custom style for white text -->
+﻿@using PaladinProject
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Your layout
+    var spellbook = new Spellbook();
+}
+
+@functions {
+    public static string HighlightSpells(string input, Dictionary<string, string> spells)
+    {
+        foreach (var spell in spells.Keys)
+        {
+            input = input.Replace(spell, $"<span style='color: yellow; font-weight: bold;'>{spell}</span>");
+        }
+        return input;
+    }
+}
+
 <style>
     body {
         color: white;
@@ -14,12 +30,11 @@
     }
 </style>
 
-
-<section id="overview">
-    <h2>📖 Overview</h2>
-
+@{
+    var overviewContent = @"
+<section id='overview'>
+    <h2>Overview</h2>
     <p>Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options. In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including explaining what they do and when to use them.</p>
-
     <h3>Sections Covered:</h3>
     <ul>
         <li>NEW Season 2</li>
@@ -34,8 +49,12 @@
         <li>Consumables</li>
         <li>WA & Addons</li>
     </ul>
-
 </section>
+";
+}
+
+@Html.Raw(HighlightSpells(overviewContent, spellbook.Spells))
+
 <section id="season2">
     <h2>NEW Season 2 Changes</h2>
 
@@ -43,49 +62,49 @@
     <p>Healing Abilities</p>
 
     <ul>
-        <li>Word of Glory (WoG) - Calls down the light to heal you such that the heal amount is increased the lower your health is. Costs 3 Holy Power. Use this when you have Shining Light or when you won't drop Shield of the Righteous.</li>
-        <li>Flash of Light (FoL) - Quick-casting healing spell. Due to not being able to Block/Parry/Dodge while casting, avoid using this spell while actively tanking. Use this when you or your teammates need a heal during combat downtime.</li>
+        <li>@Html.Raw(HighlightSpells("Word of Glory (WoG) - Calls down the light to heal you such that the heal amount is increased the lower your health is. Costs 3 Holy Power. Use this when you have Shining Light or when you won't drop Shield of the Righteous.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Flash of Light (FoL) - Quick-casting healing spell. Due to not being able to Block/Parry/Dodge while casting, avoid using this spell while actively tanking. Use this when you or your teammates need a heal during combat downtime.", spellbook.Spells))</li>
     </ul>
 
     <p>Offensive Abilities</p>
 
     <ul>
-        <li>Shield of the Righteous (SotR) - Slams the enemies in front of you with your shield, causing moderate Holy damage and increases your armor based on your Strength stat. Costs 3 Holy Power. This should be your primary Holy Power spender.</li>
-        <li>Judgment (J) - Deals moderate Holy damage to your current target. Generates 1 Holy Power.</li>
-        <li>Consecration (Cons) - Blesses the land beneath you, causing enemies in the area to take light Holy damage. Standing in Consecration also gives you damage reduction. You can only have one down at a time and recasting it will replace the old one.</li>
+        <li>@Html.Raw(HighlightSpells("Shield of the Righteous (SotR) - Slams the enemies in front of you with your shield, causing moderate Holy damage and increases your armor based on your Strength stat. Costs 3 Holy Power. This should be your primary Holy Power spender.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Judgment (J) - Deals moderate Holy damage to your current target. Generates 1 Holy Power.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Consecration (Cons) - Blesses the land beneath you, causing enemies in the area to take light Holy damage. Standing in Consecration also gives you damage reduction. You can only have one down at a time and recasting it will replace the old one.", spellbook.Spells))</li>
     </ul>
 
     <p>Defensive Cooldowns</p>
 
     <ul>
-        <li>Divine Shield (DS) - Renders you immune to all damage, spells, and forced movement effects for 8 seconds. Causes Forbearance and can't be used if you already have Forbearance. Use this to avoid damage that might kill you, to remove specific debuffs or in a pre-planned way. Be sure to have a cancel macro if you use this while actively tanking.</li>
+        <li>@Html.Raw(HighlightSpells("Divine Shield (DS) - Renders you immune to all damage, spells, and forced movement effects for 8 seconds. Causes Forbearance and can't be used if you already have Forbearance. Use this to avoid damage that might kill you, to remove specific debuffs or in a pre-planned way. Be sure to have a cancel macro if you use this while actively tanking.", spellbook.Spells))</li>
     </ul>
 
     <p>Utility Abilities</p>
 
     <ul>
-        <li>Sense Undead - Shows Undead creature types on your minimap. Use this ability for fun!</li>
-        <li>Hammer of Justice (HoJ) - Stuns an enemy for 6 seconds. Use this for crowd control!</li>
-        <li>Hand of Reckoning (Taunt) - Forces the target to attack you and grants a bonus threat multiplier for your damaging abilities for 3 seconds. Use this for taunt swaps or if you're losing threat.</li>
-        <li>Redemption (Res) - Out-of-combat resurrection spell.</li>
-        <li>Intercession (BRes) - This is your in-combat resurrection or "battle res". This shares a cooldown without similar spells in some dungeon and raid content. It is instant cast but requires 3 Holy Power. You ideally want to let another person battle res.</li>
+        <li>@Html.Raw(HighlightSpells("Sense Undead - Shows Undead creature types on your minimap. Use this ability for fun!", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Hammer of Justice (HoJ) - Stuns an enemy for 6 seconds. Use this for crowd control!", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Hand of Reckoning (Taunt) - Forces the target to attack you and grants a bonus threat multiplier for your damaging abilities for 3 seconds. Use this for taunt swaps or if you're losing threat.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Redemption (Res) - Out-of-combat resurrection spell.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Intercession (BRes) - This is your in-combat resurrection or 'battle res'. This shares a cooldown without similar spells in some dungeon and raid content. It is instant cast but requires 3 Holy Power. You ideally want to let another person battle res.", spellbook.Spells))</li>
     </ul>
-
 </section>
+
 <section id="passives">
     <h2>Passive Abilities</h2>
 
     <ul>
-        <li>Mastery: Divine Bulwark - This is your Mastery. It increases your block chance and grants you passive damage reduction when you stand in Consecration. It also gives you a chance to block magic DoTs when standing in Consecration.</li>
-        <li>Aegis of Light - Increases your health, and armor for being Protection Spec.</li>
-        <li>Riposte - This passive converts your Critical Strike rating from gear to Parry chance.</li>
-        <li>Consecration - This rank 2 upgrade reduces all damage you take while in Consecration by 5%. This adds on top of your existing mastery.</li>
-        <li>Consecration - This rank 3 upgrade reduces the cooldown of your Consecration by 50%.</li>
-        <li>Judgment - This rank 2 upgrade increases the damage of your Judgment by 50%.</li>
-        <li>Seasoned Warhorse - This passive increases the duration of your Divine Steed by 2 seconds.</li>
+        <li>@Html.Raw(HighlightSpells("Mastery: Divine Bulwark - This is your Mastery. It increases your block chance and grants you passive damage reduction when you stand in Consecration. It also gives you a chance to block magic DoTs when standing in Consecration.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Aegis of Light - Increases your health, and armor for being Protection Spec.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Riposte - This passive converts your Critical Strike rating from gear to Parry chance.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Consecration - This rank 2 upgrade reduces all damage you take while in Consecration by 5%. This adds on top of your existing mastery.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Consecration - This rank 3 upgrade reduces the cooldown of your Consecration by 50%.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Judgment - This rank 2 upgrade increases the damage of your Judgment by 50%.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Seasoned Warhorse - This passive increases the duration of your Divine Steed by 2 seconds.", spellbook.Spells))</li>
     </ul>
-
 </section>
+
 <section id="hero-talents">
     <h2>Hero Talents</h2>
 
@@ -93,92 +112,94 @@
 
     <h4>Key Talent</h4>
     <ul>
-        <li>Light's Guidance (LG) - For 12 seconds after you Eye of Tyr, you will have access to Hammer of Light. Hammer of Light will do Holy damage to your target and 4 nearby enemies. Additionally, it will call down an Empyrean Hammer to strike 3 nearby enemies for Holy Damage. Empyrean Hammer is an instant damage event that can trigger a few Templar talents.</li>
+        <li>@Html.Raw(HighlightSpells("Light's Guidance (LG) - For 12 seconds after you Eye of Tyr, you will have access to Hammer of Light. Hammer of Light will do Holy damage to your target and 4 nearby enemies. Additionally, it will call down an Empyrean Hammer to strike 3 nearby enemies for Holy Damage. Empyrean Hammer is an instant damage event that can trigger a few Templar talents.", spellbook.Spells))</li>
     </ul>
 
     <h4>Capstone Talent</h4>
     <ul>
-        <li>Light's Deliverance (LD) - This is a stacking buff that applies every time you call down an Empyrean Hammer. Once you reach 60 stacks and Eye of Tyr and Hammer of Light are on cooldown, you will be able to cast Hammer of Light for free.</li>
+        <li>@Html.Raw(HighlightSpells("Light's Deliverance (LD) - This is a stacking buff that applies every time you call down an Empyrean Hammer. Once you reach 60 stacks and Eye of Tyr and Hammer of Light are on cooldown, you will be able to cast Hammer of Light for free.", spellbook.Spells))</li>
     </ul>
 
     <h4>Choice Nodes</h4>
 
     <h5>Choice Node 1</h5>
     <ul>
-        <li>Zealous Vindication (ZV) - Hammer of Light will call down two additional Empyrean Hammers that hit your target.</li>
-        <li>For Whom the Bell Tolls (FWBT) - Your Divine Toll will now increase the damage of your next 3 Judgment casts by up to 100%. This is decreased by 20% for each target hit. When you hit 5 targets with Divine Toll, you will gain no damage bonus on Judgment.</li>
+        <li>@Html.Raw(HighlightSpells("Zealous Vindication (ZV) - Hammer of Light will call down two additional Empyrean Hammers that hit your target.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("For Whom the Bell Tolls (FWBT) - Your Divine Toll will now increase the damage of your next 3 Judgment casts by up to 100%. This is decreased by 20% for each target hit. When you hit 5 targets with Divine Toll, you will gain no damage bonus on Judgment.", spellbook.Spells))</li>
     </ul>
 
     <h5>Choice Node 2</h5>
     <ul>
-        <li>Bonds of Fellowship - You take 20% less damage from Blessing of Sacrifice and every time its target takes damage, you gain 4% run speed up to a max of 40%.</li>
-        <li>Unrelenting Charger - Extends the duration of your Divine Steed by 2 seconds and you will move 30% faster for the first 3 seconds.</li>
+        <li>@Html.Raw(HighlightSpells("Bonds of Fellowship - You take 20% less damage from Blessing of Sacrifice and every time its target takes damage, you gain 4% run speed up to a max of 40%.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Unrelenting Charger - Extends the duration of your Divine Steed by 2 seconds and you will move 30% faster for the first 3 seconds.", spellbook.Spells))</li>
     </ul>
 
     <h5>Choice Node 3</h5>
     <ul>
-        <li>Endless Wrath (EW) - Calling down an Empyrean Hammer has a 10% chance to reset the cooldown on your Hammer of Wrath and make it usable regardless of target health. This has a 1 second ICD and that prevents a number of Empyrean Hammer from triggering this effect.</li>
-        <li>Sanctification - Judgment will increase the damage of your Empyrean Hammer by 10%. This is a personal buff on you. Multiple applications may overlap.</li>
+        <li>@Html.Raw(HighlightSpells("Endless Wrath (EW) - Calling down an Empyrean Hammer has a 10% chance to reset the cooldown on your Hammer of Wrath and make it usable regardless of target health. This has a 1 second ICD and prevents a number of Empyrean Hammer from triggering this effect.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Sanctification - Judgment will increase the damage of your Empyrean Hammer by 10%. This is a personal buff on you. Multiple applications may overlap.", spellbook.Spells))</li>
     </ul>
-
-    <h4>Passives</h4>
-    <ul>
-        <li>Shake the Heavens (StH) - Hammer of Light will now summon an Empyrean Hammer to hit a nearby target every 2 seconds for 8 seconds.</li>
-        <li>Wrathful Descent (WD) - When your Empyrean Hammer attacks critical strike, they do splash damage to nearby targets equal to 100% of the damage done. Targets hit by this do 5% less damage to you. This damage is not capped. This damage is not done to the target originally hit.</li>
-        <li>Sacrosanct Crusade (SC) - When you use Eye of Tyr, you gain a shield for 15% of your max health. Additionally, Hammer of Light will heal you for 15% of your max health, increased by 2% for each target hit. Any overhealing will convert to an absorb shield instead.</li>
-        <li>Higher Calling (HC) - Your Judgment, Hammer of Wrath, and your Blessed Hammer/ Hammer of the Righteous abilities extend the duration of your Shake the Heavens buff by 1 second. This has a 0.5s ICD.</li>
-        <li>Hammerfall (HF) - Shield of the Righteous and Word of Glory will call down an Empyrean Hammer on a nearby target. If Shake the Heavens is active, this effect will call down another one for a total of two. This has a 0.01 second ICD to prevent multiple overlapping spenders from triggering this at the same time.</li>
-        <li>Undisputed Ruling (UR) - Hammer of Light grants you Shield of the Righteous, spawns Consecration under your target, and increases your Haste by 12% for 6 seconds. Additionally, this talent will allow Eye of Tyr to generate 3 Holy Power when used. Consecration generated by this spell lasts for 12-14 seconds and does not provide Mastery: Divine Bulwark. The Shield of the Righteous will overwrite your current Shield of the Righteous even if its 13.5 seconds.</li>
-    </ul>
-
-    <h3>Lightsmith Protection Paladin Talents</h3>
-
-    <h4>Key Talent</h4>
-    <ul>
-        <li>Holy Bulwark & Sacred Weapon - A rotating spell between Holy Bulwark and Sacred Weapon. You can store up to two charges and it has a 1-minute baseline recharge time. Sacred Weapon scales completely from your stats so it doesn't matter who you cast it on. All damage is completely attributed to you as if you did the damage. Holy Bulwark dynamically updates based on the target's health so its value can change based on temporary health buffs. When you select Lightsmith, the first available option will be Holy Bulwark.</li>
-    </ul>
-
-    <h4>Capstone Talent</h4>
-    <ul>
-        <li>Blessing of the Forge - Your Avenging Wrath will grant you and a nearby ally Sacred Weapon. While Avenging Wrath and Sacred Weapon are active, your Holy Power spenders will do echo effects. The echo effects take the form of a weapon similar to the Dancing Rune Weapon ability for BDK.</li>
-    </ul>
-
-    <h4>Choice Nodes</h4>
-
-    <h5>Choice Node 1</h5>
-    <ul>
-        <li>Rite of Sanctification - A weapon enchant that increases your armor by 5% and Strength by 2%. This is mutually exclusive with Weapon oils. When playing Lightsmith, this is preferred.</li>
-        <li>Rite of Adjuration - A weapon enchant that increases your stamina by 3% and gives your Holy power spenders a chance to do burst healing around your target. This is mutually exclusive with weapon oils.</li>
-    </ul>
-
-    <h5>Choice Node 2</h5>
-    <ul>
-        <li>Divine Guidance (DG) - Every Holy Power spender will increase the damage of your next Consecration by a moderate amount. This stacks up to 5. The damage is done instantly and is split between targets. This will prioritize healing over doing damage as it can only do one or the other.</li>
-        <li>Blessed Assurance (BA) - Holy power spenders increase the damage of your next Hammer of the Righteous or Blessed Hammer by 200%. This will not increase the absorbed amount on Blessed Hammer.</li>
-    </ul>
-
-    <h5>Choice Node 3</h5>
-    <ul>
-        <li>Divine Inspiration (DI) - Your spells and abilities have a chance to buff a nearby ally with Holy Bulwark or Sacred Weapon. The proc rate is 0.65 PPM + Haste.</li>
-        <li>Forewarning - Reduces the cooldown of your Holy Armaments (Holy Bulwark or Sacred Weapon) abilities by 20%.</li>
-    </ul>
-
-    <h5>Choice Node 4</h5>
-    <ul>
-        <li>Authoritative Rebuke (AR) - Successfully interrupting a spell will reduce the cooldown of Rebuke by 1s. This effect is doubled if you are holding a Holy Armament.</li>
-        <li>Tempered in Battle (TB) - This will transfer 100% overhealing while you or an ally holds a Holy Bulwark. This talent will also redistribute your health over 4 seconds when you or your ally are holding a Sacred Weapon and drop below 40% health. This can only trigger once per cast.</li>
-    </ul>
-
-    <h4>Passives</h4>
-    <ul>
-        <li>Solidarity - Whenever you use Holy Bulwark or Sacred Weapon on an ally, you also gain the benefit. Whenever you use it on yourself, a nearby ally also gets it. This has specific targeting rules based on the role when you cast it on yourself. Injured players below 50% are the priority for Holy Bulwark. The closest DPS without the buff is the priority for Sacred Weapon.</li>
-        <li>Laying Down Arms - Whenever Holy Bulwark or Sacred Weapon fades from you, the cooldown of your Lay on Hands is reduced by 15 seconds and you gain Shining Light.</li>
-        <li>Shared Resolve - Your active aura is 33% more effective on friendly targets affected by Holy Bulwark or Sacred Weapon.</li>
-        <li>Valiance - Consuming Shining Light will reduce the recharge time of Holy Bulwark or Sacred Weapon by 3 seconds.</li>
-        <li>Hammer and Anvil - Your Judgment critical strikes do additional moderate holy damage around the target. This damage is not hard-capped and will only diminish if there are more than 20 targets.</li>
-    </ul>
-
 </section>
+
+
+<h4>Passives</h4>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Shake the Heavens (StH) - Hammer of Light will now summon an Empyrean Hammer to hit a nearby target every 2 seconds for 8 seconds.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Wrathful Descent (WD) - When your Empyrean Hammer attacks critical strike, they do splash damage to nearby targets equal to 100% of the damage done. Targets hit by this do 5% less damage to you. This damage is not capped. This damage is not done to the target originally hit.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Sacrosanct Crusade (SC) - When you use Eye of Tyr, you gain a shield for 15% of your max health. Additionally, Hammer of Light will heal you for 15% of your max health, increased by 2% for each target hit. Any overhealing will convert to an absorb shield instead.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Higher Calling (HC) - Your Judgment, Hammer of Wrath, and your Blessed Hammer/Hammer of the Righteous abilities extend the duration of your Shake the Heavens buff by 1 second. This has a 0.5s ICD.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Hammerfall (HF) - Shield of the Righteous and Word of Glory will call down an Empyrean Hammer on a nearby target. If Shake the Heavens is active, this effect will call down another one for a total of two. This has a 0.01 second ICD to prevent multiple overlapping spenders from triggering this at the same time.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Undisputed Ruling (UR) - Hammer of Light grants you Shield of the Righteous, spawns Consecration under your target, and increases your Haste by 12% for 6 seconds. Additionally, this talent will allow Eye of Tyr to generate 3 Holy Power when used. Consecration generated by this spell lasts for 12-14 seconds and does not provide Mastery: Divine Bulwark. The Shield of the Righteous will overwrite your current Shield of the Righteous even if it's 13.5 seconds.", spellbook.Spells))</li>
+</ul>
+
+<h3>Lightsmith Protection Paladin Talents</h3>
+
+<h4>Key Talent</h4>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Holy Bulwark & Sacred Weapon - A rotating spell between Holy Bulwark and Sacred Weapon. You can store up to two charges and it has a 1-minute baseline recharge time. Sacred Weapon scales completely from your stats so it doesn't matter who you cast it on. All damage is completely attributed to you as if you did the damage. Holy Bulwark dynamically updates based on the target's health so its value can change based on temporary health buffs. When you select Lightsmith, the first available option will be Holy Bulwark.", spellbook.Spells))</li>
+</ul>
+
+<h4>Capstone Talent</h4>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Blessing of the Forge - Your Avenging Wrath will grant you and a nearby ally Sacred Weapon. While Avenging Wrath and Sacred Weapon are active, your Holy Power spenders will do echo effects. The echo effects take the form of a weapon similar to the Dancing Rune Weapon ability for BDK.", spellbook.Spells))</li>
+</ul>
+
+<h4>Choice Nodes</h4>
+
+<h5>Choice Node 1</h5>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Rite of Sanctification - A weapon enchant that increases your armor by 5% and Strength by 2%. This is mutually exclusive with weapon oils. When playing Lightsmith, this is preferred.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Rite of Adjuration - A weapon enchant that increases your stamina by 3% and gives your Holy Power spenders a chance to do burst healing around your target. This is mutually exclusive with weapon oils.", spellbook.Spells))</li>
+</ul>
+
+<h5>Choice Node 2</h5>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Divine Guidance (DG) - Every Holy Power spender will increase the damage of your next Consecration by a moderate amount. This stacks up to 5. The damage is done instantly and is split between targets. This will prioritize healing over doing damage as it can only do one or the other.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Blessed Assurance (BA) - Holy Power spenders increase the damage of your next Hammer of the Righteous or Blessed Hammer by 200%. This will not increase the absorbed amount on Blessed Hammer.", spellbook.Spells))</li>
+</ul>
+
+<h5>Choice Node 3</h5>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Divine Inspiration (DI) - Your spells and abilities have a chance to buff a nearby ally with Holy Bulwark or Sacred Weapon. The proc rate is 0.65 PPM + Haste.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Forewarning - Reduces the cooldown of your Holy Armaments (Holy Bulwark or Sacred Weapon) abilities by 20%.", spellbook.Spells))</li>
+</ul>
+
+<h5>Choice Node 4</h5>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Authoritative Rebuke (AR) - Successfully interrupting a spell will reduce the cooldown of Rebuke by 1 second. This effect is doubled if you are holding a Holy Armament.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Tempered in Battle (TB) - This will transfer 100% overhealing while you or an ally holds a Holy Bulwark. This talent will also redistribute your health over 4 seconds when you or your ally are holding a Sacred Weapon and drop below 40% health. This can only trigger once per cast.", spellbook.Spells))</li>
+</ul>
+
+<h4>Passives</h4>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Solidarity - Whenever you use Holy Bulwark or Sacred Weapon on an ally, you also gain the benefit. Whenever you use it on yourself, a nearby ally also gets it. This has specific targeting rules based on the role when you cast it on yourself. Injured players below 50% are the priority for Holy Bulwark. The closest DPS without the buff is the priority for Sacred Weapon.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Laying Down Arms - Whenever Holy Bulwark or Sacred Weapon fades from you, the cooldown of your Lay on Hands is reduced by 15 seconds and you gain Shining Light.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Shared Resolve - Your active aura is 33% more effective on friendly targets affected by Holy Bulwark or Sacred Weapon.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Valiance - Consuming Shining Light will reduce the recharge time of Holy Bulwark or Sacred Weapon by 3 seconds.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Hammer and Anvil - Your Judgment critical strikes do additional moderate Holy damage around the target. This damage is not hard-capped and will only diminish if there are more than 20 targets.", spellbook.Spells))</li>
+</ul>
+
+
 <section id="class-talents">
     <h2>Paladin Class Talents</h2>
 
@@ -498,14 +519,55 @@
         <li>Critical Strike and Versatility - Both are fine, but lower priority than Haste/Mastery. Crit adds some DPS, Versatility adds slight mitigation and extra healing taken.</li>
     </ul>
 
+    <style>
+        .tier-set-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            display: flex;
+            gap: 40px; /* Space between each piece */
+            align-items: center; /* Vertical center alignment */
+        }
+
+            .tier-set-list li {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+        .tier-set-img {
+            width: 80px; /* Image size */
+            height: auto;
+            margin-bottom: 5px; /* Small space between image and text */
+        }
+    </style>
+
     <h3>Tier Set - Best in Slot</h3>
     <p><strong>Set Pieces:</strong></p>
-    <ul>
-        <li>Helmet: 211996</li>
-        <li>Shoulders: 211991</li>
-        <li>Chestplate: 211994</li>
-        <li>Gloves: 211992</li>
+    <ul class="tier-set-list">
+        <li>
+            <img src="~/images/TierSets/undermine-tier-helm.png" alt="Helmet" class="tier-set-img" />
+            Helmet
+        </li>
+        <li>
+            <img src="~/images/TierSets/undermine-tier-shoulders.png" alt="Shoulders" class="tier-set-img" />
+            Shoulders
+        </li>
+        <li>
+            <img src="~/images/TierSets/undermine-tier-chest.png" alt="Chestplate" class="tier-set-img" />
+            Chestplate
+        </li>
+        <li>
+            <img src="~/images/TierSets/undermine-tier-gloves.png" alt="Gloves" class="tier-set-img" />
+            Gloves
+        </li>
+        <li>
+            <img src="~/images/TierSets/undermine-tier-pants.png" alt="Pants" class="tier-set-img" />
+            Pants
+        </li>
     </ul>
+
+
 
     <p>These pieces combine to form the Protection Paladin Tier Set Bonus (Set 1689).</p>
 
