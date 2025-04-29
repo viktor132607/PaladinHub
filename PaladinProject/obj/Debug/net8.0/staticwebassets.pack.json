@@ -69,6 +69,14 @@
       "PackagePath": "staticwebassets\\images\\WoW_icon.svg.png"
     },
     {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\itemIcons\\inv_armorkit_lightning_imbued.jpg",
+      "PackagePath": "staticwebassets\\images\\itemIcons\\inv_armorkit_lightning_imbued.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\itemIcons\\inv_misc_enchantedscroll.jpg",
+      "PackagePath": "staticwebassets\\images\\itemIcons\\inv_misc_enchantedscroll.jpg"
+    },
+    {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\twws1-home-small-1.png",
       "PackagePath": "staticwebassets\\images\\twws1-home-small-1.png"
     },
