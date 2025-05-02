@@ -41,6 +41,42 @@
       "PackagePath": "staticwebassets\\images\\Lightsmith.jpg"
     },
     {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Separators\\D1.png",
+      "PackagePath": "staticwebassets\\images\\Separators\\D1.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Separators\\D2.png",
+      "PackagePath": "staticwebassets\\images\\Separators\\D2.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Separators\\D3.png",
+      "PackagePath": "staticwebassets\\images\\Separators\\D3.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Separators\\D4.png",
+      "PackagePath": "staticwebassets\\images\\Separators\\D4.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Separators\\D5.png",
+      "PackagePath": "staticwebassets\\images\\Separators\\D5.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TalentBuildsHoly\\the-faithful-martyr-mplus-s2-v1.jpg",
+      "PackagePath": "staticwebassets\\images\\TalentBuildsHoly\\the-faithful-martyr-mplus-s2-v1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TalentBuildsHoly\\the-faithful-martyr-raid-s2-v2.jpg",
+      "PackagePath": "staticwebassets\\images\\TalentBuildsHoly\\the-faithful-martyr-raid-s2-v2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TalentBuildsHoly\\the-solar-crusade-mplus-s2-v3.jpg",
+      "PackagePath": "staticwebassets\\images\\TalentBuildsHoly\\the-solar-crusade-mplus-s2-v3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TalentBuildsHoly\\the-solar-crusade-raid-s2-v4.jpg",
+      "PackagePath": "staticwebassets\\images\\TalentBuildsHoly\\the-solar-crusade-raid-s2-v4.jpg"
+    },
+    {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Templar.jpg",
       "PackagePath": "staticwebassets\\images\\Templar.jpg"
     },
