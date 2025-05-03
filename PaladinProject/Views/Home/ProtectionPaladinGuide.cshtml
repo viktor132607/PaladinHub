@@ -1,4 +1,8 @@
-﻿@using PaladinProject
+﻿@{
+    ViewData["Title"] = "Protection Paladin Guide";
+}
+
+@using PaladinProject
 @{
     Layout = "~/Views/Shared/_Layout.cshtml"; // Your layout
     var spellbook = new Spellbook();
@@ -25,15 +29,147 @@
     }
 
     ul {
-        list-style-type: disc;
-        padding-left: 20px;
+        list-style-type: none !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .spec-images {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin: 20px 0 30px 0;
+    }
+
+        .spec-images img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #555;
+            transition: transform 0.3s ease;
+        }
+
+            .spec-images img:hover {
+                transform: scale(1.05);
+                border-color: #FFD700;
+            }
+
+    .separator-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .separator {
+        display: block;
+        width: 95%;
+        height: auto;
+    }
+
+    .content-columns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+        .content-columns > div {
+            flex: 1;
+            min-width: 300px;
+        }
+
+    h2 {
+        text-align: center;
+    }
+
+    .hero-talents-title {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .build-images {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        margin-bottom: 30px;
+    }
+
+        .build-images img {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            object-fit: cover;
+        }
+
+    .content-wrapper {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .tier-set-list {
+        list-style-type: none !important;
+        padding-left: 0 !important;
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+        .tier-set-list li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+    .tier-set-img {
+        width: 80px;
+        height: auto;
+        margin-bottom: 5px;
+    }
+
+    .hero-talent-entry {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        flex: 1;
+        min-width: 300px;
+    }
+
+        .hero-talent-entry img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #555;
+            margin-bottom: 10px;
+        }
+
+    .tier-set-section {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .hero-talent-entry ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .content-columns ul {
+        list-style-type: none;
+        padding-left: 0;
     }
 </style>
+
+<h1>Protection Paladin Overview - The War Within</h1>
 
 @{
     var overviewContent = @"
 <section id='overview'>
-    <h2>Overview</h2>
     <p>Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options. In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including explaining what they do and when to use them.</p>
     <h3>Sections Covered:</h3>
     <ul>
@@ -55,10 +191,15 @@
 
 @Html.Raw(HighlightSpells(overviewContent, spellbook.Spells))
 
+<!-- Separator 2 -->
+<div class="separator-container">
+    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+</div>
+
 <section id="season2">
     <h2>NEW Season 2 Changes</h2>
 
-    <p>Baseline Protection Paladin Spells</p>
+    <h2>Baseline Protection Paladin Spells</h2>
     <p>Healing Abilities</p>
 
     <ul>
@@ -91,6 +232,11 @@
     </ul>
 </section>
 
+<!-- Separator 2 -->
+<div class="separator-container">
+    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+</div>
+
 <section id="passives">
     <h2>Passive Abilities</h2>
 
@@ -105,8 +251,36 @@
     </ul>
 </section>
 
+<!-- Separator 2 -->
+<div class="separator-container">
+    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+</div>
+
 <section id="hero-talents">
-    <h2>Hero Talents</h2>
+<h2 class="hero-talents-title">Hero Talents</h2>
+
+<div class="content-columns">
+    <div class="hero-talent-entry">
+        <img src="~/images/Templar.jpg" alt="Templar" />
+        <h2>Templar</h2>
+        <ul>
+            <li>Very strong single-target and group healing output.</li>
+            <li>Excellent defensives and personal survivability.</li>
+            <li>High mobility through <strong>Divine Steed</strong> and instant casts.</li>
+            <li>Powerful utility tools like <strong>Lay on Hands</strong>, <strong>Blessing of Freedom</strong>, and <strong>Cleanse</strong>.</li>
+            <li>Beacon healing makes damage patterns more manageable.</li>
+        </ul>
+    </div>
+    <div class="hero-talent-entry">
+        <img src="~/images/Lightsmith.jpg" alt="Lightsmith" />
+        <h2>Lightsmith</h2>
+        <ul>
+            <li>Somewhat reliant on good positioning and being in melee range.</li>
+            <li>Resource (Holy Power) management is important and can be punishing if neglected.</li>
+            <li>Limited raid-wide cooldowns compared to some other healers.</li>
+        </ul>
+    </div>
+</div>
 
     <h3>Templar Protection Paladin Talents</h3>
 
@@ -204,10 +378,7 @@
     <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
 </div>
 
-<!-- Separator 2 -->
-<div class="separator-container">
-    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-</div>
+
 
 <section id="class-talents">
     <h2>Paladin Class Talents</h2>
@@ -221,11 +392,6 @@
         <li>Crusader Aura - Grants 20% increased mounted movement speed to all party or raid members in 40 yards. This also applies to Divine Steed.</li>
         <li>Hammer of Wrath (HoW) - A damage ability that can be used when the target has 20% HP or less. This ability is also usable during Avenging Wrath. Generates 1 Holy Power.</li>
     </ul>
-
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Row 2 Talents</h3>
     <ul>
@@ -241,11 +407,6 @@
             </ul>
         </li>
     </ul>
-
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Row 3 Talents</h3>
     <ul>
@@ -263,11 +424,6 @@
         </li>
     </ul>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
-
     <h3>Row 4 Talents</h3>
     <ul>
         <li>Holy Reprieve - Reduces the duration of your Forbearance debuff by 10s.</li>
@@ -283,11 +439,6 @@
         <li>Rebuke - Interrupts the target’s spell cast for 3 seconds. Essential for dungeon and raid content.</li>
     </ul>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
-
     <h3>Row 5 Talents</h3>
     <ul>
         <li>Obduracy - Increases your movement speed and AoE damage reduction by 2%.</li>
@@ -296,11 +447,6 @@
         <li>Sanctified Plates - Increases your armor by 5/10%, your stamina by 5/10%, and reduces AoE spell damage by 3/6%.</li>
         <li>Punishment - Interrupting an enemy with Rebuke or Avenger's Shield immediately casts your filler spell (Blessed Hammer or Hammer of the Righteous) and generates Holy Power.</li>
     </ul>
-
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Row 6 Talents</h3>
     <ul>
@@ -316,11 +462,6 @@
         <li>Blessing of Protection (BoP) - Immunity to physical damage for 8 seconds. Causes Forbearance.</li>
         <li>Consecrated Ground (CG) - Consecration is 15% larger and slows enemies inside it by 50%.</li>
     </ul>
-
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Row 7 Talents</h3>
     <ul>
@@ -343,11 +484,6 @@
         <li>Unbreakable Spirit (UBS) - Reduces cooldowns of Divine Shield, Ardent Defender, and Lay on Hands by 30%.</li>
     </ul>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
-
     <h3>Row 8 Talents</h3>
     <ul>
         <li>Lightforged Blessing - Shield of the Righteous heals you and 2 nearby allies for 2% of maximum health.</li>
@@ -365,11 +501,6 @@
         <li>Judgment of Light (JoL) - Provides passive group healing when you cast Judgment.</li>
     </ul>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
-
     <h3>Row 9 Talents</h3>
     <ul>
         <li>Faith's Armor - Casting Shield of the Righteous grants 5% armor for 4.5 seconds.</li>
@@ -386,11 +517,6 @@
             </ul>
         </li>
     </ul>
-
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Row 10 Talents</h3>
     <ul>
@@ -413,10 +539,6 @@
         <li>Avenger's Shield (AS) - Hurls your shield at an enemy target, dealing moderate Holy damage, interrupting and silencing the target. After this, Avenger's Shield bounces to two nearby targets. Bounces do not silence or interrupt.</li>
     </ul>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Row 2 Talents</h3>
     <ul>
@@ -429,11 +551,6 @@
             </ul>
         </li>
     </ul>
-
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Row 3 Talents</h3>
     <ul>
@@ -553,10 +670,6 @@
         <li>Use Word of Glory to heal yourself when needed, ideally with Shining Light procs (free cost).</li>
     </ol>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>AoE Rotation</h3>
     <ol>
@@ -567,10 +680,6 @@
         <li>Prioritize Shield of the Righteous uptime for armor and active mitigation during heavy AoE hits.</li>
     </ol>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Cooldown Usage</h3>
     <ul>
@@ -582,10 +691,6 @@
         <li>Moment of Glory (if talented) - Line up with Avenger’s Shield and big pulls for maximum damage and survivability.</li>
     </ul>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Defensive Priority</h3>
     <ol>
@@ -610,8 +715,8 @@
 
     <style>
         .tier-set-list {
-            list-style-type: disc;
-            padding-left: 20px;
+            list-style-type: none;
+            padding-left: !important;
             display: flex;
             gap: 40px; /* Space between each piece */
             align-items: center; /* Vertical center alignment */
@@ -698,6 +803,7 @@
     </ul>
 
 </section>
+
 <section id="abilities">
     <h2>Abilities</h2>
 
@@ -712,10 +818,7 @@
         <li><strong>Flash of Light (FoL)</strong> - A quick-casting heal. Should be avoided during active tanking as you can't block, parry, or dodge while casting. Useful during downtime or between pulls.</li>
     </ul>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
+
 
     <h3>Defensive Spells</h3>
     <ul>
@@ -726,11 +829,6 @@
         <li><strong>Eye of Tyr (EoT)</strong> - Deals AoE Holy damage and reduces the damage enemies deal to you by 25% for a short time. Excellent for large pulls.</li>
     </ul>
 
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
-
     <h3>Offensive Spells</h3>
     <ul>
         <li><strong>Judgment (J)</strong> - A ranged Holy strike that generates 1 Holy Power and debuffs the enemy. Essential for Holy Power flow and comboing with offensive talents.</li>
@@ -739,11 +837,6 @@
         <li><strong>Consecration (Cons)</strong> - Places a ground effect that deals periodic Holy damage and reduces incoming damage if you stand in it. Core part of both damage and mitigation.</li>
         <li><strong>Blessed Hammer / Hammer of the Righteous</strong> - Your primary filler spell. Blessed Hammer provides light AoE damage and reduces enemy attack power. Hammer of the Righteous boosts AoE damage when standing in Consecration.</li>
     </ul>
-
-    <!-- Separator 2 -->
-    <div class="separator-container">
-        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-    </div>
 
     <h3>Utility Spells</h3>
     <ul>

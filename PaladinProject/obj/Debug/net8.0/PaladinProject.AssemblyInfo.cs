@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PaladinProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c184a959961d56307b90cdf3f9f7e0a651b6c2b4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24166030fa6955d7565495d53fd8f4bcbbae674a")]
 [assembly: System.Reflection.AssemblyProductAttribute("PaladinProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PaladinProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

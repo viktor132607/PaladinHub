@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "6+Rgnb2P4s7J+Fj0JwY4FJ1hASfxtNYotOGcZq9wg8A=",
+  "Hash": "hAEFJBYE7dAQ+H8bVd52Wi/1m16OXW7xBn+N2PSbr+o=",
   "Source": "PaladinProject",
   "BasePath": "_content/PaladinProject",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\4V995QWRG1KJ1723247072691.avif",
+      "SourceId": "PaladinProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\",
+      "BasePath": "_content/PaladinProject",
+      "RelativePath": "images/4V995QWRG1KJ1723247072691.avif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\4V995QWRG1KJ1723247072691.avif"
     },
     {
       "Identity": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\4V995QWRG1KJ1723247072691.jpg",
