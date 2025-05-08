@@ -34,20 +34,80 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxSZWdpc3RyYXRpb25TdGVwVHdvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Holy/HolyPaladinGuide.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9seVxIb2x5UGFsYWRpbkd1aWRlLmNzaHRtbA==
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Holy/Consumables.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9seVxDb25zdW1hYmxlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Holy/Gear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9seVxHZWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Holy/Overview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9seVxPdmVydmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Holy/Rotation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9seVxSb3RhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Holy/Stats.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9seVxTdGF0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Holy/Talents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9seVxUYWxlbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Home/Home.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Protection/ProtectionPaladinGuide.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdGVjdGlvblxQcm90ZWN0aW9uUGFsYWRpbkd1aWRlLmNzaHRtbA==
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Protection/Consumables.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdGVjdGlvblxDb25zdW1hYmxlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Retribution/RetributionPaladinGuide.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV0cmlidXRpb25cUmV0cmlidXRpb25QYWxhZGluR3VpZGUuY3NodG1s
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Protection/Gear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdGVjdGlvblxHZWFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Protection/Overview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdGVjdGlvblxPdmVydmlldy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Protection/Rotation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdGVjdGlvblxSb3RhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Protection/Stats.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdGVjdGlvblxTdGF0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Protection/Talents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdGVjdGlvblxUYWxlbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Retribution/Consumables.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV0cmlidXRpb25cQ29uc3VtYWJsZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Retribution/Gear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV0cmlidXRpb25cR2Vhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Retribution/Overview.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV0cmlidXRpb25cT3ZlcnZpZXcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Retribution/Rotation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV0cmlidXRpb25cUm90YXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Retribution/Stats.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV0cmlidXRpb25cU3RhdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Retribution/Talents.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmV0cmlidXRpb25cVGFsZW50cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/vikto/source/repos/PaladinHub/PaladinProject/Views/Shared/Error.cshtml]

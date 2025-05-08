@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,211 +13,63 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PaladinProject.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-pD+rHgR6yHg9dwT1trENc69MxO4pH2UjF8lq1yMYFbB8XelFgphE1TfHDH4o2v+5p7W9k5NV07u6e1kI+p7k5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        /* --- General --- */
         body {
             background-color: #1e1e1e;
             color: #FFD700;
-            margin-top: 0; /* Remove margin at the top to avoid unnecessary space */
+            margin-top: 0;
         }
 
-        /* --- Navbar (Sticky) --- */
         .navbar-custom {
             position: sticky;
             top: 0;
             width: 100%;
-            background-color: #1e1e1e; /* Dark grey */
-            z-index: 1000; /* Ensure it's always on top */
-            border-bottom: 2px solid #FFD700; /* Optional: Adds a border below the navbar */
-            padding: 0.5rem 1rem; /* Reduce navbar padding for smaller height */
+            background-color: #1e1e1e;
+            z-index: 1000;
+            border-bottom: 2px solid #FFD700;
+            padding: 0.5rem 1rem;
         }
 
-        /* Navbar Links */
         .navbar-nav .nav-link {
-            color: #FFD700 !important; /* Gold */
-            font-weight: bold;
-            font-size: 1.1rem; /* Adjust font size to make it smaller */
-            transition: color 0.3s, text-shadow 0.3s;
-        }
-
-        /* Subtle glow on hover */
-        .navbar-nav .nav-link:hover {
-            color: #FFC300 !important;
-            text-shadow: 0 0 4px #FFD700;
-        }
-
-        /* Home Icon Style */
-        .nav-home-icon {
-            font-size: 2rem; /* Smaller size for the home icon */
             color: #FFD700 !important;
+            font-weight: bold;
+            font-size: 1.1rem;
             transition: color 0.3s, text-shadow 0.3s;
         }
 
-        /* Subtle glow on Home icon hover */
-        .nav-home-icon:hover {
-            color: #FFC300 !important;
-            text-shadow: 0 0 4px #FFD700;
-        }
+            .navbar-nav .nav-link:hover {
+                color: #FFC300 !important;
+                text-shadow: 0 0 4px #FFD700;
+            }
 
-        /* --- Hero Section --- */
-        .hero-section {
-            padding: 4rem 2rem; /* Reduce padding to make it shorter */
-            text-align: center;
-            min-height: 60vh; /* Make it take up less space */
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-section h1 {
-            font-size: 3rem; /* Smaller title */
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            animation: fadeInDown 1s ease;
-        }
-
-        .hero-section p {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            animation: fadeInUp 1.5s ease;
-        }
-
-        .btn-hero {
-            font-size: 1.1rem;
-            padding: 0.8rem 2rem;
-            border: 2px solid #FFD700;
-            color: #FFD700;
-            background: transparent;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .btn-hero:hover {
-            background: #FFD700;
-            color: black;
-        }
-
-        /* --- Side Background Images --- */
-        .side-image-left, .side-image-right {
-            position: fixed;
-            top: 0;
-            width: 200px;
-            height: 100%;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 0;
-        }
-
-        .side-image-left {
-            left: 0;
-            background-image: url('/images/left-image.png');
-        }
-
-        .side-image-right {
-            right: 0;
-            background-image: url('/images/right-image.png');
-        }
-
-        /* --- Content Wrapper --- */
-        .content-wrapper {
-            padding: 4rem 2rem; /* Adjust padding for the content */
-            width: 80%;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* --- Hero Tree Section --- */
-        #hero-tree {
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .hero-tree-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 20px;
-        }
-
-        .hero-tree-card {
-            background: transparent;
-            border: 1px solid #FFD700;
-            padding: 20px;
-            width: 250px;
-            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .hero-tree-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .hero-tree-img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid #555;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-            margin-bottom: 10px;
-        }
-
-        .hero-tree-img:hover {
-            transform: scale(1.05);
-            border-color: #FFD700;
-        }
-
-        .hero-tree-card h3 {
-            color: white;
-            margin-top: 10px;
-        }
-
-        .hero-tree-card p {
-            color: #ccc;
-            font-size: 14px;
-            margin: 5px 0;
-        }
-
-        .hero-tree-card p em {
+        .nav-item.dropdown:hover .dropdown-menu {
             display: block;
-            color: #d4af37;
-            font-style: normal;
-            margin-bottom: 10px;
+            margin-top: 0;
         }
 
-        /* --- Guides Section --- */
-        #guides .card {
-            background: transparent;
-            border: none;
+        .dropdown-menu {
+            background-color: #2c2c2c;
+            border: 1px solid #FFD700;
         }
 
-        .view-guide-link {
+        .dropdown-item {
             color: #FFD700;
             font-weight: bold;
-            font-size: 1.5rem;
-            text-decoration: none;
-            white-space: nowrap; /* Fix: Don't break "View Guide" into two lines */
-            display: inline-block;
-            transition: text-shadow 0.3s ease;
-            padding: 0.3rem 1rem;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        .view-guide-link:hover {
-            text-shadow: 0 0 8px #FFD700, 0 0 12px #FFD700;
-        }
+            .dropdown-item:hover {
+                background-color: #FFD700;
+                color: #1e1e1e;
+            }
 
-        .guide-image {
-            height: 180px;
-            width: 100%;
-            object-fit: cover;
+        .dropdown-toggle::after {
+            margin-left: 0.5rem;
         }
     </style>
 </head>
-
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom box-shadow mb-3">
@@ -228,24 +84,57 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Home">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Holy" asp-action="HolyPaladinGuide">Holy Paladin</a>
+
+                        <!-- Holy Paladin -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/Holy/Overview" id="holyDropdown" role="button">
+                                Holy Paladin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="holyDropdown">
+                                <li><a class="dropdown-item" href="/Holy/Gear">Gear</a></li>
+                                <li><a class="dropdown-item" href="/Holy/Talents">Talents</a></li>
+                                <li><a class="dropdown-item" href="/Holy/Consumables">Consumables</a></li>
+                                <li><a class="dropdown-item" href="/Holy/Rotation">Rotation</a></li>
+                                <li><a class="dropdown-item" href="/Holy/Stats">Stats</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Protection" asp-action="ProtectionPaladinGuide">Protection Paladin</a>
+
+                        <!-- Protection Paladin -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/Protection/Overview" id="protDropdown" role="button">
+                                Protection Paladin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="protDropdown">
+                                <li><a class="dropdown-item" href="/Protection/Gear">Gear</a></li>
+                                <li><a class="dropdown-item" href="/Protection/Talents">Talents</a></li>
+                                <li><a class="dropdown-item" href="/Protection/Consumables">Consumables</a></li>
+                                <li><a class="dropdown-item" href="/Protection/Rotation">Rotation</a></li>
+                                <li><a class="dropdown-item" href="/Protection/Stats">Stats</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Retribution" asp-action="RetributionPaladinGuide">Retribution Paladin</a>
+
+                        <!-- Retribution Paladin -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/Retribution/Overview" id="retriDropdown" role="button">
+                                Retribution Paladin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="retriDropdown">
+                                <li><a class="dropdown-item" href="/Retribution/Gear">Gear</a></li>
+                                <li><a class="dropdown-item" href="/Retribution/Talents">Talents</a></li>
+                                <li><a class="dropdown-item" href="/Retribution/Consumables">Consumables</a></li>
+                                <li><a class="dropdown-item" href="/Retribution/Rotation">Rotation</a></li>
+                                <li><a class="dropdown-item" href="/Retribution/Stats">Stats</a></li>
+                            </ul>
                         </li>
                     </ul>
 
-                    <!-- Right side Login and Register buttons -->
+                    <!-- Right side (Login/Register) -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login"> Login</a>
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="RegistrationStepOne"> Register</a>
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="RegistrationStepOne">Register</a>
                         </li>
                     </ul>
                 </div>
