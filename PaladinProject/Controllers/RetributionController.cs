@@ -4,16 +4,17 @@ using System.Diagnostics;
 
 namespace PaladinProject.Controllers
 {
-    public class HomeController : Controller
+    public class RetributionController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<RetributionController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public RetributionController(ILogger<RetributionController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Home()
+       [Route("RetributionPaladinGuide")]
+        public IActionResult RetributionPaladinGuide()
         {
             return View();
         }
@@ -21,7 +22,7 @@ namespace PaladinProject.Controllers
 
 
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
