@@ -13,16 +13,28 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\1138931.jpg",
+      "PackagePath": "staticwebassets\\images\\1138931.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\20250510_1040_Heroic Warrior Portrait_remix_01jtwj4cnvfb3rsem75rav9zc0.png",
+      "PackagePath": "staticwebassets\\images\\20250510_1040_Heroic Warrior Portrait_remix_01jtwj4cnvfb3rsem75rav9zc0.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\357025.jpg",
+      "PackagePath": "staticwebassets\\images\\357025.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\3d4015040b2ff50415625be5c6b422da.jpg",
+      "PackagePath": "staticwebassets\\images\\3d4015040b2ff50415625be5c6b422da.jpg"
+    },
+    {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\4V995QWRG1KJ1723247072691.avif",
       "PackagePath": "staticwebassets\\images\\4V995QWRG1KJ1723247072691.avif"
     },
     {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\4V995QWRG1KJ1723247072691.jpg",
       "PackagePath": "staticwebassets\\images\\4V995QWRG1KJ1723247072691.jpg"
-    },
-    {
-      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\5524f62bfc565c0a979881c3fb9bae04.jpg",
-      "PackagePath": "staticwebassets\\images\\5524f62bfc565c0a979881c3fb9bae04.jpg"
     },
     {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\AVIF\\Herald of the Sun.avif",
@@ -37,8 +49,28 @@
       "PackagePath": "staticwebassets\\images\\AVIF\\Templar.avif"
     },
     {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\DP.jpg",
+      "PackagePath": "staticwebassets\\images\\DP.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\EXletQ6UYAM5ZE8.jpg",
+      "PackagePath": "staticwebassets\\images\\EXletQ6UYAM5ZE8.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\HD-wallpaper-digital-art-artwork-video-games-warcraft-armor-draenei-blue-eyes-looking-at-viewer-world-of-warcraft-portrait-display.jpg",
+      "PackagePath": "staticwebassets\\images\\HD-wallpaper-digital-art-artwork-video-games-warcraft-armor-draenei-blue-eyes-looking-at-viewer-world-of-warcraft-portrait-display.jpg"
+    },
+    {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Herald.jpg",
       "PackagePath": "staticwebassets\\images\\Herald.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\HolyCover.jpg",
+      "PackagePath": "staticwebassets\\images\\HolyCover.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\HomeImage.jpg",
+      "PackagePath": "staticwebassets\\images\\HomeImage.jpg"
     },
     {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Lightsmith.jpg",
@@ -65,6 +97,790 @@
       "PackagePath": "staticwebassets\\images\\Separators\\D5.png"
     },
     {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\Console_Scripts_Paladin_Spells.xlsx",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\Console_Scripts_Paladin_Spells.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\Extracted_Spell_Links_51-250 ready for import.xlsx",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\Extracted_Spell_Links_51-250 ready for import.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\Spell book.xlsx",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\Spell book.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\WoW_Spells_Filled.xlsx",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\WoW_Spells_Filled.xlsx"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_ardenweald_paladin_autumn.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_ardenweald_paladin_autumn.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_ardenweald_paladin_spring.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_ardenweald_paladin_spring.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_ardenweald_paladin_summer.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_ardenweald_paladin_summer.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_ardenweald_paladin_winter.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_ardenweald_paladin_winter.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_crown_of_the_heavens_icon.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_crown_of_the_heavens_icon.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_mage_flamecannon.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_mage_flamecannon.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_malkorok_blightofyshaarj_yellow.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_malkorok_blightofyshaarj_yellow.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_mount_charger.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_mount_charger.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_mount_goatmountwhite.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_mount_goatmountwhite.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_mount_mawhorsespikes_yellow.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_mount_mawhorsespikes_yellow.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_artofwar.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_artofwar.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_barrieroffaith.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_barrieroffaith.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_beaconofinsight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_beaconofinsight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_beaconoflight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_beaconoflight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_beaconsoflight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_beaconsoflight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_bladeofjustice.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_bladeofjustice.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_bladeofjusticeblue.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_bladeofjusticeblue.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_blessedhands.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_blessedhands.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_blessedmending.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_blessedmending.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_blindinglight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_blindinglight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_blindinglight2.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_blindinglight2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_conviction.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_conviction.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_divinesteed.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_divinesteed.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_divinestorm.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_divinestorm.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_enlightenedjudgements.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_enlightenedjudgements.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_gaurdedbythelight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_gaurdedbythelight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_hammeroftherighteous.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_hammeroftherighteous.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_handoflight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_handoflight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_holyavenger.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_holyavenger.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_infusionoflight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_infusionoflight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_intercession.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_intercession.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_judgementblue.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_judgementblue.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_judgementofthepure.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_judgementofthepure.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_judgementofthewise.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_judgementofthewise.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_judgementred.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_judgementred.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_judgementsofthejust.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_judgementsofthejust.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_lightofthemartyr.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_lightofthemartyr.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_lightoftheprotector.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_lightoftheprotector.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_longarmofthelaw.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_longarmofthelaw.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_righteousvengeance.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_righteousvengeance.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_sanctifiedwrath.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_sanctifiedwrath.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_savedbythelight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_savedbythelight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_selflesshealer.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_selflesshealer.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_sheathoflight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_sheathoflight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_shieldofthetemplar.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_shieldofthetemplar.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_shieldofvengeance.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_shieldofvengeance.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_speedoflight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_speedoflight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_swiftretribution.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_swiftretribution.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_touchedbylight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_touchedbylight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_toweroflight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_toweroflight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_turnevil.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_turnevil.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_paladin_veneration.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_paladin_veneration.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_priest_angelicbulwark.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_priest_angelicbulwark.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_priest_cascade.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_priest_cascade.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_priest_flashoflight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_priest_flashoflight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_priest_halo.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_priest_halo.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_priest_holybolts01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_priest_holybolts01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_priest_voidshift.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_priest_voidshift.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_racial_foregedinflames.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_racial_foregedinflames.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_skyreach_shielded.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_skyreach_shielded.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_warlock_inferno.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_warlock_inferno.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\ability_warrior_shieldguard.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\ability_warrior_shieldguard.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\achievement_arena_3v3_7.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\achievement_arena_3v3_7.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\achievement_bg_trueavshutout.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\achievement_bg_trueavshutout.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\achievement_dungeon_gloryoftheraider.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\achievement_dungeon_gloryoftheraider.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\achievement_dungeon_heroic_gloryoftheraider.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\achievement_dungeon_heroic_gloryoftheraider.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\achievement_zone_firelands.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\achievement_zone_firelands.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\classicon_paladin.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\classicon_paladin.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_10_blacksmithing_consumable_repairhammer_color1.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_10_blacksmithing_consumable_repairhammer_color1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_ability_heraldofthesunpaladin_dawnlight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_ability_heraldofthesunpaladin_dawnlight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_ability_holyfire_orb.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_ability_holyfire_orb.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_ability_lightsmithpaladin_holybulwark.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_ability_lightsmithpaladin_holybulwark.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_ability_lightsmithpaladin_sacredweapon.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_ability_lightsmithpaladin_sacredweapon.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_ability_paladin_divinetoll.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_ability_paladin_divinetoll.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_chest_plate_raidpaladin_s_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_chest_plate_raidpaladin_s_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_everburningforge_yellow.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_everburningforge_yellow.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_everburningignition_yellow.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_everburningignition_yellow.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_glove_plate_raidpaladinmythic_q_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_glove_plate_raidpaladinmythic_q_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_helm_plate_raidpaladin_n_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_helm_plate_raidpaladin_n_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_helm_plate_raidpaladin_r_01mythic.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_helm_plate_raidpaladin_r_01mythic.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_helm_plate_raidpaladinmythic_q_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_helm_plate_raidpaladinmythic_q_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_helmet_74.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_helmet_74.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_helmet_plate_raidpaladin_j_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_helmet_plate_raidpaladin_j_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_inscription_armorscroll02.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_inscription_armorscroll02.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_inscription_weaponscroll01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_inscription_weaponscroll01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_mace_2h_artifactsilverhand_d_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_mace_2h_artifactsilverhand_d_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_mace_47.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_mace_47.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_misc_symbolofkings_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_misc_symbolofkings_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_offhand_1h_ulduarraid_d_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_offhand_1h_ulduarraid_d_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_polearm_2h_odynspear_d_02.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_polearm_2h_odynspear_d_02.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_qirajidol_sun.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_qirajidol_sun.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_relics_libramoftruth.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_relics_libramoftruth.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_shield_1h_artifactnorgannon_d_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_shield_1h_artifactnorgannon_d_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_shield_1h_hyrja_d_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_shield_1h_hyrja_d_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_shield_1h_newplayer_a_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_shield_1h_newplayer_a_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_shoulder_raidpaladindragon_d_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_shoulder_raidpaladindragon_d_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_sword_08.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_sword_08.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_sword_133.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_sword_133.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_sword_2h_artifactashbringer_d_01.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_sword_2h_artifactashbringer_d_01.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_sword_2h_artifactashbringerfire_d_03.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_sword_2h_artifactashbringerfire_d_03.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_torch_thrown.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_torch_thrown.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\inv_valkiergoldpet.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\inv_valkiergoldpet.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\item_holyspark.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\item_holyspark.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\paladin_holy.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\paladin_holy.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\paladin_protection.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\paladin_protection.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\paladin_retribution.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\paladin_retribution.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_brokenheart.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_brokenheart.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_burningbladeshaman_lavaslash.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_burningbladeshaman_lavaslash.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_burningsoul.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_burningsoul.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_fire_felflamering_red.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_fire_felflamering_red.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_fire_sealoffire.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_fire_sealoffire.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_absolution.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_absolution.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_ardentdefender.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_ardentdefender.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_aspiration.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_aspiration.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_auramastery.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_auramastery.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_avengersshield.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_avengersshield.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_avenginewrath.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_avenginewrath.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_blessedlife.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_blessedlife.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_blessedresillience.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_blessedresillience.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_blessingofprotection.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_blessingofprotection.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_blindingheal.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_blindingheal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_borrowedtime.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_borrowedtime.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_circleofrenewal.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_circleofrenewal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_crusade.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_crusade.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_crusaderaura.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_crusaderaura.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_crusaderstrike.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_crusaderstrike.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_devotionaura.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_devotionaura.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_divineillumination.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_divineillumination.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_divineprotection.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_divineprotection.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_divineprovidence.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_divineprovidence.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_divinepurpose.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_divinepurpose.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_divineshield.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_divineshield.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_excorcism.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_excorcism.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_eyeforaneye.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_eyeforaneye.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_fanaticism.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_fanaticism.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_fistofjustice.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_fistofjustice.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_flashheal.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_flashheal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_greaterblessingofkings.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_greaterblessingofkings.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_greaterblessingofsalvation.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_greaterblessingofsalvation.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_heal.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_heal.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_healingaura.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_healingaura.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_heroism.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_heroism.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_holybolt.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_holybolt.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_holyguidance.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_holyguidance.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_holynova.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_holynova.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_holyprotection.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_holyprotection.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_holysmite.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_holysmite.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_innerfire.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_innerfire.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_layonhands.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_layonhands.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_lightsgrace.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_lightsgrace.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_mindsooth.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_mindsooth.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_mindvision.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_mindvision.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_persecution.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_persecution.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_prayerofhealing.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_prayerofhealing.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_pureofheart.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_pureofheart.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_purify.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_purify.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_rebuke.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_rebuke.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_redemption.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_redemption.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_renew.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_renew.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_retributionaura.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_retributionaura.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_revivechampion.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_revivechampion.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_righteousfury.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_righteousfury.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_righteousnessaura.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_righteousnessaura.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_rune.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_rune.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_sealofblood.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_sealofblood.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_sealoffury.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_sealoffury.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_sealofprotection.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_sealofprotection.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_sealofrighteousness.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_sealofrighteousness.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_sealofsacrifice.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_sealofsacrifice.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_sealofsalvation.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_sealofsalvation.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_sealofvalor.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_sealofvalor.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_sealofwrath.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_sealofwrath.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_searinglight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_searinglight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_spiritualguidence.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_spiritualguidence.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_surgeoflight.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_surgeoflight.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_vindication.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_vindication.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_holy_weaponmastery.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_holy_weaponmastery.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_lfieblood.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_lfieblood.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_magic_magearmor.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_magic_magearmor.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_paladin_clarityofpurpose.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_paladin_clarityofpurpose.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_paladin_divinecircle.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_paladin_divinecircle.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_paladin_executionsentence.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_paladin_executionsentence.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_paladin_hammerofwrath.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_paladin_hammerofwrath.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_paladin_holyprism.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_paladin_holyprism.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_paladin_inquisition.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_paladin_inquisition.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_paladin_lightofdawn.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_paladin_lightofdawn.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_paladin_lightshammer.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_paladin_lightshammer.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_paladin_templarsverdict.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_paladin_templarsverdict.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_priest_burningwill.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_priest_burningwill.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_priest_divinestar_holy.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_priest_divinestar_holy.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spell_priest_power-word.jpg",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spell_priest_power-word.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\SpellIcons\\spells.zip",
+      "PackagePath": "staticwebassets\\images\\SpellIcons\\spells.zip"
+    },
+    {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TalentBuildsHoly\\the-faithful-martyr-mplus-s2-v1.jpg",
       "PackagePath": "staticwebassets\\images\\TalentBuildsHoly\\the-faithful-martyr-mplus-s2-v1.jpg"
     },
@@ -83,6 +899,10 @@
     {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\Templar.jpg",
       "PackagePath": "staticwebassets\\images\\Templar.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TheHolyCover.png",
+      "PackagePath": "staticwebassets\\images\\TheHolyCover.png"
     },
     {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\TierSets\\undermine-tier-chest.png",
@@ -109,12 +929,36 @@
       "PackagePath": "staticwebassets\\images\\WoW_icon.svg.png"
     },
     {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\assets_task_01jtwj4by1e3ct7n5erme287nr_1746862836_img_0.webp",
+      "PackagePath": "staticwebassets\\images\\assets_task_01jtwj4by1e3ct7n5erme287nr_1746862836_img_0.webp"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\holyCover.webp",
+      "PackagePath": "staticwebassets\\images\\holyCover.webp"
+    },
+    {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\itemIcons\\inv_armorkit_lightning_imbued.jpg",
       "PackagePath": "staticwebassets\\images\\itemIcons\\inv_armorkit_lightning_imbued.jpg"
     },
     {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\itemIcons\\inv_armorkit_standard.jpg",
+      "PackagePath": "staticwebassets\\images\\itemIcons\\inv_armorkit_standard.jpg"
+    },
+    {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\itemIcons\\inv_misc_enchantedscroll.jpg",
       "PackagePath": "staticwebassets\\images\\itemIcons\\inv_misc_enchantedscroll.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\lHinYC.jpg",
+      "PackagePath": "staticwebassets\\images\\lHinYC.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\main.jpg",
+      "PackagePath": "staticwebassets\\images\\main.jpg"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\paladin.jpg",
+      "PackagePath": "staticwebassets\\images\\paladin.jpg"
     },
     {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\twws1-home-small-1.png",
@@ -131,6 +975,10 @@
     {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\twws1-home-small-4.png",
       "PackagePath": "staticwebassets\\images\\twws1-home-small-4.png"
+    },
+    {
+      "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\images\\wp2717659-paladin-wow-wallpaper-phone.jpg",
+      "PackagePath": "staticwebassets\\images\\wp2717659-paladin-wow-wallpaper-phone.jpg"
     },
     {
       "Id": "C:\\Users\\vikto\\source\\repos\\PaladinHub\\PaladinProject\\wwwroot\\js\\site.js",

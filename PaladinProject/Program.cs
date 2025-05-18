@@ -1,7 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using PaladinProject.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<SpellbookContext>(options =>
+    {
+        options.UseSqlServer("Server=DESKTOP-5FK60IB;Database=PaladinProjectDB;Trusted_Connection=True;TrustCertificate=True;");
+    });
 
 var app = builder.Build();
 

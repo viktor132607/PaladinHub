@@ -2,8 +2,11 @@
     ViewData["Title"] = "Holy Paladin Guide";
 }
 
-<!-- Custom style for white text and image layout -->
+<script type="text/javascript" src="https://static-azeroth.cursecdn.com/current/js/syndication.min.js"></script>
+
+
 <style>
+    /* === Base Page Styling === */
     body {
         color: white;
     }
@@ -16,6 +19,90 @@
         list-style-type: disc;
         padding-left: 20px;
     }
+
+    .content-wrapper {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .holy-cover-container {
+        width: 98%;
+        margin-bottom: 20px;
+    }
+
+    .holy-cover {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+    }
+
+
+    /* === Column Layouts === */
+    .content-columns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-bottom: 20px;
+        align-items: center;
+    }
+
+        .content-columns > div {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .content-columns ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+    /* === Separator Styling === */
+    .separator-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .separator {
+        display: block;
+        width: 95%;
+        height: auto;
+    }
+
+    /* === Section Titles === */
+    h2 {
+        text-align: center;
+    }
+
+    .hero-talents-title {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    /* === Spec / Hero Talent Icons === */
+    .hero-talent-entry {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        flex: 1;
+        min-width: 300px;
+    }
+
+        .hero-talent-entry img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #555;
+            margin-bottom: 10px;
+        }
+
+        .hero-talent-entry ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
 
     .spec-images {
         display: flex;
@@ -38,40 +125,7 @@
                 border-color: #FFD700;
             }
 
-    .separator-container {
-        display: flex;
-        justify-content: center;
-        margin: 20px 0;
-    }
-
-    .separator {
-        display: block;
-        width: 95%;
-        height: auto;
-    }
-
-    .content-columns {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 30px;
-        margin-bottom: 20px;
-        align-items: center;
-    }
-
-        .content-columns > div {
-            flex: 1;
-            min-width: 300px;
-        }
-
-    h2 {
-        text-align: center;
-    }
-
-    .hero-talents-title {
-        text-align: center;
-        margin-top: 30px;
-    }
-
+    /* === Talent Build Images === */
     .build-images {
         display: flex;
         justify-content: center;
@@ -81,14 +135,15 @@
 
         .build-images img {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1250px;
             height: auto;
             object-fit: cover;
         }
 
-    .content-wrapper {
-        width: 80%;
-        margin: 0 auto;
+    /* === Tier Set Section === */
+    .tier-set-section {
+        text-align: center;
+        margin-bottom: 40px;
     }
 
     .tier-set-list {
@@ -108,45 +163,15 @@
             text-align: center;
         }
 
-    .tier-set-img {
-        width: 80px;
-        height: auto;
-        margin-bottom: 5px;
-    }
-
-    .hero-talent-entry {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: left;
-        flex: 1;
-        min-width: 300px;
-    }
-
-        .hero-talent-entry img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 2px solid #555;
-            margin-bottom: 10px;
-        }
-
-    .tier-set-section {
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    .hero-talent-entry ul {
-        list-style-type: none;
-        padding-left: 0;
-    }
-
-    .content-columns ul {
-        list-style-type: none;
-        padding-left: 0;
+    .cover-image {
     }
 </style>
+
+
+<div class="holy-cover-container">
+    <img src="~/images/TheHolyCover.png" alt="Holy Cover" class="holy-cover" />
+</div>
+
 
 <h1>Holy Paladin Overview - The War Within</h1>
 
@@ -344,4 +369,4 @@
 
 <div class="separator-container">
     <img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
-</div>
+</div> 

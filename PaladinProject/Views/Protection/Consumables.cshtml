@@ -1,5 +1,312 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+	ViewData["Title"] = "Protection Paladin Guide";
 }
+
+@using PaladinProject
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml"; // Your layout
+	var spellbook = new Spellbook();
+}
+
+@functions {
+	public static string HighlightSpells(string input, Dictionary<string, string> spells)
+	{
+		foreach (var spell in spells.Keys)
+		{
+			input = input.Replace(spell, $"<span style='color: yellow; font-weight: bold;'>{spell}</span>");
+		}
+		return input;
+	}
+}
+
+<style>
+	body {
+		color: white;
+	}
+
+	h1, h2, h3, h4, h5, h6, p, li, strong, em {
+		color: white;
+	}
+
+	ul {
+		list-style-type: none !important;
+		padding-left: 0 !important;
+		margin-left: 0 !important;
+	}
+
+	.spec-images {
+		display: flex;
+		justify-content: center;
+		gap: 20px;
+		margin: 20px 0 30px 0;
+	}
+
+		.spec-images img {
+			width: 150px;
+			height: 150px;
+			object-fit: cover;
+			border-radius: 50%;
+			border: 2px solid #555;
+			transition: transform 0.3s ease;
+		}
+
+			.spec-images img:hover {
+				transform: scale(1.05);
+				border-color: #FFD700;
+			}
+
+	.separator-container {
+		display: flex;
+		justify-content: center;
+		margin: 20px 0;
+	}
+
+	.separator {
+		display: block;
+		width: 95%;
+		height: auto;
+	}
+
+	.content-columns {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 30px;
+		margin-bottom: 20px;
+		align-items: center;
+	}
+
+		.content-columns > div {
+			flex: 1;
+			min-width: 300px;
+		}
+
+	h2 {
+		text-align: center;
+	}
+
+	.hero-talents-title {
+		text-align: center;
+		margin-top: 30px;
+	}
+
+	.build-images {
+		display: flex;
+		justify-content: center;
+		gap: 40px;
+		margin-bottom: 30px;
+	}
+
+		.build-images img {
+			width: 100%;
+			max-width: 1200px;
+			height: auto;
+			object-fit: cover;
+		}
+
+	.content-wrapper {
+		width: 80%;
+		margin: 0 auto;
+	}
+
+	.tier-set-list {
+		list-style-type: none !important;
+		padding-left: 0 !important;
+		display: flex;
+		gap: 40px;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+		.tier-set-list li {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+
+	.tier-set-img {
+		width: 80px;
+		height: auto;
+		margin-bottom: 5px;
+	}
+
+	.hero-talent-entry {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: left;
+		flex: 1;
+		min-width: 300px;
+	}
+
+		.hero-talent-entry img {
+			width: 150px;
+			height: 150px;
+			object-fit: cover;
+			border-radius: 50%;
+			border: 2px solid #555;
+			margin-bottom: 10px;
+		}
+
+	.tier-set-section {
+		text-align: center;
+		margin-bottom: 40px;
+	}
+
+	.hero-talent-entry ul {
+		list-style-type: none;
+		padding-left: 0;
+	}
+
+	.content-columns ul {
+		list-style-type: none;
+		padding-left: 0;
+	}
+
+	.tier-set-list {
+		list-style-type: none;
+		padding-left: !important;
+		display: flex;
+		gap: 40px; /* Space between each piece */
+		align-items: center; /* Vertical center alignment */
+	}
+
+		.tier-set-list li {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+		}
+
+	.tier-set-img {
+		width: 80px; /* Image size */
+		height: auto;
+		margin-bottom: 5px; /* Small space between image and text */
+	}
+</style>
+
+<section id="consumables">
+	<h2>Consumables</h2>
+
+	<h3>Flasks</h3>
+	<ul>
+		<li><strong>Phial of Tepid Versatility</strong> - Good balance between defensive and offensive boosts. A reliable choice for general dungeon/raid tanking.</li>
+		<li><strong>Phial of Static Empowerment</strong> - For situations where you don't need to move much. Great when you’re confident on bosses with little movement requirements.</li>
+		<li><strong>Phial of Elemental Chaos</strong> - Random effects, can provide large Haste buffs but less predictable. Risky but high reward in DPS heavy situations.</li>
+	</ul>
+
+	<h3>Food</h3>
+	<ul>
+		<li><strong>Feast Buffs</strong> - Take whatever your raid uses for Feasts; these usually give large amounts of Strength or Haste.</li>
+		<li><strong>Individual Food</strong> - Choose Haste food or Mastery food if eating solo. Examples: Timely Demise (Haste) or Grand Banquet of the Kalu'ak for Strength.</li>
+	</ul>
+
+	<h3>Potions</h3>
+	<ul>
+		<li><strong>Elemental Potion of Power</strong> - Provides a large Strength buff. Used pre-pull or during burst phases to maximize Avenging Wrath DPS and Shield of the Righteous spam.</li>
+		<li><strong>Refreshing Healing Potion</strong> - Instant heal potion. Always keep a few on you for emergencies when Word of Glory and Lay on Hands are not available.</li>
+	</ul>
+
+	<h3>Weapon Oils</h3>
+	<ul>
+		<li><strong>Buzzing Rune</strong> - Boosts Haste. Best choice for smooth rotation and Shield of the Righteous uptime.</li>
+		<li><strong>Howling Rune</strong> - Boosts Critical Strike. Not generally preferred over Buzzing Rune unless you are already capped on Haste.</li>
+		<li><strong>Chirping Rune</strong> - Boosts Versatility. Good fallback for more durability at the cost of less throughput.</li>
+	</ul>
+
+	<h3>Enchants</h3>
+	<table style="width: 100%; border-collapse: collapse; color: #ccc;">
+		<thead>
+			<tr style="background-color: #333;">
+				<th style="padding: 8px; border: 1px solid #555;">Slot</th>
+				<th style="padding: 8px; border: 1px solid #555;">Best Enchant</th>
+				<th style="padding: 8px; border: 1px solid #555;">Cheaper Version</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="padding: 8px; border: 1px solid #555;">Weapon</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Weapon - Authority of the Depths (Single Target)<br />
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Weapon - Stormrider's Fury (AoE)
+				</td>
+				<td style="padding: 8px; border: 1px solid #555;">-</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px; border: 1px solid #555;">Cloak</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Cloak - Chant of Burrowing Rapidity
+				</td>
+				<td style="padding: 8px; border: 1px solid #555;">-</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px; border: 1px solid #555;">Chest</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Chest - Crystalline Radiance
+				</td>
+				<td style="padding: 8px; border: 1px solid #555;">-</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px; border: 1px solid #555;">Bracers</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Bracer - Chant of Armored Speed
+				</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Bracer - Whisper of Armored Speed
+				</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px; border: 1px solid #555;">Legs</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_armorkit_lightning_imbued.jpg" width="16" />
+					Stormbound Armor Kit
+				</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_armorkit_lightning_imbued.jpg" width="16" />
+					Dual Layered Armor Kit
+				</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px; border: 1px solid #555;">Boots</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Boots - Scout's March
+				</td>
+				<td style="padding: 8px; border: 1px solid #555;">-</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px; border: 1px solid #555;">Ring - Regular</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Ring - Radiant Haste
+				</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Ring - Glimmering Haste
+				</td>
+			</tr>
+			<tr>
+				<td style="padding: 8px; border: 1px solid #555;">Ring - Cursed</td>
+				<td style="padding: 8px; border: 1px solid #555;">
+					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+					Enchant Ring - Cursed Haste
+				</td>
+				<td style="padding: 8px; border: 1px solid #555;">-</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<!-- Separator 2 -->
+<div class="separator-container">
+	<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+</div>
+
+
