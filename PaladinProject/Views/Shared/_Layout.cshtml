@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Users> signInManager
+@inject UserManager<Users> userManager
+@{
     Layout = null;
 }
 
@@ -128,14 +131,21 @@
                         </li>
                     </ul>
 
-                    <!-- Right side (Login/Register) -->
+                    <!-- Right side: conditional login/logout -->
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="RegistrationStepOne">Register</a>
-                        </li>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            @await Html.PartialAsync("_LoginPartial")
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="RegistrationStepOne">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
