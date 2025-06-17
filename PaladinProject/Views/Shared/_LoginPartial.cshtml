@@ -1,13 +1,11 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<Users> signInManager
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<Users> signInManager;
 
 <ul class="navbar-nav ms-auto">
     @if (signInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <form asp-controller="Account" asp-action="Logout" method="post" class="form-inline">
-                <button type="submit" class="nav-link btn btn-link text-dark" style="padding: 0; font-weight: bold;">Logout</button>
-            </form>
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
         </li>
     }
     else
@@ -16,7 +14,8 @@
             <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Login</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Account" asp-action="RegistrationStepOne">Register</a>
+            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
         </li>
     }
+
 </ul>

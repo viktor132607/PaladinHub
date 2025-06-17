@@ -2,144 +2,160 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PaladinProject.Models;
 using PaladinProject.ViewModels;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Identity.UI.Services;
+using PaladinProject.Models;
+using PaladinProject.ViewModels;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace PaladinProject.Controllers
+namespace UsersApp.Controllers
 {
-    public class AccountController : Controller
-    {
-        private readonly ILogger<AccountController> _logger;
-        private readonly SignInManager<Users> _signInManager;
-        private readonly UserManager<Users> _userManager;
-        private readonly IEmailSender _emailSender;
+	public class AccountController : Controller
+	{
+		private readonly SignInManager<Users> signInManager;
+		private readonly UserManager<Users> userManager;
 
-        public AccountController(
-            ILogger<AccountController> logger,
-            SignInManager<Users> signInManager,
-            UserManager<Users> userManager,
-            IEmailSender emailSender)
-        {
-            _logger = logger;
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _emailSender = emailSender;
-        }
+		public AccountController(SignInManager<Users> signInManager, UserManager<Users> userManager)
+		{
+			this.signInManager = signInManager;
+			this.userManager = userManager;
+		}
 
-        public IActionResult Login()
-        {
-            return View();
-        }
+		public IActionResult Login()
+		{
+			return View();
+		}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
 
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                return View(model);
-            }
+				if (result.Succeeded)
+				{
+					return RedirectToAction("Home", "Home");
+				}
+				else
+				{
+					ModelState.AddModelError("", "Email or password is incorrect.");
+					return View(model);
+				}
+			}
+			return View(model);
+		}
 
-            if (!await _userManager.IsEmailConfirmedAsync(user))
-            {
-                ModelState.AddModelError(string.Empty, "You need to confirm your email first.");
-                return View(model);
-            }
+		public IActionResult Register()
+		{
+			return View();
+		}
 
-            var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Home", "Home");
-            }
+		[HttpPost]
+		public async Task<IActionResult> Register(RegisterViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				Users users = new Users
+				{
+					FullName = model.Name,
+					Email = model.Email,
+					UserName = model.Email,
+				};
 
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return View(model);
-        }
+				var result = await userManager.CreateAsync(users, model.Password);
 
-        public IActionResult RegistrationStepOne()
-        {
-            return View();
-        }
+				if (result.Succeeded)
+				{
+					return RedirectToAction("Login", "Account");
+				}
+				else
+				{
+					foreach (var error in result.Errors)
+					{
+						ModelState.AddModelError("", error.Description);
+					}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegistrationStepOne(RegisterViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
+					return View(model);
+				}
+			}
+			return View(model);
+		}
 
-            var existingUser = await _userManager.FindByEmailAsync(model.Email);
-            if (existingUser != null)
-            {
-                ModelState.AddModelError("Email", "Email is already in use.");
-                return View(model);
-            }
+		public IActionResult VerifyEmail()
+		{
+			return View();
+		}
 
-            var user = new Users
-            {
-                UserName = model.Email,
-                Email = model.Email,
-                FullName = model.Name
-            };
+		[HttpPost]
+		public async Task<IActionResult> VerifyEmail(VerifyEmailViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = await userManager.FindByNameAsync(model.Email);
 
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
-            {
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
+				if (user == null)
+				{
+					ModelState.AddModelError("", "Something is wrong!");
+					return View(model);
+				}
+				else
+				{
+					return RedirectToAction("ChangePassword", "Account", new { username = user.UserName });
+				}
+			}
+			return View(model);
+		}
 
-                await _emailSender.SendEmailAsync(user.Email, "Confirm your email",
-                    $"Please confirm your email by clicking here: <a href='{confirmationLink}'>Confirm Email</a>");
+		public IActionResult ChangePassword(string username)
+		{
+			if (string.IsNullOrEmpty(username))
+			{
+				return RedirectToAction("VerifyEmail", "Account");
+			}
+			return View(new ChangePasswordViewModel { Email = username });
+		}
 
-                return RedirectToAction("RegistrationSteptwo");
-            }
+		[HttpPost]
+		public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var user = await userManager.FindByNameAsync(model.Email);
+				if (user != null)
+				{
+					var result = await userManager.RemovePasswordAsync(user);
+					if (result.Succeeded)
+					{
+						result = await userManager.AddPasswordAsync(user, model.NewPassword);
+						return RedirectToAction("Login", "Account");
+					}
+					else
+					{
 
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
+						foreach (var error in result.Errors)
+						{
+							ModelState.AddModelError("", error.Description);
+						}
 
-            return View(model);
-        }
+						return View(model);
+					}
+				}
+				else
+				{
+					ModelState.AddModelError("", "Email not found!");
+					return View(model);
+				}
+			}
+			else
+			{
+				ModelState.AddModelError("", "Something went wrong. try again.");
+				return View(model);
+			}
+		}
 
-        public IActionResult RegistrationSteptwo()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            return RedirectToAction("Home", "Home");
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public async Task<IActionResult> ConfirmEmail(string userId, string token)
-        {
-            if (userId == null || token == null)
-                return RedirectToAction("Home", "Home");
-
-            var user = await _userManager.FindByIdAsync(userId);
-            if (user == null)
-                return NotFound();
-
-            var result = await _userManager.ConfirmEmailAsync(user, token);
-            if (result.Succeeded)
-                return View("EmailConfirmed");
-
-            return BadRequest("Error confirming email.");
-        }
-    }
+		public async Task<IActionResult> Logout()
+		{
+			await signInManager.SignOutAsync();
+			return RedirectToAction("Home", "Home");
+		}
+	}
 }

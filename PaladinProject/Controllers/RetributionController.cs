@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PaladinProject.Models;
 using System.Diagnostics;
+using PaladinProject.ViewModels;
 
 namespace PaladinProject.Controllers
 {

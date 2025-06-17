@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using PaladinProject.Data;
 using PaladinProject.Models;
@@ -9,7 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container
 builder.Services.AddControllersWithViews();
 
+// Register main application database
 builder.Services.AddDbContext<AppDbContext>(options =>
+	options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+//  Register SpellbookContext
+builder.Services.AddDbContext<SpellbookContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
 // Identity configuration
@@ -27,7 +33,7 @@ builder.Services.AddIdentity<Users, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-// Email sender service (for Gmail SMTP)
+//  Register EmailSender using official IEmailSender
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();

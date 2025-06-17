@@ -1,4 +1,6 @@
-﻿@* @{
+﻿
+@using PaladinProject.Helpers
+@{
 	ViewData["Title"] = "Protection Paladin Guide";
 }
 
@@ -183,9 +185,69 @@
 		font-weight: bold;
 	}
 
+	.section-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		justify-content: center;
+		margin: 15px 0;
+	}
+
+		.section-buttons a {
+			background-color: #444;
+			border: 1px solid #888;
+			padding: 8px 16px;
+			border-radius: 6px;
+			color: white;
+			text-decoration: none;
+			transition: background-color 0.2s ease;
+		}
+
+			.section-buttons a:hover {
+				background-color: #666;
+			}
+
+	.protection-cover-container {
+		width: 98%;
+		margin-bottom: 20px;
+	}
+
+	.protection-cover {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+		display: block;
+	}
+
+	body {
+		padding-bottom: 80px; /* adjust as needed */
+	}
 
 </style>
 
+<div class="protection-cover-container">
+	<img src="~/images/TheProtCover.png" alt="Holy Cover" class="protection-cover" />
+</div>
+
+<section id="overview">
+	<p>
+		Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options.
+		In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including what they do and when to use them.
+	</p>
+
+	<h3>Sections Covered:</h3>
+	<div class="section-buttons">
+		<a href="#builds">Talent Builds</a>
+		<a href="#hero-talents">Hero Talents</a>
+		<a href="#rotation">Rotation</a>
+		<a href="#gear">Gear</a>
+		<a href="#leveling">Leveling</a>
+		<a href="#abilities">Abilities & Talents</a>
+		<a href="#stats">Stats</a>
+		<a href="#consumables">Consumables</a>
+		<a href="#addons">WA & Addons</a>
+	</div>
+</section>
 
 <h1>Protection Paladin Overview - The War Within</h1>
 
@@ -214,7 +276,6 @@ As a Paladin, you will wield the Light to support your allies and smite your foe
 ";
 }
 
-@Html.Raw(HighlightSpells(overviewContent, spellbook.Spells))
 
 <!-- Separator 2 -->
 <div class="separator-container">
@@ -427,4 +488,4 @@ As a Paladin, you will wield the Light to support your allies and smite your foe
 			</ul>
 
 		</section>
- *@
+ 

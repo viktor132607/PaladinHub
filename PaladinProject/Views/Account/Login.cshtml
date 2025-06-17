@@ -1,45 +1,50 @@
-﻿@{
+﻿@using PaladinProject.ViewModels;
+@model LoginViewModel;
+
+@{
     ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
 
-<div class="d-flex justify-content-center align-items-center vh-100" style="background-color: #1c1c1c;">
-    <div class="p-4" style="min-width: 300px; text-align: center;">
-        <h2 class="text-white mb-4">Log in to your Wowhead Account</h2>
-        <form method="post" asp-action="Login">
-            <div class="form-group mb-3 text-start">
-                <label class="text-white" for="Email">Email Address</label>
-                <input type="email" class="form-control light-input" id="Email" name="Email" required />
+<div class="account-container">
+    <div class="account-box">
+        <h2 class="text-center mb-4">Login</h2>
+        <form asp-action="Login" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group mb-3 text-start">
-                <label class="text-white" for="Password">Password</label>
-                <input type="password" class="form-control light-input" id="Password" name="Password" required />
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
-            <div class="form-check mb-3 text-start">
-                <input type="checkbox" class="form-check-input custom-checkbox" id="RememberMe" name="RememberMe" />
-                <label class="form-check-label text-white-50" for="RememberMe">Stay logged in</label>
+            <div class="float-end">
+                <a asp-controller="Account" asp-action="VerifyEmail" class="text-decoration-none">
+                    Forgot password?
+                </a>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Login</button>
+            <div class="form-check mb-3">
+                <label class="form-check-label">
+                    <input asp-for="RememberMe" class="form-check-input" />
+                    @Html.DisplayNameFor(a=> a.RememberMe)
+                </label>
+            </div>
+            <input type="submit" value="Login" class="btn btn-success w-100 p-2" />
+            <p class="text-center mt-2">
+                Don't have an account? <a asp-controller="Account" asp-action="Register" class="text-decoration-none">Register</a>
+            </p>
+            <div class="text-center">
+                <a asp-controller="Home" asp-action="Home" class="text-decoration-none mt-3">Back</a>
+            </div>
         </form>
     </div>
 </div>
 
-<style>
-    .light-input {
-        background-color: #e9ecef;
-        border: 1px solid #ced4da;
-        color: #212529;
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial.cshtml");
     }
-
-        .light-input:focus {
-            background-color: #fff;
-            color: #212529;
-            border-color: #86b7fe;
-            outline: 0;
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-        }
-
-    .custom-checkbox:checked {
-        background-color: #f5c518; /* Yellow check background */
-        border-color: #f5c518;
-    }
-</style>
+}

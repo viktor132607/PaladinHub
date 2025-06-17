@@ -1,10 +1,12 @@
-using MailKit.Net.Smtp;
-using MimeKit;
+using Microsoft.AspNetCore.Identity.UI.Services; // ВАЖНО
 using Microsoft.Extensions.Configuration;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace PaladinProject.Services
 {
-	public class EmailSender : IEmailSender
+	public class EmailSender : IEmailSender // да имплементира интерфейса от Microsoft
 	{
 		private readonly IConfiguration _configuration;
 
@@ -13,23 +15,25 @@ namespace PaladinProject.Services
 			_configuration = configuration;
 		}
 
-		public async Task SendEmailAsync(string toEmail, string subject, string message)
+		public Task SendEmailAsync(string email, string subject, string htmlMessage)
 		{
-			var email = new MimeMessage();
+			var smtpServer = _configuration["Email:SmtpServer"];
+			var port = int.Parse(_configuration["Email:Port"]);
+			var senderEmail = _configuration["Email:Sender"];
+			var password = _configuration["Email:Password"];
 
-			email.From.Add(MailboxAddress.Parse("paladinhubemail@gmail.com"));
-			email.To.Add(MailboxAddress.Parse(toEmail));
-			email.Subject = subject;
-			email.Body = new TextPart(MimeKit.Text.TextFormat.Html)
+			var client = new SmtpClient(smtpServer)
 			{
-				Text = message
+				Port = port,
+				Credentials = new NetworkCredential(senderEmail, password),
+				EnableSsl = true
 			};
 
-			using var smtp = new SmtpClient();
-			await smtp.ConnectAsync("smtp.gmail.com", 587, MailKit.Security.SecureSocketOptions.StartTls);
-			await smtp.AuthenticateAsync("paladinhubemail@gmail.com", _configuration["Email:Password"]);
-			await smtp.SendAsync(email);
-			await smtp.DisconnectAsync(true);
+			return client.SendMailAsync(
+				new MailMessage(senderEmail, email, subject, htmlMessage)
+				{
+					IsBodyHtml = true
+				});
 		}
 	}
 }

@@ -1,38 +1,43 @@
-﻿//namespace PaladinProject.Models
-//{
-//	public class Spell
-//	{
-//		public int Id { get; set; }
+﻿namespace paladinproject.models
+{
+	public class Spell
+	{
+		public int Id { get; set; }
+		public string? Name { get; set; }
+		public string? Icon { get; set; }
+		public string? Description { get; set; }
+		
+		//public int X { get; set; }
+		//public int Y { get; set; }
 
-//		// Basic item metadata
-//		public string? Name { get; set; }
-//		public int ItemLevel { get; set; }
-//		public int RequiredLevel { get; set; }
-//		public string? Quality { get; set; }
+		// basic item metadata
+		//public int itemlevel { get; set; }
+		//public int requiredlevel { get; set; }
+		//public string? quality { get; set; }
 
-//		// Usability and effects
-//		public string? UseEffect { get; set; }
-//		public string? Duration { get; set; }
-//		public bool PersistsThroughDeath { get; set; }
+		//// usability and effects
+		//public string? useeffect { get; set; }
+		//public string? duration { get; set; }
+		//public bool persiststhroughdeath { get; set; }
 
-//		// Stack and economy
-//		public int MaxStack { get; set; }
-//		public int SellPriceGold { get; set; }
-//		public int SellPriceSilver { get; set; }
-//		public int AuctionHousePrice { get; set; }
+		//// stack and economy
+		//public int maxstack { get; set; }
+		//public int sellpricegold { get; set; }
+		//public int sellpricesilver { get; set; }
+		//public int auctionhouseprice { get; set; }
 
-//		// Categorization
-//		public string? Category { get; set; }
-//		public string? Faction { get; set; }
+		//// categorization
+		//public string? category { get; set; }
+		//public string? faction { get; set; }
 
-//		// Patch and appearance
-//		public string? PatchVersion { get; set; }
-//		public string? IconUrl { get; set; }
-//		public string? ScreenshotUrl { get; set; }
-//		public string? VideoEmbedUrl { get; set; }
+		//// patch and appearance
+		//public string? patchversion { get; set; }
+		//public string? iconurl { get; set; }
+		//public string? screenshoturl { get; set; }
+		//public string? videoembedurl { get; set; }
 
-//		// Optional display helpers
-//		public string Tooltip => $"{Name} (iLvl {ItemLevel}) - {UseEffect}";
-//		public string PriceDisplay => $"{SellPriceGold}g {SellPriceSilver}s";
-//	}
-//}
+		// optional display helpers
+		//public string tooltip => $"{name} (ilvl {itemlevel}) - {useeffect}";
+		//public string pricedisplay => $"{sellpricegold}g {sellpricesilver}s";
+	}
+}

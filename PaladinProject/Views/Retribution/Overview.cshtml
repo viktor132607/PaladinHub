@@ -145,7 +145,51 @@
 		list-style-type: none;
 		padding-left: 0;
 	}
+
+	.section-buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		justify-content: center;
+		margin: 15px 0;
+	}
+
+		.section-buttons a {
+			background-color: #444;
+			border: 1px solid #888;
+			padding: 8px 16px;
+			border-radius: 6px;
+			color: white;
+			text-decoration: none;
+			transition: background-color 0.2s ease;
+		}
+
+			.section-buttons a:hover {
+				background-color: #666;
+			}
+
+	.retribution-cover-container {
+		width: 98%;
+		margin-bottom: 20px;
+	}
+
+	.retribution-cover {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+		display: block;
+	}
+
+	body {
+		padding-bottom: 80px; /* adjust as needed */
+	}
+
+
 </style>
+
+<div class="holy-cover-container">
+	<img src="~/images/RetributionCover.png" alt="Retribution Cover" class="retribution-cover" />
+</div>
 
 <h1>Retribution Paladin Overview - The War Within</h1>
 
@@ -370,9 +414,5 @@
 			Pants
 		</li>
 	</ul>
-</div>
-
-<div class="separator-container">
-	<img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
 </div>
 

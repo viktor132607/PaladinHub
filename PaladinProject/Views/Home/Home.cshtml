@@ -16,76 +16,76 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-pD+rHgR6yHg9dwT1trENc69MxO4pH2UjF8lq1yMYFbB8XelFgphE1TfHDH4o2v+5p7W9k5NV07u6e1kI+p7k5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        /* --- General --- */
         body {
             background-color: #1e1e1e;
             color: #FFD700;
             overflow-x: hidden;
-            margin-top: 0; /* Remove margin to prevent overlap */
+            margin-top: 0;
         }
 
-        /* --- Navbar (Sticky) --- */
+        .main-wrapper {
+            background-color: #151515;
+            width: 1280; /* или каквато искаш */
+            margin: 0 auto;
+        }
+
+
         nav {
             position: sticky;
             top: 0;
             width: 100%;
             background-color: #111;
-            z-index: 1000; /* Ensure navbar stays on top */
-            padding: 0.5rem 1rem; /* Adjust padding for a smaller navbar */
+            z-index: 1000;
+            padding: 0.5rem 1rem;
         }
 
-        nav a {
-            color: #FFD700;
-        }
+            nav a {
+                color: #FFD700;
+            }
 
-        /* --- Navbar Links --- */
         .navbar-nav .nav-link {
-            color: #FFD700 !important; /* Gold */
+            color: #FFD700 !important;
             font-weight: bold;
-            font-size: 1.1rem; /* Reduce font size for navbar */
+            font-size: 1.1rem;
             transition: color 0.3s, text-shadow 0.3s;
         }
 
-        /* Subtle glow on hover */
-        .navbar-nav .nav-link:hover {
-            color: #FFC300 !important;
-            text-shadow: 0 0 4px #FFD700;
-        }
+            .navbar-nav .nav-link:hover {
+                color: #FFC300 !important;
+                text-shadow: 0 0 4px #FFD700;
+            }
 
-        /* Home Icon Style */
         .nav-home-icon {
-            font-size: 2rem; /* Smaller size for home icon */
+            font-size: 2rem;
             color: #FFD700 !important;
             transition: color 0.3s, text-shadow 0.3s;
         }
 
-        /* Subtle glow on Home icon hover */
-        .nav-home-icon:hover {
-            color: #FFC300 !important;
-            text-shadow: 0 0 4px #FFD700;
-        }
+            .nav-home-icon:hover {
+                color: #FFC300 !important;
+                text-shadow: 0 0 4px #FFD700;
+            }
 
-        /* --- Hero Section --- */
         .hero-section {
-            padding: 4rem 2rem; /* Adjust padding for smaller hero section */
+            padding: 4rem 2rem;
             text-align: center;
-            min-height: 60vh; /* Reduce the hero section height */
+            min-height: 60vh;
             position: relative;
             z-index: 1;
         }
 
-        .hero-section h1 {
-            font-size: 3rem; /* Smaller title */
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            animation: fadeInDown 1s ease;
-        }
+            .hero-section h1 {
+                font-size: 3rem;
+                font-weight: bold;
+                margin-bottom: 1.5rem;
+                animation: fadeInDown 1s ease;
+            }
 
-        .hero-section p {
-            font-size: 1.2rem;
-            margin-bottom: 2.5rem;
-            animation: fadeInUp 1.5s ease;
-        }
+            .hero-section p {
+                font-size: 1.2rem;
+                margin-bottom: 2.5rem;
+                animation: fadeInUp 1.5s ease;
+            }
 
         .btn-hero {
             font-size: 1.1rem;
@@ -97,12 +97,11 @@
             text-decoration: none;
         }
 
-        .btn-hero:hover {
-            background: #FFD700;
-            color: black;
-        }
+            .btn-hero:hover {
+                background: #FFD700;
+                color: black;
+            }
 
-        /* --- Side Background Images --- */
         .side-image-left, .side-image-right {
             position: fixed;
             top: 0;
@@ -124,16 +123,14 @@
             background-image: url('/images/right-image.png');
         }
 
-        /* --- Content Wrapper --- */
         .content-wrapper {
-            padding: 4rem 2rem; /* Adjust padding for content */
+            padding: 4rem 2rem;
             width: 80%;
             margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
-        /* --- Hero Tree Section --- */
         #hero-tree {
             padding: 40px 0;
             text-align: center;
@@ -156,9 +153,9 @@
             transition: transform 0.3s ease;
         }
 
-        .hero-tree-card:hover {
-            transform: translateY(-5px);
-        }
+            .hero-tree-card:hover {
+                transform: translateY(-5px);
+            }
 
         .hero-tree-img {
             width: 150px;
@@ -170,10 +167,10 @@
             margin-bottom: 10px;
         }
 
-        .hero-tree-img:hover {
-            transform: scale(1.05);
-            border-color: #FFD700;
-        }
+            .hero-tree-img:hover {
+                transform: scale(1.05);
+                border-color: #FFD700;
+            }
 
         .hero-tree-card h3 {
             color: white;
@@ -186,14 +183,13 @@
             margin: 5px 0;
         }
 
-        .hero-tree-card p em {
-            display: block;
-            color: #d4af37;
-            font-style: normal;
-            margin-bottom: 10px;
-        }
+            .hero-tree-card p em {
+                display: block;
+                color: #d4af37;
+                font-style: normal;
+                margin-bottom: 10px;
+            }
 
-        /* --- Guides Section --- */
         #guides .card {
             background: transparent;
             border: none;
@@ -204,15 +200,15 @@
             font-weight: bold;
             font-size: 1.5rem;
             text-decoration: none;
-            white-space: nowrap; /* Fix: Don't break "View Guide" into two lines */
+            white-space: nowrap;
             display: inline-block;
             transition: text-shadow 0.3s ease;
             padding: 0.3rem 1rem;
         }
 
-        .view-guide-link:hover {
-            text-shadow: 0 0 8px #FFD700, 0 0 12px #FFD700;
-        }
+            .view-guide-link:hover {
+                text-shadow: 0 0 8px #FFD700, 0 0 12px #FFD700;
+            }
 
         .guide-image {
             height: 180px;
@@ -223,23 +219,22 @@
 </head>
 
 <body>
-    <img src="~/images/main.jpg"  />
-    <!-- Side Background Images -->
     <div class="side-image-left"></div>
     <div class="side-image-right"></div>
-    <!-- Main Background -->
-    <div>
-        <!-- Hero Section -->
+
+    <div class="main-wrapper">
+        <img src="~/images/main.jpg" />
+
         <div class="hero-section">
             <h1>PaladinHub</h1>
-            <p>World of Warcraft Paladin guides.</p>
+            <p><strong>Welcome to PaladinHub — your ultimate resource for mastering the Paladin class in World of Warcraft.</strong></p>
+            <p>Whether you’re a seasoned veteran or a new initiate, here you’ll find up-to-date guides, talent builds, rotation tips, gearing advice, and more — tailored for <strong>Holy</strong>, <strong>Protection</strong>, and <strong>Retribution</strong> Paladins.</p>
+            <p>Embrace the Light, perfect your gameplay, and smite your enemies with righteous fury.</p>
             <a href="#guides" class="btn-hero">Explore Guides</a>
         </div>
 
-        <!-- Hero Tree Section -->
         <section id="hero-tree">
             <h2>NEW 11.0 Hero Talents</h2>
-
             <div class="hero-tree-grid">
                 <div class="hero-tree-card">
                     <img src="~/images/Herald.jpg" alt="Herald of the Sun" class="hero-tree-img" />
@@ -247,14 +242,12 @@
                     <p><em>(Holy/Retribution)</em></p>
                     <p>Heralds of the Sun develop a deep bond to the sun and solar energy, using it to burn enemies and cauterize their allies' wounds. They can manifest potent solar rays while fully connected to the Light.</p>
                 </div>
-
                 <div class="hero-tree-card">
                     <img src="~/images/Lightsmith.jpg" alt="Lightsmith" class="hero-tree-img" />
                     <h3>LIGHTSMITH</h3>
                     <p><em>(Holy/Protection)</em></p>
                     <p>Lightsmiths have developed such masterful control over the Light that they are able to wield it tangibly, employing constructs to empower their weapons and defenses and to protect their allies.</p>
                 </div>
-
                 <div class="hero-tree-card">
                     <img src="~/images/Templar.jpg" alt="Templar" class="hero-tree-img" />
                     <h3>TEMPLAR</h3>
@@ -264,60 +257,46 @@
             </div>
         </section>
 
-        <!-- Content Wrapper -->
         <div class="content-wrapper">
-            <!-- Captions Section -->
             <section class="captions-section">
                 <div class="container">
                     <div class="row text-center mb-5">
-                        <div class="col-md-4">
-                            <div class="caption">Holy</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="caption">Protection</div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="caption">Retribution</div>
-                        </div>
+                        <div class="col-md-4"><div class="caption">Holy</div></div>
+                        <div class="col-md-4"><div class="caption">Protection</div></div>
+                        <div class="col-md-4"><div class="caption">Retribution</div></div>
                     </div>
                 </div>
             </section>
 
-            <!-- Guides Section -->
             <section id="guides">
                 <div class="container">
                     <div class="row text-center">
-                        <!-- Holy Paladin -->
                         <div class="col-md-4 mb-4 d-flex justify-content-center">
                             <div class="card h-100">
                                 <div class="position-relative">
                                     <img src="~/images/twws1-home-small-1.png" alt="Holy Paladin" class="guide-image" />
                                     <div class="position-absolute start-50 translate-middle-x" style="bottom: 10px;">
-                                        <a href="/HolyPaladinGuide" class="view-guide-link">View Guide</a>
+                                        <a href="/Holy/Overview" class="view-guide-link">View Guide</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Protection Paladin -->
                         <div class="col-md-4 mb-4 d-flex justify-content-center">
                             <div class="card h-100">
                                 <div class="position-relative">
                                     <img src="~/images/twws1-home-small-2.png" alt="Protection Paladin" class="guide-image" />
                                     <div class="position-absolute start-50 translate-middle-x" style="bottom: 10px;">
-                                        <a href="/ProtectionPaladinGuide" class="view-guide-link">View Guide</a>
+                                        <a href="/Protection/Overview" class="view-guide-link">View Guide</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Retribution Paladin -->
                         <div class="col-md-4 mb-4 d-flex justify-content-center">
                             <div class="card h-100">
                                 <div class="position-relative">
                                     <img src="~/images/twws1-home-small-3.png" alt="Retribution Paladin" class="guide-image" />
                                     <div class="position-absolute start-50 translate-middle-x" style="bottom: 10px;">
-                                        <a href="/RetributionPaladinGuide" class="view-guide-link">View Guide</a>
+                                        <a href="/Retribution/Overview" class="view-guide-link">View Guide</a>
                                     </div>
                                 </div>
                             </div>
