@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PaladinProject.Models;
 using PaladinProject.ViewModels;
-using PaladinProject.Models;
-using PaladinProject.ViewModels;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace UsersApp.Controllers
