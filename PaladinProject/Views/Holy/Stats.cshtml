@@ -16,9 +16,6 @@
 
 }
 
-
-
-
 <body>
 	<div class="outer-wrapper">
 		<div class="page-container">
@@ -29,7 +26,7 @@
 
 				<div class="trees-container">
 					@functions {
-						string LineStyle(int fromCol, int fromRow, int toCol, int toRow, double offsetX = -7.5, double offsetY = -7.5)
+						string LineStyle(int fromCol, int fromRow, int toCol, int toRow, double offsetX = 7.5, double offsetY = 7.5)
 						{
 							int cellW = 50;
 							int cellH = 60;
@@ -54,14 +51,16 @@
 						private Dictionary<string, PaladinProject.Models.Spell> SpellsByName =>
 						Model.ToDictionary(s => s.Name);
 
-						public IHtmlContent SpellNode(string spellName, int col, int row)
+						public IHtmlContent SpellNode(string spellName, int col, int row, string shape = "circle")
 						{
 							if (!SpellsByName.ContainsKey(spellName))
 								return HtmlString.Empty;
 
 							var spell = SpellsByName[spellName];
+							var shapeClass = $"node-{shape.ToLower()}";
+
 							var html = $@"
-										<div class='node' style='grid-column: {col}; grid-row: {row};'>
+										<div class='node {shapeClass}' style='grid-column: {col}; grid-row: {row};'>
 										<a href='{spell.Irl}' target='_blank'>
 										<img src='/images/SpellIcons/{spell.Icon}' alt='{spell.Name}' />
 										</a>
@@ -69,11 +68,25 @@
 
 							return new HtmlString(html);
 						}
-										public IHtmlContent Line(int fromCol, int fromRow, int toCol, int toRow, int offsetX = -7, int offsetY = -7)
+
+						public IHtmlContent Line(int fromCol, int fromRow, int toCol, int toRow, string fromShape = "circle", string toShape = "circle")
 						{
+							double offsetX = GetOffset(fromShape).x;
+							double offsetY = GetOffset(fromShape).y;
+
 							var style = LineStyle(fromCol, fromRow, toCol, toRow, offsetX, offsetY);
 							var html = $"<div class='line' style='{style}'></div>";
 							return new HtmlString(html);
+						}
+
+						private (double x, double y) GetOffset(string shape)
+						{
+							switch (shape.ToLower())
+							{
+								case "hexagon": return (-7.5, -7.5); // Adjust if needed
+								case "square": return (-7.5, -7.5); // Adjust if needed
+								default: return (-7.5, -7.5); // For circles
+							}
 						}
 
 					}
@@ -83,49 +96,49 @@
 						<div class="paladin-tree-container">
 							<br>
 							<!-- Row 1 -->
-							@SpellNode("Lay on Hands", 2, 1)
-							@SpellNode("Auras of the Resolute", 4, 1)
-							@SpellNode("Hammer of Wrath", 6, 1)
+							@SpellNode("Lay on Hands", 2, 1, "square")
+							@SpellNode("Auras of the Resolute", 4, 1, "square")
+							@SpellNode("Hammer of Wrath", 6, 1, "square")
 
 							<!-- Row 2 -->
 							@SpellNode("Improved Cleanse", 1, 2)
 							@SpellNode("Empyreal Ward", 2, 2)
 							@SpellNode("Fist of Justice", 3, 2)
-							@SpellNode("Blinding Light", 5, 2)
-							@SpellNode("Turn Evil", 7, 2)
+							@SpellNode("Blinding Light", 5, 2, "hexagon")
+							@SpellNode("Turn Evil", 7, 2, "square")
 
 							<!-- Row 3 -->
 							@SpellNode("A Just Reward", 1, 3)
 							@SpellNode("Afterimage", 2, 3)
-							@SpellNode("Divine Steed", 4, 3)
+							@SpellNode("Divine Steed", 4, 3, "square")
 							@SpellNode("Light's Countenance", 5, 3)
 							@SpellNode("Greater Judgment", 6, 3)
-							@SpellNode("Choose?", 7, 3)
+							@SpellNode("Wrench Evil", 7, 3, "hexagon")
 
 							<!-- Row 4 -->
 							@SpellNode("Holy Reprieve", 1, 4)
 							@SpellNode("Cavalier", 3, 4)
 							@SpellNode("Divine Spurs", 4, 4)
-							@SpellNode("Blessing of Freedom", 5, 4)
-							@SpellNode("Rebuke", 7, 4)
+							@SpellNode("Blessing of Freedom", 5, 4, "hexagon")
+							@SpellNode("Rebuke", 7, 4, "square")
 
 							<!-- Row 5 -->
 							@SpellNode("Obduracy", 2, 5)
-							@SpellNode("Divine Toll", 4, 5)
-							@SpellNode("choise", 5, 5)
+							@SpellNode("Divine Toll", 4, 5, "square")
+							@SpellNode("choise", 5, 5, "hexagon")
 							@SpellNode("Sanctified Plates", 6, 5)
 							@SpellNode("Punishment", 7, 5)
 
 							<!-- Row 6 -->
 							@SpellNode("Divine Reach", 1, 6)
-							@SpellNode("Blessing of Sacrifice", 3, 6)
-							@SpellNode("Quickened Invocation", 4, 6)
-							@SpellNode("Blessing of Protection", 5, 6)
+							@SpellNode("Blessing of Sacrifice", 3, 6, "square")
+							@SpellNode("Quickened Invocation", 4, 6, "hexagon")
+							@SpellNode("Blessing of Protection", 5, 6, "square")
 							@SpellNode("Consecrated Ground", 7, 6)
 
 							<!-- Row 7 -->
 							@SpellNode("Holy Aegis", 2, 7)
-							@SpellNode("Choise", 3, 7)
+							@SpellNode("Sacrifice of the Just", 3, 7, "hexagon")
 							@SpellNode("Divine Purpose", 4, 7)
 							@SpellNode("Improved Blessing of Protection", 5, 7)
 							@SpellNode("Unbreakable Spirit", 6, 7)
@@ -133,7 +146,7 @@
 							<!-- Row 8 -->
 							@SpellNode("Lightforged Blessing", 1, 8)
 							@SpellNode("Lead the Charge", 2, 8)
-							@SpellNode("Choise", 3, 8)
+							@SpellNode("righteous Protection", 3, 8, "hexagon")
 							@SpellNode("Holy Ritual", 4, 8)
 							@SpellNode("Blessed Calling", 5, 8)
 							@SpellNode("Inspired Guard", 6, 8)
@@ -146,7 +159,7 @@
 							@SpellNode("Seal of the Crusader", 4, 9)
 							@SpellNode("Vengeful Wrath", 5, 9)
 							@SpellNode("Eye for an Eye", 6, 9)
-							@SpellNode("Choise", 7, 9)
+							@SpellNode("Golden Path", 7, 9, "hexagon")
 
 							<!-- Row 10 -->
 							@SpellNode("Of Dusk and Dawn", 2, 10)
@@ -310,52 +323,52 @@
 							<!-- Row 3 -->
 							@SpellNode("Light's Conviction", 3, 3)
 							@SpellNode("Aura Mastery", 5, 3)
-							@SpellNode("Holy Shock", 7, 3)
+							@SpellNode("Beacon of the Lightbringer", 7, 3)
 
 							<!-- Row 4 -->
-							@SpellNode("Holy Shock", 2, 4)
-							@SpellNode("Holy Shock", 4, 4)
-							@SpellNode("Holy Shock", 6, 4)
-							@SpellNode("Holy Shock", 8, 4)
+							@SpellNode("Tower of Radiance", 2, 4)
+							@SpellNode("Tirion's Devotion", 4, 4)
+							@SpellNode("Unending Light", 6, 4)
+							@SpellNode("Awestruck", 8, 4)
 
 							<!-- Row 5 -->
-							@SpellNode("Holy Shock", 1, 5)
-							@SpellNode("Holy Shock", 3, 5)
+							@SpellNode("Choise", 1, 5)
+							@SpellNode("Choise", 3, 5)
 							@SpellNode("Protection of Tyr", 5, 5)
-							@SpellNode("Holy Shock", 7, 5)
-							@SpellNode("Holy Shock", 9, 5)
+							@SpellNode("Imbued Infusions", 7, 5)
+							@SpellNode("Light of the Martyr", 9, 5)
 
 							<!-- Row 6 -->
-							@SpellNode("Holy Shock", 2, 6)
-							@SpellNode("Holy Shock", 3, 6)
-							@SpellNode("Holy Shock", 4, 6)
-							@SpellNode("Holy Shock", 6, 6)
-							@SpellNode("Holy Shock", 7, 6)
-							@SpellNode("Holy Shock", 8, 6)
+							@SpellNode("Righteous Judgment", 2, 6)
+							@SpellNode("Choise", 3, 6)
+							@SpellNode("Saved by the Light", 4, 6)
+							@SpellNode("Light's Protection", 6, 6)
+							@SpellNode("Overflowing Light", 7, 6)
+							@SpellNode("Shining Righteousness", 8, 6)
 
 							<!-- Row 7 -->
-							@SpellNode("Holy Shock", 1, 7)
-							@SpellNode("Holy Shock", 3, 7)
-							@SpellNode("Holy Shock", 4, 7)
-							@SpellNode("Holy Shock", 5, 7)
-							@SpellNode("Holy Shock", 6, 7)
-							@SpellNode("Holy Shock", 7, 7)
-							@SpellNode("Holy Shock", 9, 7)
+							@SpellNode("Liberation", 1, 7)
+							@SpellNode("Commanding Light", 3, 7)
+							@SpellNode("Glistening Radiance", 4, 7)
+							@SpellNode("Breaking Dawn", 5, 7)
+							@SpellNode("Divine Revelations", 6, 7)
+							@SpellNode("Divine Glimpse", 7, 7)
+							@SpellNode("Bestow Light", 9, 7)
 
 							<!-- Row 8 -->
-							@SpellNode("Holy Shock", 2, 8)
-							@SpellNode("Holy Shock", 3, 8)
-							@SpellNode("Holy Shock", 4, 8)
-							@SpellNode("Holy Shock", 6, 8)
-							@SpellNode("Holy Shock", 7, 8)
-							@SpellNode("Holy Shock", 8, 8)
+							@SpellNode("Choise", 2, 8)
+							@SpellNode("Empyrean Legacy", 3, 8)
+							@SpellNode("Veneration", 4, 8)
+							@SpellNode("Choise", 6, 8)
+							@SpellNode("Power of the Silver Hand", 7, 8)
+							@SpellNode("Tyr's Deliverance", 8, 8)
 
 							<!-- Row 9 -->
-							@SpellNode("Holy Shock", 1, 9)
-							@SpellNode("Holy Shock", 3, 9)
-							@SpellNode("Holy Shock", 5, 9)
-							@SpellNode("Holy Shock", 7, 9)
-							@SpellNode("Holy Shock", 9, 9)
+							@SpellNode("Truth Prevails", 1, 9)
+							@SpellNode("Crusader's Might", 3, 9)
+							@SpellNode("Awakening", 5, 9)
+							@SpellNode("Reclamation", 7, 9)
+							@SpellNode("Relentless Inquisitor", 9, 9)
 
 							<!-- Row 10 -->
 							@SpellNode("Rising Sunlight", 2, 10)
