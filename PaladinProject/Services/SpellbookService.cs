@@ -112,7 +112,7 @@ public class SpellbookService
 			new Spell { Id =101, Name ="Divine Purpose2", Icon = "Divine Purpose.jpg", Irl = "https://www.wowhead.com/spell=408459/divine-purpose", Description = "Holy Power spending abilities have a 10% chance to make your next Holy Power spending ability free and deal 10% increased damage and healing."},
 			new Spell { Id =102, Name ="Divine Reach", Icon = "Relentless Inquisitor.jpg", Irl = "https://www.wowhead.com/spell=469476/divine-reach", Description = ""},
 			new Spell { Id =103, Name ="Divine Resonance", Icon = "Divine Resonance.jpg", Irl = "https://www.wowhead.com/spell=384027/divine-resonance", Description = ""},
-			new Spell { Id =104, Name ="Divine Resonance2", Icon = "Healing Hands.jpg", Irl = "https://www.wowhead.com/spell=386738/divine-resonance", Description = ""},
+			new Spell { Id =104, Name ="Divine Resonance2", Icon = "Divine Resonance.jpg", Irl = "https://www.wowhead.com/spell=386738/divine-resonance", Description = ""},
 			new Spell { Id =105, Name ="Divine Revelation", Icon = "Divine Revelation.jpg", Irl = "https://www.wowhead.com/spell=387808/divine-revelations", Description = ""},
 			new Spell { Id =106, Name ="Divine Revelations", Icon = "Healing Hands.jpg", Irl = "https://www.wowhead.com/spell=387808/divine-revelations", Description = ""},
 			new Spell { Id =107, Name ="Divine Shield", Icon = "Divine Shield.jpg", Irl = "https://www.wowhead.com/spell=642/divine-shield", Description = " "},
