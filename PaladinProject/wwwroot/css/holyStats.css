@@ -56,12 +56,12 @@ html, body {
 }
 
 /* === Контейнер за трите дървета === */
-.trees-container {
-    display: flex;
-    gap: 15px;
-    padding: 15px 0;
-    justify-content: center;
-    align-items: stretch;
+.trees-container{
+display: flex;
+gap: 15px;
+padding: 15px 0;
+justify-content: center;
+align-items: stretch;
 }
 
     /* === Секции за всяко дърво === */
@@ -96,6 +96,7 @@ html, body {
 
 /* === Грид оформления === */
 .paladin-tree-container,
+.protection-tree-container,
 .holy-tree-container,
 .hero-tree-container {
     display: grid;
@@ -113,11 +114,18 @@ html, body {
     grid-template-columns: repeat(9, 50px);
 }
 
-.hero-tree-container {
+.templar-tree-container ,
+.lightsmith-tree-container ,
+.herald-tree-container {
     grid-template-columns: repeat(3, 50px);
     height: fit-content;
     align-content: start;
 }
+
+.protection-tree-container {
+    grid-template-columns: repeat(7, 50px);
+}
+
 
 /* === Нодове === */
 .node {
