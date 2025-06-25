@@ -8,38 +8,42 @@ namespace PaladinProject.Controllers
     [Route("Retribution")]
     public class RetributionController : Controller
     {
-        private readonly ILogger<RetributionController> _logger;
+		private readonly ILogger<HolyController> _logger;
+		private readonly SpellbookService _spellbookService;
 
-        public RetributionController(ILogger<RetributionController> logger)
-        {
-            _logger = logger;
-        }
+		public RetributionController(ILogger<HolyController> logger)
+		{
+			_logger = logger;
+			_spellbookService = new SpellbookService(); // ако DI не е активиран
+		}
 
-        [HttpGet("Overview")]
-        public IActionResult Overview() => View();
+		[HttpGet("Overview")]
+		public IActionResult Overview() => View();
 
-        [HttpGet("Talents")]
-        public IActionResult Talents() => View();
+		[HttpGet("Talents")]
+		public IActionResult Talents() => View();
 
-        [HttpGet("Stats")]
-        public IActionResult Stats() => View();
+		[HttpGet("Stats")]
+		public IActionResult Stats()
+		{
+			// «ареждаме всички спелове от SpellbookService
+			var allSpells = _spellbookService.GetAllSpells();
+			return View(allSpells);
+		}
 
-        [HttpGet("Consumables")]
-        public IActionResult Consumables() => View();
+		[HttpGet("Consumables")]
+		public IActionResult Consumables() => View();
 
-        [HttpGet("Gear")]
-        public IActionResult Gear() => View();
+		[HttpGet("Gear")]
+		public IActionResult Gear() => View();
 
-        [HttpGet("Rotation")]
-        public IActionResult Rotation() => View();
+		[HttpGet("Rotation")]
+		public IActionResult Rotation() => View();
 
-
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+		public IActionResult Error()
+		{
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+		}
+	}
 }

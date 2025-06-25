@@ -12,74 +12,42 @@ namespace PaladinProject.Controllers
 	[Route("Protection")]
 	public class ProtectionController : Controller
 	{
-		private readonly ILogger<ProtectionController> _logger;
-		private readonly SpellbookContext _context;
+		private readonly ILogger<HolyController> _logger;
+		private readonly SpellbookService _spellbookService;
 
-		public ProtectionController(ILogger<ProtectionController> logger, SpellbookContext context)
+		public ProtectionController(ILogger<HolyController> logger)
 		{
 			_logger = logger;
-			_context = context;
+			_spellbookService = new SpellbookService(); // ако DI не е активиран
 		}
 
 		[HttpGet("Overview")]
-		public IActionResult Overview()
-		{
-			var model = BuildModel("Overview content goes here...");
-			return View(model);
-		}
+		public IActionResult Overview() => View();
 
 		[HttpGet("Talents")]
-		public IActionResult Talents()
-		{
-			var model = BuildModel("Talents description content goes here...");
-			return View(model);
-		}
+		public IActionResult Talents() => View();
 
 		[HttpGet("Stats")]
 		public IActionResult Stats()
 		{
-			var model = BuildModel("Stats description content goes here...");
-			return View(model);
+			// «ареждаме всички спелове от SpellbookService
+			var allSpells = _spellbookService.GetAllSpells();
+			return View(allSpells);
 		}
 
 		[HttpGet("Consumables")]
-		public IActionResult Consumables()
-		{
-			var model = BuildModel("Consumables description content goes here...");
-			return View(model);
-		}
+		public IActionResult Consumables() => View();
 
 		[HttpGet("Gear")]
-		public IActionResult Gear()
-		{
-			var model = BuildModel("Gear description content goes here...");
-			return View(model);
-		}
+		public IActionResult Gear() => View();
 
 		[HttpGet("Rotation")]
-		public IActionResult Rotation()
-		{
-			var model = BuildModel("Rotation guide content goes here...");
-			return View(model);
-		}
-
-		private TalentsViewModel BuildModel(string description)
-		{
-			return new TalentsViewModel
-			{
-				Description = description,
-				SpellNames = _context.Spells.Select(s => s.Name).ToList(),
-				SpellBook = new SpellBook()
-			};
-		}
+		public IActionResult Rotation() => View();
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{
-			return View(new ErrorViewModel
-			{
-				RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
-			});
+			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 	}
 }

@@ -1,4 +1,22 @@
-﻿<style>
+﻿@using System.Collections.Generic
+@using PaladinProject.ViewModels;
+@using Microsoft.AspNetCore.Html
+@model List<PaladinProject.Models.Spell>
+<link rel="stylesheet" href="~/css/holyStats.css" />
+
+@{
+    ViewData["Title"] = "Holy Paladin Guide";
+}
+
+@{
+    var spellsByName = Model
+        .GroupBy(s => s.Name?.Trim(), StringComparer.OrdinalIgnoreCase)
+        .Select(g => g.First())
+        .ToDictionary(s => s.Name, s => s, StringComparer.OrdinalIgnoreCase);
+
+}
+
+<style>
     body {
         color: white;
     }
@@ -178,14 +196,6 @@
     }
 
 </style>
-
-@model PaladinProject.ViewModels.TalentsViewModel
-@using PaladinProject.Helpers
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Protection Paladin Guide";
-}
 
 
 

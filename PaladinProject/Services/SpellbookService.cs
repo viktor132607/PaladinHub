@@ -1,7 +1,9 @@
-﻿using PaladinProject.Models;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PaladinProject.Models;
 using System;
 using System.Reflection.Metadata;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 public class SpellbookService
 {
@@ -173,7 +175,7 @@ public class SpellbookService
 			new Spell { Id =162, Name ="Healing Hands", Icon = "Healing Hands.jpg", Irl = "https://www.wowhead.com/spell=326734/healing-hands", Description = " "},
 			new Spell { Id =163, Name ="Higher Calling", Icon = "Shining Light.jpg", Irl = "https://www.wowhead.com/spell=431687/higher-calling", Description = "Retribution Crusader Strike, Hammer of Wrath and Blade of Justice extend the duration of Shake the Heavens by 1 sec. Protection Crusader Strike, Hammer of Wrath and Judgment extend the duration of Shake the Heavens by 1 sec."},
 			new Spell { Id =164, Name ="Highlord's Judgment", Icon = "Highlord's Judgment.jpg", Irl = "https://www.wowhead.com/spell=405757/highlords-judgment", Description = " "},
-			new Spell { Id =165, Name ="Highlord's Wrath", Icon = "Highlord's Wrath.jpg", Irl = "https://www.wowhead.com/spell=405779/highlords-wrath", Description = ""},
+			new Spell { Id =165, Name ="Highlord's Wrath", Icon = "Highlords Wrath.jpg", Irl = "https://www.wowhead.com/spell=405779/highlords-wrath", Description = ""},
 			new Spell { Id =166, Name ="Holy Aegis", Icon = "Holy Aegis.jpg", Irl = "https://www.wowhead.com/spell=379008/holy-aegis", Description = ""},
 			new Spell { Id =167, Name ="Holy Avenger", Icon = "Suns Avatar.jpg", Irl = "https://www.wowhead.com/spell=105809/holy-avenger", Description = ""},
 			new Spell { Id =168, Name ="Holy Blade", Icon = "Holy Blade.jpg", Irl = "https://www.wowhead.com/spell=406158/holy-blade", Description = ""},
@@ -203,7 +205,7 @@ public class SpellbookService
 			new Spell { Id =192, Name ="Inquisitor's Ire", Icon = "Inspiring Vanguard.jpg", Irl = "https://www.wowhead.com/spell=403975/inquisitors-ire", Description = ""},
 			new Spell { Id =193, Name ="Inspired Guard", Icon = "Divine Protection.jpg", Irl = "https://www.wowhead.com/spell=469439/inspired-guard", Description = ""},
 			new Spell { Id =194, Name ="Inspiring Vanguard", Icon = "Grand Crusader.jpg", Irl = "https://www.wowhead.com/spell=393022/inspiring-vanguard", Description = " "},
-			new Spell { Id =195, Name ="Judge, Jury and Executioner", Icon = "Judgment.jpg", Irl = "https://www.wowhead.com/spell=405607/judge-jury-and-executioner", Description = ""},
+			new Spell { Id =195, Name ="Judge, Jury and Executioner", Icon = "Judge, Jury and Executioner.jpg", Irl = "https://www.wowhead.com/spell=405607/judge-jury-and-executioner", Description = ""},
 			new Spell { Id =196, Name ="Judgment", Icon = "Judgment of Justice.jpg", Irl = "https://www.wowhead.com/spell=20271/judgment", Description = " "},
 			new Spell { Id =197, Name ="Judgment of Justice", Icon = "Liberation.jpg", Irl = "https://www.wowhead.com/spell=403495/judgment-of-justice", Description = "Judgment deals 10% increased damage and increases your movement speed by 10% for 5 sec.\r\n\r\nIf you have Greater Judgment, Judgment slows enemies by 30% for 8 sec."},
 			new Spell { Id =198, Name ="Judgment of Light", Icon = "Judgment of Light.jpg", Irl = "https://www.wowhead.com/spell=183778/judgment-of-light", Description = " "},
@@ -242,7 +244,7 @@ public class SpellbookService
 			new Spell { Id =231, Name ="Obduracy", Icon = "Obduracy.jpg", Irl = "https://www.wowhead.com/spell=385427/obduracy", Description = ""},
 			new Spell { Id =232, Name ="Of Dusk and Dawn", Icon = "Light of Dawn.jpg", Irl = "https://www.wowhead.com/spell=385125/of-dusk-and-dawn", Description = ""},
 			new Spell { Id =233, Name ="Overflowing Light", Icon = "Unbreakable Spirit.jpg", Irl = "https://www.wowhead.com/spell=461244/overflowing-light", Description = ""},
-			new Spell { Id =234, Name ="Penitence", Icon = "Resplendent Light.jpg", Irl = "https://www.wowhead.com/spell=403026/penitence", Description = ""},
+			new Spell { Id =234, Name ="Penitence", Icon = "Light of the Martyr.jpg", Irl = "https://www.wowhead.com/spell=403026/penitence", Description = ""},
 			new Spell { Id =235, Name ="Power of the Silver Hand", Icon = "Power of the Silver Hand.jpg", Irl = "https://www.wowhead.com/spell=200294/power-of-the-silver-hand", Description = " "},
 			new Spell { Id =236, Name ="Protection of Tyr", Icon = "Aura Mastery.jpg", Irl = "https://www.wowhead.com/spell=200430/protection-of-tyr", Description = "Aura Mastery also increases all healing received by party or raid members within 40 yards by 10%."},
 			new Spell { Id =237, Name ="Punishment", Icon = "Rebuke.jpg", Irl = "https://www.wowhead.com/spell=403537/punishment", Description = ""},
@@ -270,7 +272,7 @@ public class SpellbookService
 			new Spell { Id =259, Name ="Rite of Sanctification", Icon = "Rite of Sanctification.jpg", Irl = "https://www.wowhead.com/spell=433568/rite-of-sanctification", Description = ""},
 			new Spell { Id =260, Name ="Rule of Law", Icon = "Rule of Law.jpg", Irl = "https://www.wowhead.com/spell=214202/rule-of-law", Description = ""},
 			new Spell { Id =261, Name ="Rule of Law2", Icon = "Rule of Law.jpg", Irl = "https://www.wowhead.com/spell=214202/rule-of-law", Description = " "},
-			new Spell { Id =262, Name ="Rush of Light", Icon = "Seal of the Crusader.jpg", Irl = "https://www.wowhead.com/spell=407067/rush-of-light", Description = ""},
+			new Spell { Id =262, Name ="Rush of Light", Icon = "Rush of Light.jpg", Irl = "https://www.wowhead.com/spell=407067/rush-of-light", Description = ""},
 			new Spell { Id =263, Name ="Sacred Strength", Icon = "Searing Light.jpg", Irl = "https://www.wowhead.com/spell=469337/sacred-strength", Description = " "},
 			new Spell { Id =264, Name ="Sacrifice of the Just", Icon = "Blessing of Sacrifice.jpg", Irl = "https://www.wowhead.com/spell=384820/sacrifice-of-the-just", Description = ""},
 			new Spell { Id =265, Name ="Sacrosanct Crusade", Icon = "Sacrosanct Crusade.jpg", Irl = "https://www.wowhead.com/spell=431730/sacrosanct-crusade", Description = " "},
@@ -343,7 +345,7 @@ public class SpellbookService
 			new Spell { Id =332, Name ="Uther's Counsel", Icon = "Uthers Counsel.jpg", Irl = "https://www.wowhead.com/spell=378425/uthers-counsel", Description = "Your Lay on Hands, Divine Shield, Blessing of Protection, and Blessing of Spellwarding have 15% reduced cooldown."},
 			new Spell { Id =333, Name ="Valiance", Icon = "Valiance.jpg", Irl = "https://www.wowhead.com/spell=432919/valiance", Description = "Consuming Infusion of Light reduces the cooldown of Holy Armaments by 3.0 sec."},
 			new Spell { Id =334, Name ="Valiance2", Icon = "Valiance.jpg", Irl = "https://www.wowhead.com/spell=432919/valiance", Description = "Consuming Shining Light reduces the cooldown of Holy Armaments by 3.0 sec."},
-			new Spell { Id =335, Name ="Vanguard's Momentum", Icon = "Vanguard's Momentum.jpg", Irl = "https://www.wowhead.com/spell=405065/vanguards-momentum", Description = " "},
+			new Spell { Id =335, Name ="Vanguard's Momentum", Icon = "Obduracy.jpg", Irl = "https://www.wowhead.com/spell=405065/vanguards-momentum", Description = " "},
 			new Spell { Id =336, Name ="Veneration", Icon = "Veneration.jpg", Irl = "https://www.wowhead.com/spell=392902/veneration", Description = ""},
 			new Spell { Id =337, Name ="Vengeful Wrath", Icon = "Hammer of Wrath.jpg", Irl = "https://www.wowhead.com/spell=403592/vengeful-wrath", Description = ""},
 			new Spell { Id =338, Name ="Wake of Ashes", Icon = "Wake of Ashes.jpg", Irl = "https://www.wowhead.com/spell=255937/wake-of-ashes", Description = " "},
@@ -353,7 +355,17 @@ public class SpellbookService
 			new Spell { Id =342, Name ="Zeal", Icon = "Zeal.jpg", Irl = "https://www.wowhead.com/spell=269569/zeal", Description = " "},
 			new Spell { Id =343, Name ="Zealot's Paragon", Icon = "Moment of Glory.jpg", Irl = "https://www.wowhead.com/spell=391142/zealots-paragon", Description = ""},
 			new Spell { Id =344, Name ="Zealous Vindication", Icon = "Zealous Vindication.jpg", Irl = "https://www.wowhead.com/spell=431463/zealous-vindication", Description = "Hammer of Light instantly calls down 2 Empyrean Hammers on your target when it is cast."},
-
+			new Spell { Id =345, Name ="Divine Auxiliary", Icon = "Divine Auxiliary.jpg", Irl = "https://www.wowhead.com/spell=406158/divine-auxiliary", Description = "Final Reckoning and Execution Sentence grant 3 Holy Power."},
+			new Spell { Id =346, Name ="Heart of the Crusader", Icon = "Heart of the Crusader.jpg", Irl = "https://www.wowhead.com/spell=406154/heart-of-the-crusader", Description = "Crusader Strike and auto-attacks deal 10% increased damage and deal 10% increased critical strike damage." },
+			new Spell { Id =347, Name ="Boundless Judgment", Icon = "Boundless Judgment.jpg", Irl = "https://www.wowhead.com/spell=405278/boundless-judgment", Description = "Judgment generates 1 additional Holy Power and has a 50% increased chance to trigger Mastery: Highlord's Judgment." },
+			new Spell { Id =348, Name ="Zealot's Fervor", Icon = "Eye for an Eye.jpg", Irl = "https://www.wowhead.com/spell=403509/zealots-fervor", Description = "\r\nAuto-attack speed increased by 20%.\r\n"},
+			new Spell { Id =349, Name ="Jurisdiction", Icon = "Rule of Law.jpg", Irl = "https://www.wowhead.com/spell=204979/jurisdiction", Description = "Increase the range of Blade of Justice and Hammer of Justice by 10 yds, and radius of Divine Storm by 4 yds." },
+			new Spell { Id =350, Name ="Tempest of the Lightbringer", Icon = "Divine Storm.jpg", Irl = "https://www.wowhead.com/spell=337257/tempest-of-the-lightbringer", Description = "Divine Storm projects an additional wave of light, striking all enemies up to 20 yards in front of you for 20% of Divine Storm's damage." },
+			new Spell { Id =351, Name ="Guided Prayer", Icon = "Veneration.jpg", Irl = "https://www.wowhead.com/spell=404357/guided-prayer", Description = "When your health is brought below 25%, you instantly cast a free Word of Glory at 60% effectiveness on yourself.\r\n\r\nCannot occur more than once every 60 sec." },
+			new Spell { Id =352, Name ="Art of War", Icon = "Truth Prevails.jpg", Irl = "https://www.wowhead.com/spell=461273/truth-prevails", Description = "Judgment heals you for (240% of Spell power) and its mana cost is reduced by 30%. 50% of overhealing from this effect is transferred onto 2 allies within 40 yds." },
+			new Spell { Id =353, Name ="Swift Justice", Icon = "Blessed Calling.jpg", Irl = "https://www.wowhead.com/spell=383228/swift-justice", Description = "Reduces the cooldown of Judgment by 2 sec and Crusader Strike by 2 sec." },
+			new Spell { Id =354, Name ="Judgement of Justice", Icon = "Highlords Wrath.jpg", Irl = "https://www.wowhead.com/wotlk/spell=53407/judgement-of-justice", Description = "Unleashes the energy of a Seal spell to judge an enemy for 20 sec, preventing them from fleeing and limiting their movement speed.  Refer to individual Seals for additional Judgement effect.  Only one Judgement per Paladin can be active at any one time." },
+			//new Spell { Id =355, Name ="", Icon = ".jpg", Irl = "", Description = "" },
 
 		};
 	}
