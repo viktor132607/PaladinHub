@@ -31,15 +31,19 @@ html, body {
 }
 
 .holy-cover-container {
-    padding: 0;
+    width: 1600px;
+    margin: 0 auto;
+    aspect-ratio: 2560 / 820; 
+    overflow: hidden;
 }
 
 .holy-cover {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
     display: block;
 }
+
 
 .main-wrapper {
     background-color: #151515;
@@ -56,12 +60,12 @@ html, body {
 }
 
 /* === Контейнер за трите дървета === */
-.trees-container{
-display: flex;
-gap: 15px;
-padding: 15px 0;
-justify-content: center;
-align-items: stretch;
+.trees-container {
+    display: flex;
+    gap: 15px;
+    padding: 15px 0;
+    justify-content: center;
+    align-items: stretch;
 }
 
     /* === Секции за всяко дърво === */
@@ -114,8 +118,8 @@ align-items: stretch;
     grid-template-columns: repeat(9, 50px);
 }
 
-.templar-tree-container ,
-.lightsmith-tree-container ,
+.templar-tree-container,
+.lightsmith-tree-container,
 .herald-tree-container {
     grid-template-columns: repeat(3, 50px);
     height: fit-content;

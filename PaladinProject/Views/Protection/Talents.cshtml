@@ -2,7 +2,9 @@
 @using PaladinProject.ViewModels;
 @using Microsoft.AspNetCore.Html
 @model List<PaladinProject.Models.Spell>
-<link rel="stylesheet" href="~/css/holyStats.css" />
+
+<link rel="stylesheet" href="~/css/general.css" />
+<link rel="stylesheet" href="~/css/protectionStats.css" />
 
 @{
     ViewData["Title"] = "Holy Paladin Guide";
@@ -14,6 +16,981 @@
         .Select(g => g.First())
         .ToDictionary(s => s.Name, s => s, StringComparer.OrdinalIgnoreCase);
 
+}
+
+<body>
+    <div class="outer-wrapper">
+        <div class="page-container">
+
+            <div class="holy-cover-container">
+                <img src="~/images/TheProtCover.png" alt="Protection Cover" class="holy-cover" />
+            </div>
+
+            <div class="main-wrapper">
+
+                <h1>Protection Paladin Talent Builds</h1>
+
+                <div class="separator-container">
+                    <img src="~/images/Separators/D2.png" alt="Separator" class="separator" />
+                </div>
+
+                <section id="overview">
+                    <p>
+                        Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options.
+                        In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including what they do and when to use them.
+                    </p>
+
+                    <h3>Sections Covered:</h3>
+                    <div class="section-buttons">
+                        <a href="#builds">Talent Builds</a>
+                        <a href="#hero-talents">Hero Talents</a>
+                        <a href="#rotation">Rotation</a>
+                        <a href="#gear">Gear</a>
+                        <a href="#leveling">Leveling</a>
+                        <a href="#abilities">Abilities & Talents</a>
+                        <a href="#stats">Stats</a>
+                        <a href="#consumables">Consumables</a>
+                        <a href="#addons">WA & Addons</a>
+                    </div>
+                </section>
+
+
+                <div class="separator-container">
+                    <img src="~/images/Separators/D2.png" alt="Separator" class="separator" />
+                </div>
+
+                @functions {
+                    string LineStyle(int fromCol, int fromRow, int toCol, int toRow, double offsetX = 7.5, double offsetY = 7.5)
+                    {
+                        int cellW = 50;
+                        int cellH = 60;
+                        int gap = 20;
+
+                        int stepX = cellW + gap;
+                        int stepY = cellH + gap;
+
+                        // ⬇️ Преместената начална точка (с офсети)
+                        double x = (fromCol - 1) * stepX + stepX / 2 + offsetX;
+                        double y = (fromRow - 1) * stepY + stepY / 2 + offsetY;
+
+                        int dx = (toCol - fromCol) * stepX;
+                        int dy = (toRow - fromRow) * stepY;
+
+                        double length = Math.Sqrt(dx * dx + dy * dy);
+                        double angle = Math.Atan2(dy, dx) * (180.0 / Math.PI);
+
+                        return $"top: {y}px; left: {x}px; width: {length}px; height: 4px; transform: rotate({angle}deg); transform-origin: top left;";
+                    }
+
+                    private Dictionary<string, PaladinProject.Models.Spell> SpellsByName =>
+                    Model.ToDictionary(s => s.Name);
+
+                    public IHtmlContent SpellNode(string spellName, int col, int row, string shape = "circle")
+                    {
+                        if (!SpellsByName.ContainsKey(spellName))
+                            return HtmlString.Empty;
+
+                        var spell = SpellsByName[spellName];
+                        var shapeClass = $"node-{shape.ToLower()}";
+
+                        var html = $@"
+                                <div class='node {shapeClass}' style='grid-column: {col}; grid-row: {row};'>
+                                <a href='{spell.Irl}' target='_blank'>
+                                <img src='/images/SpellIcons/{spell.Icon}' alt='{spell.Name}' />
+                                </a>
+                                </div>";
+
+                        return new HtmlString(html);
+                    }
+
+                    public IHtmlContent Line(int fromCol, int fromRow, int toCol, int toRow, string fromShape = "circle", string toShape = "circle")
+                    {
+                        double offsetX = GetOffset(fromShape).x;
+                        double offsetY = GetOffset(fromShape).y;
+
+                        var style = LineStyle(fromCol, fromRow, toCol, toRow, offsetX, offsetY);
+                        var html = $"<div class='line' style='{style}'></div>";
+                        return new HtmlString(html);
+                    }
+
+                    private (double x, double y) GetOffset(string shape)
+                    {
+                        switch (shape.ToLower())
+                        {
+                            case "hexagon": return (-7.5, -7.5); // Adjust if needed
+                            case "square": return (-7.5, -7.5); // Adjust if needed
+                            default: return (-7.5, -7.5); // For circles
+                        }
+                    }
+
+                }
+
+                <section protection-lightsmith>
+                    <div class="trees-container">
+
+
+                        <section paladin>
+                            <h2 style="text-align:center;margin-top: 20px">Paladin</h2>
+                            <div class="paladin-tree-container">
+                                <br>
+                                <!-- Row 1 -->
+                                @SpellNode("Lay on Hands", 2, 1, "square")
+                                @SpellNode("Auras of the Resolute", 4, 1, "square")
+                                @SpellNode("Hammer of Wrath", 6, 1, "square")
+
+                                <!-- Row 2 -->
+                                @SpellNode("Cleanse Toxins", 1, 2)
+                                @SpellNode("Empyreal Ward", 2, 2)
+                                @SpellNode("Fist of Justice", 3, 2)
+                                @SpellNode("Blinding Light", 5, 2, "hexagon")
+                                @SpellNode("Turn Evil", 7, 2, "square")
+
+                                <!-- Row 3 -->
+                                @SpellNode("A Just Reward", 1, 3)
+                                @SpellNode("Afterimage", 2, 3)
+                                @SpellNode("Divine Steed", 4, 3, "square")
+                                @SpellNode("Light's Countenance", 5, 3)
+                                @SpellNode("Greater Judgment", 6, 3)
+                                @SpellNode("Wrench Evil", 7, 3, "hexagon")
+
+                                <!-- Row 4 -->
+                                @SpellNode("Holy Reprieve", 1, 4)
+                                @SpellNode("Cavalier", 3, 4)
+                                @SpellNode("Divine Spurs", 4, 4)
+                                @SpellNode("Blessing of Freedom", 5, 4, "hexagon")
+                                @SpellNode("Rebuke", 7, 4, "square")
+
+                                <!-- Row 5 -->
+                                @SpellNode("Obduracy", 2, 5)
+                                @SpellNode("Divine Toll", 4, 5, "square")
+                                @SpellNode("Echoing Blessings", 5, 5, "hexagon")
+                                @SpellNode("Sanctified Plates", 6, 5)
+                                @SpellNode("Punishment", 7, 5)
+
+                                <!-- Row 6 -->
+                                @SpellNode("Divine Reach", 1, 6)
+                                @SpellNode("Blessing of Sacrifice", 3, 6, "square")
+                                @SpellNode("Quickened Invocation", 4, 6, "hexagon")
+                                @SpellNode("Blessing of Protection", 5, 6, "square")
+                                @SpellNode("Consecrated Ground", 7, 6)
+
+                                <!-- Row 7 -->
+                                @SpellNode("Holy Aegis", 2, 7)
+                                @SpellNode("Sacrifice of the Just", 3, 7, "hexagon")
+                                @SpellNode("Divine Purpose", 4, 7)
+                                @SpellNode("Improved Blessing of Protection", 5, 7)
+                                @SpellNode("Unbreakable Spirit", 6, 7)
+
+                                <!-- Row 8 -->
+                                @SpellNode("Lightforged Blessing", 1, 8)
+                                @SpellNode("Lead the Charge", 2, 8)
+                                @SpellNode("Righteous Protection", 3, 8, "hexagon")
+                                @SpellNode("Holy Ritual", 4, 8)
+                                @SpellNode("Blessed Calling", 5, 8)
+                                @SpellNode("Inspired Guard", 6, 8)
+                                @SpellNode("Judgment of Light", 7, 8)
+
+                                <!-- Row 9 -->
+                                @SpellNode("Faith's Armor", 1, 9)
+                                @SpellNode("Stoicism", 2, 9)
+                                @SpellNode("Seal of Might", 3, 9)
+                                @SpellNode("Seal of the Crusader", 4, 9)
+                                @SpellNode("Vengeful Wrath", 5, 9)
+                                @SpellNode("Eye for an Eye", 6, 9)
+                                @SpellNode("Golden Path", 7, 9, "hexagon")
+
+                                <!-- Row 10 -->
+                                @SpellNode("Of Dusk and Dawn", 2, 10)
+                                @SpellNode("Lightbearer", 4, 10)
+                                @SpellNode("Light's Revocation", 6, 10)
+
+
+                                @Line(2, 1, 1, 2)
+                                @Line(2, 1, 2, 2)
+                                @Line(2, 1, 3, 2)
+                                @Line(4, 1, 3, 2)
+                                @Line(4, 1, 5, 2)
+                                @Line(4, 1, 4, 3)
+                                @Line(6, 1, 5, 2)
+                                @Line(6, 1, 7, 2)
+                                @Line(6, 1, 6, 3)
+
+                                @Line(1, 2, 1, 3)
+                                @Line(1, 2, 2, 3)
+                                @Line(2, 2, 2, 3)
+                                @Line(3, 2, 2, 3)
+                                @Line(3, 2, 4, 3)
+                                @Line(5, 2, 4, 3)
+                                @Line(5, 2, 5, 3)
+                                @Line(5, 2, 6, 3)
+                                @Line(7, 2, 7, 3)
+
+                                @Line(1, 3, 1, 4)
+                                @Line(2, 3, 1, 4)
+                                @Line(2, 3, 2, 5)
+                                @Line(4, 3, 3, 4)
+                                @Line(4, 3, 4, 4)
+                                @Line(4, 3, 5, 4)
+                                @Line(6, 3, 6, 5)
+                                @Line(6, 3, 7, 4)
+                                @Line(7, 3, 7, 4)
+
+                                @Line(1, 4, 2, 5)
+                                @Line(1, 4, 1, 6)
+                                @Line(3, 4, 2, 5)
+                                @Line(3, 4, 4, 5)
+                                @Line(3, 4, 3, 6)
+                                @Line(5, 4, 4, 5)
+                                @Line(5, 4, 5, 5)
+                                @Line(5, 4, 6, 5)
+                                @Line(7, 4, 6, 5)
+                                @Line(7, 4, 7, 5)
+
+                                @Line(2, 5, 1, 6)
+                                @Line(2, 5, 3, 6)
+                                @Line(2, 5, 2, 7)
+                                @Line(4, 5, 3, 6)
+                                @Line(4, 5, 4, 6)
+                                @Line(4, 5, 5, 6)
+                                @Line(5, 5, 5, 6)
+                                @Line(6, 5, 5, 6)
+                                @Line(6, 5, 7, 6)
+                                @Line(6, 5, 6, 7)
+                                @Line(7, 5, 7, 6)
+
+                                @Line(1, 6, 2, 7)
+                                @Line(1, 6, 1, 8)
+                                @Line(3, 6, 2, 7)
+                                @Line(3, 6, 3, 7)
+                                @Line(3, 6, 4, 7)
+                                @Line(5, 6, 5, 7)
+                                @Line(5, 6, 6, 7)
+                                @Line(5, 6, 4, 7)
+                                @Line(7, 6, 6, 7)
+                                @Line(7, 6, 7, 8)
+
+                                @Line(2, 7, 1, 8)
+                                @Line(2, 7, 2, 8)
+                                @Line(3, 7, 2, 8)
+                                @Line(3, 7, 3, 8)
+                                @Line(3, 7, 4, 8)
+                                @Line(4, 7, 4, 8)
+                                @Line(4, 7, 5, 8)
+                                @Line(5, 7, 5, 8)
+                                @Line(5, 7, 6, 8)
+                                @Line(6, 7, 6, 8)
+                                @Line(6, 7, 7, 8)
+
+                                @Line(1, 8, 1, 9)
+                                @Line(2, 8, 1, 9)
+                                @Line(2, 8, 2, 9)
+                                @Line(2, 8, 3, 9)
+                                @Line(3, 8, 3, 9)
+                                @Line(4, 8, 3, 9)
+                                @Line(4, 8, 4, 9)
+                                @Line(4, 8, 5, 9)
+                                @Line(5, 8, 5, 9)
+                                @Line(6, 8, 5, 9)
+                                @Line(6, 8, 6, 9)
+                                @Line(6, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+
+                                @Line(1, 9, 2, 10)
+                                @Line(2, 9, 2, 10)
+                                @Line(3, 9, 2, 10)
+                                @Line(3, 9, 4, 10)
+                                @Line(4, 9, 4, 10)
+                                @Line(5, 9, 4, 10)
+                                @Line(5, 9, 6, 10)
+                                @Line(6, 9, 6, 10)
+                                @Line(7, 9, 6, 10)
+
+                            </div>
+
+                        </section>
+                        <section lightsmith>
+                            <h2 style="text-align:center;margin-top: 20px">Lightsmith</h2>
+                            <div class="hero-tree-container">
+                                <!-- Row 1 -->
+                                @SpellNode("Holy Bulwark", 2, 1, "square")
+
+                                <!-- Row 2 -->
+                                @SpellNode("Rite of Sanctification", 1, 2, "hexagon")
+                                @SpellNode("Solidarity", 2, 2)
+                                @SpellNode("Divine Guidance", 3, 2, "hexagon")
+
+                                <!-- Row 3 -->
+                                @SpellNode("Laying Down Arms", 1, 3)
+                                @SpellNode("Divine Inspiration", 2, 3, "hexagon")
+                                @SpellNode("Authoritative Rebuke", 3, 3, "hexagon")
+
+                                <!-- Row 4 -->
+                                @SpellNode("Shared Resolve", 1, 4)
+                                @SpellNode("Valiance", 2, 4)
+                                @SpellNode("Hammer and Anvil", 3, 4)
+
+                                <!-- Row 5 -->
+                                @SpellNode("Blessing of the Forge", 2, 5)
+
+                                @Line(2, 1, 1, 2)
+                                @Line(2, 1, 2, 2)
+                                @Line(2, 1, 3, 2)
+                                @Line(1, 2, 1, 3)
+                                @Line(2, 2, 2, 3)
+                                @Line(3, 2, 3, 3)
+                                @Line(1, 3, 1, 4)
+                                @Line(2, 3, 2, 4)
+                                @Line(3, 3, 3, 4)
+                                @Line(1, 4, 2, 5)
+                                @Line(2, 4, 2, 5)
+                                @Line(3, 4, 2, 5)
+
+                            </div>
+                        </section>
+                        <section protection>
+                            <h2 style="text-align:center;margin-top: 20px">Protection</h2>
+                            <div class="protection-tree-container">
+                                <br>
+                                <!-- Row 1 -->
+                                @SpellNode("Avenger's Shield", 4, 1, "square")
+
+                                <!-- Row 2 -->
+                                @SpellNode("Holy Shield", 3, 2)
+                                @SpellNode("Blessed Hammer", 5, 2, "hexagon")
+
+                                <!-- Row 3 -->
+                                @SpellNode("Redoubt", 2, 3, "hexagon")
+                                @SpellNode("Grand Crusader", 4, 3)
+                                @SpellNode("Shining Light", 6, 3)
+
+                                <!-- Row 4 -->
+                                @SpellNode("Improved Holy Shield", 2, 4)
+                                @SpellNode("Inspiring Vanguard", 3, 4)
+                                @SpellNode("Ardent Defender", 4, 4, "square")
+                                @SpellNode("Barricade of Faith", 5, 4)
+                                @SpellNode("Sanctuary", 6, 4)
+
+                                <!-- Row 5 -->
+                                @SpellNode("Refining Fire", 1, 5)
+                                @SpellNode("Bulwark of Order", 3, 5)
+                                @SpellNode("Blessing of Spellwarding", 4, 5, "hexagon")
+                                @SpellNode("Tirion's Devotion", 5, 5, "hexagon")
+                                @SpellNode("Consecration in Flame", 7, 5)
+
+                                <!-- Row 6 -->
+                                @SpellNode("Tyr's Enforcer", 2, 6)
+                                @SpellNode("Relentless Inquisitor", 3, 6, "hexagon")
+                                @SpellNode("Avenging Wrath", 4, 6)
+                                @SpellNode("Seal of Charity", 5, 6)
+                                @SpellNode("Faith in the Light", 6, 6)
+
+                                <!-- Row 7 -->
+                                @SpellNode("Soaring Shield", 1, 7)
+                                @SpellNode("Seal of Reprisal", 3, 7)
+                                @SpellNode("Guardian of Ancient Kings", 4, 7, "square")
+                                @SpellNode("Hand of the Protector", 5, 7)
+                                @SpellNode("Crusader's Judgment", 7, 7)
+
+                                <!-- Row 8 -->
+                                @SpellNode("Focused Enmity", 2, 8)
+                                @SpellNode("Gift of the Golden Val'kyr", 3, 8)
+                                @SpellNode("Sanctified Wrath", 5, 8)
+                                @SpellNode("Uther's Counsel", 6, 8)
+
+                                <!-- Row 9 -->
+                                @SpellNode("Strength in Adversity", 1, 9, "hexagon")
+                                @SpellNode("Ferren Marcus's Fervor", 2, 9)
+                                @SpellNode("Eye of Tyr", 4, 9, "square")
+                                @SpellNode("Resolute Defender", 6, 9)
+                                @SpellNode("Bastion of Light", 7, 9, "square")
+
+                                <!-- Row 10 -->
+                                @SpellNode("Moment of Glory", 1, 10, "square")
+                                @SpellNode("Bulwark of Righteous Fury", 3, 10)
+                                @SpellNode("Inmost Light", 4, 10)
+                                @SpellNode("Final Stand", 5, 10)
+                                @SpellNode("Righteous Protector", 7, 10)
+
+
+                                @Line(4, 1, 3, 2)
+                                @Line(4, 1, 5, 2)
+
+                                @Line(3, 2, 2, 3)
+                                @Line(3, 2, 4, 3)
+                                @Line(5, 2, 4, 3)
+                                @Line(5, 2, 6, 3)
+
+                                @Line(4, 3, 3, 4)
+                                @Line(2, 3, 2, 4)
+                                @Line(4, 3, 4, 4)
+                                @Line(4, 3, 5, 4)
+                                @Line(6, 3, 6, 4)
+
+
+                                @Line(2, 4, 1, 5)
+                                @Line(2, 4, 3, 5)
+                                @Line(3, 4, 3, 5)
+                                @Line(4, 4, 3, 5)
+                                @Line(4, 4, 4, 5)
+                                @Line(4, 4, 5, 5)
+                                @Line(5, 4, 5, 5)
+                                @Line(6, 4, 5, 5)
+                                @Line(6, 4, 7, 5)
+
+
+                                @Line(1, 5, 1, 7)
+                                @Line(1, 5, 2, 6)
+                                @Line(3, 5, 2, 6)
+                                @Line(3, 5, 3, 6)
+                                @Line(3, 5, 4, 6)
+                                @Line(4, 5, 4, 6)
+                                @Line(5, 5, 4, 6)
+                                @Line(5, 5, 5, 6)
+                                @Line(5, 5, 6, 6)
+                                @Line(7, 5, 6, 6)
+                                @Line(7, 5, 7, 7)
+
+                                @Line(2, 6, 2, 8)
+                                @Line(2, 6, 1, 7)
+                                @Line(2, 6, 3, 7)
+                                @Line(3, 6, 3, 7)
+                                @Line(4, 6, 3, 7)
+                                @Line(4, 6, 4, 7)
+                                @Line(4, 6, 5, 7)
+                                @Line(5, 6, 5, 7)
+                                @Line(6, 6, 5, 7)
+                                @Line(6, 6, 7, 7)
+                                @Line(7, 6, 7, 7)
+                                @Line(7, 6, 7, 7)
+
+                                @Line(1, 7, 1, 9)
+                                @Line(1, 7, 2, 8)
+                                @Line(3, 7, 2, 8)
+                                @Line(4, 7, 4, 9)
+                                @Line(4, 7, 3, 8)
+                                @Line(4, 7, 5, 8)
+                                @Line(5, 7, 6, 8)
+                                @Line(7, 7, 6, 8)
+                                @Line(7, 7, 7, 8)
+                                @Line(7, 7, 7, 8)
+                                @Line(7, 7, 7, 8)
+
+                                @Line(2, 8, 1, 9)
+                                @Line(2, 8, 2, 9)
+                                @Line(3, 8, 2, 9)
+                                @Line(3, 8, 3, 10)
+                                @Line(3, 8, 4, 9)
+                                @Line(5, 8, 4, 9)
+                                @Line(5, 8, 6, 9)
+                                @Line(6, 8, 6, 9)
+                                @Line(7, 8, 7, 9)
+
+                                @Line(7, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+
+                                @Line(1, 9, 1, 10)
+                                @Line(2, 9, 1, 10)
+                                @Line(2, 9, 3, 10)
+                                @Line(4, 9, 3, 10)
+                                @Line(4, 9, 4, 10)
+                                @Line(4, 9, 5, 10)
+                                @Line(6, 9, 5, 10)
+                                @Line(6, 9, 7, 10)
+                                @Line(7, 9, 7, 10)
+
+                            </div>
+                        </section>
+
+                    </div>
+                </section>
+
+                <section protection-templar>
+                    <div class="trees-container">
+                        <section paladin>
+                            <h2 style="text-align:center;margin-top: 20px">Paladin</h2>
+                            <div class="paladin-tree-container">
+                                <br>
+                                <!-- Row 1 -->
+                                @SpellNode("Lay on Hands", 2, 1, "square")
+                                @SpellNode("Auras of the Resolute", 4, 1, "square")
+                                @SpellNode("Hammer of Wrath", 6, 1, "square")
+
+                                <!-- Row 2 -->
+                                @SpellNode("Improved Cleanse", 1, 2)
+                                @SpellNode("Empyreal Ward", 2, 2)
+                                @SpellNode("Fist of Justice", 3, 2)
+                                @SpellNode("Blinding Light", 5, 2, "hexagon")
+                                @SpellNode("Turn Evil", 7, 2, "square")
+
+                                <!-- Row 3 -->
+                                @SpellNode("A Just Reward", 1, 3)
+                                @SpellNode("Afterimage", 2, 3)
+                                @SpellNode("Divine Steed", 4, 3, "square")
+                                @SpellNode("Light's Countenance", 5, 3)
+                                @SpellNode("Greater Judgment", 6, 3)
+                                @SpellNode("Wrench Evil", 7, 3, "hexagon")
+
+                                <!-- Row 4 -->
+                                @SpellNode("Holy Reprieve", 1, 4)
+                                @SpellNode("Cavalier", 3, 4)
+                                @SpellNode("Divine Spurs", 4, 4)
+                                @SpellNode("Blessing of Freedom", 5, 4, "hexagon")
+                                @SpellNode("Rebuke", 7, 4, "square")
+
+                                <!-- Row 5 -->
+                                @SpellNode("Obduracy", 2, 5)
+                                @SpellNode("Divine Toll", 4, 5, "square")
+                                @SpellNode("Echoing Blessings", 5, 5, "hexagon")
+                                @SpellNode("Sanctified Plates", 6, 5)
+                                @SpellNode("Punishment", 7, 5)
+
+                                <!-- Row 6 -->
+                                @SpellNode("Divine Reach", 1, 6)
+                                @SpellNode("Blessing of Sacrifice", 3, 6, "square")
+                                @SpellNode("Quickened Invocation", 4, 6, "hexagon")
+                                @SpellNode("Blessing of Protection", 5, 6, "square")
+                                @SpellNode("Consecrated Ground", 7, 6)
+
+                                <!-- Row 7 -->
+                                @SpellNode("Holy Aegis", 2, 7)
+                                @SpellNode("Sacrifice of the Just", 3, 7, "hexagon")
+                                @SpellNode("Divine Purpose", 4, 7)
+                                @SpellNode("Improved Blessing of Protection", 5, 7)
+                                @SpellNode("Unbreakable Spirit", 6, 7)
+
+                                <!-- Row 8 -->
+                                @SpellNode("Lightforged Blessing", 1, 8)
+                                @SpellNode("Lead the Charge", 2, 8)
+                                @SpellNode("Righteous Protection", 3, 8, "hexagon")
+                                @SpellNode("Holy Ritual", 4, 8)
+                                @SpellNode("Blessed Calling", 5, 8)
+                                @SpellNode("Inspired Guard", 6, 8)
+                                @SpellNode("Judgment of Light", 7, 8)
+
+                                <!-- Row 9 -->
+                                @SpellNode("Faith's Armor", 1, 9)
+                                @SpellNode("Stoicism", 2, 9)
+                                @SpellNode("Seal of Might", 3, 9)
+                                @SpellNode("Seal of the Crusader", 4, 9)
+                                @SpellNode("Vengeful Wrath", 5, 9)
+                                @SpellNode("Eye for an Eye", 6, 9)
+                                @SpellNode("Golden Path", 7, 9, "hexagon")
+
+                                <!-- Row 10 -->
+                                @SpellNode("Of Dusk and Dawn", 2, 10)
+                                @SpellNode("Lightbearer", 4, 10)
+                                @SpellNode("Light's Revocation", 6, 10)
+
+
+                                @Line(2, 1, 1, 2)
+                                @Line(2, 1, 2, 2)
+                                @Line(2, 1, 3, 2)
+                                @Line(4, 1, 3, 2)
+                                @Line(4, 1, 5, 2)
+                                @Line(4, 1, 4, 3)
+                                @Line(6, 1, 5, 2)
+                                @Line(6, 1, 7, 2)
+                                @Line(6, 1, 6, 3)
+
+                                @Line(1, 2, 1, 3)
+                                @Line(1, 2, 2, 3)
+                                @Line(2, 2, 2, 3)
+                                @Line(3, 2, 2, 3)
+                                @Line(3, 2, 4, 3)
+                                @Line(5, 2, 4, 3)
+                                @Line(5, 2, 5, 3)
+                                @Line(5, 2, 6, 3)
+                                @Line(7, 2, 7, 3)
+
+                                @Line(1, 3, 1, 4)
+                                @Line(2, 3, 1, 4)
+                                @Line(2, 3, 2, 5)
+                                @Line(4, 3, 3, 4)
+                                @Line(4, 3, 4, 4)
+                                @Line(4, 3, 5, 4)
+                                @Line(6, 3, 6, 5)
+                                @Line(6, 3, 7, 4)
+                                @Line(7, 3, 7, 4)
+
+                                @Line(1, 4, 2, 5)
+                                @Line(1, 4, 1, 6)
+                                @Line(3, 4, 2, 5)
+                                @Line(3, 4, 4, 5)
+                                @Line(3, 4, 3, 6)
+                                @Line(5, 4, 4, 5)
+                                @Line(5, 4, 5, 5)
+                                @Line(5, 4, 6, 5)
+                                @Line(7, 4, 6, 5)
+                                @Line(7, 4, 7, 5)
+
+                                @Line(2, 5, 1, 6)
+                                @Line(2, 5, 3, 6)
+                                @Line(2, 5, 2, 7)
+                                @Line(4, 5, 3, 6)
+                                @Line(4, 5, 4, 6)
+                                @Line(4, 5, 5, 6)
+                                @Line(5, 5, 5, 6)
+                                @Line(6, 5, 5, 6)
+                                @Line(6, 5, 7, 6)
+                                @Line(6, 5, 6, 7)
+                                @Line(7, 5, 7, 6)
+
+                                @Line(1, 6, 2, 7)
+                                @Line(1, 6, 1, 8)
+                                @Line(3, 6, 2, 7)
+                                @Line(3, 6, 3, 7)
+                                @Line(3, 6, 4, 7)
+                                @Line(5, 6, 5, 7)
+                                @Line(5, 6, 6, 7)
+                                @Line(5, 6, 4, 7)
+                                @Line(7, 6, 6, 7)
+                                @Line(7, 6, 7, 8)
+
+                                @Line(2, 7, 1, 8)
+                                @Line(2, 7, 2, 8)
+                                @Line(3, 7, 2, 8)
+                                @Line(3, 7, 3, 8)
+                                @Line(3, 7, 4, 8)
+                                @Line(4, 7, 4, 8)
+                                @Line(4, 7, 5, 8)
+                                @Line(5, 7, 5, 8)
+                                @Line(5, 7, 6, 8)
+                                @Line(6, 7, 6, 8)
+                                @Line(6, 7, 7, 8)
+
+                                @Line(1, 8, 1, 9)
+                                @Line(2, 8, 1, 9)
+                                @Line(2, 8, 2, 9)
+                                @Line(2, 8, 3, 9)
+                                @Line(3, 8, 3, 9)
+                                @Line(4, 8, 3, 9)
+                                @Line(4, 8, 4, 9)
+                                @Line(4, 8, 5, 9)
+                                @Line(5, 8, 5, 9)
+                                @Line(6, 8, 5, 9)
+                                @Line(6, 8, 6, 9)
+                                @Line(6, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+
+                                @Line(1, 9, 2, 10)
+                                @Line(2, 9, 2, 10)
+                                @Line(3, 9, 2, 10)
+                                @Line(3, 9, 4, 10)
+                                @Line(4, 9, 4, 10)
+                                @Line(5, 9, 4, 10)
+                                @Line(5, 9, 6, 10)
+                                @Line(6, 9, 6, 10)
+                                @Line(7, 9, 6, 10)
+
+                            </div>
+
+                        </section>
+                        <section templar>
+                            <h2 style="text-align:center;margin-top: 20px">Templar</h2>
+                            <div class="hero-tree-container">
+                                <!-- Row 1 -->
+                                @SpellNode("Light's Guidance", 2, 1)
+
+                                <!-- Row 2 -->
+                                @SpellNode("Zealous Vindication", 1, 2, "hexagon")
+                                @SpellNode("Shake the Heavens", 2, 2)
+                                @SpellNode("Wrathful Descent", 3, 2)
+
+                                <!-- Row 3 -->
+                                @SpellNode("Sacrosanct Crusade", 1, 3)
+                                @SpellNode("Higher Calling", 2, 3)
+                                @SpellNode("Unrelenting Charger", 3, 3, "hexagon")
+
+                                <!-- Row 4 -->
+                                @SpellNode("Sanctification", 1, 4, "hexagon")
+                                @SpellNode("Hammerfall", 2, 4)
+                                @SpellNode("Undisputed Ruling", 3, 4)
+
+                                <!-- Row 5 -->
+                                @SpellNode("Light's Deliverance", 2, 5)
+
+                                @Line(2, 1, 1, 2)
+                                @Line(2, 1, 2, 2)
+                                @Line(2, 1, 3, 2)
+                                @Line(1, 2, 1, 3)
+                                @Line(2, 2, 2, 3)
+                                @Line(3, 2, 3, 3)
+                                @Line(1, 3, 1, 4)
+                                @Line(2, 3, 2, 4)
+                                @Line(3, 3, 3, 4)
+                                @Line(1, 4, 2, 5)
+                                @Line(2, 4, 2, 5)
+                                @Line(3, 4, 2, 5)
+
+                            </div>
+                        </section>
+                        <section protection>
+                            <h2 style="text-align:center;margin-top: 20px">Protection</h2>
+                            <div class="protection-tree-container">
+                                <br>
+                                <!-- Row 1 -->
+                                @SpellNode("Avenger's Shield", 4, 1, "square")
+
+                                <!-- Row 2 -->
+                                @SpellNode("Holy Shield", 3, 2)
+                                @SpellNode("Blessed Hammer", 5, 2, "hexagon")
+
+                                <!-- Row 3 -->
+                                @SpellNode("Redoubt", 2, 3, "hexagon")
+                                @SpellNode("Grand Crusader", 4, 3)
+                                @SpellNode("Shining Light", 6, 3)
+
+                                <!-- Row 4 -->
+                                @SpellNode("Improved Holy Shield", 2, 4)
+                                @SpellNode("Inspiring Vanguard", 3, 4)
+                                @SpellNode("Ardent Defender", 4, 4, "square")
+                                @SpellNode("Barricade of Faith", 5, 4)
+                                @SpellNode("Sanctuary", 6, 4)
+
+                                <!-- Row 5 -->
+                                @SpellNode("Refining Fire", 1, 5)
+                                @SpellNode("Bulwark of Order", 3, 5)
+                                @SpellNode("Blessing of Spellwarding", 4, 5, "hexagon")
+                                @SpellNode("Tirion's Devotion", 5, 5, "hexagon")
+                                @SpellNode("Consecration in Flame", 7, 5)
+
+                                <!-- Row 6 -->
+                                @SpellNode("Tyr's Enforcer", 2, 6)
+                                @SpellNode("Relentless Inquisitor", 3, 6, "hexagon")
+                                @SpellNode("Avenging Wrath", 4, 6)
+                                @SpellNode("Seal of Charity", 5, 6)
+                                @SpellNode("Faith in the Light", 6, 6)
+
+                                <!-- Row 7 -->
+                                @SpellNode("Soaring Shield", 1, 7)
+                                @SpellNode("Seal of Reprisal", 3, 7)
+                                @SpellNode("Guardian of Ancient Kings", 4, 7, "square")
+                                @SpellNode("Hand of the Protector", 5, 7)
+                                @SpellNode("Crusader's Judgment", 7, 7)
+
+                                <!-- Row 8 -->
+                                @SpellNode("Focused Enmity", 2, 8)
+                                @SpellNode("Gift of the Golden Val'kyr", 3, 8)
+                                @SpellNode("Sanctified Wrath", 5, 8)
+                                @SpellNode("Uther's Counsel", 6, 8)
+
+                                <!-- Row 9 -->
+                                @SpellNode("Strength in Adversity", 1, 9, "hexagon")
+                                @SpellNode("Ferren Marcus's Fervor", 2, 9)
+                                @SpellNode("Eye of Tyr", 4, 9, "square")
+                                @SpellNode("Resolute Defender", 6, 9)
+                                @SpellNode("Bastion of Light", 7, 9, "square")
+
+                                <!-- Row 10 -->
+                                @SpellNode("Moment of Glory", 1, 10, "square")
+                                @SpellNode("Bulwark of Righteous Fury", 3, 10)
+                                @SpellNode("Inmost Light", 4, 10)
+                                @SpellNode("Final Stand", 5, 10)
+                                @SpellNode("Righteous Protector", 7, 10)
+
+
+                                @Line(4, 1, 3, 2)
+                                @Line(4, 1, 5, 2)
+
+                                @Line(3, 2, 2, 3)
+                                @Line(3, 2, 4, 3)
+                                @Line(5, 2, 4, 3)
+                                @Line(5, 2, 6, 3)
+
+                                @Line(4, 3, 3, 4)
+                                @Line(2, 3, 2, 4)
+                                @Line(4, 3, 4, 4)
+                                @Line(4, 3, 5, 4)
+                                @Line(6, 3, 6, 4)
+
+
+                                @Line(2, 4, 1, 5)
+                                @Line(2, 4, 3, 5)
+                                @Line(3, 4, 3, 5)
+                                @Line(4, 4, 3, 5)
+                                @Line(4, 4, 4, 5)
+                                @Line(4, 4, 5, 5)
+                                @Line(5, 4, 5, 5)
+                                @Line(6, 4, 5, 5)
+                                @Line(6, 4, 7, 5)
+
+
+                                @Line(1, 5, 1, 7)
+                                @Line(1, 5, 2, 6)
+                                @Line(3, 5, 2, 6)
+                                @Line(3, 5, 3, 6)
+                                @Line(3, 5, 4, 6)
+                                @Line(4, 5, 4, 6)
+                                @Line(5, 5, 4, 6)
+                                @Line(5, 5, 5, 6)
+                                @Line(5, 5, 6, 6)
+                                @Line(7, 5, 6, 6)
+                                @Line(7, 5, 7, 7)
+
+                                @Line(2, 6, 2, 8)
+                                @Line(2, 6, 1, 7)
+                                @Line(2, 6, 3, 7)
+                                @Line(3, 6, 3, 7)
+                                @Line(4, 6, 3, 7)
+                                @Line(4, 6, 4, 7)
+                                @Line(4, 6, 5, 7)
+                                @Line(5, 6, 5, 7)
+                                @Line(6, 6, 5, 7)
+                                @Line(6, 6, 7, 7)
+                                @Line(7, 6, 7, 7)
+                                @Line(7, 6, 7, 7)
+
+                                @Line(1, 7, 1, 9)
+                                @Line(1, 7, 2, 8)
+                                @Line(3, 7, 2, 8)
+                                @Line(4, 7, 4, 9)
+                                @Line(4, 7, 3, 8)
+                                @Line(4, 7, 5, 8)
+                                @Line(5, 7, 6, 8)
+                                @Line(7, 7, 6, 8)
+                                @Line(7, 7, 7, 8)
+                                @Line(7, 7, 7, 8)
+                                @Line(7, 7, 7, 8)
+
+                                @Line(2, 8, 1, 9)
+                                @Line(2, 8, 2, 9)
+                                @Line(3, 8, 2, 9)
+                                @Line(3, 8, 3, 10)
+                                @Line(3, 8, 4, 9)
+                                @Line(5, 8, 4, 9)
+                                @Line(5, 8, 6, 9)
+                                @Line(6, 8, 6, 9)
+                                @Line(7, 8, 7, 9)
+
+                                @Line(7, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+                                @Line(7, 8, 7, 9)
+
+                                @Line(1, 9, 1, 10)
+                                @Line(2, 9, 1, 10)
+                                @Line(2, 9, 3, 10)
+                                @Line(4, 9, 3, 10)
+                                @Line(4, 9, 4, 10)
+                                @Line(4, 9, 5, 10)
+                                @Line(6, 9, 5, 10)
+                                @Line(6, 9, 7, 10)
+                                @Line(7, 9, 7, 10)
+
+                            </div>
+                        </section>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+@*
+
+
+
+<section id="season2">
+    <h2>NEW Season 2 Changes</h2>
+
+    <h2>Baseline Protection Paladin Spells</h2>
+    <h3>Healing Abilities</h3>
+    <ul>
+        <li>
+            @Html.Raw(Model.SpellBook.HighlightSpells(
+            "Word of Glory (WoG) - Calls down the light to heal you such that the heal amount is increased the lower your health is. Costs 3 Holy Power.",
+                        Model.SpellNames))
+        </li>
+        <li>
+            @Html.Raw(Model.SpellBook.HighlightSpells(
+                        "Flash of Light (FoL) - Quick-casting healing spell. Avoid using it while actively tanking due to cast time vulnerability.",
+                        Model.SpellNames))
+        </li>
+    </ul>
+
+    <h3>Offensive Abilities</h3>
+    <ul>
+        <li>
+            @Html.Raw(Model.SpellBook.HighlightSpells(
+                        "Shield of the Righteous (SotR) - Slams enemies in front and increases armor. Core Holy Power spender.",
+                        Model.SpellNames))
+        </li>
+        <li>
+            @Html.Raw(Model.SpellBook.HighlightSpells(
+                        "Judgment (J) - Ranged Holy strike that generates 1 Holy Power.",
+                        Model.SpellNames))
+        </li>
+        <li>
+            @Html.Raw(Model.SpellBook.HighlightSpells(
+                        "Consecration - Creates a damaging and defensive zone under your feet. Maintain uptime.",
+                        Model.SpellNames))
+        </li>
+    </ul>
+
+    <h3>Defensive Cooldowns</h3>
+    <ul>
+        <li>
+            @Html.Raw(Model.SpellBook.HighlightSpells(
+                        "Divine Shield (DS) - Complete immunity for 8 seconds. Causes Forbearance. Use a cancel macro in M+ or raids.",
+                        Model.SpellNames))
+        </li>
+    </ul>
+</section>
+
+<div class="separator-container">
+    <img src="~/images/Separators/D2.png" alt="Separator" class="separator" />
+</div>
+<section id="utility-abilities">
+    <h2>Utility Abilities</h2>
+    <ul>
+        <li>
+            @Html.Raw(Model.SpellBook.HighlightSpells(
+                        "Hammer of Justice (HoJ) - Stuns the target for 6 seconds. Can be used to interrupt or crowd control in dungeons.",
+                        Model.SpellNames))
+        </li>
+        <li>
+            @Html.Raw(Model.SpellBook.HighlightSpells(
+                        "Blessing of Freedom (BoF) - Removes snares and movement impairing effects. Great for self or teammates.",
+                        Model.SpellNames))
+        </li>
+        <li>
+            @Html.Raw(Model.SpellBook.HighlightSpells(
+                        "Blessing of Protection (BoP) - Grants physical immunity for 10 seconds. Can cause Forbearance.",
+                        Model.SpellNames))
+        </li>
+    </ul>
+</section>
+
+<div class="separator-container">
+    <img src="~/images/Separators/D2.png" alt="Separator" class="separator" />
+</div>
+
+@*
+@using PaladinProject.Helpers
+@{
+    ViewData["Title"] = "Protection Paladin Guide";
+}
+
+@using PaladinProject
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Your layout
+    var spellbook = new Spellbook();
+}
+
+@functions {
+    public static string HighlightSpells(string input, Dictionary<string, string> spells)
+    {
+        foreach (var spell in spells.Keys)
+        {
+            input = input.Replace(spell, $"<span style='color: yellow; font-weight: bold;'>{spell}</span>");
+        }
+        return input;
+    }
 }
 
 <style>
@@ -160,55 +1137,38 @@
         list-style-type: none;
         padding-left: 0;
     }
-
-    .section-buttons {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        margin: 15px 0;
-    }
-
-        .section-buttons a {
-            background-color: #444;
-            border: 1px solid #888;
-            padding: 8px 16px;
-            border-radius: 6px;
-            color: white;
-            text-decoration: none;
-            transition: background-color 0.2s ease;
-        }
-
-            .section-buttons a:hover {
-                background-color: #666;
-            }
-
-    .protection-cover-container {
-        width: 98%;
-        margin-bottom: 20px;
-    }
-
-    .protection-cover {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-        display: block;
-    }
-
 </style>
 
+<h1>Protection Paladin Overview - The War Within</h1>
 
+@{
+    var overviewContent = @"
+<section id='overview'>
+    <p>Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options. In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including explaining what they do and when to use them.</p>
+    <h3>Sections Covered:</h3>
+    <ul>
+        <li>NEW Season 2</li>
+        <li>Cheat Sheet</li>
+        <li>Talent Builds</li>
+        <li>Hero Talents</li>
+        <li>Rotation</li>
+        <li>Gear</li>
+        <li>Leveling</li>
+        <li>Abilities & Talents</li>
+        <li>Stats</li>
+        <li>Consumables</li>
+        <li>WA & Addons</li>
+    </ul>
+</section>
+";
+}
 
-<div class="protection-cover-container">
-    <img src="~/images/TheProtCover.png" alt="Protection Cover" class="protection-cover" />
-</div>
+@Html.Raw(HighlightSpells(overviewContent, spellbook.Spells))
 
-<h1>Protection Paladin Talent Builds</h1>
-
+<!-- Separator 2 -->
 <div class="separator-container">
-    <img src="~/images/Separators/D2.png" alt="Separator" class="separator" />
+    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
 </div>
-
 <section id="overview">
     <p>
         Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options.
@@ -229,10 +1189,853 @@
     </div>
 </section>
 
+<section id="season2">
+    <h2>NEW Season 2 Changes</h2>
 
+    <h2>Baseline Protection Paladin Spells</h2>
+    <p>Healing Abilities</p>
+
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Word of Glory (WoG) - Calls down the light to heal you such that the heal amount is increased the lower your health is. Costs 3 Holy Power. Use this when you have Shining Light or when you won't drop Shield of the Righteous.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Flash of Light (FoL) - Quick-casting healing spell. Due to not being able to Block/Parry/Dodge while casting, avoid using this spell while actively tanking. Use this when you or your teammates need a heal during combat downtime.", spellbook.Spells))</li>
+    </ul>
+
+    <p>Offensive Abilities</p>
+
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Shield of the Righteous (SotR) - Slams the enemies in front of you with your shield, causing moderate Holy damage and increases your armor based on your Strength stat. Costs 3 Holy Power. This should be your primary Holy Power spender.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Judgment (J) - Deals moderate Holy damage to your current target. Generates 1 Holy Power.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Consecration (Cons) - Blesses the land beneath you, causing enemies in the area to take light Holy damage. Standing in Consecration also gives you damage reduction. You can only have one down at a time and recasting it will replace the old one.", spellbook.Spells))</li>
+    </ul>
+
+    <p>Defensive Cooldowns</p>
+
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Divine Shield (DS) - Renders you immune to all damage, spells, and forced movement effects for 8 seconds. Causes Forbearance and can't be used if you already have Forbearance. Use this to avoid damage that might kill you, to remove specific debuffs or in a pre-planned way. Be sure to have a cancel macro if you use this while actively tanking.", spellbook.Spells))</li>
+    </ul>
+
+    <p>Utility Abilities</p>
+
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Sense Undead - Shows Undead creature types on your minimap. Use this ability for fun!", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Hammer of Justice (HoJ) - Stuns an enemy for 6 seconds. Use this for crowd control!", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Hand of Reckoning (Taunt) - Forces the target to attack you and grants a bonus threat multiplier for your damaging abilities for 3 seconds. Use this for taunt swaps or if you're losing threat.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Redemption (Res) - Out-of-combat resurrection spell.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Intercession (BRes) - This is your in-combat resurrection or 'battle res'. This shares a cooldown without similar spells in some dungeon and raid content. It is instant cast but requires 3 Holy Power. You ideally want to let another person battle res.", spellbook.Spells))</li>
+    </ul>
+</section>
+
+<!-- Separator 2 -->
 <div class="separator-container">
-    <img src="~/images/Separators/D2.png" alt="Separator" class="separator" />
+    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
 </div>
+
+<section id="passives">
+    <h2>Passive Abilities</h2>
+
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Mastery: Divine Bulwark - This is your Mastery. It increases your block chance and grants you passive damage reduction when you stand in Consecration. It also gives you a chance to block magic DoTs when standing in Consecration.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Aegis of Light - Increases your health, and armor for being Protection Spec.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Riposte - This passive converts your Critical Strike rating from gear to Parry chance.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Consecration - This rank 2 upgrade reduces all damage you take while in Consecration by 5%. This adds on top of your existing mastery.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Consecration - This rank 3 upgrade reduces the cooldown of your Consecration by 50%.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Judgment - This rank 2 upgrade increases the damage of your Judgment by 50%.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Seasoned Warhorse - This passive increases the duration of your Divine Steed by 2 seconds.", spellbook.Spells))</li>
+    </ul>
+</section>
+
+<!-- Separator 2 -->
+<div class="separator-container">
+    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+</div>
+
+<section id="hero-talents">
+    <h2 class="hero-talents-title">Hero Talents</h2>
+
+    <div class="content-columns">
+        <div class="hero-talent-entry">
+            <img src="~/images/Templar.jpg" alt="Templar" />
+            <h2>Templar</h2>
+            <ul>
+                <li>Very strong single-target and group healing output.</li>
+                <li>Excellent defensives and personal survivability.</li>
+                <li>High mobility through <strong>Divine Steed</strong> and instant casts.</li>
+                <li>Powerful utility tools like <strong>Lay on Hands</strong>, <strong>Blessing of Freedom</strong>, and <strong>Cleanse</strong>.</li>
+                <li>Beacon healing makes damage patterns more manageable.</li>
+            </ul>
+        </div>
+        <div class="hero-talent-entry">
+            <img src="~/images/Lightsmith.jpg" alt="Lightsmith" />
+            <h2>Lightsmith</h2>
+            <ul>
+                <li>Somewhat reliant on good positioning and being in melee range.</li>
+                <li>Resource (Holy Power) management is important and can be punishing if neglected.</li>
+                <li>Limited raid-wide cooldowns compared to some other healers.</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3>Templar Protection Paladin Talents</h3>
+
+    <h4>Key Talent</h4>
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Light's Guidance (LG) - For 12 seconds after you Eye of Tyr, you will have access to Hammer of Light. Hammer of Light will do Holy damage to your target and 4 nearby enemies. Additionally, it will call down an Empyrean Hammer to strike 3 nearby enemies for Holy Damage. Empyrean Hammer is an instant damage event that can trigger a few Templar talents.", spellbook.Spells))</li>
+    </ul>
+
+    <h4>Capstone Talent</h4>
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Light's Deliverance (LD) - This is a stacking buff that applies every time you call down an Empyrean Hammer. Once you reach 60 stacks and Eye of Tyr and Hammer of Light are on cooldown, you will be able to cast Hammer of Light for free.", spellbook.Spells))</li>
+    </ul>
+
+    <h4>Choice Nodes</h4>
+
+    <h5>Choice Node 1</h5>
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Zealous Vindication (ZV) - Hammer of Light will call down two additional Empyrean Hammers that hit your target.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("For Whom the Bell Tolls (FWBT) - Your Divine Toll will now increase the damage of your next 3 Judgment casts by up to 100%. This is decreased by 20% for each target hit. When you hit 5 targets with Divine Toll, you will gain no damage bonus on Judgment.", spellbook.Spells))</li>
+    </ul>
+
+    <h5>Choice Node 2</h5>
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Bonds of Fellowship - You take 20% less damage from Blessing of Sacrifice and every time its target takes damage, you gain 4% run speed up to a max of 40%.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Unrelenting Charger - Extends the duration of your Divine Steed by 2 seconds and you will move 30% faster for the first 3 seconds.", spellbook.Spells))</li>
+    </ul>
+
+    <h5>Choice Node 3</h5>
+    <ul>
+        <li>@Html.Raw(HighlightSpells("Endless Wrath (EW) - Calling down an Empyrean Hammer has a 10% chance to reset the cooldown on your Hammer of Wrath and make it usable regardless of target health. This has a 1 second ICD and prevents a number of Empyrean Hammer from triggering this effect.", spellbook.Spells))</li>
+        <li>@Html.Raw(HighlightSpells("Sanctification - Judgment will increase the damage of your Empyrean Hammer by 10%. This is a personal buff on you. Multiple applications may overlap.", spellbook.Spells))</li>
+    </ul>
+</section>
+
+
+<h4>Passives</h4>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Shake the Heavens (StH) - Hammer of Light will now summon an Empyrean Hammer to hit a nearby target every 2 seconds for 8 seconds.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Wrathful Descent (WD) - When your Empyrean Hammer attacks critical strike, they do splash damage to nearby targets equal to 100% of the damage done. Targets hit by this do 5% less damage to you. This damage is not capped. This damage is not done to the target originally hit.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Sacrosanct Crusade (SC) - When you use Eye of Tyr, you gain a shield for 15% of your max health. Additionally, Hammer of Light will heal you for 15% of your max health, increased by 2% for each target hit. Any overhealing will convert to an absorb shield instead.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Higher Calling (HC) - Your Judgment, Hammer of Wrath, and your Blessed Hammer/Hammer of the Righteous abilities extend the duration of your Shake the Heavens buff by 1 second. This has a 0.5s ICD.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Hammerfall (HF) - Shield of the Righteous and Word of Glory will call down an Empyrean Hammer on a nearby target. If Shake the Heavens is active, this effect will call down another one for a total of two. This has a 0.01 second ICD to prevent multiple overlapping spenders from triggering this at the same time.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Undisputed Ruling (UR) - Hammer of Light grants you Shield of the Righteous, spawns Consecration under your target, and increases your Haste by 12% for 6 seconds. Additionally, this talent will allow Eye of Tyr to generate 3 Holy Power when used. Consecration generated by this spell lasts for 12-14 seconds and does not provide Mastery: Divine Bulwark. The Shield of the Righteous will overwrite your current Shield of the Righteous even if it's 13.5 seconds.", spellbook.Spells))</li>
+</ul>
+
+<h3>Lightsmith Protection Paladin Talents</h3>
+
+<h4>Key Talent</h4>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Holy Bulwark & Sacred Weapon - A rotating spell between Holy Bulwark and Sacred Weapon. You can store up to two charges and it has a 1-minute baseline recharge time. Sacred Weapon scales completely from your stats so it doesn't matter who you cast it on. All damage is completely attributed to you as if you did the damage. Holy Bulwark dynamically updates based on the target's health so its value can change based on temporary health buffs. When you select Lightsmith, the first available option will be Holy Bulwark.", spellbook.Spells))</li>
+</ul>
+
+<h4>Capstone Talent</h4>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Blessing of the Forge - Your Avenging Wrath will grant you and a nearby ally Sacred Weapon. While Avenging Wrath and Sacred Weapon are active, your Holy Power spenders will do echo effects. The echo effects take the form of a weapon similar to the Dancing Rune Weapon ability for BDK.", spellbook.Spells))</li>
+</ul>
+
+<h4>Choice Nodes</h4>
+
+<h5>Choice Node 1</h5>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Rite of Sanctification - A weapon enchant that increases your armor by 5% and Strength by 2%. This is mutually exclusive with weapon oils. When playing Lightsmith, this is preferred.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Rite of Adjuration - A weapon enchant that increases your stamina by 3% and gives your Holy Power spenders a chance to do burst healing around your target. This is mutually exclusive with weapon oils.", spellbook.Spells))</li>
+</ul>
+
+<h5>Choice Node 2</h5>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Divine Guidance (DG) - Every Holy Power spender will increase the damage of your next Consecration by a moderate amount. This stacks up to 5. The damage is done instantly and is split between targets. This will prioritize healing over doing damage as it can only do one or the other.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Blessed Assurance (BA) - Holy Power spenders increase the damage of your next Hammer of the Righteous or Blessed Hammer by 200%. This will not increase the absorbed amount on Blessed Hammer.", spellbook.Spells))</li>
+</ul>
+
+<h5>Choice Node 3</h5>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Divine Inspiration (DI) - Your spells and abilities have a chance to buff a nearby ally with Holy Bulwark or Sacred Weapon. The proc rate is 0.65 PPM + Haste.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Forewarning - Reduces the cooldown of your Holy Armaments (Holy Bulwark or Sacred Weapon) abilities by 20%.", spellbook.Spells))</li>
+</ul>
+
+<h5>Choice Node 4</h5>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Authoritative Rebuke (AR) - Successfully interrupting a spell will reduce the cooldown of Rebuke by 1 second. This effect is doubled if you are holding a Holy Armament.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Tempered in Battle (TB) - This will transfer 100% overhealing while you or an ally holds a Holy Bulwark. This talent will also redistribute your health over 4 seconds when you or your ally are holding a Sacred Weapon and drop below 40% health. This can only trigger once per cast.", spellbook.Spells))</li>
+</ul>
+
+<h4>Passives</h4>
+<ul>
+    <li>@Html.Raw(HighlightSpells("Solidarity - Whenever you use Holy Bulwark or Sacred Weapon on an ally, you also gain the benefit. Whenever you use it on yourself, a nearby ally also gets it. This has specific targeting rules based on the role when you cast it on yourself. Injured players below 50% are the priority for Holy Bulwark. The closest DPS without the buff is the priority for Sacred Weapon.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Laying Down Arms - Whenever Holy Bulwark or Sacred Weapon fades from you, the cooldown of your Lay on Hands is reduced by 15 seconds and you gain Shining Light.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Shared Resolve - Your active aura is 33% more effective on friendly targets affected by Holy Bulwark or Sacred Weapon.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Valiance - Consuming Shining Light will reduce the recharge time of Holy Bulwark or Sacred Weapon by 3 seconds.", spellbook.Spells))</li>
+    <li>@Html.Raw(HighlightSpells("Hammer and Anvil - Your Judgment critical strikes do additional moderate Holy damage around the target. This damage is not hard-capped and will only diminish if there are more than 20 targets.", spellbook.Spells))</li>
+</ul>
+
+<!-- Separator 2 -->
+<div class="separator-container">
+    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+</div>
+
+
+
+<section id="class-talents">
+    <h2>Paladin Class Talents</h2>
+
+    <h3>Row 1 Talents</h3>
+    <ul>
+        <li>Lay on Hands (LoH) - Heals a friendly target for an amount equal to your maximum Health. Causes Forbearance and can't be used if the target already has Forbearance. Use this when you or a party member need a heal in a pinch. This talent is granted for free to all Protection Paladins without the need to spend talent points.</li>
+        <li>Auras of the Resolute - This talent is granted for free to all Protection Paladins without the need to spend talent points.</li>
+        <li>Devotion Aura (Devo) - Grants 3% passive damage reduction to all party or raid members in 40 yards. This should be your default aura.</li>
+        <li>Concentration Aura - Reduces the duration of silence or interrupt effects by 30% on you and party or raid members in 40 yards. Use this in PvP.</li>
+        <li>Crusader Aura - Grants 20% increased mounted movement speed to all party or raid members in 40 yards. This also applies to Divine Steed.</li>
+        <li>Hammer of Wrath (HoW) - A damage ability that can be used when the target has 20% HP or less. This ability is also usable during Avenging Wrath. Generates 1 Holy Power.</li>
+    </ul>
+
+    <h3>Row 2 Talents</h3>
+    <ul>
+        <li>Cleanse Toxins (Cleanse) - Removes all Poison and Disease effects from you or an ally. This has an 8-second cooldown. Use this when you need to remove debuffs.</li>
+        <li>Empyreal Ward - Lay on Hands now grants 30% increased total armor for 8 seconds and will ignore healing reduction effects.</li>
+        <li>Fist of Justice (FoJ) - Reduces the cooldown of your Hammer of Justice by 15 seconds.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Repentance (Rep) - A long-duration CC. It puts you in combat if you're too close to the enemy being CCed, and has limited application in terms of target types. Breaks on damage.</li>
+                <li>Blinding Light (BL) - AoE CC that stops caster mobs. Counts as a Blind effect.</li>
+                <li>Turn Evil (TE) - Fear effect usable against Demons, Undead, and Aberrations. Can cause social aggro if used poorly.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Row 3 Talents</h3>
+    <ul>
+        <li>A Just Reward - When you successfully remove a debuff with Cleanse Toxins, you also heal the target equal to 300% of your spell power.</li>
+        <li>Afterimage (AI) - After spending 20 Holy Power, your next Word of Glory will splash heal to a nearby party member for 30% of the original heal. (Does not work with free Holy Power spenders.)</li>
+        <li>Divine Steed (Steed) - Summons a Holy mount for you to ride for 5 seconds. Use this when you need to move around quickly. (Free talent for Protection Paladins.)</li>
+        <li>Light's Countenance - Reduces the cooldown of your Repentance and Blinding Light by 15s.</li>
+        <li>Greater Judgment (GJ) - Increases the damage of your next offensive spender on that target by 40%. This stacks and multiple applications overlap separately.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Wrench Evil - Reduces the cast time of Turn Evil to instant.</li>
+                <li>Stand Against Evil - Turn Evil now affects up to 5 targets.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Row 4 Talents</h3>
+    <ul>
+        <li>Holy Reprieve - Reduces the duration of your Forbearance debuff by 10s.</li>
+        <li>Cavalier - Grants two charges of Divine Steed.</li>
+        <li>Divine Spurs - Divine Steed recharges 20% faster but has a 40% reduced duration.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Steed of Liberty - Divine Steed grants Blessing of Freedom for the first 3 seconds.</li>
+                <li>Blessing of Freedom (BoF) - Removes and grants immunity to movement impairing effects for 8 seconds.</li>
+            </ul>
+        </li>
+        <li>Rebuke - Interrupts the target’s spell cast for 3 seconds. Essential for dungeon and raid content.</li>
+    </ul>
+
+    <h3>Row 5 Talents</h3>
+    <ul>
+        <li>Obduracy - Increases your movement speed and AoE damage reduction by 2%.</li>
+        <li>Divine Toll (DT) - Fires Avenger's Shield at 5 targets, generating 1 Holy Power per target hit.</li>
+        <li>Unbound Freedom - Casting Blessing of Freedom now grants it to yourself too, and increases movement speed by 30% while active.</li>
+        <li>Sanctified Plates - Increases your armor by 5/10%, your stamina by 5/10%, and reduces AoE spell damage by 3/6%.</li>
+        <li>Punishment - Interrupting an enemy with Rebuke or Avenger's Shield immediately casts your filler spell (Blessed Hammer or Hammer of the Righteous) and generates Holy Power.</li>
+    </ul>
+
+    <h3>Row 6 Talents</h3>
+    <ul>
+        <li>Divine Reach - Increases the radius of your auras by 20 yards.</li>
+        <li>Blessing of Sacrifice (Sac) - Transfers 30% of an ally's damage taken to you for 12 seconds. Stops transferring if you fall below 20% HP.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Divine Resonance (DR) - Fires an Avenger’s Shield every 5 seconds up to 3 times after using Divine Toll.</li>
+                <li>Quickened Invocation (QI) - Reduces Divine Toll cooldown by 15 seconds.</li>
+            </ul>
+        </li>
+        <li>Blessing of Protection (BoP) - Immunity to physical damage for 8 seconds. Causes Forbearance.</li>
+        <li>Consecrated Ground (CG) - Consecration is 15% larger and slows enemies inside it by 50%.</li>
+    </ul>
+
+    <h3>Row 7 Talents</h3>
+    <ul>
+        <li>Holy Aegis - Increases your critical strike chance and armor by 4% from gear.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Sacrifice of the Just - Reduces Blessing of Sacrifice cooldown by 60 seconds.</li>
+                <li>Recompense - 30% of damage transferred by Blessing of Sacrifice is added to your next Judgment or Word of Glory.</li>
+            </ul>
+        </li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Sacred Strength - Holy Power spenders are 2% more effective (damage and healing).</li>
+                <li>Divine Purpose (DP) - 15% chance when spending Holy Power to cause your next spender to cost no Holy Power and deal 15% increased damage and healing. Can chain-proc itself.</li>
+            </ul>
+        </li>
+        <li>Improved Blessing of Protection - Reduces the cooldown of Blessing of Protection and Blessing of Spellwarding by 60 seconds.</li>
+        <li>Unbreakable Spirit (UBS) - Reduces cooldowns of Divine Shield, Ardent Defender, and Lay on Hands by 30%.</li>
+    </ul>
+
+    <h3>Row 8 Talents</h3>
+    <ul>
+        <li>Lightforged Blessing - Shield of the Righteous heals you and 2 nearby allies for 2% of maximum health.</li>
+        <li>Lead the Charge - Divine Steed reduces cooldowns of major movement abilities for nearby allies by 3 seconds. Passive +3% movement speed bonus to you.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Worthy Sacrifice - Automatically casts Blessing of Sacrifice on an ally below 35% HP if you are not crowd controlled.</li>
+                <li>Righteous Protection - Blessing of Sacrifice removes and prevents disease and poison debuffs during its duration.</li>
+            </ul>
+        </li>
+        <li>Holy Ritual - Blessing spells now heal the target for 100% of your spell power at start and end of the blessing.</li>
+        <li>Blessed Calling - Blessing spells now grant 15% increased movement speed. Stacks with Unbound Freedom.</li>
+        <li>Inspired Guard - While Ardent Defender is active, external healing spells on you are 15% stronger.</li>
+        <li>Judgment of Light (JoL) - Provides passive group healing when you cast Judgment.</li>
+    </ul>
+
+    <h3>Row 9 Talents</h3>
+    <ul>
+        <li>Faith's Armor - Casting Shield of the Righteous grants 5% armor for 4.5 seconds.</li>
+        <li>Stoicism - Reduces stun duration on you by 20% (10% in PvP).</li>
+        <li>Seal of Might - Increases Strength and Mastery by 2% per rank (up to 4%).</li>
+        <li>Seal of the Crusader - Your auto attacks heal nearby allies for 25% of your attack power.</li>
+        <li>Zealot's Paragon (ZP) - Extends Avenging Wrath uptime by casting Judgment and Hammer of Wrath. Increases their damage by 5%/10% at all times (2-point talent).</li>
+        <li>Eye for an Eye - Enemies attacking you during Ardent Defender or Divine Shield take Holy damage equal to 35% of your Spell Power.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Golden Path - Consecration heals 5 allies for 5% of attack power every second.</li>
+                <li>Selfless Healer - Flash of Light heals for 30% more and 40% of healing also heals yourself.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Row 10 Talents</h3>
+    <ul>
+        <li>Of Dusk and Dawn - After 3 generators, you gain Blessing of Dawn (spenders boosted by 30%). After spending Dawn, you gain Blessing of Dusk (4% damage reduction for 10 seconds).</li>
+        <li>Lightbearer (LB) - 10% of healing received also heals 4 nearby allies.</li>
+        <li>Light's Revocation (LR) - Divine Shield heals you for 10% of max health per negative effect removed, up to 30%. Also lets you cast Divine Shield even if Forbearance is active.</li>
+    </ul>
+
+    <!-- Separator 2 -->
+    <div class="separator-container">
+        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+    </div>
+
+</section>
+<section id="protection-talents">
+    <h2>Protection Specialization Talents</h2>
+
+    <h3>Row 1 Talents</h3>
+    <ul>
+        <li>Avenger's Shield (AS) - Hurls your shield at an enemy target, dealing moderate Holy damage, interrupting and silencing the target. After this, Avenger's Shield bounces to two nearby targets. Bounces do not silence or interrupt.</li>
+    </ul>
+
+
+    <h3>Row 2 Talents</h3>
+    <ul>
+        <li>Holy Shield (HS) - Allows you to block direct magical attacks while increasing your passive block chance by 20%. Successful blocks cause Holy damage to the target that caused the block event.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Hammer of the Righteous (HotR) - Strikes an enemy target for significant Physical damage. If you're standing in your Consecration, it also causes a wave of light that hits all nearby enemies for light Holy damage. Generates 1 Holy Power.</li>
+                <li>Blessed Hammer (BH) - Hurls a hammer that does AoE damage and provides damage reduction. Can damage an enemy up to three times. Generates 1 Holy Power.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Row 3 Talents</h3>
+    <ul>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Inner Light (IL) - Provides 10% Block chance and reflects Holy damage back to attackers after your Shield of the Righteous expires.</li>
+                <li>Redoubt - Gain 2% passive Strength & Stamina when you use Shield of the Righteous. Lasts 10s and stacks up to 3 times.</li>
+            </ul>
+        </li>
+        <li>Grand Crusader (GC) - 15% chance to reset Avenger's Shield cooldown when you avoid a melee attack or use Blessed Hammer / Hammer of the Righteous. Avoid means dodge, parry, miss — not block.</li>
+        <li>Shining Light (SL) - Every three Shield of the Righteous casts give a free Word of Glory that costs no Holy Power.</li>
+    </ul>
+
+    <h3>Row 4 Talents</h3>
+    <ul>
+        <li>Improved Holy Shield - Increases chance to block spells by 8%.</li>
+        <li>Inspiring Vanguard (IV) - 5% higher Grand Crusader proc chance, and 2% Strength when Grand Crusader triggers.</li>
+        <li>Ardent Defender (AD) - Reduces all damage by 20% for 8 seconds. If you take lethal damage, heal back up to 20% HP instead. If the killing blow is more than 3x your HP, the effect won't trigger.</li>
+        <li>Barricade of Faith - Casting Avenger's Shield grants 10% block chance for 10 seconds.</li>
+        <li>Sanctuary - Retains Divine Bulwark effect for up to 4 seconds after leaving Consecration (but only when you physically walk out, not when Consecration expires).</li>
+    </ul>
+
+    <h3>Row 5 Talents</h3>
+    <ul>
+        <li>Refining Fire (RF) - Enemies hit by Avenger's Shield take 57% Attack Power in Radiant (Holy/Fire) DoT damage over 5 seconds. Does not pandemic, only refreshes.</li>
+        <li>Bulwark of Order (BoO) - Using Avenger's Shield grants an absorb shield for 60% of the damage it dealt, capping at 50% of your max HP.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Improved Ardent Defender - Boosts Ardent Defender's damage reduction by 10%.</li>
+                <li>Blessing of Spellwarding (BoS) - Grants immunity to magic effects for 10 seconds. Causes Forbearance. Does not remove existing magic debuffs but prevents new ones.</li>
+            </ul>
+        </li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Light of the Titans (LotT) - Adds a HoT effect to Word of Glory healing you for 20% extra healing over time. If under DoT effect, heal is 100% stronger.</li>
+                <li>Tirion's Devotion (TD) - Reduces Lay on Hands cooldown by 1 second per Holy Power spent.</li>
+            </ul>
+        </li>
+        <li>Consecration in Flame (CiF) - Increases Consecration duration by 2 seconds and increases its damage by 20%.</li>
+    </ul>
+
+    <h3>Row 6 Talents</h3>
+    <ul>
+        <li>Tyr's Enforcer (TE) - Avenger's Shield deals splash Holy damage to nearby enemies (5-yard radius).</li>
+        <li>Relentless Inquisitor (RI) - Spending Holy Power grants 1% Haste, stacking up to 3%.</li>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Avenging Wrath: Might - 20% increased damage, healing, and crit chance for 20 seconds (2-min cooldown). Damage/healing bonus applies to Paladin abilities only, crit bonus applies to everything.</li>
+                <li>Sentinel - Avenging Wrath gives 15 stacks of health/damage reduction buffs (2% damage reduction and 1% HP per stack). Spending Holy Power slows stack decay.</li>
+            </ul>
+        </li>
+        <li>Seal of Charity - Word of Glory cast on an ally also heals you for 50% of the amount.</li>
+        <li>Faith in the Light (FttL) - Healing yourself with Word of Glory grants 15–30% block chance for 6 seconds.</li>
+    </ul>
+
+    <h3>Row 7 Talents</h3>
+    <ul>
+        <li>Soaring Shield (SS) - Avenger's Shield now bounces to two additional targets.</li>
+        <li>Seal of Reprisal (SoR) - Increases damage of Blessed Hammer or Hammer of the Righteous by 20%.</li>
+        <li>Guardian of Ancient Kings (GoAK) - Reduces all damage taken by 50% for 8 seconds. 5-min cooldown.</li>
+        <li>Hand of the Protector (HotP) - Word of Glory healing is increased based on missing health of the target. Also buffs self-healing even without this talent.</li>
+        <li>Crusader's Judgment (CJ) - Grants second charge of Judgment, and Grand Crusader reduces Judgment cooldown by 3 seconds.</li>
+    </ul>
+
+    <h3>Row 8 Talents</h3>
+    <ul>
+        <li>Focused Enmity (FE) - If Avenger's Shield hits only one target, it deals 100% bonus damage.</li>
+        <li>Gift of the Golden Val'kyr (Gift) - Avenger's Shield reduces Guardian of Ancient Kings cooldown by 1 second per target hit. If you drop below 30% HP, it auto-triggers a 4-second GoAK (45-second cooldown).</li>
+        <li>Sanctified Wrath (SW) - While Avenging Wrath is active, Judgment generates 2 Holy Power and Avenging Wrath lasts 5 seconds longer.</li>
+        <li>Uther's Counsel (UC) - Reduces cooldowns of Blessing of Protection, Lay on Hands, Blessing of Spellwarding, and Divine Shield by 15%.</li>
+    </ul>
+
+    <h3>Row 9 Talents</h3>
+    <ul>
+        <li>
+            Choice Node:
+            <ul>
+                <li>Strength in Adversity (SiA) - 3% Parry chance per target hit by Avenger's Shield. Caps at 15% total. Buff updates dynamically per cast.</li>
+                <li>Crusader's Resolve (CR) - Reduces melee damage from targets hit by Avenger's Shield by 10%.</li>
+            </ul>
+        </li>
+        <li>Ferren Marcus's Fervor - Avenger's Shield deals 10%/20% more damage to its primary target (2-point talent).</li>
+        <li>Eye of Tyr (EoT) - 1-minute cooldown AoE that reduces enemy damage dealt by 25% if you hit them. Must land to gain benefit.</li>
+        <li>Resolute Defender (RD) - Spending 3 Holy Power reduces Ardent Defender and Divine Shield cooldowns by 1/2 seconds.</li>
+        <li>Bastion of Light (BoL) - Makes your next five Judgments generate 3 Holy Power. Stacks with Sanctified Wrath for crazy generation.</li>
+    </ul>
+
+    <h3>Row 10 Talents</h3>
+    <ul>
+        <li>Moment of Glory (MoG) - Major DPS cooldown that empowers Avenger's Shield. Grants absorb shields based on damage done.</li>
+        <li>Bulwark of Righteous Fury (BoRF) - Avenger's Shield increases Shield of the Righteous damage up to 20% per target hit. Stacks 5 times.</li>
+        <li>Inmost Light (IL) - Eye of Tyr deals 300% more damage and has 33% lower cooldown.</li>
+        <li>Final Stand (FS) - Divine Shield turns into an AoE taunt. Pulses repeatedly to grab adds around you while Divine Shield is active.</li>
+        <li>Righteous Protector (RP) - Each Holy Power spender reduces Guardian of Ancient Kings and Avenging Wrath cooldowns by 1.5s. (1s internal cooldown.)</li>
+    </ul>
+
+    <!-- Separator 2 -->
+    <div class="separator-container">
+        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+    </div>
+
+</section>
+<section id="rotation">
+    <h2>Rotation</h2>
+
+    <h3>Single Target Rotation</h3>
+    <ol>
+        <li>Keep Consecration active at all times. Recast it if you move out of it or it expires.</li>
+        <li>Use Shield of the Righteous as much as possible to maintain uptime and boost armor.</li>
+        <li>Use Avenger's Shield on cooldown for Holy damage, interrupts, silences, and Holy Power generation.</li>
+        <li>Use Judgment on cooldown for Holy Power generation and applying debuffs (Greater Judgment if talented).</li>
+        <li>Use Hammer of the Righteous or Blessed Hammer to generate Holy Power when other abilities are on cooldown.</li>
+        <li>Use Word of Glory to heal yourself when needed, ideally with Shining Light procs (free cost).</li>
+    </ol>
+
+
+    <h3>AoE Rotation</h3>
+    <ol>
+        <li>Same as Single Target but prioritize maintaining Consecration in AoE packs.</li>
+        <li>Avenger's Shield becomes even more important — it bounces and silences multiple targets.</li>
+        <li>Hammer of the Righteous (or Blessed Hammer) hits multiple targets if you're standing inside Consecration.</li>
+        <li>Divine Toll (if talented) is amazing for pulling and maintaining aggro — instantly throws Avenger's Shields at multiple enemies.</li>
+        <li>Prioritize Shield of the Righteous uptime for armor and active mitigation during heavy AoE hits.</li>
+    </ol>
+
+
+    <h3>Cooldown Usage</h3>
+    <ul>
+        <li>Ardent Defender - Use as a cheat death or when expecting big damage hits.</li>
+        <li>Guardian of Ancient Kings - Use for very heavy incoming magic or physical damage to cut it in half.</li>
+        <li>Divine Shield - Last resort cooldown, immune to all damage but causes Forbearance. Use a cancel macro if needed to avoid losing threat.</li>
+        <li>Eye of Tyr - Use on cooldown for AoE damage reduction during pulls and boss fights.</li>
+        <li>Avenging Wrath (or Sentinel) - Use offensively for extra damage or during burst phases to survive big pulls with increased Haste or healing.</li>
+        <li>Moment of Glory (if talented) - Line up with Avenger’s Shield and big pulls for maximum damage and survivability.</li>
+    </ul>
+
+
+    <h3>Defensive Priority</h3>
+    <ol>
+        <li>Always maintain Consecration uptime for passive mitigation from Mastery and talents.</li>
+        <li>Maintain Shield of the Righteous uptime as much as possible for armor buff.</li>
+        <li>Use Word of Glory when needed — save yourself before you drop to critical HP.</li>
+        <li>Plan cooldowns — don't wait until you are almost dead to use Ardent Defender or Guardian of Ancient Kings.</li>
+        <li>Position mobs inside Consecration and kite if necessary — especially when playing with Consecrated Ground for slows.</li>
+    </ol>
+
+</section>
+<section id="gear">
+    <h2>Gear and Tier Set</h2>
+
+    <h3>Stat Priority</h3>
+    <ul>
+        <li>Strength - Your main stat. Increases your attack power and parry chance.</li>
+        <li>Haste - Increases your global cooldown speed, reduces cooldowns on your abilities, and improves Shield of the Righteous uptime.</li>
+        <li>Mastery - Increases your chance to block attacks and boosts your passive mitigation when standing in Consecration.</li>
+        <li>Critical Strike and Versatility - Both are fine, but lower priority than Haste/Mastery. Crit adds some DPS, Versatility adds slight mitigation and extra healing taken.</li>
+    </ul>
+
+    <style>
+        .tier-set-list {
+            list-style-type: none;
+            padding-left: !important;
+            display: flex;
+            gap: 40px; /* Space between each piece */
+            align-items: center; /* Vertical center alignment */
+        }
+
+            .tier-set-list li {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+        .tier-set-img {
+            width: 80px; /* Image size */
+            height: auto;
+            margin-bottom: 5px; /* Small space between image and text */
+        }
+    </style>
+
+    <h3>Tier Set - Best in Slot</h3>
+    <p><strong>Set Pieces:</strong></p>
+    <ul class="tier-set-list">
+        <li>
+            <img src="~/images/TierSets/undermine-tier-helm.png" alt="Helmet" class="tier-set-img" />
+            Helmet
+        </li>
+        <li>
+            <img src="~/images/TierSets/undermine-tier-shoulders.png" alt="Shoulders" class="tier-set-img" />
+            Shoulders
+        </li>
+        <li>
+            <img src="~/images/TierSets/undermine-tier-chest.png" alt="Chestplate" class="tier-set-img" />
+            Chestplate
+        </li>
+        <li>
+            <img src="~/images/TierSets/undermine-tier-gloves.png" alt="Gloves" class="tier-set-img" />
+            Gloves
+        </li>
+        <li>
+            <img src="~/images/TierSets/undermine-tier-pants.png" alt="Pants" class="tier-set-img" />
+            Pants
+        </li>
+    </ul>
+
+
+
+    <p>These pieces combine to form the Protection Paladin Tier Set Bonus (Set 1689).</p>
+
+    <h3>Tier Set Bonus Effects</h3>
+    <ul>
+        <li><strong>2-Set Bonus:</strong> Shield of the Righteous and Word of Glory empower each other — using one boosts the effectiveness of the other.</li>
+        <li><strong>4-Set Bonus:</strong> Each Holy Power spent increases the healing or damage of the other ability, stacking up. Huge synergy for Word of Glory spam in emergencies and big Shield of the Righteous hits.</li>
+    </ul>
+
+    <h3>Trinket Recommendations</h3>
+    <ul>
+        <li>Use defensive trinkets that increase armor, absorb damage, or provide on-use mitigation.</li>
+        <li>Alternatively, use Strength proc trinkets for added DPS during Avenging Wrath windows.</li>
+        <li>Some specific strong trinkets include Bloodstained Dragon Scale, Emblem of the Brood Keeper, or similar patch-appropriate dungeon/raid drops.</li>
+    </ul>
+
+    <!-- Separator 2 -->
+    <div class="separator-container">
+        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+    </div>
+
+</section>
+<section id="leveling">
+    <h2>Leveling</h2>
+
+    <h3>Leveling Tips for Protection Paladin</h3>
+
+    <ul>
+        <li>Focus on spamming Consecration to damage large packs of enemies efficiently. Consecration uptime is critical for both survivability and DPS while leveling.</li>
+        <li>Use Shield of the Righteous whenever you have Holy Power ready. It boosts your armor massively and prevents a lot of damage, allowing for bigger pulls.</li>
+        <li>Judgment should be used on cooldown to generate Holy Power and debuff targets (especially if you have Greater Judgment talented for extra spender damage).</li>
+        <li>Use Hammer of the Righteous or Blessed Hammer as your filler ability when waiting for cooldowns.</li>
+        <li>Keep Divine Steed handy for fast repositioning, pulling packs faster, and escaping when necessary. Pick up Cavalier talent early for two charges of Divine Steed.</li>
+        <li>Dungeon leveling is highly recommended. Protection Paladin can tank multiple enemies very efficiently in dungeons, leading to fast XP and gear upgrades.</li>
+        <li>While solo questing, take talents that boost your survivability and Holy Power generation early on rather than focusing only on damage talents.</li>
+        <li>Make sure to maintain Consecration uptime especially when you talent into Consecrated Ground — it slows enemies standing inside and helps you kite when needed.</li>
+        <li>Save Avenger's Shield and Divine Toll (if talented) for dangerous mobs or multiple targets that can overwhelm you.</li>
+        <li>Don't be afraid to use Word of Glory to heal up between pulls, especially when you have free casts from Shining Light procs.</li>
+    </ul>
+
+</section>
+
+<section id="abilities">
+    <h2>Abilities</h2>
+
+    <!-- Separator 2 -->
+    <div class="separator-container">
+        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+    </div>
+
+    <h3>Healing Spells</h3>
+    <ul>
+        <li><strong>Word of Glory (WoG)</strong> - A powerful single-target heal. Heal amount increases based on how low your health is. Costs 3 Holy Power unless triggered by Shining Light.</li>
+        <li><strong>Flash of Light (FoL)</strong> - A quick-casting heal. Should be avoided during active tanking as you can't block, parry, or dodge while casting. Useful during downtime or between pulls.</li>
+    </ul>
+
+
+
+    <h3>Defensive Spells</h3>
+    <ul>
+        <li><strong>Shield of the Righteous (SotR)</strong> - Slams enemies in front of you and significantly increases your armor based on Strength. Costs 3 Holy Power. Core defensive rotation spell.</li>
+        <li><strong>Divine Shield (DS)</strong> - Makes you completely immune to all damage and debuffs for 8 seconds. Causes Forbearance. Should have a cancel macro if used while actively tanking to prevent losing threat.</li>
+        <li><strong>Ardent Defender (AD)</strong> - Reduces all damage by 20% and can prevent death by restoring you to 20% health if a lethal blow lands while active.</li>
+        <li><strong>Guardian of Ancient Kings (GoAK)</strong> - Reduces all damage taken by 50% for 8 seconds. Long cooldown but vital for surviving massive damage spikes.</li>
+        <li><strong>Eye of Tyr (EoT)</strong> - Deals AoE Holy damage and reduces the damage enemies deal to you by 25% for a short time. Excellent for large pulls.</li>
+    </ul>
+
+    <h3>Offensive Spells</h3>
+    <ul>
+        <li><strong>Judgment (J)</strong> - A ranged Holy strike that generates 1 Holy Power and debuffs the enemy. Essential for Holy Power flow and comboing with offensive talents.</li>
+        <li><strong>Avenger's Shield (AS)</strong> - Throws your shield at a target, dealing Holy damage, silencing, and interrupting. Bounces to 2 other nearby targets. Generates Holy Power and is a massive part of your damage output.</li>
+        <li><strong>Hammer of Wrath (HoW)</strong> - Available against targets below 20% HP or during Avenging Wrath. A high damage ability that generates 1 Holy Power. Can be modified with talents to always be usable (through Endless Wrath proc chance).</li>
+        <li><strong>Consecration (Cons)</strong> - Places a ground effect that deals periodic Holy damage and reduces incoming damage if you stand in it. Core part of both damage and mitigation.</li>
+        <li><strong>Blessed Hammer / Hammer of the Righteous</strong> - Your primary filler spell. Blessed Hammer provides light AoE damage and reduces enemy attack power. Hammer of the Righteous boosts AoE damage when standing in Consecration.</li>
+    </ul>
+
+    <h3>Utility Spells</h3>
+    <ul>
+        <li><strong>Hand of Reckoning (Taunt)</strong> - Forces a target to attack you for 3 seconds. Grants a bonus threat modifier during that window.</li>
+        <li><strong>Hammer of Justice (HoJ)</strong> - Stuns a target for 6 seconds. Essential for crowd control in dungeons and interrupting dangerous casts.</li>
+        <li><strong>Sense Undead</strong> - Tracks undead on the minimap. Mostly cosmetic but can occasionally help during dungeon/raid pulls.</li>
+        <li><strong>Redemption (Res)</strong> - Resurrection spell usable out of combat to bring dead players back to life.</li>
+        <li><strong>Intercession (BRes)</strong> - Battle resurrection during combat. Costs 3 Holy Power. Shares a cooldown with other classes' battle res spells.</li>
+        <li><strong>Divine Steed</strong> - Summons a horse that increases your movement speed dramatically for a short duration. Essential for mobility, kiting, and repositioning.</li>
+        <li><strong>Blessing of Protection (BoP)</strong> - Makes the target immune to all physical damage for 8 seconds. Causes Forbearance. Can be used to save DPS or tanks at critical moments.</li>
+        <li><strong>Blessing of Sacrifice (BoSac)</strong> - Redirects 30% of an ally's damage to yourself for 12 seconds. Ends early if you drop below 20% HP. Vital external cooldown.</li>
+        <li><strong>Blessing of Freedom (BoF)</strong> - Removes movement-impairing effects and grants immunity to them for 8 seconds. Good for both yourself and party members in dungeons with heavy roots/snares.</li>
+        <li><strong>Cleanse Toxins</strong> - Removes all Poison and Disease effects from yourself or a friendly target. 8 second cooldown. Vital for certain dungeons/raids.</li>
+        <li><strong>Lay on Hands (LoH)</strong> - Fully heals the target instantly, equal to your maximum health. Causes Forbearance. Life-saving spell.</li>
+        <li><strong>Rebuke</strong> - 3 second interrupt. Vital for stopping dangerous spells in dungeons and raids.</li>
+    </ul>
+
+</section>
+
+<!-- Separator 2 -->
+<div class="separator-container">
+    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+</div>
+
+<section id="stats">
+    <h2>Stats Priority</h2>
+
+    <p>Protection Paladin stat priority in Patch 11.1 & Season 2 focuses on ensuring maximum uptime of Shield of the Righteous, strong passive mitigation, and smooth rotation flow.</p>
+
+    <ul>
+        <li><strong>Strength</strong> - Main stat. Increases attack power, parry chance, and overall contribution to damage and survivability. Strength is king.</li>
+        <li><strong>Haste</strong> - Reduces global cooldown, lowers cooldowns on important abilities (Shield of the Righteous, Avenger’s Shield, Judgment). Ensures smooth and responsive rotation, increases Holy Power generation.</li>
+        <li><strong>Mastery: Divine Bulwark</strong> - Increases block chance and grants passive damage reduction while standing in Consecration. Synergizes perfectly with Protection Paladin’s natural gameplay loop.</li>
+        <li><strong>Critical Strike</strong> - Provides moderate offensive boosts by increasing the chance for abilities to critically hit. Minor bonus for Shield of the Righteous burst damage.</li>
+        <li><strong>Versatility</strong> - Slightly boosts damage, healing, and reduces damage taken. Balanced but generally less impactful than Haste/Mastery for pure tankiness.</li>
+    </ul>
+
+    <h3>Simple Priority:</h3>
+    <p><strong>Strength > Haste > Mastery > Crit = Versatility</strong></p>
+
+    <h3>Notes:</h3>
+    <ul>
+        <li>Always favor gear upgrades based on overall item level unless the secondary stat distribution is very bad (for example, extremely high Crit gear pieces are worse than lower Haste/Mastery pieces).</li>
+        <li>Haste is still king even at higher gear levels — you want very high Haste percentages to keep Shield of the Righteous uptime consistent.</li>
+        <li>Mastery stacking can be very powerful for passive tankiness, especially in raid environments where big block events matter.</li>
+    </ul>
+
+</section>
+
+<!-- Separator 2 -->
+<div class="separator-container">
+    <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+</div>
+
+<section id="consumables">
+    <h2>Consumables</h2>
+
+    <h3>Flasks</h3>
+    <ul>
+        <li><strong>Phial of Tepid Versatility</strong> - Good balance between defensive and offensive boosts. A reliable choice for general dungeon/raid tanking.</li>
+        <li><strong>Phial of Static Empowerment</strong> - For situations where you don't need to move much. Great when you’re confident on bosses with little movement requirements.</li>
+        <li><strong>Phial of Elemental Chaos</strong> - Random effects, can provide large Haste buffs but less predictable. Risky but high reward in DPS heavy situations.</li>
+    </ul>
+
+    <h3>Food</h3>
+    <ul>
+        <li><strong>Feast Buffs</strong> - Take whatever your raid uses for Feasts; these usually give large amounts of Strength or Haste.</li>
+        <li><strong>Individual Food</strong> - Choose Haste food or Mastery food if eating solo. Examples: Timely Demise (Haste) or Grand Banquet of the Kalu'ak for Strength.</li>
+    </ul>
+
+    <h3>Potions</h3>
+    <ul>
+        <li><strong>Elemental Potion of Power</strong> - Provides a large Strength buff. Used pre-pull or during burst phases to maximize Avenging Wrath DPS and Shield of the Righteous spam.</li>
+        <li><strong>Refreshing Healing Potion</strong> - Instant heal potion. Always keep a few on you for emergencies when Word of Glory and Lay on Hands are not available.</li>
+    </ul>
+
+    <h3>Weapon Oils</h3>
+    <ul>
+        <li><strong>Buzzing Rune</strong> - Boosts Haste. Best choice for smooth rotation and Shield of the Righteous uptime.</li>
+        <li><strong>Howling Rune</strong> - Boosts Critical Strike. Not generally preferred over Buzzing Rune unless you are already capped on Haste.</li>
+        <li><strong>Chirping Rune</strong> - Boosts Versatility. Good fallback for more durability at the cost of less throughput.</li>
+    </ul>
+
+    <h3>Enchants</h3>
+    <table style="width: 100%; border-collapse: collapse; color: #ccc;">
+        <thead>
+            <tr style="background-color: #333;">
+                <th style="padding: 8px; border: 1px solid #555;">Slot</th>
+                <th style="padding: 8px; border: 1px solid #555;">Best Enchant</th>
+                <th style="padding: 8px; border: 1px solid #555;">Cheaper Version</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #555;">Weapon</td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Weapon - Authority of the Depths (Single Target)<br />
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Weapon - Stormrider's Fury (AoE)
+                </td>
+                <td style="padding: 8px; border: 1px solid #555;">-</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #555;">Cloak</td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Cloak - Chant of Burrowing Rapidity
+                </td>
+                <td style="padding: 8px; border: 1px solid #555;">-</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #555;">Chest</td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Chest - Crystalline Radiance
+                </td>
+                <td style="padding: 8px; border: 1px solid #555;">-</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #555;">Bracers</td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Bracer - Chant of Armored Speed
+                </td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Bracer - Whisper of Armored Speed
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #555;">Legs</td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_armorkit_lightning_imbued.jpg" width="16" />
+                    Stormbound Armor Kit
+                </td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_armorkit_lightning_imbued.jpg" width="16" />
+                    Dual Layered Armor Kit
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #555;">Boots</td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Boots - Scout's March
+                </td>
+                <td style="padding: 8px; border: 1px solid #555;">-</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #555;">Ring - Regular</td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Ring - Radiant Haste
+                </td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Ring - Glimmering Haste
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; border: 1px solid #555;">Ring - Cursed</td>
+                <td style="padding: 8px; border: 1px solid #555;">
+                    <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                    Enchant Ring - Cursed Haste
+                </td>
+                <td style="padding: 8px; border: 1px solid #555;">-</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Separator 2 -->
+    <div class="separator-container">
+        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+    </div>
+
+</section>
+<section id="addons">
+    <h2>WeakAuras (WA) & Addons</h2>
+
+    <h3>Recommended WeakAuras</h3>
+
+    <ul>
+        <li><strong>Shield of the Righteous Tracker</strong> - Tracks active uptime and expiration for Shield of the Righteous so you can keep near 100% armor buff uptime.</li>
+        <li><strong>Avenger’s Shield Cooldown</strong> - Makes it very clear when Avenger’s Shield is ready to fire again. Essential for Holy Power flow and interrupting key abilities.</li>
+        <li><strong>Consecration Tracker</strong> - Reminds you when you have moved out of Consecration or if it expires naturally. Keeps you inside it for passive Mastery mitigation bonuses.</li>
+        <li><strong>Shining Light Tracker</strong> - Shows stacks for Shining Light procs (free Word of Glory casts) so you don’t waste them by accident.</li>
+        <li><strong>Eye of Tyr Cooldown</strong> - Tracks Eye of Tyr separately, so you know exactly when you can pop it for AoE mitigation during big pulls.</li>
+        <li><strong>Word of Glory Emergency Warning</strong> - Flashes a warning when your HP drops below a certain threshold and you have Holy Power to heal yourself.</li>
+    </ul>
+
+    <h3>Recommended Addons</h3>
+
+    <ul>
+        <li><strong>Details!</strong> - Advanced Damage Meter addon. Use it with Tank Plugins activated to show defensive uptime (Shield of the Righteous, Ardent Defender usage, etc.). Helps you audit your cooldown usage.</li>
+        <li><strong>BigWigs or DBM</strong> - Boss mod addons. Provide timers for incoming raid/dungeon mechanics. Absolutely necessary for planning your cooldown usage during heavy damage phases.</li>
+        <li><strong>Plater</strong> - Highly customizable nameplate addon. Can show when mobs are casting dangerous interrupts or when targets are ignoring threat. Very helpful for tanking large groups.</li>
+        <li><strong>OmniCD</strong> - Tracks party/raid cooldowns. Know when your healers have external cooldowns ready or when other players can battle res.</li>
+        <li><strong>Method Raid Tools</strong> - Great overall raid helper with cooldown tracking, battle res timers, and other protection utilities.</li>
+        <li><strong>WeakAuras Companion App</strong> - Not an in-game addon, but used outside the game to update your WeakAuras library easily without redownloading them manually.</li>
+    </ul>
+
+</section>
+ 
+ *@
+
 
 @*
 

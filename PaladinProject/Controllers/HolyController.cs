@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using PaladinProject.Models;
-using PaladinProject.Services;
 using PaladinProject.ViewModels;
 using System.Diagnostics;
 
@@ -23,7 +22,12 @@ namespace PaladinProject.Controllers
 		public IActionResult Overview() => View();
 
 		[HttpGet("Talents")]
-		public IActionResult Talents() => View();
+		public IActionResult Talents()
+		{
+			// Зареждаме всички спелове от SpellbookService
+			var allSpells = _spellbookService.GetAllSpells();
+			return View(allSpells);
+		}
 
 		[HttpGet("Stats")]
 		public IActionResult Stats()
