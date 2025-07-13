@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PaladinProject.Data;
-using PaladinProject.Helpers;
 using PaladinProject.Models;
 using PaladinProject.ViewModels;
 using System.Diagnostics;
-using System.Linq;
 
 namespace PaladinProject.Controllers
 {
@@ -55,4 +52,5 @@ namespace PaladinProject.Controllers
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 		}
 	}
+	
 }
