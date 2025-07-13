@@ -1,4 +1,9 @@
-﻿body {
+﻿
+
+
+
+
+body {
     color: white;
 }
 
@@ -80,10 +85,7 @@ h2 {
         object-fit: cover;
     }
 
-.content-wrapper {
-    width: 80%;
-    margin: 0 auto;
-}
+
 
 .tier-set-list {
     list-style-type: disc;
@@ -141,93 +143,8 @@ h2 {
     padding-left: 0;
 }
 
-.section-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin: 15px 0;
-}
-
-    .section-buttons a {
-        background-color: #444;
-        border: 1px solid #888;
-        padding: 8px 16px;
-        border-radius: 6px;
-        color: white;
-        text-decoration: none;
-        transition: background-color 0.2s ease;
-    }
-
-        .section-buttons a:hover {
-            background-color: #666;
-        }
-
-.retribution-cover-container {
-    width: 98%;
-    margin-bottom: 20px;
-}
-
-.retribution-cover {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-}
 
 
-/* === Обвивки === */
-.outer-wrapper {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-grow: 1;
-}
 
-.page-container,
-.holy-cover-container,
-.main-wrapper {
-    width: 1600px;
-    margin: 0 auto;
-}
 
-.page-container {
-    padding: 0;
-}
 
-.holy-cover-container {
-    padding: 0;
-}
-
-.holy-cover {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-}
-
-.main-wrapper {
-    background-color: #151515;
-    width: 1600px;
-    margin: 0 auto;
-    padding: 0 50px;
-    padding-bottom: 120px; /* ⚠️ Добавено за отстояние от футъра */
-    flex-grow: 1;
-}
-
-.content-wrapper {
-    width: 100%;
-    margin: 0;
-}
-/* === Разделителна линия === */
-.separator-container {
-    display: flex;
-    justify-content: center;
-    margin: 30px 0;
-}
-
-.separator {
-    display: block;
-    width: 90%;
-    height: auto;
-}

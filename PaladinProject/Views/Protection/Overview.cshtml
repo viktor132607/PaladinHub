@@ -1,5 +1,4 @@
-﻿
-@using PaladinProject.Helpers
+﻿@using PaladinProject.Helpers
 @{
 	ViewData["Title"] = "Protection Paladin Guide";
 }
@@ -227,267 +226,278 @@
 
 </style>
 
-<div class="protection-cover-container">
-	<img src="~/images/TheProtCover.png" alt="Holy Cover" class="protection-cover" />
-</div>
-
-<section id="overview">
-	<p>
-		Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options.
-		In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including what they do and when to use them.
-	</p>
-
-	<h3>Sections Covered:</h3>
-	<div class="section-buttons">
-		<a href="#builds">Talent Builds</a>
-		<a href="#hero-talents">Hero Talents</a>
-		<a href="#rotation">Rotation</a>
-		<a href="#gear">Gear</a>
-		<a href="#leveling">Leveling</a>
-		<a href="#abilities">Abilities & Talents</a>
-		<a href="#stats">Stats</a>
-		<a href="#consumables">Consumables</a>
-		<a href="#addons">WA & Addons</a>
-	</div>
-</section>
-
-<h1>Protection Paladin Overview - The War Within</h1>
-
-@{
-	var overviewContent = @"
-<section id='overview'>
-<p>The radiant song of Azeroth has been heard. She cries out in pain as the Void marches to dominate our world. The holy warriors of the Light will need to focus their faith to protect the denizens of Azeroth. We will be the shield that protects this world from the Void and its corruption. The Light will reign supreme. Will you stand with Azeroth?
-
-As a Paladin, you will wield the Light to support your allies and smite your foes. Protection Paladin is a spec that is good for players who enjoy a classic Tank feel, combined with the ability to self-heal for a considerable amount of damage you take and support your allies through situational spells.<p>
-    <p>Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options. In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including explaining what they do and when to use them.</p>
-    <h3>Sections Covered:</h3>
-    <ul>
-        <li>NEW Season 2</li>
-        <li>Cheat Sheet</li>
-        <li>Talent Builds</li>
-        <li>Hero Talents</li>
-        <li>Rotation</li>
-        <li>Gear</li>
-        <li>Leveling</li>
-        <li>Abilities & Talents</li>
-        <li>Stats</li>
-        <li>Consumables</li>
-        <li>WA & Addons</li>
-    </ul>
-</section>
-";
-}
-
-
-<!-- Separator 2 -->
-<div class="separator-container">
-	<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-</div>
-
-<section id="season2">
-	<h2>NEW Season 2 Changes</h2>
-	<p>
-		Patch 11.1 included changes for Protection Paladin that were targeted at Mythic+.  Strength in Adversity had the amount of parry it grants reduced from 5% to 3%, which reduces how much parry chance Protection can achieve when fighting multiple targets. Parry primarily affects melee swings and becomes significant the more melees you face, making this change less likely to affect raid settings where parry is not as important. As it happens,  Strength in Adversity is not presently included in any raid builds outside of niche situations.
-
-		We also received a damage nerf through  Refining Fire having its power reduced. Once again, this affects Mythic+ more than raids, as the damage of  Refining Fire was a significant part of the damage breakdown in AoE.
-
-		Finally,  Uther's Counsel was nerfed from 30% to 15%, meaning you'll have less cooldown availability.
-	</p>
-</section>
-
-<!-- Separator 2 -->
-<div class="separator-container">
-	<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-</div>
-
-<section id="strenghts and weaknesses">
-	<div class="content-columns">
-		<div>
-			<h2>Strengths</h2>
-			<ul>
-				<li>
-				<li> Excellent group utility in the form of blessings that provide unique benefits. These include  Blessing of Sacrifice,  Blessing of Freedom, or  Blessing of Protection that can be cast on various party and raid members.
-				<li>
-				<li> Strong healing abilities with  Word of Glory and  Hand of the Protector to help keep yourself and party or raid members alive.
-				<li>
-				<li> Very good at dealing with Magic damage and Bleeds with a variety of tools, such as  Blessing of Protection,  Divine Shield,  Blessing of Spellwarding, and  Holy Shield. You also gain passive reduction to all damage through  Mastery: Divine Bulwark.
-				<li>
-				<li> Multiple Crowd Control (CC) abilities in the form of  Hammer of Justice,  Turn Evil,  Blinding Light, and  Repentance
-				<li>
-				<li> You can remove Poisons and Diseases on yourself and party/raid members with  Cleanse Toxins.
-				<li>
-				<li> You have the option of going Dwarf Dwarf for  Stoneform to remove critical debuffs and save utility for party/raid members.
-				<li>
-			</ul>
-		</div>
-		<div>
-			<h2>Weaknesses</h2>
-			<ul>
-				<li> It can take a few seconds into combat to get your first  Shield of the Righteous active. You can use  Ardent Defender on the pull to offset this.
-				<li>
-				<li> Has the second lowest Health pool of all Tanks.
-				<li>
-				<li> Protection Paladin is generally very punishing if you make mistakes and can be quite unforgiving. You have short windows to react to damage and can easily die if caught unprepared.
-				<li>
-				<li> Very limited mobility, given that  Divine Steed is the only baseline ability that allows us to move faster.
-				<li>
-				<li> We have to commit  Divine Shield,  Blessing of Protection, or  Blessing of Spellwarding to prevent knockbacks or forced movement abilities.
-				<li>
-				<li> We don't have the option to be Night Elf Night Elf for  Shadowmeld for specific dungeon strategies or skips. This forces the use of  Shroud of Concealment or even death skips.
-				<li>
-			</ul>
-		</div>
-	</div>
-</section>
-
-<!-- Separator 2 -->
-<div class="separator-container">
-	<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-</div>
-
-
-
-<section id="hero-talents">
-	<h2 class="hero-talents-title">Hero Talents</h2>
-
-	<div class="content-columns">
-		<div class="hero-talent-entry">
-			<img src="~/images/Templar.jpg" alt="Templar" />
-			<h2>Templar</h2>
-			<ul>
-				<li>
-					When playing  Templar Protection Paladin, you will use  Eye of Tyr and  Hammer of Light on cooldown, then focus on your rotation on  Judgment,
-					Blessed Hammer/ Hammer of the Righteous, and  Hammer of Wrath to maximize the duration of  Shake the Heavens. This will cause  Avenger's Shield to be a lower priority,
-					since you don't want to spend globals on it when these other buttons are available.
-					To play  Templar Protection Paladin properly, you must take  Eye of Tyr and  Inmost Light in your Protection spec talent tree.
-				<li />
-			</ul>
-		</div>
-		<div class="hero-talent-entry">
-			<img src="~/images/Lightsmith.jpg" alt="Lightsmith" />
-			<h2>Lightsmith</h2>
-			<ul>
-				<li>
-					When playing  Lightsmith, you will use  Holy Bulwark or  Sacred Weapon once per minute. Otherwise, during your  Avenging Wrath window,
-					you will focus on generating as much Holy Power as possible to maximize  Blessing of the Forge. Outside of these windows, you will play a normal rotation.
-				</li>
-				<li>   </li>
-				<li>   </li>
-				<li>   </li>
-			</ul>
-		</div>
-	</div>
-	<section>
-
-		<!-- Separator 2 -->
-		<div class="separator-container">
-			<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-		</div>
-
-		<section id="Playstyle">
-			<h2>Protection Paladin Playstyle in The War Within Season 2</h2>
-
-			<p>Protection Paladin operates on a priority list with a Combo Point-style resource system. 
-				This means that all of your actions will be used in an order of highest value with each GCD,
-				meaning that you will need to judge your current state throughout an encounter and make some predictions. 
-				We tend to follow 5 key rules:</p>
-
-			<div class="guide-container">
-				<div class="guide-row">
-					<div class="icon-slot"></div>
-					<div class="guide-text">
-						<strong>Never overcap and waste Holy Power:</strong> Holy Power is a critical resource that helps our damage, mitigation, and healing. We don't want to waste any!
-					</div>
-				</div>
-
-				<div class="guide-row">
-					<div class="icon-slot"></div>
-					<div class="guide-text">
-						<strong>Generate resources:</strong> Use <span class="ability">Hammer of Wrath</span>, <span class="ability">Judgment</span>, and <span class="ability">Blessed Hammer</span> to build Holy Power.
-					</div>
-				</div>
-
-				<div class="guide-row">
-					<div class="icon-slot"></div>
-					<div class="guide-text">
-						<strong>Smooth damage intake:</strong> Use <span class="ability">Shield of the Righteous</span> when you have 3–5 Holy Power. This is your primary resource spender and should be your default option when you want to spend Holy Power.
-					</div>
-				</div>
-
-				<div class="guide-row">
-					<div class="icon-slot"></div>
-					<div class="guide-text">
-						<strong>Heal yourself:</strong> Use <span class="ability">Word of Glory</span> when you have <span class="buff">Shining Light</span> and are at 40–50% Health or not at risk of dropping <span class="ability">Shield of the Righteous</span>.
-					</div>
-				</div>
-
-				<div class="guide-row">
-					<div class="icon-slot"></div>
-					<div class="guide-text">
-						<strong>Maintain buffs:</strong> Use <span class="ability">Avenger’s Shield</span> to maintain buffs like <span class="buff">Bulwark of Righteous Fury</span>, especially for AoE.
-					</div>
-				</div>
+<body>
+	<div class="outer-wrapper">
+		<div class="page-container">
+			<div class="image-cover-container">
+				<img src="~/images/TheProtCover.jpg" alt="Protection Cover" class="image-cover" />
 			</div>
 
+			<div class="main-wrapper">
 
-		</section>
+
+				<section id="overview">
+					<p>
+						Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options.
+						In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including what they do and when to use them.
+					</p>
+
+					<h3>Sections Covered:</h3>
+					<div class="section-buttons">
+						<a href="#builds">Talent Builds</a>
+						<a href="#hero-talents">Hero Talents</a>
+						<a href="#rotation">Rotation</a>
+						<a href="#gear">Gear</a>
+						<a href="#leveling">Leveling</a>
+						<a href="#abilities">Abilities & Talents</a>
+						<a href="#stats">Stats</a>
+						<a href="#consumables">Consumables</a>
+						<a href="#addons">WA & Addons</a>
+					</div>
+				</section>
+
+				<h1>Protection Paladin Overview - The War Within</h1>
+
+				@{
+					var overviewContent = @"
+								<section id='overview'>
+								<p>The radiant song of Azeroth has been heard. She cries out in pain as the Void marches to dominate our world. The holy warriors of the Light will need to focus their faith to protect the denizens of Azeroth. We will be the shield that protects this world from the Void and its corruption. The Light will reign supreme. Will you stand with Azeroth?
+
+								As a Paladin, you will wield the Light to support your allies and smite your foes. Protection Paladin is a spec that is good for players who enjoy a classic Tank feel, combined with the ability to self-heal for a considerable amount of damage you take and support your allies through situational spells.<p>
+								<p>Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options. In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including explaining what they do and when to use them.</p>
+								<h3>Sections Covered:</h3>
+								<ul>
+								<li>NEW Season 2</li>
+								<li>Cheat Sheet</li>
+								<li>Talent Builds</li>
+								<li>Hero Talents</li>
+								<li>Rotation</li>
+								<li>Gear</li>
+								<li>Leveling</li>
+								<li>Abilities & Talents</li>
+								<li>Stats</li>
+								<li>Consumables</li>
+								<li>WA & Addons</li>
+								</ul>
+								</section>
+								";
+				}
 
 
-		<!-- Separator 2 -->
-		<div class="separator-container">
-			<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+				<!-- Separator 2 -->
+				<div class="separator-container">
+					<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+				</div>
+
+				<section id="season2">
+					<h2>NEW Season 2 Changes</h2>
+					<p>
+						Patch 11.1 included changes for Protection Paladin that were targeted at Mythic+.  Strength in Adversity had the amount of parry it grants reduced from 5% to 3%, which reduces how much parry chance Protection can achieve when fighting multiple targets. Parry primarily affects melee swings and becomes significant the more melees you face, making this change less likely to affect raid settings where parry is not as important. As it happens,  Strength in Adversity is not presently included in any raid builds outside of niche situations.
+
+						We also received a damage nerf through  Refining Fire having its power reduced. Once again, this affects Mythic+ more than raids, as the damage of  Refining Fire was a significant part of the damage breakdown in AoE.
+
+						Finally,  Uther's Counsel was nerfed from 30% to 15%, meaning you'll have less cooldown availability.
+					</p>
+				</section>
+
+				<!-- Separator 2 -->
+				<div class="separator-container">
+					<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+				</div>
+
+				<section id="strenghts and weaknesses">
+					<div class="content-columns">
+						<div>
+							<h2>Strengths</h2>
+							<ul>
+								<li>
+								<li> Excellent group utility in the form of blessings that provide unique benefits. These include  Blessing of Sacrifice,  Blessing of Freedom, or  Blessing of Protection that can be cast on various party and raid members.
+								<li>
+								<li> Strong healing abilities with  Word of Glory and  Hand of the Protector to help keep yourself and party or raid members alive.
+								<li>
+								<li> Very good at dealing with Magic damage and Bleeds with a variety of tools, such as  Blessing of Protection,  Divine Shield,  Blessing of Spellwarding, and  Holy Shield. You also gain passive reduction to all damage through  Mastery: Divine Bulwark.
+								<li>
+								<li> Multiple Crowd Control (CC) abilities in the form of  Hammer of Justice,  Turn Evil,  Blinding Light, and  Repentance
+								<li>
+								<li> You can remove Poisons and Diseases on yourself and party/raid members with  Cleanse Toxins.
+								<li>
+								<li> You have the option of going Dwarf Dwarf for  Stoneform to remove critical debuffs and save utility for party/raid members.
+								<li>
+							</ul>
+						</div>
+						<div>
+							<h2>Weaknesses</h2>
+							<ul>
+								<li> It can take a few seconds into combat to get your first  Shield of the Righteous active. You can use  Ardent Defender on the pull to offset this.
+								<li>
+								<li> Has the second lowest Health pool of all Tanks.
+								<li>
+								<li> Protection Paladin is generally very punishing if you make mistakes and can be quite unforgiving. You have short windows to react to damage and can easily die if caught unprepared.
+								<li>
+								<li> Very limited mobility, given that  Divine Steed is the only baseline ability that allows us to move faster.
+								<li>
+								<li> We have to commit  Divine Shield,  Blessing of Protection, or  Blessing of Spellwarding to prevent knockbacks or forced movement abilities.
+								<li>
+								<li> We don't have the option to be Night Elf Night Elf for  Shadowmeld for specific dungeon strategies or skips. This forces the use of  Shroud of Concealment or even death skips.
+								<li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+				<!-- Separator 2 -->
+				<div class="separator-container">
+					<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+				</div>
+
+
+
+				<section id="hero-talents">
+					<h2 class="hero-talents-title">Hero Talents</h2>
+
+					<div class="content-columns">
+						<div class="hero-talent-entry">
+							<img src="~/images/Templar.jpg" alt="Templar" />
+							<h2>Templar</h2>
+							<ul>
+								<li>
+									When playing  Templar Protection Paladin, you will use  Eye of Tyr and  Hammer of Light on cooldown, then focus on your rotation on  Judgment,
+									Blessed Hammer/ Hammer of the Righteous, and  Hammer of Wrath to maximize the duration of  Shake the Heavens. This will cause  Avenger's Shield to be a lower priority,
+									since you don't want to spend globals on it when these other buttons are available.
+									To play  Templar Protection Paladin properly, you must take  Eye of Tyr and  Inmost Light in your Protection spec talent tree.
+								<li />
+							</ul>
+						</div>
+						<div class="hero-talent-entry">
+							<img src="~/images/Lightsmith.jpg" alt="Lightsmith" />
+							<h2>Lightsmith</h2>
+							<ul>
+								<li>
+									When playing  Lightsmith, you will use  Holy Bulwark or  Sacred Weapon once per minute. Otherwise, during your  Avenging Wrath window,
+									you will focus on generating as much Holy Power as possible to maximize  Blessing of the Forge. Outside of these windows, you will play a normal rotation.
+								</li>
+								<li>   </li>
+								<li>   </li>
+								<li>   </li>
+							</ul>
+						</div>
+					</div>
+					<section>
+
+						<!-- Separator 2 -->
+						<div class="separator-container">
+							<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+						</div>
+
+						<section id="Playstyle">
+							<h2>Protection Paladin Playstyle in The War Within Season 2</h2>
+
+							<p>
+								Protection Paladin operates on a priority list with a Combo Point-style resource system.
+								This means that all of your actions will be used in an order of highest value with each GCD,
+								meaning that you will need to judge your current state throughout an encounter and make some predictions.
+								We tend to follow 5 key rules:
+							</p>
+
+							<div class="guide-container">
+								<div class="guide-row">
+									<div class="icon-slot"></div>
+									<div class="guide-text">
+										<strong>Never overcap and waste Holy Power:</strong> Holy Power is a critical resource that helps our damage, mitigation, and healing. We don't want to waste any!
+									</div>
+								</div>
+
+								<div class="guide-row">
+									<div class="icon-slot"></div>
+									<div class="guide-text">
+										<strong>Generate resources:</strong> Use <span class="ability">Hammer of Wrath</span>, <span class="ability">Judgment</span>, and <span class="ability">Blessed Hammer</span> to build Holy Power.
+									</div>
+								</div>
+
+								<div class="guide-row">
+									<div class="icon-slot"></div>
+									<div class="guide-text">
+										<strong>Smooth damage intake:</strong> Use <span class="ability">Shield of the Righteous</span> when you have 3–5 Holy Power. This is your primary resource spender and should be your default option when you want to spend Holy Power.
+									</div>
+								</div>
+
+								<div class="guide-row">
+									<div class="icon-slot"></div>
+									<div class="guide-text">
+										<strong>Heal yourself:</strong> Use <span class="ability">Word of Glory</span> when you have <span class="buff">Shining Light</span> and are at 40–50% Health or not at risk of dropping <span class="ability">Shield of the Righteous</span>.
+									</div>
+								</div>
+
+								<div class="guide-row">
+									<div class="icon-slot"></div>
+									<div class="guide-text">
+										<strong>Maintain buffs:</strong> Use <span class="ability">Avenger’s Shield</span> to maintain buffs like <span class="buff">Bulwark of Righteous Fury</span>, especially for AoE.
+									</div>
+								</div>
+							</div>
+
+
+						</section>
+
+
+						<!-- Separator 2 -->
+						<div class="separator-container">
+							<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+						</div>
+
+						<section id="leveling">
+							<h2>Leveling</h2>
+
+							<h3>Leveling Tips for Protection Paladin</h3>
+
+							<ul>
+								<li>Focus on spamming Consecration to damage large packs of enemies efficiently. Consecration uptime is critical for both survivability and DPS while leveling.</li>
+								<li>Use Shield of the Righteous whenever you have Holy Power ready. It boosts your armor massively and prevents a lot of damage, allowing for bigger pulls.</li>
+								<li>Judgment should be used on cooldown to generate Holy Power and debuff targets (especially if you have Greater Judgment talented for extra spender damage).</li>
+								<li>Use Hammer of the Righteous or Blessed Hammer as your filler ability when waiting for cooldowns.</li>
+								<li>Keep Divine Steed handy for fast repositioning, pulling packs faster, and escaping when necessary. Pick up Cavalier talent early for two charges of Divine Steed.</li>
+								<li>Dungeon leveling is highly recommended. Protection Paladin can tank multiple enemies very efficiently in dungeons, leading to fast XP and gear upgrades.</li>
+								<li>While solo questing, take talents that boost your survivability and Holy Power generation early on rather than focusing only on damage talents.</li>
+								<li>Make sure to maintain Consecration uptime especially when you talent into Consecrated Ground — it slows enemies standing inside and helps you kite when needed.</li>
+								<li>Save Avenger's Shield and Divine Toll (if talented) for dangerous mobs or multiple targets that can overwhelm you.</li>
+								<li>Don't be afraid to use Word of Glory to heal up between pulls, especially when you have free casts from Shining Light procs.</li>
+							</ul>
+
+						</section>
+
+						<!-- Separator 2 -->
+						<div class="separator-container">
+							<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+						</div>
+
+
+						<section id="addons">
+							<h2>WeakAuras (WA) & Addons</h2>
+
+							<h3>Recommended WeakAuras</h3>
+
+							<ul>
+								<li><strong>Shield of the Righteous Tracker</strong> - Tracks active uptime and expiration for Shield of the Righteous so you can keep near 100% armor buff uptime.</li>
+								<li><strong>Avenger’s Shield Cooldown</strong> - Makes it very clear when Avenger’s Shield is ready to fire again. Essential for Holy Power flow and interrupting key abilities.</li>
+								<li><strong>Consecration Tracker</strong> - Reminds you when you have moved out of Consecration or if it expires naturally. Keeps you inside it for passive Mastery mitigation bonuses.</li>
+								<li><strong>Shining Light Tracker</strong> - Shows stacks for Shining Light procs (free Word of Glory casts) so you don’t waste them by accident.</li>
+								<li><strong>Eye of Tyr Cooldown</strong> - Tracks Eye of Tyr separately, so you know exactly when you can pop it for AoE mitigation during big pulls.</li>
+								<li><strong>Word of Glory Emergency Warning</strong> - Flashes a warning when your HP drops below a certain threshold and you have Holy Power to heal yourself.</li>
+							</ul>
+
+							<h3>Recommended Addons</h3>
+
+							<ul>
+								<li><strong>Details!</strong> - Advanced Damage Meter addon. Use it with Tank Plugins activated to show defensive uptime (Shield of the Righteous, Ardent Defender usage, etc.). Helps you audit your cooldown usage.</li>
+								<li><strong>BigWigs or DBM</strong> - Boss mod addons. Provide timers for incoming raid/dungeon mechanics. Absolutely necessary for planning your cooldown usage during heavy damage phases.</li>
+								<li><strong>Plater</strong> - Highly customizable nameplate addon. Can show when mobs are casting dangerous interrupts or when targets are ignoring threat. Very helpful for tanking large groups.</li>
+								<li><strong>OmniCD</strong> - Tracks party/raid cooldowns. Know when your healers have external cooldowns ready or when other players can battle res.</li>
+								<li><strong>Method Raid Tools</strong> - Great overall raid helper with cooldown tracking, battle res timers, and other protection utilities.</li>
+								<li><strong>WeakAuras Companion App</strong> - Not an in-game addon, but used outside the game to update your WeakAuras library easily without redownloading them manually.</li>
+							</ul>
+
+						</section>
+			</div>
 		</div>
-
-		<section id="leveling">
-			<h2>Leveling</h2>
-
-			<h3>Leveling Tips for Protection Paladin</h3>
-
-			<ul>
-				<li>Focus on spamming Consecration to damage large packs of enemies efficiently. Consecration uptime is critical for both survivability and DPS while leveling.</li>
-				<li>Use Shield of the Righteous whenever you have Holy Power ready. It boosts your armor massively and prevents a lot of damage, allowing for bigger pulls.</li>
-				<li>Judgment should be used on cooldown to generate Holy Power and debuff targets (especially if you have Greater Judgment talented for extra spender damage).</li>
-				<li>Use Hammer of the Righteous or Blessed Hammer as your filler ability when waiting for cooldowns.</li>
-				<li>Keep Divine Steed handy for fast repositioning, pulling packs faster, and escaping when necessary. Pick up Cavalier talent early for two charges of Divine Steed.</li>
-				<li>Dungeon leveling is highly recommended. Protection Paladin can tank multiple enemies very efficiently in dungeons, leading to fast XP and gear upgrades.</li>
-				<li>While solo questing, take talents that boost your survivability and Holy Power generation early on rather than focusing only on damage talents.</li>
-				<li>Make sure to maintain Consecration uptime especially when you talent into Consecrated Ground — it slows enemies standing inside and helps you kite when needed.</li>
-				<li>Save Avenger's Shield and Divine Toll (if talented) for dangerous mobs or multiple targets that can overwhelm you.</li>
-				<li>Don't be afraid to use Word of Glory to heal up between pulls, especially when you have free casts from Shining Light procs.</li>
-			</ul>
-
-		</section>
-
-		<!-- Separator 2 -->
-		<div class="separator-container">
-			<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-		</div>
-
-
-		<section id="addons">
-			<h2>WeakAuras (WA) & Addons</h2>
-
-			<h3>Recommended WeakAuras</h3>
-
-			<ul>
-				<li><strong>Shield of the Righteous Tracker</strong> - Tracks active uptime and expiration for Shield of the Righteous so you can keep near 100% armor buff uptime.</li>
-				<li><strong>Avenger’s Shield Cooldown</strong> - Makes it very clear when Avenger’s Shield is ready to fire again. Essential for Holy Power flow and interrupting key abilities.</li>
-				<li><strong>Consecration Tracker</strong> - Reminds you when you have moved out of Consecration or if it expires naturally. Keeps you inside it for passive Mastery mitigation bonuses.</li>
-				<li><strong>Shining Light Tracker</strong> - Shows stacks for Shining Light procs (free Word of Glory casts) so you don’t waste them by accident.</li>
-				<li><strong>Eye of Tyr Cooldown</strong> - Tracks Eye of Tyr separately, so you know exactly when you can pop it for AoE mitigation during big pulls.</li>
-				<li><strong>Word of Glory Emergency Warning</strong> - Flashes a warning when your HP drops below a certain threshold and you have Holy Power to heal yourself.</li>
-			</ul>
-
-			<h3>Recommended Addons</h3>
-
-			<ul>
-				<li><strong>Details!</strong> - Advanced Damage Meter addon. Use it with Tank Plugins activated to show defensive uptime (Shield of the Righteous, Ardent Defender usage, etc.). Helps you audit your cooldown usage.</li>
-				<li><strong>BigWigs or DBM</strong> - Boss mod addons. Provide timers for incoming raid/dungeon mechanics. Absolutely necessary for planning your cooldown usage during heavy damage phases.</li>
-				<li><strong>Plater</strong> - Highly customizable nameplate addon. Can show when mobs are casting dangerous interrupts or when targets are ignoring threat. Very helpful for tanking large groups.</li>
-				<li><strong>OmniCD</strong> - Tracks party/raid cooldowns. Know when your healers have external cooldowns ready or when other players can battle res.</li>
-				<li><strong>Method Raid Tools</strong> - Great overall raid helper with cooldown tracking, battle res timers, and other protection utilities.</li>
-				<li><strong>WeakAuras Companion App</strong> - Not an in-game addon, but used outside the game to update your WeakAuras library easily without redownloading them manually.</li>
-			</ul>
-
-		</section>
- 
+	</div>
+</body>
