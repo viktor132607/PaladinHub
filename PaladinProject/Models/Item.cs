@@ -7,11 +7,12 @@
 		public string? Icon { get; set; }
 		public string? Description { get; set; }
 
+		public string? Irl { get; set; } 
+
 		//// Basic item metadata
-		//public string? Name { get; set; }
-		//public int ItemLevel { get; set; }
-		//public int RequiredLevel { get; set; }
-		//public string? Quality { get; set; }
+		public int? ItemLevel { get; set; }
+		public int? RequiredLevel { get; set; }
+		public string? Quality { get; set; }
 
 		//// Usability and effects
 		//public string? UseEffect { get; set; }

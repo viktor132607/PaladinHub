@@ -7,13 +7,20 @@ using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 public class ItemsService
 {
-	public List<Spell> GetAllItems()
+	public List<Item> GetAllItems()
 	{
-		return new List<Spell>
+		return new List<Item>
 		{
-			new Spell { Id =1, Name ="A Just Reward", Icon = "A Just Reward.jpg", Irl = "https://www.wowhead.com/spell=469411/a-just-reward", Description = "Protection,  Retribution After Cleanse Toxins successfully removes an effect from an ally, they are healed for (540% of Spell power). Holy After Cleanse successfully removes an effect from an ally, they are healed for (540% of Spell power)."},
-			new Spell { Id =2, Name ="Adjudication", Icon = "Ardent Defender.jpg", Irl = "https://www.wowhead.com/spell=406157/adjudication", Description = "Critical Strike damage of your abilities increased by 5% and Hammer of Wrath also has a chance to cast Highlord's Judgment."},
-			new Spell { Id =3, Name ="Aegis of Light", Icon = "Ashes to Ashes.jpg", Irl = "https://www.wowhead.com/spell=204150/aegis-of-light", Description = "Channels an Aegis of Light that protects you and all allies standing within 10 yards behind you for 6 sec, reducing all damage taken by 20%."},
+			new Item { Id =1,
+				Name ="Greater Rune of the Void Ritual",
+				Icon = "inv_inscription_majorglyph20.jpg",
+				ItemLevel = 610,
+				Quality = "Epic",
+				RequiredLevel = 70 ,
+				Irl = "https://www.wowhead.com/spell=469411/a-just-reward",
+				Description = "Use: Apply Greater Rune of the Void Ritual to a helm.Gain Void Ritual, giving your spells and abilities a chance to increase all secondary stats by 82 every sec for 20 sec.\r\n\r\nCannot be applied to items lower than level 350. This effect is fleeting and will only work during The War Within Season 2."},
+			
+			new Item { Id =1, Name ="Lesser Rune of the Void Ritual", Icon = "inv_inscription_majorglyph20.jpg", ItemLevel = 610, Quality = "Epic", RequiredLevel = 70 , Irl = "https://www.wowhead.com/spell=469411/a-just-reward", Description = "Use: Apply Greater Rune of the Void Ritual to a helm.\r\n\r\nGain Void Ritual, giving your spells and abilities a chance to increase all secondary stats by 82 every sec for 20 sec.\r\n\r\nCannot be applied to items lower than level 350. This effect is fleeting and will only work during The War Within Season 2."},
 
 		};
 	}
