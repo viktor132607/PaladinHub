@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace PaladinProject.Controllers
 {
 	[Route("Holy")]
-	public class HolyController : Controller
+	public class HolyController : BaseController
 	{
 		private readonly ILogger<HolyController> _logger;
 		private readonly SpellbookService _spellbookService;
@@ -15,7 +15,7 @@ namespace PaladinProject.Controllers
 		public HolyController(ILogger<HolyController> logger)
 		{
 			_logger = logger;
-			_spellbookService = new SpellbookService(); // àêî DI íå å àêòèâèðàí
+			_spellbookService = new SpellbookService(); // Ã ÃªÃ® DI Ã­Ã¥ Ã¥ Ã ÃªÃ²Ã¨Ã¢Ã¨Ã°Ã Ã­
 		}
 
 		[HttpGet("Overview")]
@@ -24,7 +24,7 @@ namespace PaladinProject.Controllers
 		[HttpGet("Talents")]
 		public IActionResult Talents()
 		{
-			// Çàðåæäàìå âñè÷êè ñïåëîâå îò SpellbookService
+			// Ã‡Ã Ã°Ã¥Ã¦Ã¤Ã Ã¬Ã¥ Ã¢Ã±Ã¨Ã·ÃªÃ¨ Ã±Ã¯Ã¥Ã«Ã®Ã¢Ã¥ Ã®Ã² SpellbookService
 			var allSpells = _spellbookService.GetAllSpells();
 			return View(allSpells);
 		}
@@ -32,13 +32,18 @@ namespace PaladinProject.Controllers
 		[HttpGet("Stats")]
 		public IActionResult Stats()
 		{
-			// Çàðåæäàìå âñè÷êè ñïåëîâå îò SpellbookService
+			// Ã‡Ã Ã°Ã¥Ã¦Ã¤Ã Ã¬Ã¥ Ã¢Ã±Ã¨Ã·ÃªÃ¨ Ã±Ã¯Ã¥Ã«Ã®Ã¢Ã¥ Ã®Ã² SpellbookService
 			var allSpells = _spellbookService.GetAllSpells();
 			return View(allSpells);
 		}
 
 		[HttpGet("Consumables")]
-		public IActionResult Consumables() => View();
+		public IActionResult Consumables()
+		{
+			// Ã‡Ã Ã°Ã¥Ã¦Ã¤Ã Ã¬Ã¥ Ã¢Ã±Ã¨Ã·ÃªÃ¨ Ã±Ã¯Ã¥Ã«Ã®Ã¢Ã¥ Ã®Ã² SpellbookService
+			var allItems = _spellbookService.GetAllSpells();
+			return View(allItems);
+		}
 
 		[HttpGet("Gear")]
 		public IActionResult Gear() => View();

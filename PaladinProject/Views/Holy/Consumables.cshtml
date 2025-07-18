@@ -1,6 +1,23 @@
 ﻿@using PaladinProject.ViewModels
-@model ItemsViewModel
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Html
+@model List<PaladinProject.Models.Spell>
+@*@model ItemsViewModel*@
+
+<link rel="stylesheet" href="~/css/general.css" />
+@*<link rel="stylesheet" href="~/css/holy/holyStats.css" />
+<link rel="stylesheet" href="~/css/holy/holyTalents.css" />*@
+
 @{
+	var itemssByName = Model
+		.GroupBy(s => s.Name?.Trim(), StringComparer.OrdinalIgnoreCase)
+		.Select(g => g.First())
+		.ToDictionary(s => s.Name, s => s, StringComparer.OrdinalIgnoreCase);
+
+}
+
+@{
+
 	ViewData["Title"] = "Holy Paladin Consumables";
 }
 
@@ -32,15 +49,15 @@
 							<span>Enchants</span>
 						</a>
 						<a href="#raid-mythic-bis" class="section-cell">
-							<span class="icon" style="background-image: url('/images/itemIcons/inv_misc_enchantedscroll.jpg');"></span>
+							<span class="icon" style="background-image: url('/images/itemIcons/inv_potion_green.jpg');"></span>
 							<span>Consumables</span>
 						</a>
 						<a href="#best-trinkets" class="section-cell">
-							<span class="icon" style="background-image: url('/images/itemIcons/inv_misc_enchantedscroll.jpg');"></span>
+							<span class="icon" style="background-image: url('/images/itemIcons/inv_misc_food_meat_cooked_02_color02.jpg');"></span>
 							<span>Food</span>
 						</a>
 						<a href="#upgrade-priorities" class="section-cell">
-							<span class="icon" style="background-image: url('/images/itemIcons/inv_misc_enchantedscroll.jpg');"></span>
+							<span class="icon" style="background-image: url('/images/itemIcons/inv_10_jewelcrafting_gem3primal_cut_red.jpg');"></span>
 							<span>Gems</span>
 						</a>
 					</div>
@@ -54,11 +71,11 @@
 							<span>Overview</span>
 						</a>
 						<a href="/bis-gear" class="section-cell">
-							<span class="icon" style="background-image: url('/images/itemIcons/inv_misc_enchantedscroll.jpg');"></span>
+							<span class="icon" style="background-image: url('/images/itemIcons/inv_chest_plate_earthendungeon_c_01.jpg');"></span>
 							<span>BiS Gear</span>
 						</a>
 						<a href="/rotation" class="section-cell">
-							<span class="icon" style="background-image: url('/images/itemIcons/inv_misc_enchantedscroll.jpg');"></span>
+							<span class="icon" style="background-image: url('/images/icons/ui_spellbook_onebutton.jpg');"></span>
 							<span>Rotation</span>
 						</a>
 						<a href="/talent-builds" class="section-cell">
@@ -66,11 +83,11 @@
 							<span>Talent Builds</span>
 						</a>
 						<a href="/consumables" class="section-cell">
-							<span class="icon" style="background-image: url('/images/itemIcons/inv_misc_enchantedscroll.jpg');"></span>
+							<span class="icon" style="background-image: url('/images/itemIcons/inv_potion_green.jpg');"></span>
 							<span>Consumables</span>
 						</a>
 						<a href="/stats" class="section-cell">
-							<span class="icon" style="background-image: url('/images/itemIcons/inv_misc_enchantedscroll.jpg');"></span>
+							<span class="icon" style="background-image: url('/images/icons/inv_10_inscription2_repcontracts_scroll_02_uprez_color2.jpg');"></span>
 							<span>Stats</span>
 						</a>
 						<a href="/stats" class="section-cell">
@@ -96,7 +113,7 @@
 
 
 					<h2 class="section-header">
-						<img src="/images/icons/EyeOfKezan.jpg" alt="Trinkets Icon" class="section-icon">
+						<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" alt="Trinkets Icon" class="section-icon">
 						BEST HOLY PALADIN ENCHANTS IN THE WAR WITHIN SEASON
 					</h2>
 
@@ -198,7 +215,7 @@
 				</section>
 
 				<h2 class="section-header" style="text-align: left;">
-					<img src="/images/itemIcons/ui_profession_blacksmithing.jpg" alt="Crafting Icon" class="section-icon small-icon">
+					<img src="/images/icons/inv_eyeofnzothpet.jpg" alt="Crafting Icon" class="section-icon small-icon">
 					Holy Paladin Head Enchant in The War Within Season 2
 				</h2>
 

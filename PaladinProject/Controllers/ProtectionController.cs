@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace PaladinProject.Controllers
 {
 	[Route("Protection")]
-	public class ProtectionController : Controller
+	public class ProtectionController : BaseController
 	{
 		private readonly ILogger<HolyController> _logger;
 		private readonly SpellbookService _spellbookService;
@@ -15,7 +15,7 @@ namespace PaladinProject.Controllers
 		public ProtectionController(ILogger<HolyController> logger)
 		{
 			_logger = logger;
-			_spellbookService = new SpellbookService(); // ако DI не е активиран
+			_spellbookService = new SpellbookService(); // Г ГЄГ® DI Г­ГҐ ГҐ Г ГЄГІГЁГўГЁГ°Г Г­
 		}
 
 		[HttpGet("Overview")]
@@ -24,7 +24,7 @@ namespace PaladinProject.Controllers
 		[HttpGet("Talents")]
 		public IActionResult Talents()
 		{
-			// Зареждаме всички спелове от SpellbookService
+			// Г‡Г Г°ГҐГ¦Г¤Г Г¬ГҐ ГўГ±ГЁГ·ГЄГЁ Г±ГЇГҐГ«Г®ГўГҐ Г®ГІ SpellbookService
 			var allSpells = _spellbookService.GetAllSpells();
 			return View(allSpells);
 		}
@@ -32,7 +32,7 @@ namespace PaladinProject.Controllers
 		[HttpGet("Stats")]
 		public IActionResult Stats()
 		{
-			// Зареждаме всички спелове от SpellbookService
+			// Г‡Г Г°ГҐГ¦Г¤Г Г¬ГҐ ГўГ±ГЁГ·ГЄГЁ Г±ГЇГҐГ«Г®ГўГҐ Г®ГІ SpellbookService
 			var allSpells = _spellbookService.GetAllSpells();
 			return View(allSpells);
 		}

@@ -321,7 +321,30 @@ public class ItemsService
 				RequiredLevel = 70,
 				Irl = "https://www.wowhead.com/item=213473/masterful-sapphire",
 				Description = "+147 Versatility and +49 Mastery"
-			}
+			},
+				new Item
+			{
+				Id = 28,
+				Name = "Deadly Sapphire",
+				Icon = "inv_jewelcrafting_cut-standart-gem-hybrid_color5_2.jpg",
+				ItemLevel = 610,
+				Quality = "Rare",
+				RequiredLevel = 70,
+				Irl = "https://www.wowhead.com/item=213477/deadly-sapphire",
+				Description = "+147 Versatility and +49 Critical Strike"
+			},
+
+			new Item
+			{
+				Id = 29,
+				Name = "Daybreak Spellthread",
+				Icon = "inv_10_tailoring_craftingoptionalreagent_enhancedspellthread_color3",
+				ItemLevel = 610,
+				Quality = "Rare",
+				RequiredLevel = 70,
+				Irl = "https://www.wowhead.com/item=222896/daybreak-spellthread",
+				Description = "Use: Apply Daybreak Spellthread to your leggings, permanently increasing its Intellect by 930 and increasing the wearer's maximum mana by 5%."
+},
 		};
 	}
 }
