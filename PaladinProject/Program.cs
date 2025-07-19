@@ -9,8 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddSingleton<SpellbookService>();
+builder.Services.AddScoped<IItemsService, ItemsService>();
+builder.Services.AddScoped<ISpellbookService, SpellbookService>();
 
 // Register main application database
 builder.Services.AddDbContext<AppDbContext>(options =>

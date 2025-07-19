@@ -1,43 +1,37 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using PaladinProject.Models;
-using System.Diagnostics;
+using PaladinProject.Services;
 using PaladinProject.ViewModels;
+using System.Diagnostics;
 
 namespace PaladinProject.Controllers
 {
-    [Route("Retribution")]
-    public class RetributionController : BaseController
-    {
-		private readonly ILogger<HolyController> _logger;
-		private readonly SpellbookService _spellbookService;
+	[Route("Retribution")]
+	public class RetributionController : BaseController
+	{
+		private readonly ILogger<RetributionController> _logger;
 
-		public RetributionController(ILogger<HolyController> logger)
+		public RetributionController(
+			ILogger<RetributionController> logger,
+			ISpellbookService spellbookService,
+			IItemsService itemsService
+		) : base(spellbookService, itemsService)
 		{
 			_logger = logger;
-			_spellbookService = new SpellbookService(); // àêî DI íå å àêòèâèðàí
 		}
 
 		[HttpGet("Overview")]
 		public IActionResult Overview() => View();
 
-		[HttpGet("talents")]
-		public IActionResult Talents()
-		{
-			// Çàðåæäàìå âñè÷êè ñïåëîâå îò SpellbookService
-			var allSpells = _spellbookService.GetAllSpells();
-			return View(allSpells);
-		}
+		[HttpGet("Talents")]
+		public IActionResult Talents() => View(SpellbookService.GetAllSpells());
 
 		[HttpGet("Stats")]
-		public IActionResult Stats()
-		{
-			// Çàðåæäàìå âñè÷êè ñïåëîâå îò SpellbookService
-			var allSpells = _spellbookService.GetAllSpells();
-			return View(allSpells);
-		}
+		public IActionResult Stats() => View(SpellbookService.GetAllSpells());
 
 		[HttpGet("Consumables")]
-		public IActionResult Consumables() => View();
+		public IActionResult Consumables() => View(ItemsService.GetAllItems());
 
 		[HttpGet("Gear")]
 		public IActionResult Gear() => View();

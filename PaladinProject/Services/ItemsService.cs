@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PaladinProject.Models;
+using PaladinProject.Services;
 using System;
 using System.Reflection.Metadata;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
-public class ItemsService
+public class ItemsService : IItemsService
 {
 	public List<Item> GetAllItems()
 	{

@@ -1,177 +1,157 @@
-﻿@{
-	ViewData["Title"] = "Protection Consumables Paladin Guide";
+﻿@model PaladinProject.ViewModels.PageHeaderViewModel
+@{
+    ViewData["Title"] = "Protection Consumables Paladin Guide";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@await Html.PartialAsync("_PageHeaderPartial", Model)
 
-<link rel="stylesheet" href="~/css/general.css" />
-@*<link rel="stylesheet" href="~/css/protectionConsumables.css" />*@
+<div class="main-wrapper">
+    <section id="overview">
+        <p>
+            Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options.
+            In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including what they do and when to use them.
+        </p>
 
-@functions {
-	public static string HighlightSpells(string input, Dictionary<string, string> spells)
-	{
-		foreach (var spell in spells.Keys)
-		{
-			input = input.Replace(spell, $"<span style='color: yellow; font-weight: bold;'>{spell}</span>");
-		}
-		return input;
-	}
+        <h3>Sections Covered:</h3>
+        <div class="section-buttons">
+            <a href="#builds">Talent Builds</a>
+            <a href="#hero-talents">Hero Talents</a>
+            <a href="#rotation">Rotation</a>
+            <a href="#gear">Gear</a>
+            <a href="#leveling">Leveling</a>
+            <a href="#abilities">Abilities & Talents</a>
+            <a href="#stats">Stats</a>
+            <a href="#consumables">Consumables</a>
+            <a href="#addons">WA & Addons</a>
+        </div>
+    </section>
+
+    <section id="consumables">
+        <h2>Consumables</h2>
+
+        <h3>Flasks</h3>
+        <ul>
+            <li><strong>Phial of Tepid Versatility</strong> - Good balance between defensive and offensive boosts.</li>
+            <li><strong>Phial of Static Empowerment</strong> - Great when you’re confident on bosses with little movement requirements.</li>
+            <li><strong>Phial of Elemental Chaos</strong> - Risky but high reward in DPS heavy situations.</li>
+        </ul>
+
+        <h3>Food</h3>
+        <ul>
+            <li><strong>Feast Buffs</strong> - Use what your raid provides.</li>
+            <li><strong>Individual Food</strong> - Examples: Timely Demise (Haste) or Grand Banquet of the Kalu'ak.</li>
+        </ul>
+
+        <h3>Potions</h3>
+        <ul>
+            <li><strong>Elemental Potion of Power</strong> - Best during burst phases.</li>
+            <li><strong>Refreshing Healing Potion</strong> - Keep for emergencies.</li>
+        </ul>
+
+        <h3>Weapon Oils</h3>
+        <ul>
+            <li><strong>Buzzing Rune</strong> - Best for Haste uptime.</li>
+            <li><strong>Howling Rune</strong> - Use if Haste is capped.</li>
+            <li><strong>Chirping Rune</strong> - Defensive fallback.</li>
+        </ul>
+
+        <h3>Enchants</h3>
+        <table class="bis-table">
+            <thead>
+                <tr>
+                    <th>Slot</th>
+                    <th>Best Enchant</th>
+                    <th>Cheaper Version</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Weapon</td>
+                    <td>
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Authority of the Depths (ST)<br />
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Stormrider's Fury (AoE)
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Cloak</td>
+                    <td>
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Chant of Burrowing Rapidity
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Chest</td>
+                    <td>
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Crystalline Radiance
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Bracers</td>
+                    <td>
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Chant of Armored Speed
+                    </td>
+                    <td>
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Whisper of Armored Speed
+                    </td>
+                </tr>
+                <tr>
+                    <td>Legs</td>
+                    <td>
+                        <img src="/images/itemIcons/inv_armorkit_lightning_imbued.jpg" width="16" />
+                        Stormbound Armor Kit
+                    </td>
+                    <td>
+                        <img src="/images/itemIcons/inv_armorkit_lightning_imbued.jpg" width="16" />
+                        Dual Layered Armor Kit
+                    </td>
+                </tr>
+                <tr>
+                    <td>Boots</td>
+                    <td>
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Scout's March
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Ring - Regular</td>
+                    <td>
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Radiant Haste
+                    </td>
+                    <td>
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Glimmering Haste
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ring - Cursed</td>
+                    <td>
+                        <img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
+                        Cursed Haste
+                    </td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <div class="separator-container">
+        <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Optional: JS specific to this page
+    </script>
 }
-
-<body>
-	<div class="outer-wrapper">
-		<div class="page-container">
-			<div class="image-cover-container">
-				<img src="~/images/TheProtCover.jpg" alt="Protection Cover" class="image-cover" />
-			</div>
-
-			<div class="main-wrapper">
-
-
-				<section id="overview">
-					<p>
-						Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options.
-						In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including what they do and when to use them.
-					</p>
-
-					<h3>Sections Covered:</h3>
-					<div class="section-buttons">
-						<a href="#builds">Talent Builds</a>
-						<a href="#hero-talents">Hero Talents</a>
-						<a href="#rotation">Rotation</a>
-						<a href="#gear">Gear</a>
-						<a href="#leveling">Leveling</a>
-						<a href="#abilities">Abilities & Talents</a>
-						<a href="#stats">Stats</a>
-						<a href="#consumables">Consumables</a>
-						<a href="#addons">WA & Addons</a>
-					</div>
-				</section>
-
-				<section id="consumables">
-					<h2>Consumables</h2>
-
-					<h3>Flasks</h3>
-					<ul>
-						<li><strong>Phial of Tepid Versatility</strong> - Good balance between defensive and offensive boosts. A reliable choice for general dungeon/raid tanking.</li>
-						<li><strong>Phial of Static Empowerment</strong> - For situations where you don't need to move much. Great when you’re confident on bosses with little movement requirements.</li>
-						<li><strong>Phial of Elemental Chaos</strong> - Random effects, can provide large Haste buffs but less predictable. Risky but high reward in DPS heavy situations.</li>
-					</ul>
-
-					<h3>Food</h3>
-					<ul>
-						<li><strong>Feast Buffs</strong> - Take whatever your raid uses for Feasts; these usually give large amounts of Strength or Haste.</li>
-						<li><strong>Individual Food</strong> - Choose Haste food or Mastery food if eating solo. Examples: Timely Demise (Haste) or Grand Banquet of the Kalu'ak for Strength.</li>
-					</ul>
-
-					<h3>Potions</h3>
-					<ul>
-						<li><strong>Elemental Potion of Power</strong> - Provides a large Strength buff. Used pre-pull or during burst phases to maximize Avenging Wrath DPS and Shield of the Righteous spam.</li>
-						<li><strong>Refreshing Healing Potion</strong> - Instant heal potion. Always keep a few on you for emergencies when Word of Glory and Lay on Hands are not available.</li>
-					</ul>
-
-					<h3>Weapon Oils</h3>
-					<ul>
-						<li><strong>Buzzing Rune</strong> - Boosts Haste. Best choice for smooth rotation and Shield of the Righteous uptime.</li>
-						<li><strong>Howling Rune</strong> - Boosts Critical Strike. Not generally preferred over Buzzing Rune unless you are already capped on Haste.</li>
-						<li><strong>Chirping Rune</strong> - Boosts Versatility. Good fallback for more durability at the cost of less throughput.</li>
-					</ul>
-
-					<h3>Enchants</h3>
-					<table style="width: 100%; border-collapse: collapse; color: #ccc;">
-						<thead>
-							<tr style="background-color: #333;">
-								<th style="padding: 8px; border: 1px solid #555;">Slot</th>
-								<th style="padding: 8px; border: 1px solid #555;">Best Enchant</th>
-								<th style="padding: 8px; border: 1px solid #555;">Cheaper Version</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td style="padding: 8px; border: 1px solid #555;">Weapon</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Weapon - Authority of the Depths (Single Target)<br />
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Weapon - Stormrider's Fury (AoE)
-								</td>
-								<td style="padding: 8px; border: 1px solid #555;">-</td>
-							</tr>
-							<tr>
-								<td style="padding: 8px; border: 1px solid #555;">Cloak</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Cloak - Chant of Burrowing Rapidity
-								</td>
-								<td style="padding: 8px; border: 1px solid #555;">-</td>
-							</tr>
-							<tr>
-								<td style="padding: 8px; border: 1px solid #555;">Chest</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Chest - Crystalline Radiance
-								</td>
-								<td style="padding: 8px; border: 1px solid #555;">-</td>
-							</tr>
-							<tr>
-								<td style="padding: 8px; border: 1px solid #555;">Bracers</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Bracer - Chant of Armored Speed
-								</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Bracer - Whisper of Armored Speed
-								</td>
-							</tr>
-							<tr>
-								<td style="padding: 8px; border: 1px solid #555;">Legs</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_armorkit_lightning_imbued.jpg" width="16" />
-									Stormbound Armor Kit
-								</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_armorkit_lightning_imbued.jpg" width="16" />
-									Dual Layered Armor Kit
-								</td>
-							</tr>
-							<tr>
-								<td style="padding: 8px; border: 1px solid #555;">Boots</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Boots - Scout's March
-								</td>
-								<td style="padding: 8px; border: 1px solid #555;">-</td>
-							</tr>
-							<tr>
-								<td style="padding: 8px; border: 1px solid #555;">Ring - Regular</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Ring - Radiant Haste
-								</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Ring - Glimmering Haste
-								</td>
-							</tr>
-							<tr>
-								<td style="padding: 8px; border: 1px solid #555;">Ring - Cursed</td>
-								<td style="padding: 8px; border: 1px solid #555;">
-									<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" width="16" />
-									Enchant Ring - Cursed Haste
-								</td>
-								<td style="padding: 8px; border: 1px solid #555;">-</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
-
-				<!-- Separator 2 -->
-				<div class="separator-container">
-					<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-				</div>
-			</div>
-		</div>
-	</div>
-</body>>
-
-

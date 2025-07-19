@@ -1,0 +1,40 @@
+﻿@model PaladinProject.ViewModels.PageHeaderViewModel
+
+<div class="outer-wrapper">
+    <div class="page-container">
+        @* ✅ COVER IMAGE *@
+        @if (!string.IsNullOrEmpty(Model.CoverImage))
+        {
+            <div class="image-cover-container">
+                <img src="@Model.CoverImage" alt="Cover" class="image-cover" />
+            </div>
+        }
+
+        <div class="main-wrapper">
+            @* ✅ TITLE *@
+            @if (!string.IsNullOrEmpty(Model.Title))
+            {
+                <h1 class="text-center mt-3">@Model.Title</h1>
+            }
+
+            @* ✅ HEADER BUTTONS *@
+            @if (Model.Buttons?.Any() == true)
+            {
+                <div class="section-grid justify-content-center px-4">
+                    @foreach (var btn in Model.Buttons)
+                    {
+                        <a href="@btn.Url" class="section-cell">
+                            <span class="icon" style="background-image: url('@btn.Icon');"></span>
+                            <span>@btn.Text</span>
+                        </a>
+                    }
+                </div>
+            }
+
+            @* Optional: separator image between header and main content *@
+            <div class="separator-container">
+                <img src="~/images/Separators/D2.png" alt="Separator" class="separator" />
+            </div>
+        </div>
+    </div>
+</div>

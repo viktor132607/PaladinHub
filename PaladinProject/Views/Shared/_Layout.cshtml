@@ -1,81 +1,25 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<Users> signInManager
 @inject UserManager<Users> userManager
+
 @{
-    Layout = null;
+    var headerModel = ViewBag.PageHeader as PaladinProject.ViewModels.PageHeaderViewModel;
 }
 
-
-<style>
-    body {
-        background-color: #1e1e1e;
-        color: #FFD700;
-        margin: 0;
-    }
-
-    .navbar-custom {
-        position: fixed;
-        top: -100px;
-        left: 0;
-        right: 0;
-        background-color: #1e1e1e;
-        z-index: 1000;
-        border-bottom: 2px solid #FFD700;
-        padding: 0.5rem 1rem;
-        transition: top 0.3s ease;
-    }
-
-    .navbar-nav .nav-link {
-        color: #FFD700 !important;
-        font-weight: bold;
-        font-size: 1.1rem;
-        transition: color 0.3s, text-shadow 0.3s;
-    }
-
-        .navbar-nav .nav-link:hover {
-            color: #FFC300 !important;
-            text-shadow: 0 0 4px #FFD700;
-        }
-
-    .nav-item.dropdown:hover .dropdown-menu {
-        display: block;
-        margin-top: 0;
-    }
-
-    .dropdown-menu {
-        background-color: #2c2c2c;
-        border: 1px solid #FFD700;
-    }
-
-    .dropdown-item {
-        color: #FFD700;
-        font-weight: bold;
-        transition: background-color 0.3s, color 0.3s;
-    }
-
-        .dropdown-item:hover {
-            background-color: #FFD700;
-            color: #1e1e1e;
-        }
-
-    .dropdown-toggle::after {
-        margin-left: 0.5rem;
-    }
-</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
+    <title>@(ViewData["Title"] ?? "PaladinProject")</title>
+    <link rel="icon" type="image/png" href="images/WoW_icon.svg.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - PaladinProject</title>
-    <link rel="icon" type="image/png" href="images/WoW_icon.svg.png">
 
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PaladinProject.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom box-shadow mb-3">
@@ -154,11 +98,22 @@
         </nav>
     </header>
 
-    <div class="container" style="padding-top: 70px;">
-        <main role="main" class="pb-3">
+    <div style="padding-top: 80px;">
+        @if (headerModel != null)
+        {
+            @await Html.PartialAsync("_PageHeader", headerModel)
+        }
+
+        <main role="main" class="pb-5 container">
             @RenderBody()
         </main>
     </div>
+
+    <footer class="border-top footer text-muted text-center mt-5 py-3">
+        <div class="container">
+            &copy; @DateTime.Now.Year - PaladinHub | Made with 💛 for WoW Paladins
+        </div>
+    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -166,28 +121,17 @@
 
     <script>
         const navbar = document.querySelector(".navbar-custom");
-
         function updateNavbarVisibility(mouseY) {
-            if (window.scrollY === 0) {
+            if (window.scrollY === 0 || mouseY <= 600) {
                 navbar.style.top = "0";
             } else {
-                if (mouseY <= 600) {
-                    navbar.style.top = "0";
-                } else {
-                    navbar.style.top = "-100px";
-                }
+                navbar.style.top = "-100px";
             }
         }
 
-        document.addEventListener("mousemove", function (e) {
-            updateNavbarVisibility(e.clientY);
-        });
-
-        window.addEventListener("scroll", function () {
-            updateNavbarVisibility(999); // принудителна проверка при скрол
-        });
-
-        updateNavbarVisibility(999); // първоначално
+        document.addEventListener("mousemove", e => updateNavbarVisibility(e.clientY));
+        window.addEventListener("scroll", () => updateNavbarVisibility(999));
+        updateNavbarVisibility(999);
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)
