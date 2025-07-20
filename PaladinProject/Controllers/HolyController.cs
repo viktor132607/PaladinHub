@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PaladinProject.Models;
 using PaladinProject.Services;
 using PaladinProject.ViewModels;
 using System.Diagnostics;
@@ -22,27 +21,25 @@ namespace PaladinProject.Controllers
 		}
 
 		[HttpGet("Overview")]
-		public IActionResult Overview() => View();
+		public IActionResult Overview() => ViewWithCombinedData();
 
 		[HttpGet("Talents")]
-		public IActionResult Talents() => View(SpellbookService.GetAllSpells());
+		public IActionResult Talents() => ViewWithCombinedData();
 
 		[HttpGet("Stats")]
-		public IActionResult Stats() => View(SpellbookService.GetAllSpells());
+		public IActionResult Stats() => ViewWithCombinedData();
 
 		[HttpGet("Consumables")]
-		public IActionResult Consumables() => View(ItemsService.GetAllItems());
+		public IActionResult Consumables() => ViewWithCombinedData();
 
 		[HttpGet("Gear")]
-		public IActionResult Gear() => View();
+		public IActionResult Gear() => ViewWithCombinedData();
 
 		[HttpGet("Rotation")]
-		public IActionResult Rotation() => View();
+		public IActionResult Rotation() => ViewWithCombinedData();
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
+		public IActionResult Error() =>
+			View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 	}
 }

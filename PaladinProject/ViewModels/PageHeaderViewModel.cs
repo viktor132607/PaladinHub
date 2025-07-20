@@ -4,7 +4,8 @@
 	{
 		public string? CoverImage { get; set; }
 		public string Title { get; set; } = string.Empty;
-		public List<NavButton> Buttons { get; set; } = new();
+		public List<NavButton> CurrentSectionButtons { get; set; } = new();
+		public List<NavButton> OtherSectionButtons { get; set; } = new();
 	}
 
 	public class NavButton

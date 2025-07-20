@@ -146,7 +146,7 @@ h2 {
 
 /* === Секции и бутони === */
 .section-wrapper {
-    padding: 20px;
+    padding: 0px;
 }
 
 .section-title {
@@ -186,8 +186,8 @@ h2 {
     }
 
     .section-cell .icon {
-        width: 48px;
-        height: 48px;
+        width: 32px;
+        height: 32px;
         background-size: cover;
         margin-bottom: 5px;
     }
@@ -498,6 +498,7 @@ h2 {
     transform-origin: top left;
     z-index: 1;
 }
+
 html, body {
     margin: 0;
     padding: 0;
@@ -535,20 +536,6 @@ h2 {
     width: 1600px;
     margin: 0 auto;
     padding: 0;
-}
-
-.image-cover-container {
-    width: 1600px;
-    margin: 0 auto;
-    aspect-ratio: 2560 / 820;
-    overflow: hidden;
-}
-
-.image-cover {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
 }
 
 .main-wrapper {
@@ -686,18 +673,6 @@ h2 {
     padding: 25px;
     margin-top: 40px;
     color: #eee;
-}
-
-.separator-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.separator {
-    display: block;
-    width: 95%;
-    height: auto;
 }
 
 body {
@@ -1270,37 +1245,3 @@ a {
         border-radius: 0;
     }
 
-/* === Разделителна линия === */
-.separator-container {
-    display: flex;
-    justify-content: center;
-    margin: 30px 0;
-}
-
-.separator {
-    display: block;
-    width: 90%;
-    height: auto;
-}
-
-.section-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin: 15px 0;
-}
-
-    .section-buttons a {
-        background-color: #444;
-        border: 1px solid #888;
-        padding: 8px 16px;
-        border-radius: 6px;
-        color: white;
-        text-decoration: none;
-        transition: background-color 0.2s ease;
-    }
-
-        .section-buttons a:hover {
-            background-color: #666;
-        }
