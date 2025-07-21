@@ -1,6 +1,4 @@
-﻿using PaladinProject.Models;
-
-namespace PaladinProject.ViewModels
+﻿namespace PaladinProject.ViewModels
 {
 	public class ItemViewModel
 	{

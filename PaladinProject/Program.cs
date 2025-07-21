@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PaladinProject.Data;
 using PaladinProject.Models;
 using PaladinProject.Services;
+using PaladinProject.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +13,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IItemsService, ItemsService>();
 builder.Services.AddScoped<ISpellbookService, SpellbookService>();
 
+// ?? Add RazorHelpers support
+builder.Services.AddHttpContextAccessor();
+
 // Register main application database
 builder.Services.AddDbContext<AppDbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-//  Register SpellbookContext
+// Register SpellbookContext
 builder.Services.AddDbContext<SpellbookContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
@@ -35,7 +39,6 @@ builder.Services.AddIdentity<Users, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-//  Register EmailSender using official IEmailSender
 builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 var app = builder.Build();
@@ -49,9 +52,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 

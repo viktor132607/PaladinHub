@@ -1,16 +1,22 @@
-﻿@model PaladinProject.ViewModels.PageHeaderViewModel
-
+﻿@model PaladinProject.ViewModels.CombinedViewModel  
 <div class="outer-wrapper">
     <div class="page-container">
-        @* COVER IMAGE *@
+
+
         @if (!string.IsNullOrEmpty(Model.CoverImage))
         {
             <div class="image-cover-container">
                 <img src="@Model.CoverImage" alt="Cover" class="image-cover" />
             </div>
         }
-
         <div class="main-wrapper">
+
+        @if (!string.IsNullOrEmpty(Model.Title))
+        {
+            <h1 class="page-title">@Model.Title</h1>
+        }
+
+
             @* CURRENT SECTION BUTTONS *@
             @if (Model.CurrentSectionButtons?.Any() == true)
             {

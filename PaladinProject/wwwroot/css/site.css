@@ -1,3 +1,17 @@
+.dropdown-menu .dropdown-item {
+    color: #FFD700 !important; 
+    background-color: transparent; 
+    text-decoration: none !important; 
+}
+
+    .dropdown-menu .dropdown-item:hover {
+        color: black !important; 
+        background-color: #FFD700 !important; 
+        text-decoration: none !important; 
+    }
+
+
+
 /* === Базови елементи === */
 html {
     position: relative;
@@ -144,78 +158,6 @@ h2 {
     padding: 0 50px;
 }
 
-/* === Секции и бутони === */
-.section-wrapper {
-    padding: 0px;
-}
-
-.section-title {
-    font-size: 18px;
-    margin: 15px 0 10px;
-    font-weight: bold;
-    color: white;
-    text-align: center;
-}
-
-.section-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px 0;
-    justify-content: center;
-}
-
-.section-cell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-    background-color: #2c2c2c;
-    border: 1px solid #FFD700;
-    text-align: center;
-    width: 120px;
-    text-decoration: none;
-    color: #FFD700;
-    border-radius: 8px;
-    transition: transform 0.2s;
-}
-
-    .section-cell:hover {
-        transform: scale(1.05);
-        background-color: #3c3c3c;
-    }
-
-    .section-cell .icon {
-        width: 32px;
-        height: 32px;
-        background-size: cover;
-        margin-bottom: 5px;
-    }
-
-.section-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin: 15px 0;
-}
-
-    .section-buttons a, .button {
-        background-color: #444;
-        border: 1px solid #888;
-        padding: 8px 16px;
-        border-radius: 6px;
-        color: white;
-        text-decoration: none;
-        transition: background-color 0.2s ease;
-        font-weight: bold;
-        white-space: nowrap;
-    }
-
-        .section-buttons a:hover, .button:hover {
-            background-color: #666;
-        }
-
 .new-label {
     background-color: #2ecc71;
     color: #000;
@@ -331,7 +273,9 @@ h2 {
 .item.artifact {
     color: #e6cc80;
 }
-
+.item.spell {
+    color: #ffd102;
+}
 .item.heirloom {
     color: #00ccff;
 }
@@ -709,12 +653,15 @@ body {
 .section-cell {
     display: flex;
     align-items: center;
+    gap: 10px;
     padding: 10px;
     border: 1px solid #333;
     background-color: #1c1c1c;
     font-weight: bold;
-    gap: 10px;
     transition: background 0.2s;
+    flex-direction: row;
+}
+
 }
 
     .section-cell:hover {

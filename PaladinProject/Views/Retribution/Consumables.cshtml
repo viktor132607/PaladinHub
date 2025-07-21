@@ -1,8 +1,31 @@
 ﻿@{
 	ViewData["Title"] = "Retribution Paladin Guide";
 }
+@model PaladinProject.ViewModels.CombinedViewModel
 
-<link rel="stylesheet" href="~/css/general.css" />
+
+@using PaladinProject.ViewModels
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Html
+@using PaladinProject.Models
+@{
+	var spells = ViewBag.AllSpells as List<PaladinProject.Models.Spell>;
+	var items = ViewBag.AllItems as List<PaladinProject.Models.Item>;
+
+	var spellsByName = spells?
+		.Where(s => !string.IsNullOrWhiteSpace(s.Name))
+		.GroupBy(s => s.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
+		.Select(g => g.First())
+		.ToDictionary(s => s.Name!, s => s, StringComparer.OrdinalIgnoreCase);
+
+	var itemsByName = items?
+		.Where(i => !string.IsNullOrWhiteSpace(i.Name))
+		.GroupBy(i => i.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
+		.Select(g => g.First())
+		.ToDictionary(i => i.Name!, i => i, StringComparer.OrdinalIgnoreCase);
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
 @*<link rel="stylesheet" href="~/css/retribution/retributionConsumables.css" />*@
 
 

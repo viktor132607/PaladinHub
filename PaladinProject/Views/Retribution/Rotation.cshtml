@@ -1,11 +1,32 @@
 ﻿@{
 	ViewData["Title"] = "Retribution Paladin Guide";
 }
+@model PaladinProject.ViewModels.CombinedViewModel
 
-<link rel="stylesheet" href="~/css/general.css" />
+
+<link rel="stylesheet" href="~/css/site.css" />
 @*<link rel="stylesheet" href="~/css/retribution/retributionRotation.css" />*@
 
+@using PaladinProject.ViewModels
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Html
+@using PaladinProject.Models
+@{
+	var spells = ViewBag.AllSpells as List<PaladinProject.Models.Spell>;
+	var items = ViewBag.AllItems as List<PaladinProject.Models.Item>;
 
+	var spellsByName = spells?
+		.Where(s => !string.IsNullOrWhiteSpace(s.Name))
+		.GroupBy(s => s.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
+		.Select(g => g.First())
+		.ToDictionary(s => s.Name!, s => s, StringComparer.OrdinalIgnoreCase);
+
+	var itemsByName = items?
+		.Where(i => !string.IsNullOrWhiteSpace(i.Name))
+		.GroupBy(i => i.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
+		.Select(g => g.First())
+		.ToDictionary(i => i.Name!, i => i, StringComparer.OrdinalIgnoreCase);
+}
 
 <body>
 	<div class="outer-wrapper">
@@ -111,7 +132,7 @@
 
 				<p>Keep  Expurgation active and  Judgment debuffs applied to enemies. These effects significantly buff your other damage.<p>
 
-				</p>Prioritize using Holy Power spenders when able, since many effects generate extra Holy Power that could otherwise be wasted, and using spenders procs many important effects like  Radiant Glory.</p>
+				</p>Prioritize using Holy Power spenders when able, since many effects generate extra Holy Power that could otherwise be wasted, and using spenders procs many important effects like  Radiant Glory.<p>
 
 				<div class="separator-container">
 					<img src="~/images/Separators/D5.png" alt="Separator 5" class="separator" />

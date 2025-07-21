@@ -18,14 +18,14 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Epic",
 				RequiredLevel = 70 ,
-				Irl = "https://www.wowhead.com/spell=469411/a-just-reward",
+				Url = "https://www.wowhead.com/spell=469411/a-just-reward",
 				Description = "Use: Apply Greater Rune of the Void Ritual to a helm.Gain Void Ritual, giving your spells and abilities a chance to increase all secondary stats by 82 every sec for 20 sec.\r\n\r\nCannot be applied to items lower than level 350. This effect is fleeting and will only work during The War Within Season 2."},
 
 				new Item { Id =2,
 					Name ="Lesser Rune of the Void Ritual",
 					Icon = ".jpg", ItemLevel = 610,
 					Quality = "Rare", RequiredLevel = 70 ,
-					Irl = "", Description = ""},
+					Url = "", Description = ""},
 
 				new Item
 				{
@@ -35,7 +35,7 @@ public class ItemsService : IItemsService
 					ItemLevel = 580,
 					Quality = "Rare",
 					RequiredLevel = 70,
-					Irl = "https://www.wowhead.com/item=212885/lesser-rune-of-the-void-ritual",
+					Url = "https://www.wowhead.com/item=212885/lesser-rune-of-the-void-ritual",
 					Description = "Use: Apply Lesser Rune of the Void Ritual to a helm. Gain Void Ritual, giving your spells and abilities a chance to increase all secondary stats by 47 every sec for 20 sec.\r\n\r\nCannot be applied to items lower than level 350. This effect is fleeting and will only work during The War Within Season 2."
 				},
 				new Item
@@ -46,7 +46,7 @@ public class ItemsService : IItemsService
 					ItemLevel = 610,
 					Quality = "Rare",
 					RequiredLevel = 71,
-					Irl = "https://www.wowhead.com/item=212741/flask-of-tempered-swiftness",
+					Url = "https://www.wowhead.com/item=212741/flask-of-tempered-swiftness",
 					Description = "Use: Drink to increase your Haste by 2825.\r\n\r\nLasts 1 hour and through death. Consuming an identical flask will add another 1 hour."
 				},
 
@@ -58,7 +58,7 @@ public class ItemsService : IItemsService
 					ItemLevel = 610,
 					Quality = "Rare",
 					RequiredLevel = 71,
-					Irl = "https://www.wowhead.com/item=212739/algari-mana-potion",
+					Url = "https://www.wowhead.com/item=212739/algari-mana-potion",
 					Description = "Use: Restores 270000 mana."
 				},
 
@@ -70,7 +70,7 @@ public class ItemsService : IItemsService
 					ItemLevel = 610,
 					Quality = "Rare",
 					RequiredLevel = 71,
-					Irl = "https://www.wowhead.com/item=212738/algari-healing-potion",
+					Url = "https://www.wowhead.com/item=212738/algari-healing-potion",
 					Description = "Use: Restores 3839450 health."
 				},
 
@@ -82,7 +82,7 @@ public class ItemsService : IItemsService
 					ItemLevel = 70,
 					Quality = "Rare",
 					RequiredLevel = 68,
-					Irl = "https://www.wowhead.com/item=212740/algari-mana-oil",
+					Url = "https://www.wowhead.com/item=212740/algari-mana-oil",
 					Description = "Use: Coat your weapon in Algari Mana Oil, increasing your Critical Strike and Haste by 232 for 120 min.\r\n\r\n\"The oil radiates a subtle, but noticeable magical aura.\""
 				},
 				new Item
@@ -93,7 +93,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 80,
 				Quality = "Uncommon",
 				RequiredLevel = 80,
-				Irl = "https://www.wowhead.com/item=224572/crystallized-augment-rune",
+				Url = "https://www.wowhead.com/item=224572/crystallized-augment-rune",
 				Description = "Use: Increases Primary Stat by 733 for 1 hour. Augment Rune.\r\n\r\n\"Can be bought and sold on the auction house.\""
 			},
 			
@@ -105,7 +105,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 80,
 				Quality = "Rare",
 				RequiredLevel = 68,
-				Irl = "https://www.wowhead.com/item=222732/feast-of-the-divine-day",
+				Url = "https://www.wowhead.com/item=222732/feast-of-the-divine-day",
 				Description = "Use: Place a Mereldar Feast for all players to enjoy!\r\n\r\nRestores 9000000 health and 3000000 mana over 20 sec. Must remain seated while eating.\r\n\r\nWell Fed: If you spend at least 10 seconds eating you will become Well Fed and gain 446 primary stat for 1 hour."
 			},
 			
@@ -117,7 +117,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213746/elusive-blasphemite",
+				Url = "https://www.wowhead.com/item=213746/elusive-blasphemite",
 				Description = "Unique-Equipped: Algari Diamond (1)\r\n+181 Primary Stat and +2% Movement Speed per unique Algari gem color"
 			},
 			
@@ -129,7 +129,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213494/quick-onyx",
+				Url = "https://www.wowhead.com/item=213494/quick-onyx",
 				Description = "+147 Mastery and +49 Haste"
 			},
 			
@@ -141,7 +141,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 71,
-				Irl = "https://www.wowhead.com/item=212280/flask-of-tempered-mastery",
+				Url = "https://www.wowhead.com/item=212280/flask-of-tempered-mastery",
 				Description = "Use: Drink to increase your Mastery by 2825.\r\n\r\nLasts 1 hour and through death. Consuming an identical flask will add another 1 hour."
 			},
 			
@@ -153,7 +153,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 71,
-				Irl = "https://www.wowhead.com/item=212247/slumbering-soul-serum",
+				Url = "https://www.wowhead.com/item=212247/slumbering-soul-serum",
 				Description = "Use: Elevate your focus to restore 375000 mana over 10 sec, but you are defenseless until your focus is broken."
 			},
 			
@@ -165,7 +165,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 80,
 				Quality = "Uncommon",
 				RequiredLevel = 68,
-				Irl = "https://www.wowhead.com/item=222730/jesters-board",
+				Url = "https://www.wowhead.com/item=222730/jesters-board",
 				Description = "Use: Restores 5400000 health over 20 sec. Must remain seated while eating.\r\n\r\nWell Fed: If you spend at least 10 seconds eating you will become Well Fed and gain 470 of your highest secondary stat for 1 hour."
 			},
 			
@@ -177,7 +177,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213479/deadly-emerald",
+				Url = "https://www.wowhead.com/item=213479/deadly-emerald",
 				Description = "+147 Haste and +49 Critical Strike"
 			},
 			
@@ -189,7 +189,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 71,
-				Irl = "https://www.wowhead.com/item=212265/tempered-potion",
+				Url = "https://www.wowhead.com/item=212265/tempered-potion",
 				Description = "Use: Gain the effects of all inactive Tempered Flasks, increasing their associated secondary stats by 2617 for 30 sec."
 			},
 			new Item
@@ -200,7 +200,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 80,
 				Quality = "Rare",
 				RequiredLevel = 68,
-				Irl = "https://www.wowhead.com/item=222733/feast-of-the-midnight-masquerade",
+				Url = "https://www.wowhead.com/item=222733/feast-of-the-midnight-masquerade",
 				Description = "Use: Place a Mereldar Feast for all players to enjoy!\r\n\r\nRestores 9000000 health and 3000000 mana over 20 sec. Must remain seated while eating.\r\n\r\nWell Fed: If you spend at least 10 seconds eating you will become Well Fed and gain 446 primary stat for 1 hour."
 			},
 			
@@ -212,7 +212,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 80,
 				Quality = "Uncommon",
 				RequiredLevel = 68,
-				Irl = "https://www.wowhead.com/item=222731/outsiders-provisions",
+				Url = "https://www.wowhead.com/item=222731/outsiders-provisions",
 				Description = "Use: Restores 5400000 health over 20 sec. Must remain seated while eating.\r\n\r\nWell Fed: If you spend at least 10 seconds eating you will become Well Fed and gain 470 of your highest secondary stat for 1 hour."
 			},
 			
@@ -224,7 +224,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 80,
 				Quality = "Uncommon",
 				RequiredLevel = 68,
-				Irl = "https://www.wowhead.com/item=222729/empress-farewell",
+				Url = "https://www.wowhead.com/item=222729/empress-farewell",
 				Description = "Use: Restores 5400000 health over 20 sec. Must remain seated while eating.\r\n\r\nWell Fed: If you spend at least 10 seconds eating you will become Well Fed and gain 470 of your highest secondary stat for 1 hour."
 			},
 			
@@ -236,7 +236,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213743/culminating-blasphemite",
+				Url = "https://www.wowhead.com/item=213743/culminating-blasphemite",
 				Description = "Unique-Equipped: Algari Diamond (1)\r\n+181 Primary Stat and +0.15% Critical Effect per unique Algari gem color"
 			},
 			
@@ -248,7 +248,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 80,
 				Quality = "Uncommon",
 				RequiredLevel = 80,
-				Irl = "https://www.wowhead.com/item=222728/beledars-bounty",
+				Url = "https://www.wowhead.com/item=222728/beledars-bounty",
 				Description = "Use: Restores 5400000 health over 20 sec. Must remain seated while eating.\r\n\r\nWell Fed: If you spend at least 10 seconds eating you will become Well Fed and gain 470 of your highest secondary stat for 1 hour."
 			},
 			
@@ -260,7 +260,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213482/masterful-emerald",
+				Url = "https://www.wowhead.com/item=213482/masterful-emerald",
 				Description = "+147 Haste and +49 Mastery"
 			},
 			
@@ -272,7 +272,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213458/masterful-ruby",
+				Url = "https://www.wowhead.com/item=213458/masterful-ruby",
 				Description = "+147 Critical Strike and +49 Mastery"
 			},
 			
@@ -284,7 +284,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213455/quick-ruby",
+				Url = "https://www.wowhead.com/item=213455/quick-ruby",
 				Description = "+147 Critical Strike and +49 Haste"
 			},
 			
@@ -296,7 +296,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213470/quick-sapphire",
+				Url = "https://www.wowhead.com/item=213470/quick-sapphire",
 				Description = "+147 Versatility and +49 Haste"
 			},
 			
@@ -308,7 +308,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213494/quick-onyx",
+				Url = "https://www.wowhead.com/item=213494/quick-onyx",
 				Description = "+147 Mastery and +49 Haste"
 			},
 			
@@ -320,7 +320,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213473/masterful-sapphire",
+				Url = "https://www.wowhead.com/item=213473/masterful-sapphire",
 				Description = "+147 Versatility and +49 Mastery"
 			},
 				new Item
@@ -331,7 +331,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=213477/deadly-sapphire",
+				Url = "https://www.wowhead.com/item=213477/deadly-sapphire",
 				Description = "+147 Versatility and +49 Critical Strike"
 			},
 
@@ -343,7 +343,7 @@ public class ItemsService : IItemsService
 				ItemLevel = 610,
 				Quality = "Rare",
 				RequiredLevel = 70,
-				Irl = "https://www.wowhead.com/item=222896/daybreak-spellthread",
+				Url = "https://www.wowhead.com/item=222896/daybreak-spellthread",
 				Description = "Use: Apply Daybreak Spellthread to your leggings, permanently increasing its Intellect by 930 and increasing the wearer's maximum mana by 5%."
 },
 		};

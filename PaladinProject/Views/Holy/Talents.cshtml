@@ -1,31 +1,5 @@
-﻿@{
-	ViewData["Title"] = "Holy Paladin Talents";
-}
-
-@using System.Collections.Generic
-@using Microsoft.AspNetCore.Html
-@using PaladinProject.ViewModels;
-@using PaladinProject.Models
-@{
-	var spells = ViewBag.AllSpells as List<PaladinProject.Models.Spell>;
-	var items = ViewBag.AllItems as List<PaladinProject.Models.Item>;
-
-	var spellsByName = spells?
-		.Where(s => !string.IsNullOrWhiteSpace(s.Name))
-		.GroupBy(s => s.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
-		.Select(g => g.First())
-		.ToDictionary(s => s.Name!, s => s, StringComparer.OrdinalIgnoreCase);
-
-	var itemsByName = items?
-		.Where(i => !string.IsNullOrWhiteSpace(i.Name))
-		.GroupBy(i => i.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
-		.Select(g => g.First())
-		.ToDictionary(i => i.Name!, i => i, StringComparer.OrdinalIgnoreCase);
-}
-
-
-
-<link rel="stylesheet" href="~/css/general.css" />
+﻿@inherits PaladinProject.Views.Shared.BaseTalentView
+@{ViewData["Title"] = "Holy Paladin Talents";}
 @*<link rel="stylesheet" href="~/css/holy/holyStats.css" />
 <link rel="stylesheet" href="~/css/holy/holyTalents.css" />*@
 
@@ -35,6 +9,13 @@
 			<div class="main-wrapper">
 
 				<h1>Holy Paladin Talents - The War Within</h1>
+
+				<p>
+					Beacon of Light се поставя върху танк и генерира пасивно лечение. @Spell("Beacon of Light") се поставя върху танк и генерира пасивно лечение.
+				</p>
+				<p>
+					Beacon of Light се поставя върху танк и генерира пасивно лечение. @Item("Greater Rune of the Void Ritual") се поставя върху танк и генерира пасивно лечение.
+				</p>
 
 				<div class="separator-container">
 					<img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
@@ -249,74 +230,7 @@
 					<img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
 				</div>
 
-				@functions {
-					string LineStyle(int fromCol, int fromRow, int toCol, int toRow, double offsetX = 7.5, double offsetY = 7.5)
-					{
-						int cellW = 50;
-						int cellH = 60;
-						int gap = 20;
-
-						int stepX = cellW + gap;
-						int stepY = cellH + gap;
-
-						double x = (fromCol - 1) * stepX + stepX / 2 + offsetX;
-						double y = (fromRow - 1) * stepY + stepY / 2 + offsetY;
-
-						int dx = (toCol - fromCol) * stepX;
-						int dy = (toRow - fromRow) * stepY;
-
-						double length = Math.Sqrt(dx * dx + dy * dy);
-						double angle = Math.Atan2(dy, dx) * (180.0 / Math.PI);
-
-						return $"top: {y}px; left: {x}px; width: {length}px; height: 4px; transform: rotate({angle}deg); transform-origin: top left;";
-					}
-
-					private Dictionary<string, PaladinProject.Models.Spell> SpellsByName =>
-					((List<PaladinProject.Models.Spell>)Model)
-					.Where(s => !string.IsNullOrWhiteSpace(s.Name))
-					.GroupBy(s => s.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
-					.Select(g => g.First())
-					.ToDictionary(s => s.Name!, s => s, StringComparer.OrdinalIgnoreCase);
-
-
-					public IHtmlContent SpellNode(string spellName, int col, int row, string shape = "circle")
-					{
-						if (!SpellsByName.ContainsKey(spellName))
-							return HtmlString.Empty;
-
-						var spell = SpellsByName[spellName];
-						var shapeClass = $"node-{shape.ToLower()}";
-
-						var html = $@"
-								<div class='node {shapeClass}' style='grid-column: {col}; grid-row: {row};'>
-								<a href='{spell.Irl}' target='_blank'>
-								<img src='/images/SpellIcons/{spell.Icon}' alt='{spell.Name}' />
-								</a>
-								</div>";
-
-						return new HtmlString(html);
-					}
-
-					public IHtmlContent Line(int fromCol, int fromRow, int toCol, int toRow, string fromShape = "circle", string toShape = "circle")
-					{
-						double offsetX = GetOffset(fromShape).x;
-						double offsetY = GetOffset(fromShape).y;
-
-						var style = LineStyle(fromCol, fromRow, toCol, toRow, offsetX, offsetY);
-						var html = $"<div class='line' style='{style}'></div>";
-						return new HtmlString(html);
-					}
-
-					private (double x, double y) GetOffset(string shape)
-					{
-						switch (shape.ToLower())
-						{
-							case "hexagon": return (-7.5, -7.5);
-							case "square": return (-7.5, -7.5);
-							default: return (-7.5, -7.5);
-						}
-					}
-				}
+				
 
 
 				<section holy-herald>

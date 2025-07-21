@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity.UI.Services; // ВАЖНО
+using Microsoft.AspNetCore.Identity.UI.Services; 
 using Microsoft.Extensions.Configuration;
 using System.Net;
 using System.Net.Mail;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PaladinProject.Services
 {
-	public class EmailSender : IEmailSender // да имплементира интерфейса от Microsoft
+	public class EmailSender : IEmailSender 
 	{
 		private readonly IConfiguration _configuration;
 

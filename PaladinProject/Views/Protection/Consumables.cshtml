@@ -1,10 +1,9 @@
-﻿@model PaladinProject.ViewModels.PageHeaderViewModel
+﻿@inherits PaladinProject.Views.Shared.BaseTalentView
+
 @{
     ViewData["Title"] = "Protection Consumables Paladin Guide";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@await Html.PartialAsync("_PageHeaderPartial", Model)
 
 <div class="main-wrapper">
     <section id="overview">
@@ -149,9 +148,3 @@
         <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        // Optional: JS specific to this page
-    </script>
-}
