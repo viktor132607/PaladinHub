@@ -1,14 +1,23 @@
-# Use the official .NET 8 SDK image
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
-
-# Copy everything and build
-COPY . .
-RUN dotnet publish -c Release -o /app/out
-
-# Use runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
+# 1. Use official ASP.NET Core runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
-COPY --from=build /app/out .
+EXPOSE 10000
 
-ENTRYPOINT ["dotnet", "PaladinHub.dll"]
+# 2. Build the app
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
+COPY ["PaladinProject/PaladinProject.csproj", "PaladinProject/"]
+RUN dotnet restore "PaladinProject/PaladinProject.csproj"
+COPY . .
+WORKDIR "/src/PaladinProject"
+RUN dotnet build "PaladinProject.csproj" -c Release -o /app/build
+
+# 3. Publish
+FROM build AS publish
+RUN dotnet publish "PaladinProject.csproj" -c Release -o /app/publish
+
+# 4. Run
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "PaladinProject.dll"]
