@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using PaladinProject.Data;
@@ -10,21 +10,19 @@ using PaladinProject.Services.SectionServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 🟢 Задължително за Render
+builder.WebHost.UseUrls("http://0.0.0.0:10000");
+
 // Add services to the container
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddScoped<IItemsService, ItemsService>();
 builder.Services.AddScoped<ISpellbookService, SpellbookService>();
 builder.Services.AddScoped<HolySectionService>();
 builder.Services.AddScoped<ProtectionSectionService>();
 builder.Services.AddScoped<RetributionSectionService>();
-builder.Services.AddScoped<HolySectionService>();
-builder.Services.AddScoped<ProtectionSectionService>();
-builder.Services.AddScoped<RetributionSectionService>();
 
-
-
-
-// ?? Add RazorHelpers support
+// Add RazorHelpers support
 builder.Services.AddHttpContextAccessor();
 
 // Register main application database
@@ -63,7 +61,9 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 

@@ -12,22 +12,20 @@
         }
 
         <div class="main-wrapper">
-            @* PAGE TITLE (h1) *@
+            <br>
             @if (!string.IsNullOrEmpty(Model.PageTitle))
             {
                 <h1 class="page-title">@Model.PageTitle</h1>
             }
 
-            @* PAGE TEXT (paragraph) *@
             @if (!string.IsNullOrEmpty(Model.PageText))
             {
                 <p class="page-text">@Model.PageText</p>
             }
 
-            @* CURRENT SECTION BUTTONS *@
             @if (Model.CurrentSectionButtons?.Any() == true)
             {
-                <div class="section-title">Current Section :</div>
+                <div class="section-title" style="font-size: 1.8em;text-align: center;  color: white;">Current Sections :</div>
                 <div class="section-grid">
                     @foreach (var btn in Model.CurrentSectionButtons)
                     {
@@ -39,10 +37,9 @@
                 </div>
             }
 
-            @* OTHER SECTION BUTTONS *@
             @if (Model.OtherSectionButtons?.Any() == true)
             {
-                <div class="section-title">Other Sections :</div>
+                <div class="section-title" style="font-size: 1.8em;text-align: center;  color: white;">Other Sections :</div>
                 <div class="section-grid">
                     @foreach (var btn in Model.OtherSectionButtons)
                     {
@@ -53,6 +50,23 @@
                     }
                 </div>
             }
+
+            <div class="separator-container">
+                <img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
+            </div>
+            <br>
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentHash = window.location.hash;
+        if (!currentHash) return;
+
+        document.querySelectorAll(".section-cell").forEach(el => {
+            if (el.getAttribute("href") === currentHash) {
+                el.classList.add("active");
+            }
+        });
+    });
+</script>

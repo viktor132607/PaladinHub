@@ -1193,3 +1193,20 @@ a {
         border-radius: 0;
     }
 
+.section-cell {
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.section-cell:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* лек hover фон */
+    text-decoration: none; /* без underline при hover */
+    color: white; /* запази бял цвят */
+}
+
+    .section-cell.active {
+        background-color: #2a2a2a;
+    }
+
