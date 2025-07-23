@@ -1,10 +1,12 @@
-﻿using PaladinProject.Services;
+﻿using PaladinProject.Services.IService;
 
-namespace PaladinProject.Controllers
+namespace PaladinProject.Controllers.IControllers
 {
 	public interface IBaseController
 	{
 		ISpellbookService SpellbookService { get; }
 		IItemsService ItemsService { get; }
+
+		string GetCoverImage();
 	}
 }

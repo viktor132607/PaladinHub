@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using PaladinProject.Models;
 
-namespace PaladinProject.Services
+namespace PaladinProject.Services.IService
 {
 	public interface ISpellbookService
 	{

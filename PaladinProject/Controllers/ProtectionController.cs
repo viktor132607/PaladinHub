@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PaladinProject.Services;
+using PaladinProject.Services.IService;
+using PaladinProject.Services.SectionServices;
 using PaladinProject.ViewModels;
 using System.Diagnostics;
 
@@ -14,8 +15,9 @@ namespace PaladinProject.Controllers
 		public ProtectionController(
 			ILogger<ProtectionController> logger,
 			ISpellbookService spellbookService,
-			IItemsService itemsService
-		) : base(spellbookService, itemsService)
+			IItemsService itemsService,
+			ProtectionSectionService sectionService)
+			: base(spellbookService, itemsService, sectionService)
 		{
 			_logger = logger;
 		}

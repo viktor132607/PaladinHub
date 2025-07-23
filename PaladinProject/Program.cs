@@ -5,6 +5,8 @@ using PaladinProject.Data;
 using PaladinProject.Models;
 using PaladinProject.Services;
 using PaladinProject.Helpers;
+using PaladinProject.Services.IService;
+using PaladinProject.Services.SectionServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IItemsService, ItemsService>();
 builder.Services.AddScoped<ISpellbookService, SpellbookService>();
+builder.Services.AddScoped<HolySectionService>();
+builder.Services.AddScoped<ProtectionSectionService>();
+builder.Services.AddScoped<RetributionSectionService>();
+builder.Services.AddScoped<HolySectionService>();
+builder.Services.AddScoped<ProtectionSectionService>();
+builder.Services.AddScoped<RetributionSectionService>();
+
+
+
 
 // ?? Add RazorHelpers support
 builder.Services.AddHttpContextAccessor();

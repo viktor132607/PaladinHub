@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PaladinProject.Models;
-using PaladinProject.Services;
+using PaladinProject.Services.IService;
 using System;
 using System.Reflection.Metadata;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;

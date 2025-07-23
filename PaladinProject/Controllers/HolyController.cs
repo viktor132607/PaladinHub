@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using PaladinProject.Services;
+using PaladinProject.Services.IService;
+using PaladinProject.Services.SectionServices;
 using PaladinProject.ViewModels;
 using System.Diagnostics;
 
@@ -14,8 +15,9 @@ namespace PaladinProject.Controllers
 		public HolyController(
 			ILogger<HolyController> logger,
 			ISpellbookService spellbookService,
-			IItemsService itemsService
-		) : base(spellbookService, itemsService)
+			IItemsService itemsService,
+			HolySectionService sectionService)
+			: base(spellbookService, itemsService, sectionService)
 		{
 			_logger = logger;
 		}

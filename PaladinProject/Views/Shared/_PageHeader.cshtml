@@ -1,21 +1,28 @@
-﻿@model PaladinProject.ViewModels.CombinedViewModel  
+﻿@model PaladinProject.ViewModels.CombinedViewModel
+
 <div class="outer-wrapper">
     <div class="page-container">
 
-
+        @* COVER IMAGE *@
         @if (!string.IsNullOrEmpty(Model.CoverImage))
         {
             <div class="image-cover-container">
                 <img src="@Model.CoverImage" alt="Cover" class="image-cover" />
             </div>
         }
+
         <div class="main-wrapper">
+            @* PAGE TITLE (h1) *@
+            @if (!string.IsNullOrEmpty(Model.PageTitle))
+            {
+                <h1 class="page-title">@Model.PageTitle</h1>
+            }
 
-        @if (!string.IsNullOrEmpty(Model.Title))
-        {
-            <h1 class="page-title">@Model.Title</h1>
-        }
-
+            @* PAGE TEXT (paragraph) *@
+            @if (!string.IsNullOrEmpty(Model.PageText))
+            {
+                <p class="page-text">@Model.PageText</p>
+            }
 
             @* CURRENT SECTION BUTTONS *@
             @if (Model.CurrentSectionButtons?.Any() == true)
@@ -46,10 +53,6 @@
                     }
                 </div>
             }
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D2.png" alt="Separator" class="separator" />
-            </div>
         </div>
     </div>
 </div>
