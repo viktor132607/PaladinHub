@@ -1,6 +1,7 @@
 ﻿using DotNetEnv;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;
 using PaladinHub.Services.IService;
@@ -20,7 +21,7 @@ builder.Services.AddScoped<RetributionSectionService>();
 
 builder.Services.AddHttpContextAccessor();
 
-Logger.Debug($"{Environment.GetEnvironmentVariable("DB_CONNECTION")}");
+Console.WriteLine($"\n\n{Environment.GetEnvironmentVariable("DB_CONNECTION")}\n\n");
 
 builder.Services
 	.AddDbContext<AppDbContext>(
