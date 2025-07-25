@@ -73,9 +73,16 @@ app.MapControllerRoute(
 
 using (IServiceScope scope = app.Services.CreateScope())
 {
-	AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+	try
+	{
+		AppDbContext context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-	await context.Database.MigrateAsync();
+		await context.Database.MigrateAsync();
+	}
+	catch (Exception ex)
+	{
+		Console.WriteLine($"\n\n\n{ex.InnerException}.  {ex.Message}  {ex.ToString}\n\n\n");
+	}
 }
 
 app.Run();
