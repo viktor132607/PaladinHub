@@ -20,6 +20,8 @@ builder.Services.AddScoped<RetributionSectionService>();
 
 builder.Services.AddHttpContextAccessor();
 
+Logger.Debug($"{Environment.GetEnvironmentVariable("DB_CONNECTION")}");
+
 builder.Services
 	.AddDbContext<AppDbContext>(
 		options =>
