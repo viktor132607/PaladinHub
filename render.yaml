@@ -7,6 +7,6 @@ services:
     autoDeploy: true
 
 databases:
-  - name: paladinHub-db
-    databaseName: paladinHubDb
+  - name: paladinhubdb
+    databaseName: paladinhubdb
     plan: free
