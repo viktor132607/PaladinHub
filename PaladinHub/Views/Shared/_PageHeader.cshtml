@@ -1,0 +1,74 @@
+﻿@model PaladinHub.Models.CombinedViewModel
+
+<div class="outer-wrapper">
+    <div class="page-container">
+
+        @* COVER IMAGE *@
+        @if (!string.IsNullOrEmpty(Model.CoverImage))
+        {
+            <div class="image-cover-container">
+                <img src="@Model.CoverImage" alt="Cover" class="image-cover" />
+            </div>
+        }
+
+        <div class="main-wrapper">
+            <br>
+            @if (!string.IsNullOrEmpty(Model.PageTitle))
+            {
+                <h1 class="page-title">@Model.PageTitle</h1>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.PageText))
+            {
+                <p class="page-text">@Model.PageText</p>
+            }
+
+            @if (Model.CurrentSectionButtons?.Any() == true)
+            {
+                <div class="section-title" style="font-size: 1.8em;text-align: center;  color: white;">Current Sections :
+                </div>
+                <div class="section-grid">
+                    @foreach (var btn in Model.CurrentSectionButtons)
+                    {
+                        <a href="@btn.Url" class="section-cell">
+                            <span class="icon" style="background-image: url('@btn.Icon');"></span>
+                            <span>@btn.Text</span>
+                        </a>
+                    }
+                </div>
+            }
+
+            @if (Model.OtherSectionButtons?.Any() == true)
+            {
+                <div class="section-title" style="font-size: 1.8em;text-align: center;  color: white;">Other Sections :
+                </div>
+                <div class="section-grid">
+                    @foreach (var btn in Model.OtherSectionButtons)
+                    {
+                        <a href="@btn.Url" class="section-cell">
+                            <span class="icon" style="background-image: url('@btn.Icon');"></span>
+                            <span>@btn.Text</span>
+                        </a>
+                    }
+                </div>
+            }
+
+            <div class="separator-container">
+                <img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
+            </div>
+            <br>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const currentHash = window.location.hash;
+        if (!currentHash) return;
+
+        document.querySelectorAll(".section-cell").forEach(el => {
+            if (el.getAttribute("href") === currentHash) {
+                el.classList.add("active");
+            }
+        });
+    });
+</script>

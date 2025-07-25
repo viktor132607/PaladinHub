@@ -1,4 +1,4 @@
-# PaladinProject
+# PaladinHub
 
 ## ⚠️ Edit `appsettings.json` File
 
@@ -6,7 +6,7 @@
 
 ## Overview
 
-The **PaladinProject** project is a modular and scalable .NET 8 website with in-build talent tree builder. It adheres to clean architecture principles and includes components for API, data management, domain logic, shared utilities, and unit tests.
+The **PaladinHub** project is a modular and scalable .NET 8 website with in-build talent tree builder. It adheres to clean architecture principles and includes components for API, data management, domain logic, shared utilities, and unit tests.
 
 ---
 
@@ -21,25 +21,25 @@ The **PaladinProject** project is a modular and scalable .NET 8 website with in-
 
 This solution follows a **layered architecture** to separate concerns:
 
-1. **PaladinProject.API**
+1. **PaladinHub.API**
 
    - The main Web API project that serves HTTP endpoints.
    - Built using ASP.NET Core Minimal APIs or Controllers.
 
-2. **PaladinProject.Common**
+2. **PaladinHub.Common**
 
    - Contains shared request/response models.
 
-3. **PaladinProject.Data**
+3. **PaladinHub.Data**
 
    - Handles database context, repositories, and entity configuration.
    - Built using Entity Framework Core.
 
-4. **PaladinProject.Domain**
+4. **PaladinHub.Domain**
 
    - Represents the core business logic.
 
-5. **PaladinProject.Tests**
+5. **PaladinHub.Tests**
 
    - Contains partial unit tests for validating the solution.
 
@@ -47,7 +47,7 @@ This solution follows a **layered architecture** to separate concerns:
    - `.editorconfig`: Coding style configuration.
    - `.gitignore`: Specifies files and directories to exclude from source control.
    - `Directory.Packages.props`: Shared package versions for the solution.
-   - `PaladinProject.sln`: Visual Studio solution file.
+   - `PaladinHub.sln`: Visual Studio solution file.
    - `LICENSE`: Project license file.
    - `README.md`: Project documentation.
 

@@ -1,0 +1,273 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> signInManager
+@inject UserManager<User> userManager
+
+
+@{
+    var headerModel = Model as PaladinHub.Models.CombinedViewModel;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>@(ViewData["Title"] ?? "PaladinHub")</title>
+    <link rel="icon" type="image/png" href="images/WoW_icon.svg.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="~/js/site.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/PaladinHub.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Home">Home</a>
+                        </li>
+
+                        <!-- Holy Paladin -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/Holy/Overview" id="holyDropdown" role="button">
+                                Holy Paladin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="holyDropdown">
+                                <li><a class="dropdown-item" href="/Holy/Gear">Gear</a></li>
+                                <li><a class="dropdown-item" href="/Holy/Talents">Talents</a></li>
+                                <li><a class="dropdown-item" href="/Holy/Consumables">Consumables</a></li>
+                                <li><a class="dropdown-item" href="/Holy/Rotation">Rotation</a></li>
+                                <li><a class="dropdown-item" href="/Holy/Stats">Stats</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Protection Paladin -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/Protection/Overview" id="protDropdown"
+                                role="button">
+                                Protection Paladin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="protDropdown">
+                                <li><a class="dropdown-item" href="/Protection/Gear">Gear</a></li>
+                                <li><a class="dropdown-item" href="/Protection/Talents">Talents</a></li>
+                                <li><a class="dropdown-item" href="/Protection/Consumables">Consumables</a></li>
+                                <li><a class="dropdown-item" href="/Protection/Rotation">Rotation</a></li>
+                                <li><a class="dropdown-item" href="/Protection/Stats">Stats</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Retribution Paladin -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="/Retribution/Overview" id="retriDropdown"
+                                role="button">
+                                Retribution Paladin
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="retriDropdown">
+                                <li><a class="dropdown-item" href="/Retribution/Gear">Gear</a></li>
+                                <li><a class="dropdown-item" href="/Retribution/Talents">Talents</a></li>
+                                <li><a class="dropdown-item" href="/Retribution/Consumables">Consumables</a></li>
+                                <li><a class="dropdown-item" href="/Retribution/Rotation">Rotation</a></li>
+                                <li><a class="dropdown-item" href="/Retribution/Stats">Stats</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav ms-auto">
+                        @if (signInManager.IsSignedIn(User))
+                        {
+                            @await Html.PartialAsync("_LoginPartial")
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div style="padding-top: 80px;">
+        @if (headerModel != null)
+        {
+            @await Html.PartialAsync("_PageHeader", headerModel)
+        }
+
+        <main role="main" class="pb-5 container">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted text-center mt-5 py-3">
+        <div class="container">
+            &copy; @DateTime.Now.Year - PaladinHub | Made with 💛 for WoW Paladins
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        const navbar = document.querySelector(".navbar-custom");
+        function updateNavbarVisibility(mouseY) {
+            if (window.scrollY === 0 || mouseY <= 600) {
+                navbar.style.top = "0";
+            } else {
+                navbar.style.top = "-100px";
+            }
+        }
+
+        document.addEventListener("mousemove", e => updateNavbarVisibility(e.clientY));
+        window.addEventListener("scroll", () => updateNavbarVisibility(999));
+        updateNavbarVisibility(999);
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
+
+
+@*
+@functions {
+	string LineStyle(int fromCol, int fromRow, int toCol, int toRow, double offsetX = 7.5, double offsetY = 7.5)
+	{
+		int cellW = 50;
+		int cellH = 60;
+		int gap = 20;
+
+		int stepX = cellW + gap;
+		int stepY = cellH + gap;
+
+		double x = (fromCol - 1) * stepX + stepX / 2 + offsetX;
+		double y = (fromRow - 1) * stepY + stepY / 2 + offsetY;
+
+		int dx = (toCol - fromCol) * stepX;
+		int dy = (toRow - fromRow) * stepY;
+
+		double length = Math.Sqrt(dx * dx + dy * dy);
+		double angle = Math.Atan2(dy, dx) * (180.0 / Math.PI);
+
+		return $"top: {y}px; left: {x}px; width: {length}px; height: 4px; transform: rotate({angle}deg); transform-origin: top left;";
+	}
+
+	private Dictionary<string, PaladinHub.Data.Entities.Spell> SpellsByName =>
+	Model.Spells?
+	.Where(s => !string.IsNullOrWhiteSpace(s.Name))
+	.GroupBy(s => s.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
+	.Select(g => g.First())
+	.ToDictionary(s => s.Name!, s => s, StringComparer.OrdinalIgnoreCase)
+	?? new Dictionary<string, PaladinHub.Data.Entities.Spell>();
+
+	private Dictionary<string, PaladinHub.Data.Entities.Item> ItemsByName =>
+	Model.Items?
+	.Where(i => !string.IsNullOrWhiteSpace(i.Name))
+	.GroupBy(i => i.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
+	.Select(g => g.First())
+	.ToDictionary(i => i.Name!, i => i, StringComparer.OrdinalIgnoreCase)
+	?? new Dictionary<string, PaladinHub.Data.Entities.Item>();
+
+	public IHtmlContent SpellNode(string spellName, int col, int row, string shape = "circle")
+	{
+		if (!SpellsByName.ContainsKey(spellName))
+			return HtmlString.Empty;
+
+		var spell = SpellsByName[spellName];
+		var shapeClass = $"node-{shape.ToLower()}";
+
+		var html = $@"
+								<div class='node {shapeClass}' style='grid-column: {col}; grid-row: {row};'>
+								<a href='{spell.Url}' target='_blank'>
+								<img src='/images/SpellIcons/{spell.Icon}' alt='{spell.Name}' />
+								</a>
+								</div>";
+
+		return new HtmlString(html);
+	}
+
+	public IHtmlContent Line(int fromCol, int fromRow, int toCol, int toRow, string fromShape = "circle", string toShape = "circle")
+	{
+		double offsetX = GetOffset(fromShape).x;
+		double offsetY = GetOffset(fromShape).y;
+
+		var style = LineStyle(fromCol, fromRow, toCol, toRow, offsetX, offsetY);
+		var html = $"<div class='line' style='{style}'></div>";
+		return new HtmlString(html);
+	}
+
+	private (double x, double y) GetOffset(string shape)
+	{
+		switch (shape.ToLower())
+		{
+			case "hexagon": return (-7.5, -7.5);
+			case "square": return (-7.5, -7.5);
+			default: return (-7.5, -7.5);
+		}
+	}
+	public IHtmlContent Spell(string spellName, int size = 20)
+	{
+		if (!SpellsByName.ContainsKey(spellName))
+			return HtmlString.Empty;
+
+		var spell = SpellsByName[spellName];
+		var qualityClass = spell.Quality?.ToLower() ?? "common";
+		var url = string.IsNullOrWhiteSpace(spell.Url) ? "#" : spell.Url;
+
+		var html = $@"
+		<a href='{url}' target='_blank' class='item-link item {qualityClass}' style='display: inline-flex; align-items: center; gap: 6px; text-decoration: none;'>
+			<img
+				src='/images/SpellIcons/{spell.Icon}'
+				alt='{spell.Name}'
+				title='{spell.Name}'
+				width='{size}'
+				height='{size}'
+				style='vertical-align: middle;' />
+			<span>{spell.Name}</span>
+		</a>";
+
+		return new HtmlString(html);
+	}
+
+
+	public IHtmlContent Item(string itemName, int size = 20)
+	{
+		if (!ItemsByName.ContainsKey(itemName))
+			return HtmlString.Empty;
+
+		var item = ItemsByName[itemName];
+		var qualityClass = item.Quality?.ToLower() ?? "common";
+		var url = string.IsNullOrWhiteSpace(item.Url) ? "#" : item.Url;
+
+		var html = $@"
+		<a href='{url}' target='_blank' class='item-link item {qualityClass}' style='display: inline-flex; align-items: center; gap: 6px; text-decoration: none;'>
+			<img
+				src='/images/ItemIcons/{item.Icon}'
+				alt='{item.Name}'
+				title='{item.Name}'
+				width='{size}'
+				height='{size}'
+				style='vertical-align: middle;' />
+			<span>{item.Name}</span>
+		</a>";
+
+		return new HtmlString(html);
+	}
+}
+*@
