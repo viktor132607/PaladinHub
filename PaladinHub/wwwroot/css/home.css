@@ -3,50 +3,26 @@
     color: #FFD700;
     overflow-x: hidden;
     margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.main-wrapper {
-    background-color: #151515;
-    width: 1600px; 
-    margin: 0 auto;
-}
-
-
-nav {
-    position: sticky;
-    top: 0;
+.main-wrapper,
+.main-cover-container {
+    max-width: 1600px;
     width: 100%;
-    background-color: #111;
-    z-index: 1000;
-    padding: 0.5rem 1rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-    nav a {
-        color: #FFD700;
-    }
-
-.navbar-nav .nav-link {
-    color: #FFD700 !important;
-    font-weight: bold;
-    font-size: 1.1rem;
-    transition: color 0.3s, text-shadow 0.3s;
+.main-cover {
+    width: 100%;
+    object-fit: cover;
+    display: block;
 }
-
-    .navbar-nav .nav-link:hover {
-        color: #FFC300 !important;
-        text-shadow: 0 0 4px #FFD700;
-    }
-
-.nav-home-icon {
-    font-size: 2rem;
-    color: #FFD700 !important;
-    transition: color 0.3s, text-shadow 0.3s;
-}
-
-    .nav-home-icon:hover {
-        color: #FFC300 !important;
-        text-shadow: 0 0 4px #FFD700;
-    }
 
 .hero-section {
     padding: 4rem 2rem;
@@ -83,27 +59,6 @@ nav {
         background: #FFD700;
         color: black;
     }
-
-.side-image-left, .side-image-right {
-    position: fixed;
-    top: 0;
-    width: 200px;
-    height: 100%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 0;
-}
-
-.side-image-left {
-    left: 0;
-    background-image: url('/images/left-image.png');
-}
-
-.side-image-right {
-    right: 0;
-    background-image: url('/images/right-image.png');
-}
 
 .content-wrapper {
     padding: 4rem 2rem;
@@ -172,6 +127,13 @@ nav {
         margin-bottom: 10px;
     }
 
+.captions-section .caption {
+    font-size: 1.5rem;
+    color: #FFD700;
+    font-weight: bold;
+    padding: 1rem 0;
+}
+
 #guides .card {
     background: transparent;
     border: none;
@@ -197,14 +159,19 @@ nav {
     width: 100%;
     object-fit: cover;
 }
-.main-cover-container {
-    width: 1600px;
-    margin: 0 auto;
-    overflow: hidden;
-}
 
-.main-cover {
-    width: 100%;
-    object-fit: cover;
-    display: block;
+@media (max-width: 768px) {
+    .hero-tree-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-tree-card {
+        width: 90%;
+    }
+
+    .content-wrapper {
+        width: 95%;
+        padding: 2rem 1rem;
+    }
 }

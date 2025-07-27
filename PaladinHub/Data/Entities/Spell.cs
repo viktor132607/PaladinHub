@@ -13,6 +13,7 @@
 		{
 			get => _quality;
 			set => _quality = string.IsNullOrWhiteSpace(value) ? "spell" : value.ToLowerInvariant();
+		}
 
 			//public int X { get; set; }
 			//public int Y { get; set; }
@@ -46,6 +47,5 @@
 			// optional display helpers
 			//public string tooltip => $"{name} (ilvl {itemlevel}) - {useeffect}";
 			//public string pricedisplay => $"{sellpricegold}g {sellpricesilver}s";
-		}
 	}
 }

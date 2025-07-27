@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace PaladinHub.Views.Shared
 {
-	public abstract class BaseTalentView : RazorPage<PaladinHub.Models.CombinedViewModel>
+	public abstract class SpellsAndItemsView : RazorPage<PaladinHub.Models.CombinedViewModel>
 	{
 		protected Dictionary<string, Spell> SpellsByName =>
 			Model.Spells?
@@ -52,14 +52,21 @@ namespace PaladinHub.Views.Shared
 			var qualityClass = item.Quality?.ToLower() ?? "common";
 			var url = string.IsNullOrWhiteSpace(item.Url) ? "#" : item.Url;
 
+			var secondIconHtml = string.IsNullOrWhiteSpace(item.SecondIcon)
+				? ""
+				: $"<img src='/images/ItemIcons/{item.SecondIcon}' title='{item.Name}' width='{size}' height='{size}' style='vertical-align: middle;' />";
+
 			var html = $@"
-            <a href='{url}' target='_blank' class='item-link item {qualityClass}' style='display: inline-flex; align-items: center; gap: 6px; text-decoration: none;'>
-                <img src='/images/ItemIcons/{item.Icon}' alt='{item.Name}' title='{item.Name}' width='{size}' height='{size}' style='vertical-align: middle;' />
-                <span>{item.Name}</span>
-            </a>";
+		<a href='{url}' target='_blank' class='item-link item {qualityClass}' 
+		   style='display: inline-flex; align-items: center; gap: 6px; text-decoration: none;'>
+			<img src='/images/ItemIcons/{item.Icon}' alt='{item.Name}' width='{size}' height='{size}' style='vertical-align: middle;' />
+			<span>{item.Name}</span>
+			{secondIconHtml}
+		</a>";
 
 			return new HtmlString(html);
 		}
+
 
 		protected IHtmlContent SpellNode(string spellName, int col, int row, string shape = "circle")
 		{

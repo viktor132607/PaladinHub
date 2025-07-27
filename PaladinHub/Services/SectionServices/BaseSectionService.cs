@@ -24,14 +24,15 @@ namespace PaladinHub.Services.SectionServices
 		public virtual List<NavButton> GetOtherSectionButtons() =>
 			AllButtons.Where(b => !b.IsAnchor).ToList();
 
-		// anchor buttons for specific sections
 		protected virtual List<NavButton> GetInternalAnchorButtons() => new()
 		{
 			new() { Url = "#rotation", Text = "Scroll to Rotation", Icon = "/images/icons/ui_spellbook_onebutton.jpg", IsAnchor = true },
-			new() { Url = "#talents", Text = "Scroll to Talents", Icon = "/images/itemIcons/talents.jpg", IsAnchor = true }
+			new() { Url = "#talents", Text = "Scroll to Talents", Icon = "/images/itemIcons/talents.jpg", IsAnchor = true },
+			new() { Url = "#rotation", Text = "Scroll to Rotation", Icon = "/images/icons/ui_spellbook_onebutton.jpg", IsAnchor = true },
+			new() { Url = "#talents", Text = "Scroll to Talents", Icon = "/images/itemIcons/talents.jpg", IsAnchor = true },
+
 		};
 
-		// general buttons for all sections
 		protected virtual List<NavButton> AllButtons => new()
 		{
 			new() { Url = $"/{ControllerName}/Overview", Text = "Overview", Icon = "/images/SpellIcons/Divine Hammer.jpg" },
@@ -43,13 +44,6 @@ namespace PaladinHub.Services.SectionServices
 			new() { Url = $"/{ControllerName}/Overview", Text = "CheatSheet", Icon = "/images/itemIcons/inv_misc_note_03.jpg" },
 			new() { Url = $"/{ControllerName}/WA & Addons", Text = "WA & Addons", Icon = "/images/icons/WA.png" },
 
-			// Internal anchor buttons
-			new() { Url = "#rotation", Text = "Scroll to Rotation", Icon = "/images/icons/ui_spellbook_onebutton.jpg", IsAnchor = true },
-			new() { Url = "#talents", Text = "Scroll to Talents", Icon = "/images/itemIcons/talents.jpg", IsAnchor = true },
-			new() { Url = "#overall-bis", Text = "Enchants", Icon = "/images/itemIcons/inv_misc_enchantedscroll.jpg", IsAnchor = true },
-			new() { Url = "#raid-mythic-bis", Text = "Consumables", Icon = "/images/itemIcons/inv_potion_green.jpg", IsAnchor = true },
-			new() { Url = "#best-trinkets", Text = "Food", Icon = "/images/itemIcons/inv_misc_food_meat_cooked_02_color02.jpg", IsAnchor = true },
-			new() { Url = "#upgrade-priorities", Text = "Gems", Icon = "/images/itemIcons/inv_10_jewelcrafting_gem3primal_cut_red.jpg", IsAnchor = true }
 		};
 
 
@@ -57,10 +51,10 @@ namespace PaladinHub.Services.SectionServices
 		{
 			["Consumables"] = new()
 			{
-				new() { Url = "#overall-bis", Text = "Enchants", Icon = "/images/itemIcons/inv_misc_enchantedscroll.jpg", IsAnchor = true },
-				new() { Url = "#raid-mythic-bis", Text = "Consumables", Icon = "/images/itemIcons/inv_potion_green.jpg", IsAnchor = true },
-				new() { Url = "#best-trinkets", Text = "Food", Icon = "/images/itemIcons/inv_misc_food_meat_cooked_02_color02.jpg", IsAnchor = true },
-				new() { Url = "#upgrade-priorities", Text = "Gems", Icon = "/images/itemIcons/inv_10_jewelcrafting_gem3primal_cut_red.jpg", IsAnchor = true }
+				new() { Url = "#enchants", Text = "Enchants", Icon = "/images/itemIcons/inv_misc_enchantedscroll.jpg", IsAnchor = true },
+				new() { Url = "#consumables", Text = "Consumables", Icon = "/images/itemIcons/inv_potion_green.jpg", IsAnchor = true },
+				new() { Url = "#food", Text = "Food", Icon = "/images/itemIcons/inv_misc_food_meat_cooked_02_color02.jpg", IsAnchor = true },
+				new() { Url = "#gems", Text = "Gems", Icon = "/images/itemIcons/inv_10_jewelcrafting_gem3primal_cut_red.jpg", IsAnchor = true }
 			},
 			["Gear"] = new()
 			{
@@ -80,12 +74,16 @@ namespace PaladinHub.Services.SectionServices
 			},
 			["Rotation"] = new()
 			{
-				new() { Url = "#rotation", Text = "Scroll to Rotation", Icon = "/images/icons/ui_spellbook_onebutton.jpg", IsAnchor = true }
+				new() { Url = "#how-to-play", Text = "How to Play", Icon = "/images/icons/ui_spellbook_onebutton.jpg", IsAnchor = true },
+				new() { Url = "#single-button-rotation", Text = "Single Button Rotation Assistant", Icon = "/images/icons/ui_spellbook_onebutton.jpg", IsAnchor = true },
+				new() { Url = "#rotation-and-spell-priority", Text = "Rotation and Spell Priory", Icon = "/images/icons/ui_spellbook_onebutton.jpg", IsAnchor = true },
+				new() { Url = "#major-cooldown-usage", Text = "Major Cooldown Usage", Icon = "/images/icons/ui_spellbook_onebutton.jpg", IsAnchor = true },
+				new() { Url = "#advanced-insights", Text = "Advanced Insights", Icon = "/images/icons/ui_spellbook_onebutton.jpg", IsAnchor = true }
 			},
 			["Stats"] = new()
 			{
-				new() { Url = "#stat-priorities", Text = "Stat Priorities", Icon = "/images/icons/inv_10_inscription2_repcontracts_scroll_02_uprez_color2.jpg", IsAnchor = true },
-				new() { Url = "#stat-breakdown", Text = "Stat Breakdown", Icon = "/images/icons/inv_10_inscription2_repcontracts_scroll_02_uprez_color2.jpg", IsAnchor = true }
+				new() { Url = "#stats-overview-section", Text = "Stats Overview", Icon = "/images/SpellIcons/Divine Hammer.jpg", IsAnchor = true },
+				new() { Url = "#best-stats-section", Text = "Best Stats", Icon = "/images/icons/inv_10_inscription2_repcontracts_scroll_02_uprez_color2.jpg", IsAnchor = true }
 			},
 			["Talents"] = new()
 			{

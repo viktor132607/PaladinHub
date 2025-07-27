@@ -200,7 +200,7 @@ public class SpellbookService : ISpellbookService
 			new Spell { Id =186, Name ="Improved Holy Shield", Icon = "Holy Shield.jpg", Url = "https://www.wowhead.com/spell=393030/improved-holy-shield", Description = ""},
 			new Spell { Id =187, Name ="Incandescence", Icon = "Incandescence.jpg", Url = "https://www.wowhead.com/spell=385639/incandescence", Description = " "},
 			new Spell { Id =188, Name ="Inflorescence of the Sunwell", Icon = "Inflorescence of the Sunwell.jpg", Url = "https://www.wowhead.", Description = ""},
-			new Spell { Id =189, Name ="Infusion of Light", Icon = "Infusion of Light.jpg", Url = "https://www.wowhead.com/spell=53576/infusion-of-light", Description = " "},
+			new Spell { Id =189, Name ="Infusion of Light", Icon = "Healing Hands.jpg", Url = "https://www.wowhead.com/spell=53576/infusion-of-light", Description = " "},
 			new Spell { Id =190, Name ="Infusion of Light2", Icon = "Inquisitor's Ire.jpg", Url = "https://www.wowhead.com/spell=53576/infusion-of-light", Description = " "},
 			new Spell { Id =191, Name ="Inmost Light", Icon = "Shining Light.jpg", Url = "https://www.wowhead.com/spell=405757/inmost-light", Description = "Eye of Tyr deals 300% increased damage and has 33% reduced cooldown."},
 			new Spell { Id =192, Name ="Inquisitor's Ire", Icon = "Inspiring Vanguard.jpg", Url = "https://www.wowhead.com/spell=403975/inquisitors-ire", Description = ""},
@@ -366,6 +366,7 @@ public class SpellbookService : ISpellbookService
 			new Spell { Id =352, Name ="Art of War", Icon = "Truth Prevails.jpg", Url = "https://www.wowhead.com/spell=461273/truth-prevails", Description = "Judgment heals you for (240% of Spell power) and its mana cost is reduced by 30%. 50% of overhealing from this effect is transferred onto 2 allies within 40 yds." },
 			new Spell { Id =353, Name ="Swift Justice", Icon = "Blessed Calling.jpg", Url = "https://www.wowhead.com/spell=383228/swift-justice", Description = "Reduces the cooldown of Judgment by 2 sec and Crusader Strike by 2 sec." },
 			new Spell { Id =354, Name ="Judgement of Justice", Icon = "Highlords Wrath.jpg", Url = "https://www.wowhead.com/wotlk/spell=53407/judgement-of-justice", Description = "Unleashes the energy of a Seal spell to judge an enemy for 20 sec, preventing them from fleeing and limiting their movement speed.  Refer to individual Seals for additional Judgement effect.  Only one Judgement per Paladin can be active at any one time." },
+			new Spell { Id =355, Name ="Mastery: Lightbringer", Icon = "inv_hammer_04.jpg", Url = "https://www.wowhead.com/spell=183997/mastery-lightbringer", Description = "Increases healing done by up to 12.00%, based on the proximity of your target." },
 			//new Spell { Id =355, Name ="", Icon = ".jpg", Irl = "", Description = "" },
 
 		};
