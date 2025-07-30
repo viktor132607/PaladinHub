@@ -1,4 +1,4 @@
-﻿@model PaladinHub.Models.CombinedViewModel
+﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
 @{
 	ViewData["Title"] = "Holy Paladin Consumables";
 }
@@ -160,6 +160,7 @@
 								<tr>
 									<td>Head</td>
 									<td>
+										@Item("Aureate Sentry’s Pledge")
 										<img class="item-icon"
 											src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
 											alt="Aureate Sentry’s Pledge" />
@@ -382,6 +383,7 @@
 									<tr>
 										<td>Head</td>
 										<td>
+											@Item("Aureate Sentry’s Pledge")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
 												alt="Aureate Sentry’s Pledge" />
@@ -394,6 +396,7 @@
 									<tr>
 										<td>Neck</td>
 										<td>
+											@Item("Gobfather's Gifted Bling")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
 												alt="Gobfather's Gifted Bling" />
@@ -406,6 +409,7 @@
 									<tr>
 										<td>Shoulders</td>
 										<td>
+											@Item("Aureate Sentry’s Roaring Will")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
 												alt="Aureate Sentry’s Roaring Will" />
@@ -418,6 +422,7 @@
 									<tr>
 										<td>Cloak</td>
 										<td>
+											@Item("Test Pilot’s Go-Pack")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/Test Pilot's Go-Pack.jpg")"
 												alt="Test Pilot’s Go-Pack" />
@@ -430,6 +435,7 @@
 									<tr>
 										<td>Chest</td>
 										<td>
+											@Item("Aureate Sentry’s Encasement")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_chest.jpg")"
 												alt="Aureate Sentry’s Encasement" />
@@ -442,6 +448,7 @@
 									<tr>
 										<td>Wrist</td>
 										<td>
+											@Item("Revved-Up Vambraces")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/Revved-Up Vambraces.jpg")"
 												alt="Revved-Up Vambraces" />
@@ -454,6 +461,7 @@
 									<tr>
 										<td>Gloves</td>
 										<td>
+											@Item("Dumpmech Compactors")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_glove_plate_raidwarriorgoblin_d_01.jpg")"
 												alt="Dumpmech Compactors" />
@@ -464,6 +472,7 @@
 												class="source-link" target="_blank">Stix Bunkjunker</a></td>
 									</tr>
 									<tr>
+										@Item("Coin-Operated Girdle")
 										<td>Belt</td>
 										<td>
 											<img class="item-icon"
@@ -478,6 +487,7 @@
 									<tr>
 										<td>Legs</td>
 										<td>
+											@Item("Aureate Sentry’s Legguards")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
 												alt="Aureate Sentry’s Legguards" />
@@ -490,6 +500,7 @@
 									<tr>
 										<td>Boots</td>
 										<td>
+											@Item("Rik’s Walkin’ Boots")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/Rik's Walkin' Boots.jpg")"
 												alt="Rik’s Walkin’ Boots" />
@@ -502,6 +513,7 @@
 									<tr>
 										<td>Ring</td>
 										<td>
+											@Item("The Jastor Diamond")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/TheJastorDiamond.png")"
 												alt="The Jastor Diamond" />
@@ -514,6 +526,7 @@
 									<tr>
 										<td>Ring</td>
 										<td>
+											@Item("Miniature Roulette Wheel")0
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/MiniatureRouletteWheel.png")"
 												alt="Miniature Roulette Wheel" />
@@ -526,6 +539,7 @@
 									<tr>
 										<td>Trinket</td>
 										<td>
+											@Item("Eye of Kezan")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/EyeOfKezan.png")"
 												alt="Eye of Kezan" />
@@ -538,6 +552,7 @@
 									<tr>
 										<td>Trinket</td>
 										<td>
+											@Item("Mister Pick-Me-Up")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/Misterpick-me-up.png")"
 												alt="Mister Pick-Me-Up" />
@@ -550,6 +565,7 @@
 									<tr>
 										<td>Main Hand</td>
 										<td>
+											@Item("Big Earner’s Bludgeon")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/BigEarner'sBludgeon.png")"
 												alt="Big Earner’s Bludgeon" />
@@ -562,6 +578,7 @@
 									<tr>
 										<td>Shield</td>
 										<td>
+											@Item("Titan of Industry")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/TitanOfIndustry.png")"
 												alt="Titan of Industry" />
@@ -596,6 +613,7 @@
 									<tr>
 										<td>Head</td>
 										<td>
+											@Item("Aureate Sentry’s Pledge")"
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
 												alt="Aureate Sentry’s Pledge" />
@@ -608,6 +626,7 @@
 									<tr>
 										<td>Neck</td>
 										<td>
+											@Item("Strapped Rescue - Keg")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
 												alt="Strapped Rescue-Keg" />
@@ -620,6 +639,7 @@
 									<tr>
 										<td>Shoulders</td>
 										<td>
+											@Item("Aureate Sentry’s Roaring Will")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
 												alt="Aureate Sentry’s Roaring Will" />
@@ -632,6 +652,7 @@
 									<tr>
 										<td>Cloak</td>
 										<td>
+											@Item("Cloak of Questionable Intent")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_bracer_plate_earthendungeon_c_01.jpg")"
 												alt="Cloak of Questionable Intent" />
@@ -644,6 +665,7 @@
 									<tr>
 										<td>Chest</td>
 										<td>
+											@Item("Slashproof Business Plate")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_chest_plate_earthendungeon_c_01.jpg")"
 												alt="Slashproof Business Plate" />
@@ -656,6 +678,7 @@
 									<tr>
 										<td>Wrist</td>
 										<td>
+											@Item("Fuzzy Cindercuffs")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_bracer_plate_earthendungeon_c_01.jpg")"
 												alt="Fuzzy Cindercuffs" />
@@ -668,6 +691,7 @@
 									<tr>
 										<td>Gloves</td>
 										<td>
+											@Item("Aureate Sentry's Gauntlets")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_glove.jpg")"
 												alt="Aureate Sentry's Gauntlets" />
@@ -680,6 +704,7 @@
 									<tr>
 										<td>Belt</td>
 										<td>
+											@Item("Venture Contractor’s Floodlight")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/Venture Contractor's Floodlight.jpg")"
 												alt="Venture Contractor’s Floodlight" />
@@ -692,6 +717,7 @@
 									<tr>
 										<td>Legs</td>
 										<td>
+											@Item("Aureate Sentry’s Legguards")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
 												alt="Aureate Sentry’s Legguards" />
@@ -704,6 +730,7 @@
 									<tr>
 										<td>Boots</td>
 										<td>
+											@Item("Sabatons of Rampaging Elements")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_boot_plate_zandalardungeon_c_01.jpg")"
 												alt="Sabatons of Rampaging Elements" />
@@ -716,6 +743,7 @@
 									<tr>
 										<td>Ring</td>
 										<td>
+											@Item("Wick's Golden Loop")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_11_0_earthen_earthenring_color2.jpg")"
 												alt="Wick's Golden Loop" />
@@ -729,6 +757,7 @@
 									<tr>
 										<td>Ring</td>
 										<td>
+											@Item("Bloodoath Signet")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_ring_maldraxxus_01_red.jpg")"
 												alt="Bloodoath Signet" />
@@ -741,6 +770,7 @@
 									<tr>
 										<td>Trinket</td>
 										<td>
+											@Item("Signet of the Priory")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/Signetofthepriory.png")"
 												alt="Signet of the Priory" />
@@ -753,6 +783,7 @@
 									<tr>
 										<td>Trinket</td>
 										<td>
+											@Item("Carved Blazikon Wax")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_misc_candlekobold_color1.jpg")"
 												alt="Carved Blazikon Wax" />
@@ -765,6 +796,7 @@
 									<tr>
 										<td>Main Hand</td>
 										<td>
+											@Item("Electrifying Cognitive Amplifier")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_mace_1h_enprofession_c_01.jpg")"
 												alt="Electrifying Cognitive Amplifier" />
@@ -778,6 +810,7 @@
 									<tr>
 										<td>Shield</td>
 										<td>
+											@Item("Galebreaker Bulwark")
 											<img class="item-icon"
 												src="@Url.Content("~/images/itemIcons/inv_shield_1h_earthendungeon_c_02.jpg")"
 												alt="Galebreaker Bulwark" />
