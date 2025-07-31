@@ -1229,3 +1229,17 @@ a {
         padding: 0 !important;
         margin: 0 !important;
     }
+
+.build-images {
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+    .build-images img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }

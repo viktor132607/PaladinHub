@@ -2026,7 +2026,53 @@ public class ItemsService : IItemsService
 				RequiredLevel = 80,
 				Url = "https://www.wowhead.com/item=178866/dessias-decimating-decapitator?bonus=657:12042:5878:7981:11996",
 				Description = "Two-Hand Axe\n9,611 - 19,963 Damage (4,100 damage per second)\n+5,457 Strength\n+39,976 Stamina\n+1,496 Critical Strike (2.14% @ L80)\n+884 Mastery (1.26% @ L80)"
-			}
+			},
+			new Item
+			{
+				Id = 180,
+				Name = "Critical Chain",
+				Icon = "ability_thunderking_lightningwhip.jpg",
+				ItemLevel = 0,
+				Quality = "Spell Effect",
+				RequiredLevel = 0,
+				Url = "https://www.wowhead.com/spell=1236272/critical-chain",
+				Description = "Approximately 1.5 procs per minute\nYour spells and abilities have a chance to trigger Critical Overload, increasing your Critical Strike by 3% every 2 sec for 20 sec. (20s cooldown)"
+			},
+			new Item
+			{
+				Id = 181,
+				Name = "Windsinger's Runed Citrine",
+				Icon = "inv_siren_isle_searuned_citrine_pink",
+				ItemLevel = 619,
+				Quality = "Epic",
+				RequiredLevel = 70,
+				Url = "https://www.wowhead.com/item=228640/windsingers-runed-citrine",
+				Description = "Grants 925.007 of your highest secondary stat."
+			},
+			new Item
+			{
+				Id = 182,
+				Name = "Fathomdweller's Runed Citrine",
+				Icon = "inv_siren_isle_searuned_citrine_blue",
+				ItemLevel = 619,
+				Quality = "Epic",
+				RequiredLevel = 70,
+				Url = "https://www.wowhead.com/item=228639/fathomdwellers-runed-citrine",
+				Description = "Grants 39740.006 / 1510.133 Mastery.\n\nIn addition, all other Singing Citrine effects are increased based on your total Mastery."
+			},
+			new Item
+			{
+				Id = 183,
+				Name = "Stormbringer's Runed Citrine",
+				Icon = "inv_siren_isle_searuned_citrine_red",
+				ItemLevel = 619,
+				Quality = "Epic",
+				RequiredLevel = 70,
+				Url = "https://www.wowhead.com/item=228638/stormbringers-runed-citrine",
+				Description = "Grants 12231.252 / 471.917 of every secondary stat."
+			},
+
+
 		};
 	}
 }
