@@ -58,14 +58,14 @@ namespace PaladinHub.Services.SectionServices
 			},
 			["Gear"] = new()
 			{
-				new() { Url = "#overall-bis", Text = "Overall BiS", Icon = "/icons/bis.png", IsAnchor = true },
-				new() { Url = "#raid-mythic-bis", Text = "Raid / Mythic+ BiS", Icon = "/icons/bis.png", IsAnchor = true },
-				new() { Url = "#best-trinkets", Text = "Best Trinkets", Icon = "/icons/trinket.png", IsAnchor = true },
-				new() { Url = "#upgrade-priorities", Text = "Upgrade Priorities", Icon = "/icons/upgrade.png", IsAnchor = true },
-				new() { Url = "#cyrces-circlet", Text = "Cyrce's Circlet", Icon = "/icons/circlet.png", IsAnchor = true },
-				new() { Url = "#corruptions", Text = "Corruptions", Icon = "/icons/corruption.png", IsAnchor = true },
-				new() { Url = "#cartel-chip-usage", Text = "Cartel Chip Usage", Icon = "/icons/cartel.png", IsAnchor = true },
-				new() { Url = "#crafted-gear", Text = "Crafted Gear", Icon = "/icons/crafted.png", IsAnchor = true }
+				new() { Url = "#overall-bis", Text = "Overall BiS", Icon = "/images/SpellIcons/Divine Hammer.jpg", IsAnchor = true },
+				new() { Url = "#raid-mythic-bis", Text = "Raid / Mythic+ BiS", Icon = "/images/icons/inv_plate_raidpaladingoblin_d_01_helm.jpg", IsAnchor = true },
+				new() { Url = "#best-trinkets", Text = "Best Trinkets", Icon = "/images/icons/EyeOfKezan.jpg", IsAnchor = true },
+				new() { Url = "#upgrade-priorities", Text = "Upgrade Priorities", Icon = "/images/icons/inv_crestupgrade_undermine_gilded.jpg", IsAnchor = true },
+				new() { Url = "#cyrces-circlet", Text = "Cyrce's Circlet", Icon = "/images/icons/Cyrces Circlet.jpg", IsAnchor = true },
+				new() { Url = "#corruptions", Text = "Corruptions", Icon = "/images/icons/inv_eyeofnzothpet.jpg", IsAnchor = true },
+				new() { Url = "#cartel-chip-usage", Text = "Cartel Chip Usage", Icon = "/images/icons/inv_misc_curiouscoin.jpg", IsAnchor = true },
+				new() { Url = "#crafted-gear", Text = "Crafted Gear", Icon = "/images/icons/inv_spark_whole_orange (1).jpg", IsAnchor = true },
 			},
 			["Overview"] = new()
 			{

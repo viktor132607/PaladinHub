@@ -35,13 +35,16 @@ namespace PaladinHub.Views.Shared
 			var url = string.IsNullOrWhiteSpace(spell.Url) ? "#" : spell.Url;
 
 			var html = $@"
-            <a href='{url}' target='_blank' class='item-link item {qualityClass}' style='display: inline-flex; align-items: center; gap: 6px; text-decoration: none;'>
-                <img src='/images/SpellIcons/{spell.Icon}' alt='{spell.Name}' title='{spell.Name}' width='{size}' height='{size}' style='vertical-align: middle;' />
-                <span>{spell.Name}</span>
-            </a>";
+		<span class='spell'>
+			<a href='{url}' target='_blank' class='item-link item {qualityClass}' style='display: inline-flex; align-items: center; gap: 6px; text-decoration: none;'>
+				<img src='/images/SpellIcons/{spell.Icon}' alt='{spell.Name}' title='{spell.Name}' width='{size}' height='{size}' style='vertical-align: middle;' />
+				<span>{spell.Name}</span>
+			</a>
+		</span>";
 
 			return new HtmlString(html);
 		}
+
 
 		protected IHtmlContent Item(string itemName, int size = 20)
 		{
@@ -57,15 +60,18 @@ namespace PaladinHub.Views.Shared
 				: $"<img src='/images/ItemIcons/{item.SecondIcon}' title='{item.Name}' width='{size}' height='{size}' style='vertical-align: middle;' />";
 
 			var html = $@"
-		<a href='{url}' target='_blank' class='item-link item {qualityClass}' 
-		   style='display: inline-flex; align-items: center; gap: 6px; text-decoration: none;'>
-			<img src='/images/ItemIcons/{item.Icon}' alt='{item.Name}' width='{size}' height='{size}' style='vertical-align: middle;' />
-			<span>{item.Name}</span>
-			{secondIconHtml}
-		</a>";
+		<span class='item-ref'>
+			<a href='{url}' target='_blank' class='item-link item {qualityClass}' 
+			   style='display: inline-flex; align-items: center; gap: 6px; text-decoration: none;'>
+				<img src='/images/ItemIcons/{item.Icon}' alt='{item.Name}' width='{size}' height='{size}' style='vertical-align: middle;' />
+				<span>{item.Name}</span>
+				{secondIconHtml}
+			</a>
+		</span>";
 
 			return new HtmlString(html);
 		}
+
 
 
 		protected IHtmlContent SpellNode(string spellName, int col, int row, string shape = "circle")

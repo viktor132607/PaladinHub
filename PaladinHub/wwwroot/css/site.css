@@ -1210,3 +1210,22 @@ a {
         background-color: #2a2a2a;
     }
 
+
+.spell,
+.item-ref {
+    all: unset;
+    display: inline;
+    font: inherit;
+    line-height: inherit;
+    vertical-align: baseline;
+}
+
+    .spell span,
+    .item-ref span {
+        font: inherit !important;
+        line-height: inherit !important;
+        vertical-align: baseline !important;
+        display: inline !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
