@@ -1,0 +1,80 @@
+﻿﻿@model PaladinHub.Models.Carts.MyCartViewModel
+@if (Model.TotalPrice != 0)
+{
+    @if (TempData["AddedSuccessfully"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+            <i class="fa fa-check"></i>
+            The product is added successfully to your cart.
+        </div>
+    }
+    @if (TempData["RemovedFromCart"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alert">
+            <i class="fa fa-check"></i>
+            The product is removed successfully from your cart.
+        </div>
+    }
+    <main class="mt-3">
+        <link rel="stylesheet" href="/text.css" type="text/css" />
+        <div class="container justify-content-center">
+            <h3 class="text-center">My Cart</h3>
+            <table class="table table-hover table-striped text-center">
+                <thead>
+                    <tr class="row">
+                        <th scope="col" class="col-lg-5">Name</th>
+                        <th scope="col" class="col-lg-1"></th>
+                        <th scope="col" class="col-lg-1">Quantity</th>
+                        <th scope="col" class="col-lg-1">Price</th>
+                        <th scope="col" class="col-lg-1"></th>
+                        <th scope="col" class="col-lg-1"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model.MyProducts)
+                    {
+                        <tr class="row">
+                            <td class="col-lg-5">@product.Name</td>
+                            <td class="col-lg-1">
+                                <div class="button-holder">
+                                    <a href="/Carts/IncreaseProduct/@product.Id" class="btn btn-outline-primary">+</a>
+                                </div>
+                            </td>
+                            @if (product.Quantity >= 1)
+                            {
+                                <th class="col-lg-1">@product.Quantity</th>
+                                <td class="col-lg-1">$@product.Price</td>
+                            }
+                            <td class="col-lg-1">
+                                <div class="button-holder">
+                                    <a href="/Carts/DecreaseProduct/@product.Id" class="btn btn-outline-primary">-</a>
+                                </div>
+                            </td>
+                            <td class="col-lg-1">
+                                <div class="button-holder">
+                                    <a href="/Carts/RemoveProductFromCart/@product.Id" class="btn btn-outline-primary">Remove</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <h3 class="text-center">Total Cost: $@Model.TotalPrice</h3>
+            <div class="button-holder text-center">
+                <a href="/Carts/Buy" class="btn btn-outline-primary">Buy</a>
+                <a href="/Carts/Cancel" class="btn btn-outline-primary">Cancel</a>
+            </div>
+        </div>
+    </main>
+}
+else
+{
+    <div class="text-center">
+        <h1>Your cart is empty!</h1>
+    </div>
+}
+<script>
+       setTimeout(function() {
+    $('#alert').delay(1000).fadeOut(300);
+    }, 1000);
+</script>
