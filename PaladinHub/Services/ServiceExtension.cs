@@ -1,4 +1,9 @@
-﻿
+﻿using PaladinHub.Data;
+using PaladinHub.Services.Carts;
+using PaladinHub.Services.IService;
+using PaladinHub.Services.Products;
+using PaladinHub.Services.Roles;
+using PaladinHub.Services.SectionServices;
 
 namespace PaladinHub.ServiceExtensions
 {
@@ -9,13 +14,19 @@ namespace PaladinHub.ServiceExtensions
 			// DATA SEEDER
 			services.AddScoped<DataSeeder>();
 
-			// SERVICES
-			services.AddTransient<I_Service, _Service>();
-			services.AddTransient<IMatchService, MatchService>();
+			// CORE SERVICES
+			services.AddScoped<ISpellbookService, SpellbookService>();
+			services.AddScoped<IItemsService, ItemsService>();
 
-			// REPOS
-			services.AddScoped<I_Repository, _Repository>();
-			services.AddScoped<IMatchRepository, MatchRepository>();
+			// CART / PRODUCTS / ROLES
+			services.AddScoped<ICartService, CartService>();
+			services.AddScoped<IProductService, ProductService>();
+			services.AddScoped<IRoleService, RoleService>();
+
+			// SECTION SERVICES (инжектират се като конкретни класове в контролерите)
+			services.AddTransient<HolySectionService>();
+			services.AddTransient<ProtectionSectionService>();
+			services.AddTransient<RetributionSectionService>();
 
 			return services;
 		}

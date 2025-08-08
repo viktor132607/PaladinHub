@@ -2,7 +2,7 @@
 using PaladinHub.Data.Entities;
 using PaladinHub.Services.Roles;
 
-namespace OnlineFoodShop.Services.Roles
+namespace PaladinHub.Services.Roles
 {
 	public class RoleService : IRoleService
 	{

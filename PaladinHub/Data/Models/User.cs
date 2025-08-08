@@ -6,12 +6,11 @@ namespace PaladinHub.Data.Entities
 {
 	public class User : IdentityUser
 	{
-		public required string FullName { get; set; }
-
 		[Required]
-		public string CartId { get; set; }
+		public string FullName { get; set; } = default!;
 
-		[Required]
-		public Cart Cart { get; set; }
+		public Guid? CartId { get; set; }
+
+		public Cart Cart { get; set; } = default!;
 	}
 }

@@ -1243,3 +1243,224 @@ a {
         height: auto;
         display: block;
     }
+
+/* ===================== */
+/*  Discussions          */
+/* ===================== */
+
+.discussion-list {
+    display: grid;
+    gap: 16px;
+}
+
+.discussion-item {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+    padding: 16px;
+    transition: background .2s, border-color .2s;
+}
+
+    .discussion-item:hover {
+        background: #222;
+        border-color: #FFD700;
+    }
+
+.discussion-title {
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 6px 0;
+}
+
+.discussion-meta {
+    color: #bdbdbd;
+    font-size: .9rem;
+    margin-bottom: 8px;
+}
+
+/* Post like (toggle) */
+.like-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    background: transparent;
+    border: 1px solid #ff6b81; /* розово-червен контур */
+    color: #ff6b81;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+    .like-btn:hover,
+    .like-btn.active {
+        background: #ff6b81;
+        color: #000; /* четим текст върху розово */
+    }
+
+/* ===================== */
+/*  Discussion: Comments */
+/* ===================== */
+
+.comment {
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+    background: #1a1a1a;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+}
+
+.comment-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #cfcfcf;
+    font-size: .9rem;
+    margin-bottom: 6px;
+}
+
+.comment-body {
+    color: #eee;
+}
+
+/* like на коментара – вдясно */
+.comment-like-form {
+    display: inline;
+}
+
+.comment-like-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    background: transparent;
+    border: 1px solid #ff6b81;
+    color: #ff6b81;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: .85rem;
+    line-height: 1;
+}
+
+    .comment-like-btn:hover,
+    .comment-like-btn.active {
+        background: #ff6b81;
+        color: #000;
+    }
+
+/* ===================== */
+/*  Merchandise          */
+/* ===================== */
+
+.merch-toolbar {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.merch-table {
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.merch-price {
+    color: #FFD700;
+    font-weight: 700;
+}
+
+/* ===================== */
+/*  Cart (My Cart)       */
+/* ===================== */
+
+.cart-table {
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.cart-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.cart-total {
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-top: 8px;
+    color: #FFD700;
+}
+
+/* ===================== */
+/*  Privacy page         */
+/* ===================== */
+
+.privacy-wrap {
+    background: #1a1a1a;
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+    padding: 18px 20px;
+    line-height: 1.7;
+}
+
+    .privacy-wrap h2,
+    .privacy-wrap h3 {
+        margin-top: 16px;
+    }
+
+/* ===================== */
+/*  Alerts (floating)    */
+/* ===================== */
+
+.alert-floating {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    min-width: 300px;
+    max-width: 520px;
+    border: 1px solid rgba(255,255,255,.15) !important;
+    box-shadow: 0 8px 24px rgba(0,0,0,.35);
+}
+
+/* ===================== */
+/*  Helpers              */
+/* ===================== */
+
+.button-holder {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* responsive tweaks */
+@media (max-width: 992px) {
+    .discussion-list {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .comment-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
+/* === Force white text in cart/product tables === */
+.table thead th,
+.table tbody td,
+.table tbody th {
+    color: #ffffff !important;
+}
+
+/* Keep prices gold */
+.table td.price,
+.cart-total,
+.merch-price {
+    color: #FFD700 !important;
+    font-weight: bold;
+}

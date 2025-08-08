@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PaladinHub.Data;
@@ -11,9 +12,11 @@ using PaladinHub.Data;
 namespace PaladinHub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250808201035_AddDiscussionLikes")]
+    partial class AddDiscussionLikes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,38 +24,6 @@ namespace PaladinHub.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("DiscussionComment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("AuthorId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("integer");
-
-                    b.Property<Guid>("PostId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("DiscussionComments");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -328,27 +299,33 @@ namespace PaladinHub.Migrations
                     b.ToTable("CartProduct");
                 });
 
-            modelBuilder.Entity("PaladinHub.Data.Models.DiscussionCommentLike", b =>
+            modelBuilder.Entity("PaladinHub.Data.Models.DiscussionComment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CommentId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("UserId")
+                    b.Property<string>("AuthorId")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AuthorId");
 
-                    b.HasIndex("CommentId", "UserId")
-                        .IsUnique();
+                    b.HasIndex("PostId");
 
-                    b.ToTable("DiscussionCommentLikes");
+                    b.ToTable("DiscussionComments");
                 });
 
             modelBuilder.Entity("PaladinHub.Data.Models.DiscussionLike", b =>
@@ -366,10 +343,9 @@ namespace PaladinHub.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("PostId");
 
-                    b.HasIndex("PostId", "UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("DiscussionLikes");
                 });
@@ -430,25 +406,6 @@ namespace PaladinHub.Migrations
                     b.HasIndex("CartId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("DiscussionComment", b =>
-                {
-                    b.HasOne("PaladinHub.Data.Entities.User", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PaladinHub.Data.Models.DiscussionPost", "Post")
-                        .WithMany("Comments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -530,29 +487,29 @@ namespace PaladinHub.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("PaladinHub.Data.Models.DiscussionCommentLike", b =>
+            modelBuilder.Entity("PaladinHub.Data.Models.DiscussionComment", b =>
                 {
-                    b.HasOne("DiscussionComment", "Comment")
-                        .WithMany("LikesCollection")
-                        .HasForeignKey("CommentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("PaladinHub.Data.Entities.User", "User")
+                    b.HasOne("PaladinHub.Data.Entities.User", "Author")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Comment");
+                    b.HasOne("PaladinHub.Data.Models.DiscussionPost", "Post")
+                        .WithMany("Comments")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Author");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("PaladinHub.Data.Models.DiscussionLike", b =>
                 {
                     b.HasOne("PaladinHub.Data.Models.DiscussionPost", "Post")
-                        .WithMany("LikesCollection")
+                        .WithMany()
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -586,11 +543,6 @@ namespace PaladinHub.Migrations
                         .HasForeignKey("CartId");
                 });
 
-            modelBuilder.Entity("DiscussionComment", b =>
-                {
-                    b.Navigation("LikesCollection");
-                });
-
             modelBuilder.Entity("PaladinHub.Data.Models.Cart", b =>
                 {
                     b.Navigation("CartProducts");
@@ -604,8 +556,6 @@ namespace PaladinHub.Migrations
             modelBuilder.Entity("PaladinHub.Data.Models.DiscussionPost", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("LikesCollection");
                 });
 
             modelBuilder.Entity("PaladinHub.Data.Models.Product", b =>

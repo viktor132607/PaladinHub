@@ -7,7 +7,7 @@ namespace PaladinHub.Services.Carts
 {
 	public interface ICartService
 	{
-		Task<MyCartViewModel> GetCartById(string cartId);
+		Task<MyCartViewModel> GetCartById(Guid cartId);
 		Task<ICollection<CartViewModel>> GetArchive();
 		Task<bool> AddProduct(string id, string userId);
 		Task<bool> IncreaseProduct(string id, string userId);

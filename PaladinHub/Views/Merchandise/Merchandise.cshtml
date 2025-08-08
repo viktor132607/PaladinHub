@@ -1,0 +1,119 @@
+﻿@using System.Security.Claims
+@model IEnumerable<PaladinHub.Models.Products.ProductViewModel>
+
+@if (TempData["AddedSuccessfully"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="alert">
+        <i class="fa fa-check"></i>
+        The product is added successfully to your cart.
+    </div>
+}
+
+@if (TempData["DeletedSuccessfully"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="alert">
+        <i class="fa fa-check"></i>
+        The product is deleted successfully from database.
+    </div>
+}
+
+@if (TempData["Canceled"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show alert-floating" role="alert" id="alert">
+        <i class="fa fa-exclamation-circle"></i>
+        <strong>Cart is cleared!</strong>
+    </div>
+}
+
+@if (TempData["Buy"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="alert">
+        <i class="fa fa-check"></i>
+        <strong>Yay!</strong> Thank you for choosing our products. We appreciate your trust and we’ll do our best to meet your expectations.
+    </div>
+}
+
+<div class="button-holder text-center">
+    <h3>Hello, @User.FindFirstValue(ClaimTypes.Name)</h3>
+    <a asp-controller="Carts" asp-action="MyCart" class="btn btn-outline-primary">My Cart</a>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-controller="Products" asp-action="Create" class="btn btn-outline-success ms-2">
+            + Create Product
+        </a>
+    }
+</div>
+
+<main class="mt-3 section-wrapper">
+    <div class="container">
+        <table class="table table-hover merch-table">
+            <thead>
+                <tr class="row">
+                    <th scope="col" class="col-lg-4">Name</th>
+                    <th scope="col" class="col-lg-4">Price</th>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <th scope="col" class="col-lg-2"></th>
+                        <th scope="col" class="col-lg-2"></th>
+                    }
+                    else
+                    {
+                        <th scope="col" class="col-lg-4"></th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr class="row">
+                        <td class="col-lg-4">@product.Name</td>
+                        <td class="col-lg-4"><span class="merch-price">$@product.Price</span></td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <td class="col-lg-2">
+                                <div class="button-holder">
+                                    <a asp-controller="Carts"
+                                       asp-action="AddProduct"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-outline-primary">
+                                        Add to Cart
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="col-lg-2">
+                                <div class="button-holder">
+                                    <a asp-controller="Products"
+                                       asp-action="DeleteProduct"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-outline-danger">
+                                        Delete
+                                    </a>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="col-lg-4">
+                                <div class="button-holder">
+                                    <a asp-controller="Carts"
+                                       asp-action="AddProduct"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-outline-primary">
+                                        Add to Cart
+                                    </a>
+                                </div>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script>
+    setTimeout(function () {
+        $('#alert').delay(1000).fadeOut(300);
+    }, 1000);
+</script>

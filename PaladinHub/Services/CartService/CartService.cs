@@ -5,6 +5,7 @@ using PaladinHub.Data.Entities;
 using PaladinHub.Data.Models;
 using PaladinHub.Models.Carts;
 using PaladinHub.Models.Products;
+using System;
 
 namespace PaladinHub.Services.Carts
 {
@@ -17,6 +18,7 @@ namespace PaladinHub.Services.Carts
 			this.context = context;
 			this.userManager = userManager;
 		}
+
 		public async Task<bool> AddProduct(string id, string userId)
 		{
 			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
@@ -25,30 +27,55 @@ namespace PaladinHub.Services.Carts
 				return false;
 			}
 
-			User user = await context.ApplicationUser.FirstOrDefaultAsync(x => x.Id == userId);
+			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
 			if (user == null)
 			{
 				return false;
 			}
-			//user.cart.products.add(product);
-			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
-			if (myCart != null)
-			{
-				CartProduct cartProduct = await context.CartProduct.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
 
-				if (cartProduct is null)
+			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
+
+			if (myCart == null)
+			{
+				myCart = new Cart
 				{
-					cartProduct = new CartProduct
-					{
-						CartId = myCart.Id,
-						ProductId = product.Id,
-						Quantity = 0,
-					};
-					context.CartProduct.Add(cartProduct);
-				}
-				cartProduct.Quantity++;
+					UserId = user.Id,
+					User = user
+				};
+
+				user.Cart = myCart;
+				user.CartId = myCart.Id;
+
+				await context.Carts.AddAsync(myCart);
+
+				var newCartProduct = new CartProduct
+				{
+					CartId = myCart.Id,
+					ProductId = product.Id,
+					Quantity = 1
+				};
+				context.CartProduct.Add(newCartProduct);
+
 				await context.SaveChangesAsync();
+				return true;
 			}
+
+			CartProduct cartProduct = await context.CartProduct
+				.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
+
+			if (cartProduct is null)
+			{
+				cartProduct = new CartProduct
+				{
+					CartId = myCart.Id,
+					ProductId = product.Id,
+					Quantity = 0,
+				};
+				context.CartProduct.Add(cartProduct);
+			}
+			cartProduct.Quantity++;
+			await context.SaveChangesAsync();
+
 			return true;
 		}
 
@@ -71,6 +98,7 @@ namespace PaladinHub.Services.Carts
 				await context.SaveChangesAsync();
 			}
 		}
+
 		public async Task CleanCart(User user)
 		{
 			ICollection<CartProduct> myCartProducts = await context.CartProduct
@@ -99,11 +127,12 @@ namespace PaladinHub.Services.Carts
 			{
 				return false;
 			}
-			//user.cart.products.add(product);
+
 			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
 			if (myCart != null)
 			{
-				CartProduct cartProduct = await context.CartProduct.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
+				CartProduct cartProduct = await context.CartProduct
+					.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
 
 				if (cartProduct != null)
 				{
@@ -113,6 +142,7 @@ namespace PaladinHub.Services.Carts
 			}
 			return true;
 		}
+
 		public async Task<bool> DecreaseProduct(string id, string userId)
 		{
 			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
@@ -121,16 +151,17 @@ namespace PaladinHub.Services.Carts
 				return false;
 			}
 
-			User user = await context.ApplicationUser.FirstOrDefaultAsync(x => x.Id == userId);
+			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
 			if (user == null)
 			{
 				return false;
 			}
-			//user.cart.products.add(product);
+
 			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
 			if (myCart != null)
 			{
-				CartProduct cartProduct = await context.CartProduct.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
+				CartProduct cartProduct = await context.CartProduct
+					.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
 
 				if (cartProduct != null && cartProduct.Quantity > 1)
 				{
@@ -144,6 +175,7 @@ namespace PaladinHub.Services.Carts
 			}
 			return true;
 		}
+
 		public async Task<bool> RemoveProduct(string id, string userId)
 		{
 			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
@@ -152,16 +184,17 @@ namespace PaladinHub.Services.Carts
 				return false;
 			}
 
-			User user = await context.ApplicationUser.FirstOrDefaultAsync(x => x.Id == userId);
+			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
 			if (user == null)
 			{
 				return false;
 			}
-			//user.cart.products.add(product);
+
 			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
 			if (myCart != null)
 			{
-				CartProduct cartProduct = await context.CartProduct.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
+				CartProduct cartProduct = await context.CartProduct
+					.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
 
 				if (cartProduct != null)
 				{
@@ -186,49 +219,52 @@ namespace PaladinHub.Services.Carts
 					CartProducts = x.CartProducts,
 					OrderDate = x.OrderDate,
 					Products = x.Products,
-				}
-				)
+				})
 				.OrderByDescending(x => x.OrderDate)
 				.ToListAsync();
+
 			foreach (var cart in archive)
 			{
 				cart.User = await userManager.FindByIdAsync(cart.UserId);
 			}
 			return archive;
 		}
-		public async Task<MyCartViewModel> GetCartById(string cartId)
-		{
-			if (string.IsNullOrWhiteSpace(cartId))
-			{
-				return null;
-			}
 
-			ICollection<CartProduct> myCartProducts = await context.CartProduct
+		public async Task<MyCartViewModel?> GetCartById(Guid cartId)
+		{
+			var myCartProducts = await context.CartProduct
 				.Include(x => x.Product)
 				.Include(x => x.Cart)
 				.Where(x => x.CartId == cartId)
 				.ToListAsync();
 
-			MyCartViewModel myCartViewModel = new MyCartViewModel();
+			if (!myCartProducts.Any())
+				return null;
 
-			foreach (CartProduct cartProduct in myCartProducts)
+			var myCartViewModel = new MyCartViewModel
 			{
-				if (!myCartViewModel.MyProducts.Any(x => x.Id == cartProduct.ProductId))
+				MyProducts = new List<ProductViewModel>(),
+				TotalPrice = 0m
+			};
+
+			foreach (var cartProduct in myCartProducts)
+			{
+				if (!myCartViewModel.MyProducts.Any(p => p.Id == cartProduct.ProductId))
 				{
-					ProductViewModel productViewModel = new ProductViewModel
+					var productViewModel = new ProductViewModel
 					{
 						Id = cartProduct.ProductId,
-						Name = cartProduct.Product.Name,
-						Price = cartProduct.Product.Price,
+						Name = cartProduct.Product?.Name,
+						Price = cartProduct.Product?.Price ?? 0m,
 						Quantity = cartProduct.Quantity,
 						CartId = cartProduct.CartId,
 						Cart = cartProduct.Cart
 					};
+
 					myCartViewModel.MyProducts.Add(productViewModel);
 				}
 
-				myCartViewModel.TotalPrice += (cartProduct.Product.Price * cartProduct.Quantity);
-				//myCartViewModel.MyProducts.FirstOrDefault(x => x.Id == cartProduct.ProductId).Quantity++;
+				myCartViewModel.TotalPrice += (cartProduct.Product?.Price ?? 0m) * cartProduct.Quantity;
 			}
 
 			return myCartViewModel;

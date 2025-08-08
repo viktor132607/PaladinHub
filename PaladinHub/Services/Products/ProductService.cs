@@ -4,9 +4,8 @@ using PaladinHub.Data.Entities;
 using PaladinHub.Data.Models;
 using PaladinHub.Models.Carts;
 using PaladinHub.Models.Products;
-using PaladinHub.Services.Products;
 
-namespace OnlineFoodShop.Services.Products
+namespace PaladinHub.Services.Products
 {
 	public class ProductService : IProductService
 	{
