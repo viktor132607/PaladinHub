@@ -1,0 +1,15 @@
+﻿@model PaladinHub.Data.Entities.Item
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Edit Item";
+}
+
+<h2>Edit Item</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <!-- Same fields as Create -->
+    @Html.Partial("Create", Model)
+</form>

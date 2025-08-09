@@ -28,7 +28,6 @@ namespace PaladinHub.Controllers
 			this.userManager = userManager;
 		}
 
-		// Показва количката на текущия потребител (използва ProductService.GetMyProducts(User))
 		[HttpGet("MyCart")]
 		public async Task<IActionResult> MyCart()
 		{
@@ -49,7 +48,7 @@ namespace PaladinHub.Controllers
 					TempData["AddedSuccessfully"] = "Done";
 				}
 			}
-			// Връща към списъка със стоки
+
 			return RedirectToAction("Merchandise", "Merchandise");
 		}
 
@@ -98,7 +97,6 @@ namespace PaladinHub.Controllers
 			return RedirectToAction("MyCart", "Carts");
 		}
 
-		// Купуване = архивира количката на потребителя
 		[HttpGet("Buy")]
 		public async Task<IActionResult> Buy()
 		{
@@ -109,7 +107,6 @@ namespace PaladinHub.Controllers
 			return RedirectToAction("Merchandise", "Merchandise");
 		}
 
-		// Отказ = изчиства количката
 		[HttpGet("Cancel")]
 		public async Task<IActionResult> Cancel()
 		{
@@ -120,7 +117,6 @@ namespace PaladinHub.Controllers
 			return RedirectToAction("Merchandise", "Merchandise");
 		}
 
-		// Админ: списък с архивирани колички
 		[Authorize(Roles = "Admin")]
 		[HttpGet("Archive")]
 		public async Task<IActionResult> Archive()
@@ -129,7 +125,6 @@ namespace PaladinHub.Controllers
 			return View(archivedCarts);
 		}
 
-		// Админ: детайли за конкретна количка
 		[Authorize(Roles = "Admin")]
 		[HttpGet("Details/{id:guid}")]
 		public async Task<IActionResult> Details(Guid id)

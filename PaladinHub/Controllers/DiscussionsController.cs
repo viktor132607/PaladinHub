@@ -2,11 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PaladinHub.Data.Entities;
-using PaladinHub.Data.Models;                // User
-using PaladinHub.Models.Discussions;         // CreatePostViewModel, PostDetailsViewModel
-using PaladinHub.Services.Discussions;       // IDiscussionService
-using System;
-using System.Threading.Tasks;
+using PaladinHub.Models.Discussions;         
+using PaladinHub.Services.Discussions;       
 
 namespace PaladinHub.Controllers
 {
@@ -61,7 +58,6 @@ namespace PaladinHub.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
-		// POST like/unlike на пост
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Like(Guid id)
@@ -71,7 +67,6 @@ namespace PaladinHub.Controllers
 			return RedirectToAction(nameof(Details), new { id });
 		}
 
-		// POST like/unlike на коментар
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> LikeComment(Guid id)

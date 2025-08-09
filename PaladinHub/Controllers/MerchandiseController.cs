@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PaladinHub.Models;
 using PaladinHub.Models.Products;
 using PaladinHub.Services.Products;
+using System.Threading;
 
 namespace PaladinHub.Controllers
 {
+	[Route("[controller]")]
 	public class MerchandiseController : Controller
 	{
 		private readonly IProductService productService;
@@ -13,10 +16,22 @@ namespace PaladinHub.Controllers
 			this.productService = productService;
 		}
 
-		public async Task<IActionResult> Merchandise()
+		[HttpGet("Merchandise")]
+		public async Task<IActionResult> Merchandise([FromQuery] ProductQueryOptions options, CancellationToken ct)
 		{
-			ICollection<ProductViewModel> products = await productService.GetAll();
-			return View("Merchandise", products);
+			if (options.PageSize <= 0) options.PageSize = 40;
+
+			var result = await productService.QueryAsync(options, ct);
+			var allCategories = await productService.GetAllCategoriesAsync(ct);
+
+			var vm = new MerchandisePageViewModel
+			{
+				Query = options,
+				Products = result,
+				AllCategories = allCategories
+			};
+
+			return View(vm);
 		}
 	}
 }

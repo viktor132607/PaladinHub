@@ -1016,10 +1016,6 @@ a {
         margin-left: -1.2em;
     }
 
-
-
-
-/* === Контейнер за трите дървета === */
 .trees-container {
     display: flex;
     gap: 15px;
@@ -1028,7 +1024,6 @@ a {
     align-items: stretch;
 }
 
-    /* === Секции за всяко дърво === */
     .trees-container section {
         background-color: #1a1a1a;
         border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1058,7 +1053,6 @@ a {
         text-align: center;
     }
 
-/* === Грид оформления === */
 .paladin-tree-container,
 .protection-tree-container,
 .holy-tree-container,
@@ -1091,7 +1085,6 @@ a {
 }
 
 
-/* === Нодове === */
 .node {
     display: flex;
     align-items: center;
@@ -1148,7 +1141,6 @@ a {
     border-radius: 50%;
 }
 
-/* === Връзки (линии) === */
 .line {
     position: absolute;
     background-color: yellow;
@@ -1158,14 +1150,12 @@ a {
     z-index: 1;
 }
 
-/* === Hover ефект === */
 .node:hover {
     box-shadow: 0 0 15px 5px #FFD700;
     transform: scale(1.05);
     transition: all 0.2s ease-in-out;
 }
 
-/* === Футър === */
 .site-footer {
     text-align: center;
     color: #ccc;
@@ -1201,9 +1191,9 @@ a {
 }
 
 .section-cell:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* лек hover фон */
-    text-decoration: none; /* без underline при hover */
-    color: white; /* запази бял цвят */
+    background-color: rgba(255, 255, 255, 0.1); 
+    text-decoration: none; 
+    color: white; 
 }
 
     .section-cell.active {
@@ -1244,10 +1234,6 @@ a {
         display: block;
     }
 
-/* ===================== */
-/*  Discussions          */
-/* ===================== */
-
 .discussion-list {
     display: grid;
     gap: 16px;
@@ -1278,13 +1264,12 @@ a {
     margin-bottom: 8px;
 }
 
-/* Post like (toggle) */
 .like-btn {
     display: inline-flex;
     align-items: center;
     gap: .4rem;
     background: transparent;
-    border: 1px solid #ff6b81; /* розово-червен контур */
+    border: 1px solid #ff6b81; 
     color: #ff6b81;
     padding: 6px 10px;
     border-radius: 6px;
@@ -1295,12 +1280,8 @@ a {
     .like-btn:hover,
     .like-btn.active {
         background: #ff6b81;
-        color: #000; /* четим текст върху розово */
+        color: #000; 
     }
-
-/* ===================== */
-/*  Discussion: Comments */
-/* ===================== */
 
 .comment {
     border: 1px solid rgba(255,255,255,.15);
@@ -1323,7 +1304,6 @@ a {
     color: #eee;
 }
 
-/* like на коментара – вдясно */
 .comment-like-form {
     display: inline;
 }
@@ -1347,10 +1327,6 @@ a {
         color: #000;
     }
 
-/* ===================== */
-/*  Merchandise          */
-/* ===================== */
-
 .merch-toolbar {
     display: flex;
     gap: 8px;
@@ -1368,10 +1344,6 @@ a {
     color: #FFD700;
     font-weight: 700;
 }
-
-/* ===================== */
-/*  Cart (My Cart)       */
-/* ===================== */
 
 .cart-table {
     border: 1px solid rgba(255,255,255,.15);
@@ -1393,10 +1365,6 @@ a {
     color: #FFD700;
 }
 
-/* ===================== */
-/*  Privacy page         */
-/* ===================== */
-
 .privacy-wrap {
     background: #1a1a1a;
     border: 1px solid rgba(255,255,255,.15);
@@ -1410,10 +1378,6 @@ a {
         margin-top: 16px;
     }
 
-/* ===================== */
-/*  Alerts (floating)    */
-/* ===================== */
-
 .alert-floating {
     position: fixed;
     top: 20px;
@@ -1425,17 +1389,12 @@ a {
     box-shadow: 0 8px 24px rgba(0,0,0,.35);
 }
 
-/* ===================== */
-/*  Helpers              */
-/* ===================== */
-
 .button-holder {
     display: flex;
     gap: 8px;
     justify-content: center;
 }
 
-/* responsive tweaks */
 @media (max-width: 992px) {
     .discussion-list {
         gap: 12px;
@@ -1450,14 +1409,12 @@ a {
     }
 }
 
-/* === Force white text in cart/product tables === */
 .table thead th,
 .table tbody td,
 .table tbody th {
     color: #ffffff !important;
 }
 
-/* Keep prices gold */
 .table td.price,
 .cart-total,
 .merch-price {

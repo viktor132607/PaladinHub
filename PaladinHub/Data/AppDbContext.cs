@@ -9,14 +9,12 @@ namespace PaladinHub.Data
 	{
 		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-		public DbSet<Spell> Spellbook { get; set; }
+		public DbSet<Item> Items { get; set; }
 		public DbSet<Spell> Spells { get; set; }
 		public DbSet<User> User { get; set; }
-
 		public DbSet<Product> Products { get; set; }
 		public DbSet<Cart> Carts { get; set; }
 		public DbSet<CartProduct> CartProduct { get; set; }
-
 		public DbSet<DiscussionPost> DiscussionPosts { get; set; }
 		public DbSet<DiscussionComment> DiscussionComments { get; set; }
 		public DbSet<DiscussionLike> DiscussionLikes { get; set; }
@@ -26,7 +24,31 @@ namespace PaladinHub.Data
 		{
 			base.OnModelCreating(builder);
 
-			// --- Carts ---
+			builder.Entity<Item>(e =>
+			{
+				e.ToTable("Items");
+				e.HasKey(i => i.Id);
+				e.Property(i => i.Name).IsRequired().HasMaxLength(100);
+				e.Property(i => i.Icon).HasMaxLength(100);
+				e.Property(i => i.SecondIcon).HasMaxLength(100);
+				e.Property(i => i.Description).HasMaxLength(2000);
+				e.Property(i => i.Url).HasMaxLength(300);
+				e.Property(i => i.Quality).HasMaxLength(50);
+				e.HasIndex(i => i.Name);
+			});
+
+			builder.Entity<Spell>(e =>
+			{
+				e.ToTable("Spells");
+				e.HasKey(s => s.Id);
+				e.Property(s => s.Name).IsRequired().HasMaxLength(100);
+				e.Property(s => s.Icon).HasMaxLength(100);
+				e.Property(s => s.Description).HasMaxLength(2000);
+				e.Property(s => s.Url).HasMaxLength(300);
+				e.Property(s => s.Quality).IsRequired().HasMaxLength(50);
+				e.HasIndex(s => s.Name);
+			});
+
 			builder.Entity<Cart>().HasMany(c => c.Products);
 			builder.Entity<CartProduct>().HasKey(x => new { x.ProductId, x.CartId });
 
@@ -40,14 +62,12 @@ namespace PaladinHub.Data
 				.WithOne(u => u.Cart)
 				.HasForeignKey<User>(u => u.CartId);
 
-			// --- Discussion Comments ---
 			builder.Entity<DiscussionComment>()
 				.HasOne(c => c.Post)
 				.WithMany(p => p.Comments)
 				.HasForeignKey(c => c.PostId)
 				.OnDelete(DeleteBehavior.Cascade);
 
-			// --- Discussion Likes (posts) ---
 			builder.Entity<DiscussionLike>()
 				.HasOne(l => l.Post)
 				.WithMany(p => p.LikesCollection)
@@ -62,9 +82,8 @@ namespace PaladinHub.Data
 
 			builder.Entity<DiscussionLike>()
 				.HasIndex(l => new { l.PostId, l.UserId })
-				.IsUnique(); // един лайк на потребител за пост
+				.IsUnique();
 
-			// --- Discussion Comment Likes ---
 			builder.Entity<DiscussionCommentLike>()
 				.HasOne(l => l.Comment)
 				.WithMany(c => c.LikesCollection)
@@ -79,7 +98,10 @@ namespace PaladinHub.Data
 
 			builder.Entity<DiscussionCommentLike>()
 				.HasIndex(l => new { l.CommentId, l.UserId })
-				.IsUnique(); // един лайк на потребител за коментар
+				.IsUnique();
+
+			builder.Entity<Product>().HasIndex(p => p.Category);
+			builder.Entity<Product>().HasIndex(p => p.Name);
 		}
 	}
 }

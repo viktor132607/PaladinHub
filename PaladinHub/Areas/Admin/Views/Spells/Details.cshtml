@@ -1,0 +1,18 @@
+﻿@model PaladinHub.Data.Entities.Spell
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Spell Details";
+}
+
+<h2>Spell Details</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">Name</dt>
+    <dd class="col-sm-9">@Model.Name</dd>
+
+    <dt class="col-sm-3">Description</dt>
+    <dd class="col-sm-9">@Model.Description</dd>
+</dl>
+
+<a asp-area="Admin" asp-controller="Database" asp-action="Index" asp-route-entity="Spells" class="btn btn-secondary">Back</a>

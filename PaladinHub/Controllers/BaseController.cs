@@ -1,17 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using PaladinHub.Services.IService;
 using PaladinHub.Models;
+using PaladinHub.Services.IService;
 
 namespace PaladinHub.Controllers
 {
 	public abstract class BaseController : Controller
 	{
-		public ISpellbookService SpellbookService { get; }
-		public IItemsService ItemsService { get; }
-		public ISectionService SectionService { get; }
+		protected ISpellbookService SpellbookService { get; }
+		protected IItemsService ItemsService { get; }
+		protected ISectionService SectionService { get; }
 
-		public BaseController(
+		protected BaseController(
 			ISpellbookService spellbookService,
 			IItemsService itemsService,
 			ISectionService sectionService)
@@ -21,15 +20,14 @@ namespace PaladinHub.Controllers
 			SectionService = sectionService;
 		}
 
-		protected IActionResult ViewWithCombinedData(string viewName = null)
+		protected async Task<IActionResult> ViewWithCombinedDataAsync(string? viewName = null)
 		{
-			var controller = RouteData.Values["controller"]?.ToString() ?? "";
 			var action = RouteData.Values["action"]?.ToString() ?? "";
 
 			var model = new CombinedViewModel
 			{
-				Spells = SpellbookService.GetAllSpells(),
-				Items = ItemsService.GetAllItems(),
+				Spells = await SpellbookService.GetAllAsync(),
+				Items = await ItemsService.GetAllAsync(),
 				PageTitle = SectionService.GetPageTitle(action),
 				PageText = SectionService.GetPageText(action),
 				CoverImage = SectionService.GetCoverImage(),
@@ -37,14 +35,12 @@ namespace PaladinHub.Controllers
 				OtherSectionButtons = SectionService.GetOtherSectionButtons()
 			};
 
-			return viewName == null ? View(model) : View(viewName, model);
+			return viewName is null ? View(model) : View(viewName, model);
 		}
 
-		public override void OnActionExecuting(ActionExecutingContext context)
+		protected IActionResult ViewWithCombinedData(string? viewName = null)
 		{
-			ViewBag.AllSpells = SpellbookService.GetAllSpells();
-			ViewBag.AllItems = ItemsService.GetAllItems();
-			base.OnActionExecuting(context);
+			return ViewWithCombinedDataAsync(viewName).GetAwaiter().GetResult();
 		}
 	}
 }

@@ -1,17 +1,33 @@
-﻿namespace PaladinHub.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PaladinHub.Data.Entities
 {
 	public class Item
 	{
+		[Key]
 		public int Id { get; set; }
-		public string? Name { get; set; }
+
+		[Required]
+		[MaxLength(100)]
+		public string Name { get; set; } = string.Empty;
+
+		[MaxLength(100)]
 		public string? Icon { get; set; }
+
+		[MaxLength(100)]
 		public string? SecondIcon { get; set; }
+
+		[MaxLength(2000)]
 		public string? Description { get; set; }
 
+		[MaxLength(300)]
 		public string? Url { get; set; }
 
 		public int? ItemLevel { get; set; }
+
 		public int? RequiredLevel { get; set; }
+
+		[MaxLength(50)]
 		public string? Quality { get; set; }
 
 		//// Usability and effects

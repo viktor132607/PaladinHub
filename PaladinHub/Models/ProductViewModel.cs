@@ -1,5 +1,4 @@
 ﻿using PaladinHub.Data.Models;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PaladinHub.Models.Products
@@ -15,9 +14,17 @@ namespace PaladinHub.Models.Products
 		[Required]
 		public decimal Price { get; set; }
 
+		public string? ImageUrl { get; set; } 
+
 		public int Quantity { get; set; }
 
 		public Guid CartId { get; set; }
+
 		public Cart Cart { get; set; } = default!;
+
+		public string Category { get; set; } = "Other";
+
+		public string? Description { get; set; }
+
 	}
 }

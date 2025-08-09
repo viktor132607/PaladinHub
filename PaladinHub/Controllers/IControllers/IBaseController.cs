@@ -1,6 +1,4 @@
-﻿using PaladinHub.Services.IService;
-
-namespace PaladinHub.Controllers.IControllers
+﻿namespace PaladinHub.Controllers.IControllers
 {
 	public interface IBaseController
 	{
