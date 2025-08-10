@@ -1,7 +1,7 @@
 ﻿using PaladinHub.Data.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace PaladinHub.Models.Products
+namespace PaladinHub.Models
 {
 	public class ProductViewModel
 	{

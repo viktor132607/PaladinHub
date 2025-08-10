@@ -82,6 +82,8 @@
                                                                 (val: 1, text: "Name"),
                                                                 (val: 2, text: "Price"),
                                                                 (val: 3, text: "Newest"),
+                                                                (val: 4, text: "Rating"),         // NEW
+                                                                (val: 5, text: "Most reviewed"),  // NEW
                                                                 };
                                     foreach (var o in sortOptions)
                                     {
@@ -111,13 +113,19 @@
 
             <section class="col-12 col-lg-10">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h3 class="m-0">Warcraft</h3>
+                    <h3 class="m-0">Welcome PaladinHub Merch Shop!</h3>
                     <div class="d-flex align-items-center gap-2">
                         <span class="text-muted small me-2">Hi, @User.FindFirstValue(ClaimTypes.Name)</span>
-                        <a asp-controller="Carts" asp-action="MyCart" class="btn btn-outline-light btn-sm">My Cart</a>
+
+                        <a asp-controller="Carts" asp-action="MyCart"
+                           class="btn btn-warning btn-sm fw-bold px-3 py-1 rounded-pill align-items-center shadow-sm">
+                            <i class="fa-solid fa-cart-shopping me-2"></i> My Cart
+                        </a>
+
                         @if (User.IsInRole("Admin"))
                         {
-                            <a asp-controller="Products" asp-action="Create" class="btn btn-success btn-sm">+ Create Product</a>
+                            <a asp-controller="Products" asp-action="Create"
+                               class="btn btn-success btn-sm">+ Create Product</a>
                         }
                     </div>
                 </div>
@@ -152,10 +160,20 @@
                                         <img src="@(string.IsNullOrWhiteSpace(product.ImageUrl) ? Url.Content("~/images/placeholder.png") : product.ImageUrl)"
                                              alt="@product.Name"
                                              class="card-img-top">
+                                        <!-- клик по снимката -> детайли -->
+                                        <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="stretched-link"></a>
                                     </div>
                                     <div class="card-body d-flex flex-column">
                                         <div class="small text-muted">@product.Category</div>
-                                        <h6 class="card-title mb-2 line-clamp-2" title="@product.Name">@product.Name</h6>
+                                        <h6 class="card-title mb-2 line-clamp-2" title="@product.Name">
+                                            <!-- клик по заглавието -> детайли -->
+                                            <a asp-controller="Products"
+                                               asp-action="Details"
+                                               asp-route-id="@product.Id"
+                                               class="text-reset text-decoration-none">
+                                                @product.Name
+                                            </a>
+                                        </h6>
                                         @if (!string.IsNullOrWhiteSpace(product.Description))
                                         {
                                             <p class="text-truncate small">@product.Description</p>
@@ -314,6 +332,7 @@
         }
 
     .product-card {
+        position: relative; /* нужно за stretched-link */
         background: #171a21;
         border: 1px solid #272b35;
         border-radius: 10px;
@@ -325,6 +344,11 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0,0,0,.35);
             border-color: #2f3542;
+        }
+        /* бутоните да са над stretched-link */
+        .product-card .card-footer, .product-card .btn {
+            position: relative;
+            z-index: 2;
         }
 
     .product-thumb img {

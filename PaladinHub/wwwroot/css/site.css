@@ -1421,3 +1421,204 @@ a {
     color: #FFD700 !important;
     font-weight: bold;
 }
+
+/* Мини-количка: четим текст, дължина и подредба */
+#mini-cart-panel {
+    position: absolute;
+    right: 0;
+    top: calc(100% + .25rem);
+    width: 360px;
+    background: #fff;
+    z-index: 1050;
+    color: #212529; /* override от navbar */
+    border-radius: .5rem;
+}
+
+    /* насилваме тъмен текст вътре – иначе наследява бяло от навигацията */
+    #mini-cart-panel,
+    #mini-cart-panel * {
+        color: #212529 !important;
+    }
+
+.mini-cart-list {
+    max-height: 360px;
+    overflow-y: auto;
+    margin: 0;
+}
+
+.mini-cart-item {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .5rem .75rem;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+    .mini-cart-item:last-child {
+        border-bottom: 0;
+    }
+
+.mini-cart-thumb {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: .25rem;
+}
+
+.mini-cart-name {
+    font-weight: 600;
+    display: block;
+    max-width: 220px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.mini-cart-meta {
+    font-size: .9rem;
+    opacity: .8;
+}
+
+/* бутонът X (remove) да се вижда */
+.mini-cart-item a.text-muted {
+    opacity: .7;
+}
+
+    .mini-cart-item a.text-muted:hover {
+        opacity: 1;
+    }
+
+/* тотал секция */
+.mini-cart-total {
+    background: rgba(0,0,0,.03);
+}
+
+/* бутоните в стила ти */
+#mini-cart-panel .btn-dark {
+    background: #212529;
+    border: 0;
+}
+
+#mini-cart-panel .btn-warning {
+    background: #f59f00;
+    border: 0;
+}
+
+/* badge pop анимация */
+.cart-badge-pop {
+    transform: scale(1.15);
+    transition: transform .25s ease;
+}
+.validation-summary-valid {
+    display: none;
+}
+/* скрий, когато няма грешки */
+.field-validation-valid {
+    display: none;
+}
+/* също и полевите съобщения */
+
+/* Паладинско жълто — смени при нужда */
+:root {
+    --ph-accent: #f59f00;
+}
+
+.pagination {
+    gap: .25rem;
+}
+
+.page-item .page-link {
+    background: #121212;
+    color: #ddd;
+    border: 1px solid #2a2a2a;
+}
+
+    .page-item .page-link:hover {
+        color: #000;
+        background: var(--ph-accent);
+        border-color: var(--ph-accent);
+    }
+
+.page-item.active .page-link {
+    color: #000;
+    background: var(--ph-accent);
+    border-color: var(--ph-accent);
+    box-shadow: 0 0 0 .15rem rgba(245,159,0,.25);
+}
+
+.page-item.disabled .page-link {
+    color: #666;
+    background: #0e0e0e;
+    border-color: #1f1f1f;
+}
+
+/* no underline on hover site-wide */
+a:hover,
+a:focus {
+    text-decoration: none !important;
+}
+
+:root {
+    --ph-accent: #f59f00; /* жълтото ти */
+}
+
+/* dropdown – запазваме стила за сравнение */
+.dropdown-menu {
+    background: #171a21;
+    border: 1px solid #2a2f3a;
+}
+
+.dropdown-item {
+    color: #e6e6e6;
+}
+
+    .dropdown-item:hover,
+    .dropdown-item:focus {
+        background: var(--ph-accent);
+        color: #000;
+    }
+
+/* NAVBAR: само топ-левъл елементи (НЕ dropdown) да се държат като dropdown item */
+.navbar-dark .navbar-nav .nav-item:not(.dropdown) > .nav-link {
+    color: #ffd666; /* твоето жълто за текст */
+    border-radius: .4rem;
+    padding: .35rem .6rem;
+    transition: background-color .12s, color .12s, box-shadow .12s;
+}
+
+    .navbar-dark .navbar-nav .nav-item:not(.dropdown) > .nav-link:hover,
+    .navbar-dark .navbar-nav .nav-item:not(.dropdown) > .nav-link:focus,
+    .navbar-dark .navbar-nav .nav-item:not(.dropdown) > .nav-link.active {
+        background: var(--ph-accent);
+        color: #000 !important;
+        box-shadow: 0 0 0 .15rem rgba(245,159,0,.25);
+        text-decoration: none;
+    }
+
+/* малка междина между елементите */
+.navbar .navbar-nav .nav-item {
+    margin-right: .25rem;
+}
+.nav-tabs .nav-link {
+    color: #ddd;
+}
+
+    .nav-tabs .nav-link.active {
+        color: #000;
+        background: #f59f00;
+        border-color: #f59f00;
+    }
+
+.tab-content {
+    border-radius: .5rem;
+}
+/* за да не „подскача“ при скрол */
+.carousel-inner {
+    min-height: 360px;
+}
+
+/* по-остра рамка на thumb в тъмна тема */
+.img-thumbnail {
+    background: #0f1115;
+    border-color: #2a2f3a;
+}

@@ -4,10 +4,13 @@ using Microsoft.EntityFrameworkCore;
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;
 using PaladinHub.Data.Repositories.Contracts;
+using PaladinHub.Infrastructure;
+using PaladinHub.Services;
+using PaladinHub.Services.Carts;
 using PaladinHub.Services.Discussions;
 using PaladinHub.Services.SectionServices;
 using PaladinHub.Services.ServiceExtension;
-using PaladinHub.Infrastructure;
+using StackExchange.Redis;
 
 Env.Load();
 
@@ -31,12 +34,13 @@ builder.Services.AddScoped<ProtectionSectionService>();
 builder.Services.AddScoped<RetributionSectionService>();
 builder.Services.AddScoped<IDiscussionService, DiscussionService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICartSessionService, CartSessionService>();
 
 Console.WriteLine($"\n\n{Environment.GetEnvironmentVariable("DB_CONNECTION")}\n\n");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-	var conn = Environment.GetEnvironmentVariable("DB_CONNECTION")!;
+	string conn = Environment.GetEnvironmentVariable("DB_CONNECTION")!;
 	options.UseNpgsql(conn);
 });
 
@@ -54,6 +58,12 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
+// Redis connection & CartStore
+string redisConn = Environment.GetEnvironmentVariable("REDIS_CONNECTION") ?? "localhost:6379";
+builder.Services.AddSingleton<IConnectionMultiplexer>(
+	ConnectionMultiplexer.Connect(redisConn));
+builder.Services.AddScoped<ICartStore, RedisCartStore>();
+
 string httpPort = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 builder.WebHost.ConfigureKestrel(options =>
 {
@@ -64,8 +74,10 @@ var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
+	app.UseExceptionHandler("/error/500");
 }
+
+app.UseStatusCodePagesWithReExecute("/error/{0}");
 
 app.UseStaticFiles();
 app.UseRouting();

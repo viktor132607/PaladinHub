@@ -12,7 +12,6 @@
 <head>
     <meta charset="utf-8" />
     <title>@(ViewData["Title"] ?? "PaladinHub")</title>
-    <link rel="icon" type="image/png" href="images/WoW_icon.svg.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="~/js/site.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -20,6 +19,14 @@
     <link rel="stylesheet" href="~/PaladinHub.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    @if (signInManager.IsSignedIn(User))
+    {
+        <script>window.__cartJustAdded__ = @(TempData["AddedSuccessfully"] != null ? "true" : "false");</script>
+    }
+
+
+    <link rel="icon" href="~/images/WoW_icon.svg.png" type="image/svg+xml" asp-append-version="true" />
 </head>
 
 <body>
@@ -95,25 +102,34 @@
                             </li>
                         }
 
-
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
 
                     <ul class="navbar-nav ms-auto">
-
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Merchandise" asp-action="Merchandise">
                                 <i class="fa-solid fa-store"></i> Merchandise
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Carts" asp-action="MyCart">
-                                <i class="fa-solid fa-cart-shopping"></i> My Cart
+                        <li class="nav-item position-relative" id="nav-cart">
+                            <a id="nav-cart-link" class="nav-link" asp-controller="Carts" asp-action="MyCart">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span id="nav-cart-text" class="position-relative d-inline-block">
+                                    My Cart
+                                    <span id="cart-badge"
+                                          class="badge rounded-pill bg-danger position-absolute top-100 start-100 translate-middle-x d-none"
+                                          style="margin-top:-8px">0</span>
+                                </span>
                             </a>
+
+                            <div id="mini-cart-panel" class="mini-cart shadow border rounded d-none">
+                                <div class="p-3 text-center text-muted">Зареждане…</div>
+                            </div>
                         </li>
+
 
                         @if (signInManager.IsSignedIn(User))
                         {

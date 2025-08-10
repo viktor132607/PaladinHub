@@ -1,25 +1,32 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PaladinHub.Models.Products
 {
 	public class EditProductViewModel
 	{
 		[Required]
-		public string Id { get; set; } = null!;
+		public string Id { get; set; } = default!;
 
-		[Required, MaxLength(100)]
-		public string Name { get; set; } = null!;
+		[Required, StringLength(200)]
+		public string Name { get; set; } = default!;
 
-		[Range(0, 999999)]
+		[Range(0, 1_000_000)]
 		public decimal Price { get; set; }
 
-		[MaxLength(300)]
-		public string? ImageUrl { get; set; }
+		[Url, MaxLength(2048)]
+		public string? ImageUrl { get; set; }   // главна снимка (thumbnail)
 
-		[MaxLength(50)]
-		public string? Category { get; set; }
+		[MaxLength(100)]
+		public string? Category { get; set; }   // избрана от dropdown
 
-		[MaxLength(1000)]
+		[MaxLength(100)]
+		public string? NewCategory { get; set; } // ако е попълнено – override-ва Category
+
+		[MaxLength(2000)]
 		public string? Description { get; set; }
+
+		public IEnumerable<SelectListItem> CategorySelectList { get; set; } = System.Linq.Enumerable.Empty<SelectListItem>();
 	}
 }

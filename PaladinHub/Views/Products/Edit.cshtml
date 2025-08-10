@@ -1,51 +1,147 @@
 ﻿@model PaladinHub.Models.Products.EditProductViewModel
 @{
     ViewData["Title"] = "Edit Product";
+    var placeholder = Url.Content("~/images/placeholder.png");
 }
 
 <div class="container py-4">
     <h2 class="mb-3">Edit Product</h2>
 
-    <form asp-action="Edit" method="post">
+    <form asp-action="Edit" method="post" class="bg-dark border border-secondary rounded p-3">
+        @Html.AntiForgeryToken()
         <input type="hidden" asp-for="Id" />
 
-        <div class="mb-3">
-            <label asp-for="Name" class="form-label"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 d-none" role="alert" id="val-summary"></div>
 
-        <div class="mb-3">
-            <label asp-for="Price" class="form-label"></label>
-            <input asp-for="Price" class="form-control" />
-            <span asp-validation-for="Price" class="text-danger"></span>
-        </div>
+        <div class="row g-4">
+            <!-- Left: fields -->
+            <div class="col-12 col-md-7">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label">Name</label>
+                    <input asp-for="Name" class="form-control" placeholder="Name..." />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
 
-        <div class="mb-3">
-            <label asp-for="ImageUrl" class="form-label"></label>
-            <input asp-for="ImageUrl" class="form-control" />
-            <span asp-validation-for="ImageUrl" class="text-danger"></span>
-        </div>
+                <div class="mb-3">
+                    <label asp-for="Price" class="form-label">Price</label>
+                    <div class="input-group">
+                        <input asp-for="Price" class="form-control" type="number" step="0.01" min="0" />
+                        <span class="input-group-text">лв.</span>
+                    </div>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
 
-        <div class="mb-3">
-            <label asp-for="Category" class="form-label"></label>
-            <input asp-for="Category" class="form-control" />
-            <span asp-validation-for="Category" class="text-danger"></span>
-        </div>
+                <div class="mb-3">
+                    <label asp-for="ImageUrl" class="form-label">Image URL (main)</label>
+                    <input asp-for="ImageUrl" class="form-control" placeholder="https://..." id="img-url" />
+                    <div class="form-text">Shown on cards & first in details.</div>
+                    <span asp-validation-for="ImageUrl" class="text-danger"></span>
+                </div>
 
-        <div class="mb-3">
-            <label asp-for="Description" class="form-label"></label>
-            <textarea asp-for="Description" rows="4" class="form-control"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
+                <!-- Category like in Create -->
+                <div class="mb-2">
+                    <label class="form-label">Category</label>
+                    <select asp-for="Category" asp-items="Model.CategorySelectList" class="form-select">
+                        <option value="">-- choose --</option>
+                    </select>
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <button type="button" id="btn-add-cat" class="btn btn-sm btn-outline-warning">+ Add category</button>
+                </div>
 
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a asp-controller="Merchandise" asp-action="Merchandise" class="btn btn-outline-secondary">Cancel</a>
+                <div id="new-cat-wrap" class="mb-3 d-none">
+                    <label asp-for="NewCategory" class="form-label">New category</label>
+                    <input asp-for="NewCategory" class="form-control" placeholder="e.g. Shirts" />
+                    <div class="form-text">If filled, it will be used instead of the selected one.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Description" class="form-label">Description</label>
+                    <textarea asp-for="Description" rows="4" class="form-control" placeholder="Optional…"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex">
+                    <a asp-controller="Merchandise" asp-action="Merchandise" class="btn btn-outline-light">Cancel</a>
+                    <button type="submit" class="btn btn-warning fw-bold px-4">Save</button>
+                </div>
+            </div>
+
+            <!-- Right: preview -->
+            <div class="col-12 col-md-5">
+                <div class="card bg-black border border-secondary">
+                    <div class="card-header border-secondary">Preview</div>
+                    <div class="card-body">
+                        <div class="ratio ratio-1x1 mb-3">
+                            <img id="img-preview"
+                                 src="@(string.IsNullOrWhiteSpace(Model.ImageUrl) ? placeholder : Model.ImageUrl)"
+                                 alt="preview" class="w-100 h-100 rounded" style="object-fit:cover;">
+                        </div>
+                        <div class="small text-muted">
+                            <div><strong>Name:</strong> <span id="p-name">@Model.Name</span></div>
+                            <div><strong>Price:</strong> <span id="p-price">@Model.Price.ToString("0.##")</span> лв.</div>
+                            <div><strong>Category:</strong> <span id="p-cat">@Model.Category</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            const placeholder = '@placeholder';
+
+            // Toggle new category field
+            const btnCat = document.getElementById('btn-add-cat');
+            const wrapCat = document.getElementById('new-cat-wrap');
+            if (btnCat && wrapCat) btnCat.addEventListener('click', () => wrapCat.classList.toggle('d-none'));
+
+            // Live preview
+            const imgUrl = document.getElementById('img-url');
+            const imgPrev = document.getElementById('img-preview');
+            const nameInput = document.getElementById('Name');
+            const priceInput = document.getElementById('Price');
+            const catInput = document.getElementById('Category');
+
+            const pName = document.getElementById('p-name');
+            const pPrice = document.getElementById('p-price');
+            const pCat = document.getElementById('p-cat');
+
+            if (imgUrl && imgPrev) {
+                imgUrl.addEventListener('input', () => {
+                    const v = imgUrl.value.trim();
+                    imgPrev.src = v || placeholder;
+                });
+            }
+            if (nameInput && pName) {
+                nameInput.addEventListener('input', () => pName.textContent = nameInput.value);
+            }
+            if (priceInput && pPrice) {
+                priceInput.addEventListener('input', () => {
+                    const val = priceInput.value;
+                    if (!val) { pPrice.textContent = '0'; return; }
+                    const n = parseFloat(val);
+                    if (isNaN(n)) { pPrice.textContent = '0'; return; }
+                    // без излишни нули
+                    pPrice.textContent = n % 1 === 0 ? n.toFixed(0) : n.toFixed(2).replace(/\.00$/, '');
+                });
+            }
+            if (catInput && pCat) {
+                catInput.addEventListener('input', () => pCat.textContent = catInput.value);
+                catInput.addEventListener('change', () => pCat.textContent = catInput.value);
+            }
+
+            // Show summary only if errors exist
+            const summary = document.getElementById('val-summary');
+            if (summary && summary.querySelector('ul')) {
+                const hasItems = summary.querySelectorAll('li').length > 0;
+                summary.classList.toggle('d-none', !hasItems);
+            }
+        })();
+    </script>
 }
