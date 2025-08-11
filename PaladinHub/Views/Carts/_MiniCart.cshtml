@@ -1,43 +1,45 @@
 ﻿@model PaladinHub.Models.Carts.MyCartViewModel
 
-<div class="mini-cart-content">
+<div id="mini-cart" class="mini-cart">
     @if (Model?.MyProducts == null || !Model.MyProducts.Any())
     {
         <div class="p-3 text-center text-muted">The cart is empty!</div>
     }
     else
     {
-        <ul class="list-unstyled mini-cart-list">
+        <ul class="list-unstyled mini-cart-list mb-0">
             @foreach (var p in Model.MyProducts.Take(6))
             {
-                <li class="mini-cart-item d-flex gap-2 p-2">
-                    <img src="@p.ImageUrl" alt="@p.Name" class="mini-cart-thumb" />
-                    <div class="flex-grow-1">
-                        <div class="mini-cart-name text-truncate">@p.Name</div>
-                        <div class="mini-cart-meta">
-                            <span class="fw-semibold">@p.Price.ToString("0.##")</span> лв.
-                            <span class="text-muted">× @p.Quantity</span>
+                <li class="mini-cart-item d-flex align-items-start">
+                    <a asp-controller="Products" asp-action="Details" asp-route-id="@p.Id"
+                       class="mini-cart-link d-flex align-items-start flex-grow-1 text-reset text-decoration-none">
+                        <img src="@p.ImageUrl" alt="@p.Name" class="mini-cart-thumb" />
+                        <div class="mini-cart-text">
+                            <div class="mini-cart-name text-truncate">@p.Name</div>
+                            <div class="mini-cart-meta">@p.Price.ToString("0.##") $ × @p.Quantity</div>
                         </div>
-                    </div>
-                    <a class="text-muted ms-2"
-                       asp-controller="Carts"
-                       asp-action="RemoveProductFromCart"
-                       asp-route-id="@p.Id"
-                       title="Премахни">
-                        <i class="fa-solid fa-xmark"></i>
                     </a>
+
+                    <!-- X remove (JS в site.js слуша .mini-remove) -->
+                    <button type="button" class="mini-remove" data-id="@p.Id" title="Remove" aria-label="Remove">
+                        &times;
+                    </button>
                 </li>
             }
         </ul>
 
-        <div class="mini-cart-total d-flex justify-content-between align-items-center px-3 py-2">
-            <span class="fw-bold">Общо:</span>
-            <span class="fw-bold">@Model.TotalPrice.ToString("0.##") лв.</span>
+        <div class="mini-cart-total">
+            <span>Total:</span>
+            <span>@Model.TotalPrice.ToString("0.##") $</span>
         </div>
 
-        <div class="p-3 d-grid gap-2">
-            <a class="btn btn-dark" asp-controller="Carts" asp-action="MyCart">КЪМ КОЛИЧКАТА</a>
-            <a class="btn btn-warning" asp-controller="Carts" asp-action="Buy">КУПИ</a>
+        <div class="mini-cart-actions">
+            <a class="go-to-cart-btn" asp-controller="Carts" asp-action="MyCart">My Cart</a>
+
+            <form asp-controller="Carts" asp-action="Buy" method="post" class="d-grid">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="mini-buy-btn">Buy</button>
+            </form>
         </div>
     }
 </div>

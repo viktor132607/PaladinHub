@@ -3,35 +3,39 @@
 @model MerchandisePageViewModel
 
 @{
-    ViewData["Title"] = "Warcraft";
+    ViewData["Title"] = "Merchandise Shop";
     var q = Model.Query;
+    var currentMin = q.MinRating ?? 0;
 }
 
 @if (TempData["AddedSuccessfully"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="alert">
-        <i class="fa fa-check"></i>
+    <div class="alert alert-success alert-dismissible fade show alert-custom" role="alert">
+        <i class="fa fa-check me-2"></i>
         The product has been successfully added to your cart.
     </div>
 }
+
 @if (TempData["DeletedSuccessfully"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="alert">
-        <i class="fa fa-check"></i>
+    <div class="alert alert-success alert-dismissible fade show alert-custom" role="alert">
+        <i class="fa fa-check me-2"></i>
         The product has been successfully deleted from the database.
     </div>
 }
+
 @if (TempData["Canceled"] != null)
 {
-    <div class="alert alert-danger alert-dismissible fade show alert-floating" role="alert" id="alert">
-        <i class="fa fa-exclamation-circle"></i>
+    <div class="alert alert-danger alert-dismissible fade show alert-custom" role="alert">
+        <i class="fa fa-exclamation-circle me-2"></i>
         <strong>The cart has been cleared!</strong>
     </div>
 }
+
 @if (TempData["Buy"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="alert">
-        <i class="fa fa-check"></i>
+    <div class="alert alert-success alert-dismissible fade show alert-custom" role="alert">
+        <i class="fa fa-check me-2"></i>
         <strong>Yay!</strong> Thank you for choosing our products.
     </div>
 }
@@ -39,16 +43,18 @@
 <main class="catalog-dark py-4">
     <div class="container-fluid">
         <div class="row">
+            <!-- FILTERS -->
             <aside class="col-12 col-lg-2 mb-4 mb-lg-0">
                 <div class="filter-card p-3">
                     <h5 class="mb-3">Filters</h5>
-                    <form method="get" asp-controller="Merchandise" asp-action="Merchandise">
+
+                    <form id="filtersForm" method="get" asp-controller="Merchandise" asp-action="Merchandise">
                         <input type="hidden" name="Page" value="1" />
                         <input type="hidden" name="PageSize" value="@q.PageSize" />
 
                         <div class="mb-3">
                             <label class="form-label">Search</label>
-                            <input name="Search" value="@q.Search" type="text" class="form-control form-control-sm" placeholder="Name, category, description…">
+                            <input name="Search" value="@q.Search" type="text" class="form-control form-control-sm" placeholder="Name, category, descr">
                         </div>
 
                         <div class="mb-3">
@@ -57,7 +63,7 @@
                             {
                                 var isChecked = q.Categories != null && q.Categories.Contains(cat);
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="Categories" value="@cat" id="cat-@cat" @(isChecked ? "checked" : null)>
+                                    <input class="form-check-input" type="checkbox" name="Categories" value="@cat" id="cat-@cat" @(isChecked ? "checked" : null) />
                                     <label class="form-check-label" for="cat-@cat">@cat</label>
                                 </div>
                             }
@@ -66,8 +72,45 @@
                         <div class="mb-3">
                             <label class="form-label">Price</label>
                             <div class="d-flex gap-2">
-                                <input name="MinPrice" value="@(q.MinPrice?.ToString() ?? "")" type="number" step="0.01" class="form-control form-control-sm" placeholder="From">
-                                <input name="MaxPrice" value="@(q.MaxPrice?.ToString() ?? "")" type="number" step="0.01" class="form-control form-control-sm" placeholder="To">
+                                <input name="MinPrice" value="@(q.MinPrice?.ToString() ?? "")" type="number" step="1" class="form-control form-control-sm" placeholder="From" />
+                                <input name="MaxPrice" value="@(q.MaxPrice?.ToString() ?? "")" type="number" step="1" class="form-control form-control-sm" placeholder="To" />
+                            </div>
+                        </div>
+
+                        <!-- Rating (at least) -->
+                        <div class="mb-3">
+                            <label class="form-label">Rating (at least)</label>
+                            <div class="rating-filter">
+                                @for (int r = 5; r >= 1; r--)
+                                {
+                                    var id = $"minr-{r}";
+                                    var count = Model.RatingAtLeast != null && Model.RatingAtLeast.TryGetValue(r, out var v) ? v : 0;
+
+                                    <div class="form-check d-flex align-items-center gap-2">
+                                        <input class="form-check-input" type="radio" name="MinRating" id="@id" value="@r" @(currentMin == r ? "checked" : null) />
+                                        <label class="form-check-label d-flex align-items-center" for="@id" title="At least @r stars">
+                                            <span class="stars me-2">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= r)
+                                                    {
+                                                        <i class="fa-solid fa-star text-warning"></i>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <i class="fa-regular fa-star text-secondary"></i>
+                                                    }
+                                                }
+                                            </span>
+                                            <span class="text-muted small">(@count)</span>
+                                        </label>
+                                    </div>
+                                }
+                                <div class="form-check mt-1">
+                                    <input class="form-check-input" type="radio" name="MinRating" id="minr-any" value="" @(currentMin == 0 ? "checked" : null) />
+                                    <label class="form-check-label small text-muted" for="minr-any">Any rating</label>
+                                </div>
                             </div>
                         </div>
 
@@ -75,28 +118,26 @@
                             <label class="form-label">Sort by</label>
                             <select name="SortBy" class="form-select form-select-sm">
                                 @{
-                                    var current = (int)q.SortBy;
+                                    var currentSort = (int)q.SortBy;
                                     var sortOptions = new[]
                                     {
                                                                 (val: 0, text: "Relevance"),
                                                                 (val: 1, text: "Name"),
                                                                 (val: 2, text: "Price"),
                                                                 (val: 3, text: "Newest"),
-                                                                (val: 4, text: "Rating"),         // NEW
-                                                                (val: 5, text: "Most reviewed"),  // NEW
+                                                                (val: 4, text: "Rating"),
+                                                                (val: 5, text: "Most reviewed"),
                                                                 };
-                                    foreach (var o in sortOptions)
+                                }
+                                @foreach (var o in sortOptions)
+                                {
+                                    if (currentSort == o.val)
                                     {
-                                        if (current == o.val)
-                                        {
-                                            @:
-                                            <option value="@o.val" selected>@o.text</option>
-                                        }
-                                        else
-                                        {
-                                            @:
-                                            <option value="@o.val">@o.text</option>
-                                        }
+                                        <option value="@o.val" selected>@o.text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@o.val">@o.text</option>
                                     }
                                 }
                             </select>
@@ -106,11 +147,16 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100 btn-sm">Apply</button>
+                        <button type="button" id="btnClearFilters" class="btn btn-outline-secondary w-100 btn-sm">
+                            Clear all filters
+                        </button>
+                        <!-- Fallback (auto-apply JS ще submit-ва) -->
+                        <button type="submit" class="btn btn-primary w-100 btn-sm d-none">Apply</button>
                     </form>
                 </div>
             </aside>
 
+            <!-- LIST -->
             <section class="col-12 col-lg-10">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h3 class="m-0">Welcome PaladinHub Merch Shop!</h3>
@@ -154,58 +200,61 @@
                     {
                         foreach (var product in Model.Products.Items)
                         {
+                            var rr = Math.Clamp((int)Math.Round(product.AverageRating, MidpointRounding.AwayFromZero), 0, 5);
+
                             <div class="col">
                                 <div class="card product-card h-100">
                                     <div class="ratio ratio-1x1 product-thumb">
                                         <img src="@(string.IsNullOrWhiteSpace(product.ImageUrl) ? Url.Content("~/images/placeholder.png") : product.ImageUrl)"
-                                             alt="@product.Name"
-                                             class="card-img-top">
-                                        <!-- клик по снимката -> детайли -->
+                                             alt="@product.Name" class="card-img-top" />
                                         <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="stretched-link"></a>
                                     </div>
                                     <div class="card-body d-flex flex-column">
                                         <div class="small text-muted">@product.Category</div>
-                                        <h6 class="card-title mb-2 line-clamp-2" title="@product.Name">
-                                            <!-- клик по заглавието -> детайли -->
-                                            <a asp-controller="Products"
-                                               asp-action="Details"
-                                               asp-route-id="@product.Id"
-                                               class="text-reset text-decoration-none">
+                                        <h6 class="card-title mb-1 line-clamp-2" title="@product.Name">
+                                            <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="text-reset text-decoration-none">
                                                 @product.Name
                                             </a>
                                         </h6>
+
+                                        <div class="small d-flex align-items-center mb-2">
+                                            <span class="me-1 text-warning">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= rr)
+                                                    {
+                                                        <i class="fa-solid fa-star"></i>
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <i class="fa-regular fa-star"></i>
+                                                    }
+                                                }
+                                            </span>
+                                            <span class="text-muted small">(@product.ReviewsCount)</span>
+                                        </div>
+
                                         @if (!string.IsNullOrWhiteSpace(product.Description))
                                         {
-                                            <p class="text-truncate small">@product.Description</p>
+                                            <p class="text-truncate small mb-2">@product.Description</p>
                                         }
                                         <div class="mt-auto">
                                             <div class="price fw-semibold mb-2">$@product.Price</div>
                                         </div>
                                     </div>
+
                                     <div class="card-footer bg-transparent border-0 pt-0">
                                         <div class="d-grid gap-2">
-                                            <a asp-controller="Carts"
-                                               asp-action="AddProduct"
-                                               asp-route-id="@product.Id"
-                                               class="btn btn-primary btn-sm">
+                                            <a asp-controller="Carts" asp-action="AddProduct" asp-route-id="@product.Id" class="btn btn-primary btn-sm">
                                                 Add to Cart
                                             </a>
 
                                             @if (User.IsInRole("Admin"))
                                             {
                                                 <div class="d-grid gap-2">
-                                                    <a asp-controller="Products"
-                                                       asp-action="Edit"
-                                                       asp-route-id="@product.Id"
-                                                       class="btn btn-warning btn-sm">
-                                                        Edit
-                                                    </a>
-                                                    <a asp-controller="Products"
-                                                       asp-action="DeleteProduct"
-                                                       asp-route-id="@product.Id"
-                                                       class="btn btn-outline-danger btn-sm">
-                                                        Delete
-                                                    </a>
+                                                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning btn-sm">Edit</a>
+                                                    <a asp-controller="Products" asp-action="DeleteProduct" asp-route-id="@product.Id" class="btn btn-outline-danger btn-sm">Delete</a>
                                                 </div>
                                             }
                                         </div>
@@ -229,6 +278,7 @@
                                     ["Search"] = q.Search,
                                     ["MinPrice"] = q.MinPrice,
                                     ["MaxPrice"] = q.MaxPrice,
+                                    ["MinRating"] = q.MinRating,
                                     ["SortBy"] = (int)q.SortBy,
                                     ["Desc"] = q.Desc,
                                     ["PageSize"] = q.PageSize
@@ -236,11 +286,11 @@
 
                                 if (q.Categories != null && q.Categories.Count > 0)
                                 {
-                                    int i = 0;
+                                    int idx = 0;
                                     foreach (var c in q.Categories)
                                     {
-                                        routeBase[$"Categories[{i}]"] = c;
-                                        i++;
+                                        routeBase[$"Categories[{idx}]"] = c;
+                                        idx++;
                                     }
                                 }
 
@@ -259,11 +309,11 @@
                             </li>
 
                             @{
-                                int current = Model.Products.Page;
+                                int cur = Model.Products.Page;
                                 int total = Model.Products.TotalPages;
                                 int window = 2;
-                                int start = Math.Max(1, current - window);
-                                int end = Math.Min(total, current + window);
+                                int start = Math.Max(1, cur - window);
+                                int end = Math.Min(total, cur + window);
 
                                 if (start > 1)
                                 {
@@ -276,7 +326,7 @@
 
                                 for (int i = start; i <= end; i++)
                                 {
-                                    if (i == current)
+                                    if (i == cur)
                                     {
                                         <li class="page-item active"><span class="page-link">@i</span></li>
                                     }
@@ -331,8 +381,16 @@
             border-color: #2a2f3a;
         }
 
+    .rating-filter .form-check {
+        margin-bottom: .25rem;
+    }
+
+    .rating-filter .stars i {
+        margin-right: 1px;
+    }
+
     .product-card {
-        position: relative; /* нужно за stretched-link */
+        position: relative;
         background: #171a21;
         border: 1px solid #272b35;
         border-radius: 10px;
@@ -345,7 +403,7 @@
             box-shadow: 0 8px 24px rgba(0,0,0,.35);
             border-color: #2f3542;
         }
-        /* бутоните да са над stretched-link */
+
         .product-card .card-footer, .product-card .btn {
             position: relative;
             z-index: 2;
@@ -368,6 +426,10 @@
         min-height: 2.8em;
     }
 
+    .product-card .fa-star {
+        margin-right: 1px;
+    }
+
     .alert-floating {
         position: fixed;
         top: 1rem;
@@ -377,8 +439,60 @@
 </style>
 
 <script>
-    setTimeout(function () {
-        const el = document.getElementById('alert');
-        if (el) el.style.display = 'none';
-    }, 1500);
+    (function () {
+      const form = document.getElementById('filtersForm');
+      if (!form) return;
+
+      let t;
+      function submitReset() {
+        clearTimeout(t);
+        const p = form.querySelector('input[name="Page"]');
+        if (p) p.value = '1';
+        form.submit();
+      }
+      function debounce(ms=600){ clearTimeout(t); t=setTimeout(submitReset, ms); }
+
+      // auto-apply select / checkbox / radio
+      form.addEventListener('change', e => {
+        if (!e.target) return;
+        if (e.target.matches('select, input[type="checkbox"], input[type="radio"]')) {
+          submitReset();
+        }
+      });
+
+      // click on star labels -> force check + submit
+      document.querySelectorAll('.rating-filter label').forEach(lbl => {
+        lbl.addEventListener('click', () => {
+          const id = lbl.getAttribute('for');
+          if (!id) return;
+          const inp = document.getElementById(id);
+          if (inp && inp.type === 'radio') {
+            inp.checked = true;
+            submitReset();
+          }
+        });
+      });
+
+      // debounce for text/number
+      form.querySelectorAll('input[type="text"], input[type="number"]').forEach(inp=>{
+        inp.addEventListener('input', ()=>debounce(600));
+        inp.addEventListener('blur', submitReset);
+      });
+
+      // Clear all
+      const btnClear = document.getElementById('btnClearFilters');
+      if (btnClear) {
+        btnClear.addEventListener('click', () => {
+          form.querySelectorAll('input[type="text"], input[type="number"]').forEach(i => i.value = '');
+          form.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(i => i.checked = false);
+          const sort = form.querySelector('select[name="SortBy"]'); if (sort) sort.value = '0';
+          const any = document.getElementById('minr-any'); if (any) any.checked = true;
+          const page = form.querySelector('input[name="Page"]'); if (page) page.value = '1';
+          submitReset();
+        });
+      }
+
+      // hide floating alerts
+      setTimeout(()=>{ const el = document.getElementById('alert'); if (el) el.style.display='none'; },1500);
+    })();
 </script>

@@ -663,7 +663,7 @@ body {
     flex-direction: row;
 }
 
-}
+
 
     .section-cell:hover {
         background-color: #2a2a2a;
@@ -1621,4 +1621,381 @@ a:focus {
 .img-thumbnail {
     background: #0f1115;
     border-color: #2a2f3a;
+}
+
+.alert-custom {
+    position: fixed;
+    top: 80px; /* разстояние под navbar-а */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    min-width: 320px;
+    max-width: 90%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    animation: slideDown 0.4s ease-out, fadeOut 0.5s ease-in 3s forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+}
+
+/* ===== Mini Cart (dark theme) ===== */
+#mini-cart-panel {
+    background: #111;
+    color: #eee;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(0,0,0,.6);
+    overflow: hidden;
+}
+
+.mini-cart {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Списък */
+.mini-cart-list {
+    max-height: 360px;
+    overflow: auto;
+}
+
+.mini-cart-item {
+    padding: 10px 12px;
+    border-bottom: 1px solid #1d1d1d;
+    gap: 10px;
+}
+
+    .mini-cart-item:last-child {
+        border-bottom: 0;
+    }
+
+.mini-cart-link:hover .mini-cart-name {
+    color: #ff5fb3;
+}
+
+/* Картинка */
+.mini-cart-thumb {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex: 0 0 48px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+
+/* Текст */
+.mini-cart-text {
+    line-height: 1.15;
+}
+
+.mini-cart-name {
+    font-weight: 600;
+    color: #fff; /* винаги бяло */
+    max-width: 220px;
+}
+
+.mini-cart-meta {
+    font-size: 12px;
+    color: #a7a7a7;
+    margin-top: 4px;
+}
+
+/* Remove X */
+.mini-remove {
+    margin-left: 8px;
+    background: transparent;
+    border: 0;
+    color: #ff5fb3;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0 4px;
+    cursor: pointer;
+    opacity: .9;
+    transition: transform .12s ease, color .12s ease, opacity .12s ease;
+}
+
+    .mini-remove:hover {
+        color: #ff80c5;
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+/* Total */
+.mini-cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border-top: 1px solid #1d1d1d;
+    color: #ff5fb3;
+    font-weight: 700;
+}
+
+/* Actions */
+.mini-cart-actions {
+    display: grid;
+    gap: 10px;
+    padding: 12px 14px 16px;
+}
+
+/* My Cart button – розов стил като Buy */
+.go-to-cart-btn {
+    display: block;
+    width: 100%;
+    background: #ff5fb3; /* розов фон */
+    color: #111; /* тъмен текст */
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-weight: 800;
+    text-align: center;
+    cursor: pointer;
+    transition: filter .12s ease;
+    text-decoration: none;
+}
+
+    .go-to-cart-btn:hover {
+        filter: brightness(1.05);
+    }
+
+/* Buy button – жълт */
+.mini-buy-btn {
+    display: block;
+    width: 100%;
+    background: #ffb300;
+    color: #111;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: filter .12s ease;
+}
+
+    .mini-buy-btn:hover {
+        filter: brightness(1.05);
+    }
+
+/* Scrollbar */
+.mini-cart-list::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+.mini-cart-list::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 8px;
+}
+
+    .mini-cart-list::-webkit-scrollbar-thumb:hover {
+        background: #3a3a3a;
+    }
+/* override на насиления цвят */
+#mini-cart-panel .mini-cart-name {
+    color: #fff !important;
+}
+/* заглавие на продукта – бяло */
+#mini-cart-panel .mini-cart-meta {
+    color: #a7a7a7 !important;
+}
+/* подсметка – сиво */
+#mini-cart-panel .mini-cart-total {
+    color: #ff5fb3 !important;
+}
+/* Total – розово */
+#mini-cart-panel .mini-remove {
+    color: #ff5fb3 !important;
+}
+/* X – розово */
+
+/* === Mini-cart text tweaks (override) === */
+
+/* еднакъв шрифт с бутоните */
+.mini-cart,
+.mini-cart .mini-cart-name,
+.mini-cart .mini-cart-meta {
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+    /* размерът и дебелината да паснат на бутоните */
+    .mini-cart .mini-cart-name {
+        font-size: 16px; /* като бутоните */
+        font-weight: 800; /* bold като бутоните */
+        color: #fff !important;
+    }
+
+    /* подпояснителният ред – малко по-дребен и с разстояние от името */
+    .mini-cart .mini-cart-meta {
+        font-size: 14px;
+        color: #b9b9b9 !important;
+        margin-top: 4px; /* въздух между текстовете */
+        line-height: 1.25;
+    }
+
+    /* колонката с текст да подрежда редовете вертикално с gap */
+    .mini-cart .mini-cart-text {
+        display: flex;
+        flex-direction: column;
+        row-gap: 4px; /* още мъничко въздух между name и meta */
+    }
+
+    /* малък буфер между текста и десния "X" */
+    .mini-cart .mini-cart-link {
+        padding-right: 6px;
+    }
+
+/* тоталът – четимост и spacing да съвпаднат визуално */
+.mini-cart-total {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* === Mini-cart better contrast overrides === */
+
+/* фон на списъка с продукти */
+.mini-cart-list {
+    background: #1a1a1a; /* малко по-светъл от черното */
+}
+
+/* всеки ред – малко по-светъл фон и разделител */
+.mini-cart-item {
+    background: #1a1a1a;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+/* цената в meta да е бяла */
+.mini-cart .mini-cart-meta {
+    color: #fff !important;
+}
+
+/* тоталът и цената му – бели */
+.mini-cart-total {
+    background: #1f1f1f;
+    color: #fff !important;
+}
+
+    /* тоталната сума – бяла, bold */
+    .mini-cart-total strong,
+    .mini-cart-total span {
+        color: #fff !important;
+        font-weight: 800;
+    }
+/* ===== FINAL OVERRIDES – neutralize legacy gray ===== */
+
+/* 1) Нулираме насиления сив цвят от стария блок */
+#mini-cart-panel,
+#mini-cart-panel * {
+    color: inherit !important; /* по-късно в този блок задаваме коректните цветове */
+}
+
+/* 2) Базовият текст вътре да е светъл */
+#mini-cart-panel {
+    color: #eee !important;
+}
+
+    /* 3) Име, мета, тотал и сума – бели и четливи */
+    #mini-cart-panel .mini-cart-name {
+        color: #fff !important;
+    }
+
+    #mini-cart-panel .mini-cart-meta {
+        color: #fff !important;
+    }
+
+    #mini-cart-panel .mini-cart-total,
+    #mini-cart-panel .mini-cart-total * {
+        color: #fff !important;
+    }
+
+    /* 4) По-светъл фон на редовете + тотал реда */
+    #mini-cart-panel .mini-cart-item {
+        background: #1a1a1a !important;
+        border-bottom: 1px solid #2a2a2a !important;
+    }
+
+    #mini-cart-panel .mini-cart-total {
+        background: #1f1f1f !important;
+        border-top: 1px solid #2a2a2a !important;
+    }
+    /* === Text offset from image === */
+    #mini-cart-panel .mini-cart-text {
+        padding-left: 6px; /* леко отместване вдясно */
+    }
+
+    /* === Remove X in white === */
+    #mini-cart-panel .mini-remove {
+        color: #fff !important;
+    }
+
+        #mini-cart-panel .mini-remove:hover {
+            color: #ff5fb3 !important; /* розово при hover, за да има индикация */
+        }
+    /* ===== Mini cart: buttons & close hover/active/focus ===== */
+
+    /* Общ „button-like“ ховър – леко повдигане и сянка */
+    #mini-cart-panel .go-to-cart-btn,
+    #mini-cart-panel .mini-buy-btn {
+        transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+        will-change: transform;
+    }
+
+        #mini-cart-panel .go-to-cart-btn:hover,
+        #mini-cart-panel .mini-buy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(0,0,0,.35);
+            filter: brightness(1.04);
+        }
+
+        #mini-cart-panel .go-to-cart-btn:active,
+        #mini-cart-panel .mini-buy-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 8px rgba(0,0,0,.28);
+            filter: none;
+        }
+
+        /* фокус за достъпност */
+        #mini-cart-panel .go-to-cart-btn:focus-visible,
+        #mini-cart-panel .mini-buy-btn:focus-visible {
+            outline: 2px solid rgba(255,255,255,.45);
+            outline-offset: 2px;
+        }
+
+    /* „X“ – бял по default, леко сив при hover (НЕ розов) */
+    #mini-cart-panel .mini-remove {
+        color: #fff !important;
+        opacity: .9;
+        transition: color .12s ease, opacity .12s ease, transform .12s ease;
+    }
+
+        #mini-cart-panel .mini-remove:hover {
+            color: #cfcfcf !important; /* леко сиво */
+            opacity: 1;
+            transform: scale(1.06);
+        }
+
+/* ако предпочиташ без анимация за потребители с reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    #mini-cart-panel .go-to-cart-btn,
+    #mini-cart-panel .mini-buy-btn,
+    #mini-cart-panel .mini-remove {
+        transition: none;
+    }
 }

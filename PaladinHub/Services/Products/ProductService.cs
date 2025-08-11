@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;   // Product, User, Cart
 using PaladinHub.Data.Models;     // CartProduct, ProductReview, ProductImage
-using PaladinHub.Models;
+using PaladinHub.Models;          // PagedResult<T>
 using PaladinHub.Models.Carts;
 using PaladinHub.Models.Products;
 
@@ -16,14 +11,10 @@ namespace PaladinHub.Services.Products
 	public class ProductService : IProductService
 	{
 		private readonly AppDbContext context;
-
 		public ProductService(AppDbContext context) => this.context = context;
 
-		// ==== BASIC LIST ====
 		public async Task<ICollection<ProductViewModel>> GetAll()
-		{
-			return await context.Products
-				.AsNoTracking()
+			=> await context.Products.AsNoTracking()
 				.Select(x => new ProductViewModel
 				{
 					Id = x.Id,
@@ -34,13 +25,10 @@ namespace PaladinHub.Services.Products
 					Description = x.Description
 				})
 				.ToListAsync();
-		}
 
-		// ==== CREATE PRODUCT ====
 		public async Task<CreateProductViewModel> Create(CreateProductViewModel model)
 		{
-			if (await context.Products.AnyAsync(x => x.Name == model.Name))
-				return null;
+			if (await context.Products.AnyAsync(x => x.Name == model.Name)) return null!;
 
 			var entity = new Product(model.Name, model.Price)
 			{
@@ -52,7 +40,6 @@ namespace PaladinHub.Services.Products
 			await context.Products.AddAsync(entity);
 			await context.SaveChangesAsync();
 
-			// Галерия (ако има)
 			if (model.Images != null && model.Images.Count > 0)
 			{
 				foreach (var img in model.Images.Where(i => !string.IsNullOrWhiteSpace(i.Url)))
@@ -70,17 +57,14 @@ namespace PaladinHub.Services.Products
 			return model;
 		}
 
-		// ==== MY CART (DB) ====
 		public async Task<MyCartViewModel> GetMyProducts(User user)
 		{
 			var myCartProducts = await context.CartProduct
-				.Include(x => x.Product)
-				.Include(x => x.Cart)
+				.Include(x => x.Product).Include(x => x.Cart)
 				.Where(x => x.CartId == user.CartId)
 				.ToListAsync();
 
 			var vm = new MyCartViewModel();
-
 			foreach (var cp in myCartProducts)
 			{
 				if (!vm.MyProducts.Any(x => x.Id == cp.ProductId))
@@ -98,95 +82,121 @@ namespace PaladinHub.Services.Products
 						Cart = cp.Cart
 					});
 				}
-
 				vm.TotalPrice += cp.Product.Price * cp.Quantity;
 			}
-
 			return vm;
 		}
 
-		// ==== DELETE PRODUCT ====
 		public async Task<bool> Delete(string id)
 		{
 			if (string.IsNullOrWhiteSpace(id)) return false;
-
 			var entity = await context.Products.FindAsync(id);
 			if (entity == null) return false;
-
 			context.Products.Remove(entity);
 			await context.SaveChangesAsync();
 			return true;
 		}
 
-		// ==== CATEGORIES ====
 		public async Task<List<string>> GetAllCategoriesAsync(CancellationToken ct = default)
-		{
-			return await context.Products
-				.AsNoTracking()
-				.Select(p => p.Category)
-				.Where(c => !string.IsNullOrWhiteSpace(c))
-				.Distinct()
-				.OrderBy(c => c)
-				.ToListAsync(ct);
-		}
+			=> await context.Products.AsNoTracking()
+				.Select(p => p.Category).Where(c => !string.IsNullOrWhiteSpace(c))
+				.Distinct().OrderBy(c => c).ToListAsync(ct);
 
 		public async Task<List<string>> GetCategories()
+			=> await context.Products.AsNoTracking()
+				.Select(p => p.Category).Where(c => !string.IsNullOrWhiteSpace(c))
+				.Distinct().OrderBy(c => c).ToListAsync();
+
+		// Клас за join-а с агрегатите – за да избегнем dynamic в expression trees
+		private sealed class AggRow
 		{
-			return await context.Products
-				.AsNoTracking()
-				.Select(p => p.Category)
-				.Where(c => !string.IsNullOrWhiteSpace(c))
-				.Distinct()
-				.OrderBy(c => c)
-				.ToListAsync();
+			public Product P { get; set; } = default!;
+			public double Avg { get; set; }
+			public int Cnt { get; set; }
 		}
 
-		// ==== QUERY WITH FILTERS + PAGING ====
-		public async Task<PagedResult<ProductViewModel>> QueryAsync(ProductQueryOptions options, CancellationToken ct = default)
+		public async Task<PagedResult<ProductListItem>> QueryAsync(ProductQueryOptions options, CancellationToken ct = default)
 		{
-			IQueryable<Product> q = context.Products.AsNoTracking();
+			IQueryable<Product> baseQ = context.Products.AsNoTracking();
 
-			// normalize min/max
 			if (options.MinPrice.HasValue && options.MaxPrice.HasValue &&
 				options.MaxPrice.Value < options.MinPrice.Value)
 			{
 				(options.MinPrice, options.MaxPrice) = (options.MaxPrice, options.MinPrice);
 			}
 
-			// search
 			if (!string.IsNullOrWhiteSpace(options.Search))
 			{
 				var s = options.Search.Trim();
-				q = q.Where(p =>
+				baseQ = baseQ.Where(p =>
 					EF.Functions.ILike(p.Name, $"%{s}%") ||
 					(p.Description != null && EF.Functions.ILike(p.Description, $"%{s}%")) ||
 					(p.Category != null && EF.Functions.ILike(p.Category, $"%{s}%"))
 				);
 			}
 
-			// categories
 			if (options.Categories is { Count: > 0 })
 			{
 				var cats = options.Categories.Where(c => !string.IsNullOrWhiteSpace(c)).ToList();
-				if (cats.Count > 0)
-					q = q.Where(p => cats.Contains(p.Category));
+				if (cats.Count > 0) baseQ = baseQ.Where(p => cats.Contains(p.Category));
 			}
 
-			// price range
-			if (options.MinPrice.HasValue) q = q.Where(p => p.Price >= options.MinPrice.Value);
-			if (options.MaxPrice.HasValue) q = q.Where(p => p.Price <= options.MaxPrice.Value);
+			if (options.MinPrice.HasValue) baseQ = baseQ.Where(p => p.Price >= options.MinPrice.Value);
+			if (options.MaxPrice.HasValue) baseQ = baseQ.Where(p => p.Price <= options.MaxPrice.Value);
 
-			var total = await q.CountAsync(ct);
+			var agg = context.ProductReviews
+				.GroupBy(r => r.ProductId)
+				.Select(g => new { ProductId = g.Key, Avg = g.Average(x => (double)x.Rating), Cnt = g.Count() });
 
-			// sorting
-			IOrderedQueryable<Product> ordered = options.SortBy switch
+			var withAgg =
+				from p in baseQ
+				join a in agg on p.Id equals a.ProductId into gj
+				from a in gj.DefaultIfEmpty()
+				select new AggRow
+				{
+					P = p,
+					Avg = (double?)a.Avg ?? 0.0,
+					Cnt = (int?)a.Cnt ?? 0
+				};
+
+			// Rating range: 1 → [1.00..1.49], 2 → [2.00..2.49], …, 5 → [5.00..5.00]
+			if (options.MinRating is int minR && minR >= 1 && minR <= 5)
 			{
-				ProductSortBy.Price => options.Desc ? q.OrderByDescending(p => p.Price) : q.OrderBy(p => p.Price),
-				ProductSortBy.Newest => options.Desc ? q.OrderByDescending(p => p.Id) : q.OrderBy(p => p.Id), // ако нямаш CreatedAt
-				ProductSortBy.Name => options.Desc ? q.OrderByDescending(p => p.Name) : q.OrderBy(p => p.Name),
-				_ /* Relevance */    => options.Desc ? q.OrderBy(p => p.Name).ThenByDescending(p => p.Id)
-													 : q.OrderBy(p => p.Name)
+				double lower = minR;                         // 4 → 4.00
+				double upper = (minR < 5) ? minR + 0.49 : 5; // 4 → 4.49, 5 → 5.00
+				withAgg = withAgg.Where(x => x.Avg >= lower && x.Avg <= upper);
+			}
+
+
+
+			IOrderedQueryable<AggRow> ordered = options.SortBy switch
+			{
+				ProductSortBy.Price =>
+					options.Desc ? withAgg.OrderByDescending(x => x.P.Price).ThenBy(x => x.P.Name)
+								 : withAgg.OrderBy(x => x.P.Price).ThenBy(x => x.P.Name),
+
+				ProductSortBy.Newest =>
+					options.Desc ? withAgg.OrderByDescending(x => x.P.Id)
+								 : withAgg.OrderBy(x => x.P.Id),
+
+				ProductSortBy.Name =>
+					options.Desc ? withAgg.OrderByDescending(x => x.P.Name)
+								 : withAgg.OrderBy(x => x.P.Name),
+
+				ProductSortBy.Rating =>
+					options.Desc ? withAgg.OrderByDescending(x => x.Avg).ThenByDescending(x => x.Cnt).ThenBy(x => x.P.Name)
+								 : withAgg.OrderBy(x => x.Avg).ThenBy(x => x.P.Name),
+
+				ProductSortBy.MostReviewed =>
+					options.Desc ? withAgg.OrderByDescending(x => x.Cnt).ThenByDescending(x => x.Avg).ThenBy(x => x.P.Name)
+								 : withAgg.OrderBy(x => x.Cnt).ThenBy(x => x.P.Name),
+
+				_ =>
+					options.Desc ? withAgg.OrderByDescending(x => x.P.Name).ThenByDescending(x => x.P.Id)
+								 : withAgg.OrderBy(x => x.P.Name).ThenBy(x => x.P.Id)
 			};
+
+			var total = await ordered.CountAsync(ct);
 
 			var pageSize = Math.Clamp(options.PageSize, 1, 200);
 			var page = Math.Max(1, options.Page);
@@ -194,18 +204,20 @@ namespace PaladinHub.Services.Products
 
 			var items = await ordered
 				.Skip(skip).Take(pageSize)
-				.Select(p => new ProductViewModel
+				.Select(x => new ProductListItem
 				{
-					Id = p.Id,
-					Name = p.Name,
-					Price = p.Price,
-					ImageUrl = p.ImageUrl,
-					Category = p.Category,
-					Description = p.Description
+					Id = x.P.Id,
+					Name = x.P.Name,
+					Price = x.P.Price,
+					ImageUrl = x.P.ImageUrl,
+					Category = x.P.Category,
+					Description = x.P.Description,
+					AverageRating = (decimal)x.Avg,
+					ReviewsCount = x.Cnt
 				})
 				.ToListAsync(ct);
 
-			return new PagedResult<ProductViewModel>
+			return new PagedResult<ProductListItem>
 			{
 				Items = items,
 				Page = page,
@@ -214,13 +226,8 @@ namespace PaladinHub.Services.Products
 			};
 		}
 
-		// ==== EDIT ====
 		public async Task<EditProductViewModel?> GetForEditAsync(string id, CancellationToken ct = default)
-		{
-			if (string.IsNullOrWhiteSpace(id)) return null;
-
-			return await context.Products
-				.AsNoTracking()
+			=> await context.Products.AsNoTracking()
 				.Where(p => p.Id == id)
 				.Select(p => new EditProductViewModel
 				{
@@ -232,7 +239,6 @@ namespace PaladinHub.Services.Products
 					Description = p.Description
 				})
 				.FirstOrDefaultAsync(ct);
-		}
 
 		public async Task<bool> UpdateAsync(EditProductViewModel model, CancellationToken ct = default)
 		{
@@ -253,13 +259,9 @@ namespace PaladinHub.Services.Products
 			return true;
 		}
 
-		// ==== DETAILS (simple – за назад съвместимост) ====
 		public async Task<ProductDetailsViewModel?> GetDetailsAsync(string id, CancellationToken ct)
 		{
-			var p = await context.Products
-				.AsNoTracking()
-				.FirstOrDefaultAsync(x => x.Id == id, ct);
-
+			var p = await context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, ct);
 			if (p == null) return null;
 
 			return new ProductDetailsViewModel
@@ -273,13 +275,11 @@ namespace PaladinHub.Services.Products
 			};
 		}
 
-		// ==== DETAILS (full: reviews + similar + gallery, с email/username) ====
 		public async Task<ProductDetailsViewModel?> GetDetailsAsync(string id, string? currentUserId, bool isAdmin, CancellationToken ct)
 		{
 			var p = await context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, ct);
 			if (p == null) return null;
 
-			// images
 			var extras = await context.ProductImages
 				.Where(i => i.ProductId == id)
 				.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
@@ -291,7 +291,6 @@ namespace PaladinHub.Services.Products
 				images.Add(new ProductDetailsViewModel.ImageItem { Id = null, Url = p.ImageUrl! });
 			images.AddRange(extras);
 
-			// reviews + Email/UserName
 			var reviewRows =
 				await (from r in context.ProductReviews
 					   where r.ProductId == id
@@ -306,16 +305,15 @@ namespace PaladinHub.Services.Products
 						   r.Content,
 						   r.CreatedAt,
 						   Display = u != null ? (u.Email ?? u.UserName) : r.UserId
-					   })
-					   .ToListAsync(ct);
+					   }).ToListAsync(ct);
 
 			var avg = reviewRows.Count == 0 ? 0 : reviewRows.Average(x => x.Rating);
 
-			// similar
 			var similar = await context.Products.AsNoTracking()
 				.Where(x => x.Category == p.Category && x.Id != p.Id)
-				.OrderByDescending(x => x.Id) // ако нямаш CreatedAt
+				.OrderByDescending(x => x.Id)
 				.Take(8)
+				// ⚠️ ако SimilarVm е глобален (а не вложен) – този конструкт е правилен:
 				.Select(x => new SimilarVm
 				{
 					Id = x.Id,
@@ -338,7 +336,7 @@ namespace PaladinHub.Services.Products
 				Reviews = reviewRows.Select(x => new ReviewVm
 				{
 					Id = x.Id,
-					UserName = x.Display, // показваме имейл/username
+					UserName = x.Display,
 					Rating = x.Rating,
 					Content = x.Content,
 					CreatedAt = x.CreatedAt,
@@ -349,15 +347,12 @@ namespace PaladinHub.Services.Products
 			};
 		}
 
-		// ==== REVIEWS ====
 		public async Task<bool> AddReviewAsync(AddReviewInput input, string userId, CancellationToken ct)
 		{
-			// 1) временно условие: да има в количката този продукт (докато добавим реални поръчки)
 			var hasInCart = await context.CartProduct
 				.AnyAsync(cp => cp.ProductId == input.ProductId && cp.Cart.UserId == userId, ct);
 			if (!hasInCart) return false;
 
-			// 2) 1 ревю / потребител / продукт
 			var exists = await context.ProductReviews
 				.AnyAsync(r => r.ProductId == input.ProductId && r.UserId == userId, ct);
 			if (exists) return false;
@@ -386,7 +381,6 @@ namespace PaladinHub.Services.Products
 			return true;
 		}
 
-		// ==== IMAGES (gallery) ====
 		public async Task<bool> AddImageAsync(string productId, string url, int? sortOrder, CancellationToken ct)
 		{
 			if (string.IsNullOrWhiteSpace(productId) || string.IsNullOrWhiteSpace(url)) return false;

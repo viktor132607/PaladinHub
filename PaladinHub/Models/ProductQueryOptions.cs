@@ -1,21 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace PaladinHub.Models
+namespace PaladinHub.Models.Products
 {
 	public enum ProductSortBy
 	{
-		Relevance = 0, 
-		Name,
-		Price,
-		Newest
+		Relevance = 0,
+		Name = 1,
+		Price = 2,
+		Newest = 3,
+		Rating = 4,       // ново
+		MostReviewed = 5  // ново
 	}
 
-	public class ProductQueryOptions
+	public sealed class ProductQueryOptions
 	{
-		[MaxLength(100)]
 		public string? Search { get; set; }
-
-		public List<string>? Categories { get; set; } = new();
+		public List<string> Categories { get; set; } = new();
 
 		[Range(0, double.MaxValue)]
 		public decimal? MinPrice { get; set; }
@@ -23,13 +24,17 @@ namespace PaladinHub.Models
 		[Range(0, double.MaxValue)]
 		public decimal? MaxPrice { get; set; }
 
+		// ⭐ Ново поле за филтър по рейтинг
+		[Range(1, 5)]
+		public int? MinRating { get; set; }
+
 		public ProductSortBy SortBy { get; set; } = ProductSortBy.Relevance;
-		public bool Desc { get; set; } = false;
+		public bool Desc { get; set; }
 
 		[Range(1, int.MaxValue)]
 		public int Page { get; set; } = 1;
 
 		[Range(1, 200)]
-		public int PageSize { get; set; } = 40; 
+		public int PageSize { get; set; } = 20;
 	}
 }

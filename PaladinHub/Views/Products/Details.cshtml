@@ -1,5 +1,6 @@
-﻿Using PaladinHub.Models.Products
+﻿@using PaladinHub.Models.Products
 @model PaladinHub.Models.Products.ProductDetailsViewModel
+
 @{
     ViewData["Title"] = Model.Name;
     var rounded = (int)Math.Round(Model.AverageRating);
@@ -19,15 +20,15 @@
 }
 
 <div class="container my-4">
-    <div class="row g-4">
-        <!-- Gallery (read-only) -->
+    <div class="row g-4 align-items-start">
+        <!-- Gallery -->
         <div class="col-12 col-lg-5">
             <partial name="_ProductGallery" model="Model" />
         </div>
 
         <!-- Info -->
         <div class="col-12 col-lg-7">
-            <h2 class="mb-2">@Model.Name</h2>
+            <h2 class="mb-2 product-title">@Model.Name</h2>
 
             <div class="product-meta d-flex flex-wrap align-items-center gap-3 text-muted mb-2">
                 <span>Category: <span class="text-reset fw-semibold">@Model.Category</span></span>
@@ -49,7 +50,7 @@
                 </span>
             </div>
 
-            <div class="fs-3 fw-bold text-success mb-3">@Model.Price.ToString("0.##") лв.</div>
+            <div class="fs-3 fw-bold text-success mb-3"><span class="me-1">$</span>@Model.Price.ToString("0.##")</div>
 
             @if (!string.IsNullOrWhiteSpace(Model.Description))
             {
@@ -175,17 +176,21 @@
                     @foreach (var s in Model.Similar)
                     {
                         <div class="col">
-                            <div class="card product-card h-100 position-relative">
-                                <img src="@(string.IsNullOrWhiteSpace(s.ImageUrl) ? Url.Content("~/images/placeholder.png") : s.ImageUrl)"
-                                     class="card-img-top" alt="@s.Name" />
-                                <div class="card-body">
-                                    <h6 class="card-title text-truncate mb-1">@s.Name</h6>
-                                    <div class="price fw-semibold">@s.Price.ToString("0.##") лв.</div>
+                            <div class="card product-sim-card h-100 border-0">
+                                <div class="product-sim-thumb d-flex align-items-center justify-content-center">
+                                    <img src="@(string.IsNullOrWhiteSpace(s.ImageUrl) ? Url.Content("~/images/placeholder.png") : s.ImageUrl)"
+                                         alt="@s.Name" />
                                 </div>
-                                <div class="card-footer bg-transparent border-0 pt-0">
+
+                                <div class="card-body d-flex flex-column">
+                                    <h6 class="card-title text-truncate mb-2">@s.Name</h6>
+                                    <div class="price fw-semibold mb-3">
+                                        <span class="currency">$</span>@s.Price.ToString("0.##")
+                                    </div>
                                     <a asp-controller="Carts" asp-action="AddProduct" asp-route-id="@s.Id"
-                                       class="btn btn-primary btn-sm w-100">Add to Cart</a>
+                                       class="btn btn-primary btn-sm mt-auto w-100">Add to Cart</a>
                                 </div>
+
                                 <a asp-controller="Products" asp-action="Details" asp-route-id="@s.Id"
                                    class="stretched-link" aria-label="@s.Name"></a>
                             </div>
@@ -194,55 +199,121 @@
                 </div>
             }
         </div>
+
+
     </div>
 </div>
 
+<partial name="_ProductGalleryModal" model="Model" />
+
 <style>
-    .alert-floating {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        z-index: 1080
+    /* Заглавие */
+    .product-title {
+        color: #e6e6e6 !important;
+        font-weight: 700;
     }
 
-    .nav-tabs .nav-link {
-        color: #ddd
+    /* Similar cards */
+    .product-sim-card {
+        background-color: #2a2e33;
+        box-shadow: 0 2px 8px rgba(0,0,0,.25);
+        border-radius: .5rem;
     }
 
-        .nav-tabs .nav-link.active {
-            color: #000;
-            background: #f59f00;
-            border-color: #f59f00
+    .product-sim-thumb {
+        background-color: #1f2226;
+        height: 180px;
+        border-top-left-radius: .5rem;
+        border-top-right-radius: .5rem;
+        overflow: hidden;
+    }
+
+        .product-sim-thumb img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            padding: .5rem;
+        }
+
+    .price {
+        color: #9bd66f;
+    }
+
+        .price .currency {
+            font-size: 0.85em;
+            margin-right: 2px;
+            vertical-align: baseline;
         }
 
     .tab-content {
         border-radius: .5rem
     }
 
-    .product-card {
-        position: relative
+    .text-pink, .text-fuchsia, .text-magenta {
+        color: #e6e6e6 !important;
     }
 
-    .price {
-        color: #9bd66f
+    .product-sim-card .btn {
+        background-color: #f59f00;
+        border: none;
+        color: #000;
+        font-weight: 600;
     }
 
-    /* леки акценти за мета и ревюта */
-    .product-meta .rating i {
-        margin-right: 1px
+        .product-sim-card .btn:hover {
+            background-color: #d88c00;
+            color: #000;
+        }
+
+    /* Modal zoom */
+    .gallery-zoom-dialog {
+        max-width: min(95vw, 1600px);
     }
 
-    .review-item .review-user {
-        color: #e6e6e6
+    .gallery-zoom {
+        background: #111;
     }
 
-    .review-item i.fa-star {
-        margin-right: 1px
+    .gallery-zoom-img {
+        display: block;
+        margin: 0 auto;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 90vh;
+        object-fit: contain;
+        padding: 8px;
+        background: #111;
     }
+
+    .gallery-zoom .modal-body {
+        padding: 0;
+    }
+
+
 </style>
 
-<script>
-    setTimeout(function(){
-      document.querySelectorAll('.alert-floating').forEach(el=>el.style.display='none');
-    },1600);
-</script>
+@section Scripts {
+    <script>
+        // скрий плаващите алърти
+        setTimeout(function(){ document.querySelectorAll('.alert-floating').forEach(el=>el.style.display='none'); }, 1600);
+
+        // клик на снимка/thumbnail -> модал, на същия индекс
+        (function () {
+          const small = document.getElementById('productCarousel');
+          if (!small) return;
+
+          small.querySelectorAll('[data-gallery-index]').forEach(function (el) {
+            el.addEventListener('click', function () {
+              const idx = Number(el.getAttribute('data-gallery-index')) || 0;
+              const modalEl = document.getElementById('productGalleryModal');
+              const carouselEl = document.getElementById('modalCarousel');
+              const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+              const carousel = bootstrap.Carousel.getOrCreateInstance(carouselEl, { interval: false });
+              carousel.to(idx);
+              modal.show();
+            });
+          });
+        })();
+    </script>
+}

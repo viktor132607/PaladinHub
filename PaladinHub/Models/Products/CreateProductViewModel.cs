@@ -13,20 +13,20 @@ namespace PaladinHub.Models.Products
 		public decimal Price { get; set; }
 
 		[Url, MaxLength(2048)]
-		public string? ImageUrl { get; set; }   // главна снимка (thumbnail)
+		public string? ImageUrl { get; set; }
 
 		[MaxLength(100)]
-		public string? Category { get; set; }   // избрана от dropdown
+		public string? Category { get; set; }
 
 		[MaxLength(100)]
-		public string? NewCategory { get; set; } // ако е попълнено – ползваме него
+		public string? NewCategory { get; set; }
 
 		[MaxLength(2000)]
 		public string? Description { get; set; }
 
-		public IEnumerable<SelectListItem> CategorySelectList { get; set; } = System.Linq.Enumerable.Empty<SelectListItem>();
+		public IEnumerable<SelectListItem> CategorySelectList { get; set; }
+			= System.Linq.Enumerable.Empty<SelectListItem>();
 
-		// Галерия от доп. снимки (optional)
 		public List<AddProductImageInput> Images { get; set; } = new();
 	}
 
@@ -34,7 +34,6 @@ namespace PaladinHub.Models.Products
 	{
 		[Url, MaxLength(2048)]
 		public string? Url { get; set; }
-
 		public int SortOrder { get; set; }
 	}
 }
