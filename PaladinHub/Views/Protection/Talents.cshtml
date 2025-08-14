@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
 @model PaladinHub.Models.CombinedViewModel
 @inherits PaladinHub.Views.Shared.SpellsAndItemsView
-@*<link rel="stylesheet" href="~/css/protectionTalents.css" />*@
+@*<link rel="stylesheet" href="~/css/ProtectionTalents.css" />*@
 @{
     ViewData["Title"] = "Protection Paladin Talents";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,41 +9,11 @@
 
 <body>
     <div class="outer-wrapper">
-        <div class="page-container">
-            <div class="main-wrapper">
+    <div class="page-container">
+        <div class="main-wrapper">
 
-                <section id="overview">
-                    <p>
-                        Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options.
-                        In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including what they do and when to use them.
-                    </p>
-
-                    <h3>Sections Covered:</h3>
-                    <div class="section-buttons">
-                        <a href="#builds">Talent Builds</a>
-                        <a href="#hero-talents">Hero Talents</a>
-                        <a href="#rotation">Rotation</a>
-                        <a href="#gear">Gear</a>
-                        <a href="#leveling">Leveling</a>
-                        <a href="#abilities">Abilities & Talents</a>
-                        <a href="#stats">Stats</a>
-                        <a href="#consumables">Consumables</a>
-                        <a href="#addons">WA & Addons</a>
-                    </div>
-                </section>
-
-                }
-
-            <section class="mb-4">
-                @await Html.PartialAsync(
-                    "~/Views/Shared/TalentTrees/_SectionTalentTrees.cshtml",
-                    Model,
-                    new ViewDataDictionary(ViewData) {
-                        ["keys"] = new[] { "paladin", "protection-lightsmith", "protection" }
-                    })
-            </section>
-
-            <section class="mb-4">
+            <section class="mb-4" id="talent-tree-1">
+                <h2 style="text-align:center;margin-top: 10px">Protection + Herald of the Sun</h2>
                 @await Html.PartialAsync(
                     "~/Views/Shared/TalentTrees/_SectionTalentTrees.cshtml",
                     Model,
@@ -52,28 +22,21 @@
                     })
             </section>
 
-
-                <section id="overview">
-                    <p>
-                        Explore the depths of the Protection Paladin Talent Tree, which has immense power and many customization options.
-                        In this Protection Paladin guide, we review all the different abilities and talents in Patch 11.1 & Season 2, including what they do and when to use them.
-                    </p>
-
-                    <h3>Sections Covered:</h3>
-                    <div class="section-buttons">
-                        <a href="#builds">Talent Builds</a>
-                        <a href="#hero-talents">Hero Talents</a>
-                        <a href="#rotation">Rotation</a>
-                        <a href="#gear">Gear</a>
-                        <a href="#leveling">Leveling</a>
-                        <a href="#abilities">Abilities & Talents</a>
-                        <a href="#stats">Stats</a>
-                        <a href="#consumables">Consumables</a>
-                        <a href="#addons">WA & Addons</a>
-                    </div>
-                </section>
-
+            <div class="separator-container">
+                <img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
             </div>
+
+            <section class="mb-4" id="talent-tree-2">
+                <h2 style="text-align:center;margin-top: 10px">Protection + Lightsmith</h2>
+                @await Html.PartialAsync(
+                    "~/Views/Shared/TalentTrees/_SectionTalentTrees.cshtml",
+                    Model,
+                    new ViewDataDictionary(ViewData) {
+                        ["keys"] = new[] { "paladin", "protection-lightsmith", "protection" }
+                    })
+            </section>  
+
         </div>
     </div>
+</div>
 </body>

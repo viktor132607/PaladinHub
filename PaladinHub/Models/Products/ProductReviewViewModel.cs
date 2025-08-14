@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace PaladinHub.Models.Products
 {
 	public class ProductReviewViewModel

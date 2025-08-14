@@ -2,13 +2,14 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Create Spell";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["Title"] = "Edit Spell";
 }
 
-<h2>Create Spell</h2>
+<h2>Edit Spell</h2>
 
-<form asp-action="Create" method="post">
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
     <div class="mb-3">
         <label asp-for="Name" class="form-label"></label>
         <input asp-for="Name" class="form-control" />
@@ -25,6 +26,16 @@
         <textarea asp-for="Description" class="form-control"></textarea>
     </div>
 
+    <div class="mb-3">
+        <label asp-for="Url" class="form-label"></label>
+        <input asp-for="Url" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Quality" class="form-label"></label>
+        <input asp-for="Quality" class="form-control" />
+    </div>
+
     <button type="submit" class="btn btn-primary">Save</button>
-    <a asp-area="Admin" asp-controller="Database" asp-action="Index" asp-route-entity="Spells" class="btn btn-secondary">Cancel</a>
+    <a asp-controller="Database" asp-action="Index" asp-route-entity="Spells" class="btn btn-secondary">Cancel</a>
 </form>

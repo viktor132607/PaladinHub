@@ -1,8 +1,7 @@
 ﻿@model PaladinHub.Areas.Admin.Models.CreatePageViewModel
 @{
     ViewData["Title"] = "Create Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
     string sec = (Model?.Section ?? "Holy").Trim();
 }
 
@@ -21,7 +20,7 @@
         </button>
     </div>
 
-    <form asp-area="Admin" asp-controller="PageBuilder" asp-action="Create" method="post" class="mt-2">
+    <form asp-controller="PageBuilder" asp-action="Create" method="post" class="mt-2">
         @Html.AntiForgeryToken()
 
         <div asp-validation-summary="All" class="text-danger mb-3"></div>
@@ -29,14 +28,11 @@
         <div class="row g-3">
             <div class="col-md-4">
                 <label asp-for="Section" class="form-label">Section</label>
-
-                <!-- DROPDOWN вместо свободен текст -->
                 <select asp-for="Section" class="form-select">
                     <option value="Holy" selected="@(sec.Equals("Holy", StringComparison.OrdinalIgnoreCase))">Holy</option>
                     <option value="Protection" selected="@(sec.Equals("Protection", StringComparison.OrdinalIgnoreCase))">Protection</option>
                     <option value="Retribution" selected="@(sec.Equals("Retribution", StringComparison.OrdinalIgnoreCase))">Retribution</option>
                 </select>
-
                 <span asp-validation-for="Section" class="text-danger"></span>
             </div>
 
@@ -53,15 +49,6 @@
             </div>
         </div>
 
-        <!--
-            Двете скрити полета по-долу са нарочно:
-
-            1) id="jsonLayout" name="jsonLayout"
-               - нужно за контролера: Create(CreatePageViewModel vm, [FromForm] string jsonLayout)
-
-            2) id="JsonLayoutVm" asp-for="JsonLayout"
-               - нужно за VM валидацията ([Required] върху JsonLayout), иначе ModelState ще е невалиден
-        -->
         <input type="hidden" id="jsonLayout" name="jsonLayout"
                value="@((ViewBag?.JsonLayout as string) ?? Model?.JsonLayout ?? "[]")" />
         <input type="hidden" id="JsonLayoutVm" asp-for="JsonLayout" />
@@ -82,7 +69,7 @@
 
         <div class="mt-3 d-flex gap-2">
             <button type="submit" class="btn btn-primary">Create</button>
-            <a asp-area="Admin" asp-controller="PageBuilder" asp-action="Index" class="btn btn-secondary">Cancel</a>
+            <a asp-controller="PageBuilder" asp-action="Index" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 </div>
@@ -90,12 +77,11 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // На submit копираме textarea -> и в ДВЕТЕ скрити полета (за контролера и за VM)
         (function(){
             const form     = document.currentScript.closest('form');
             const holder   = document.getElementById('pb-json');
-            const hidden   = document.getElementById('jsonLayout');   // за [FromForm] string jsonLayout
-            const hiddenVm = document.getElementById('JsonLayoutVm'); // за VM.JsonLayout ([Required])
+            const hidden   = document.getElementById('jsonLayout');
+            const hiddenVm = document.getElementById('JsonLayoutVm');
 
             function sync(val){
                 if (hidden)   hidden.value   = val;
@@ -109,10 +95,7 @@
                 });
             }
 
-            // По желание: ако overlay има бутон "Save layout", може да добавим listening и към него.
-            // Но overlay вече синхронизира към #jsonLayout; тук гарантираме и към VM полето.
             const observer = new MutationObserver(() => {
-                // ако overlay промени #jsonLayout, отрази и към VM
                 if (hidden && hiddenVm && hidden.value !== hiddenVm.value) hiddenVm.value = hidden.value;
             });
             if (hidden) observer.observe(hidden, { attributes: true, attributeFilter: ['value'] });

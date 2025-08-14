@@ -9,18 +9,34 @@
     var selectedBands = q.PriceRanges ?? new List<string>();
 }
 
+@if (TempData["AddedSuccessfully"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="alert">
+        <i class="fa fa-check"></i>
+        The product is added successfully to your cart.
+    </div>
+    <script>
+        (function(){
+            function hide(){
+                var el = document.getElementById('alert');
+                if (!el) return;
+                if (window.jQuery) { try { jQuery(el).delay(1000).fadeOut(300); return; } catch(e){} }
+                setTimeout(function(){ el.classList.remove('show'); }, 1000);
+            }
+            setTimeout(hide, 100);
+        })();
+    </script>
+}
+
 <main class="catalog-dark py-4">
     <div class="container-fluid">
         <div class="row">
-            <!-- FILTERS -->
             <aside class="col-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                 <div class="filter-card p-3">
                     <h5 class="mb-3">Filters</h5>
 
                     <form id="filtersForm" method="get" asp-controller="Merchandise" asp-action="Merchandise">
                         <input type="hidden" name="Page" value="@q.Page" />
-
-                        <!-- тези три се контролират и от горните бутони (form="filtersForm") -->
                         <input type="hidden" id="DescTopHidden" name="Desc" value="@(q.Desc ? "true" : "false")" />
                         <input type="hidden" id="SortByHidden" name="SortBy" value="@((int)q.SortBy)" />
                         <input type="hidden" id="PageSizeHidden" name="PageSize" value="@q.PageSize" />
@@ -42,7 +58,6 @@
                             }
                         </div>
 
-                        <!-- Price ranges (ново) -->
                         <div class="mb-3">
                             <label class="form-label">Price ranges</label>
                             @{
@@ -64,7 +79,6 @@
                             }
                         </div>
 
-                        <!-- Свободен диапазон (остава наличен) -->
                         <div class="mb-3">
                             <label class="form-label">Price (custom)</label>
                             <div class="d-flex gap-2">
@@ -73,7 +87,6 @@
                             </div>
                         </div>
 
-                        <!-- Rating (at least) as selectable chips -->
                         <div class="mb-3">
                             <label class="form-label">Rating</label>
                             <div class="rating-pills" id="ratingPills">
@@ -94,7 +107,6 @@
                                                 }
                                                 else
                                                 {
-
                                                     <i class="fa-regular fa-star"></i>
                                                 }
                                             }
@@ -114,7 +126,6 @@
                 </div>
             </aside>
 
-            <!-- LIST -->
             <section class="col-12 col-lg-9 col-xl-9">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                     <h3 class="m-0">Welcome to PaladinHub's Merch Shop!</h3>
@@ -141,7 +152,6 @@
                         }
                     </div>
 
-                    <!-- Top controls -->
                     <div class="d-flex align-items-center gap-3 flex-wrap">
                         <div id="js-pageinfo" class="text-muted">Page @Model.Products.Page of @Model.Products.TotalPages</div>
 
@@ -166,14 +176,12 @@
                                 }
                             </select>
 
-                            <!-- Asc/Desc toggle -->
                             <button type="button" id="btnSortDir" class="btn btn-sm btn-outline-light sortdir-btn" data-desc="@(q.Desc.ToString().ToLower())">
                                 <i class="fa-solid @(q.Desc ? "fa-arrow-down-wide-short" : "fa-arrow-up-short-wide") me-1"></i>
                                 <span>@(q.Desc ? "Desc" : "Asc")</span>
                             </button>
                         </div>
 
-                        <!-- Items per page -->
                         <div class="d-flex align-items-center gap-2">
                             <label for="pageSizeTop" class="small text-muted mb-0">Items per page</label>
                             <select id="pageSizeTop" class="form-select form-select-sm w-auto">
@@ -232,7 +240,6 @@
                                                     }
                                                     else
                                                     {
-
                                                         <i class="fa-regular fa-star"></i>
                                                     }
                                                 }
@@ -414,7 +421,6 @@
                 color: #fff;
             }
 
-    /* RATING PILLS */
     .rating-pills {
         display: grid;
         grid-template-columns: 1fr;
@@ -458,7 +464,6 @@
             color: #6b7280;
         }
 
-    /* PRODUCT CARD */
     .product-card {
         position: relative;
         background: #171a21;
@@ -489,7 +494,6 @@
         display: block;
     }
 
-    /* фиксирани височини за подравняване */
     .product-card .product-cat {
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -538,7 +542,6 @@
             box-shadow: 0 0 0 2px rgba(66,153,225,.15);
         }
 
-    /* Sort dir toggle — Asc и Desc еднакви */
     .sortdir-btn {
         background: transparent;
         border-color: #2a2f3a;
@@ -547,43 +550,33 @@
         .sortdir-btn:hover {
             border-color: #3a7bd5;
         }
-
 </style>
 
 <script>
     (function () {
       const form = document.getElementById('filtersForm');
-
-      // --- Helpers ---------------------------------------------------
       function buildUrlFromForm() {
         const url = new URL(window.location.href);
         const sp = new URLSearchParams();
-
         const fd = new FormData(form);
         fd.forEach((v, k) => {
           if (v === null || v === undefined) return;
           const val = String(v).trim();
-          // allow empty MinRating when deselected
           if (k === "MinRating" && val === "") return;
           sp.append(k, val);
         });
-
         url.search = sp.toString();
         return url;
       }
-
       async function loadUrl(url) {
         const res = await fetch(url, { headers: { "X-Requested-With": "fetch" } });
         const html = await res.text();
         const tmp = document.createElement('div');
         tmp.innerHTML = html;
-
-        // replace key regions
         const newList = tmp.querySelector('#js-list');
         const newPager = tmp.querySelector('#js-pager');
         const newSummary = tmp.querySelector('#js-summary');
         const newPageInfo = tmp.querySelector('#js-pageinfo');
-
         if (newList) document.querySelector('#js-list').innerHTML = newList.innerHTML;
         if (newPager) {
           const curPager = document.querySelector('#js-pager');
@@ -592,22 +585,16 @@
         }
         if (newSummary) document.querySelector('#js-summary').innerHTML = newSummary.innerHTML;
         if (newPageInfo) document.querySelector('#js-pageinfo').innerHTML = newPageInfo.innerHTML;
-
-        // push state
         window.history.pushState({}, "", url);
       }
-
       let t;
       function debounceApply(ms=400){ clearTimeout(t); t = setTimeout(applyFilters, ms); }
-
       async function applyFilters() {
         const p = form.querySelector('input[name="Page"]');
         if (p) p.value = '1';
         const url = buildUrlFromForm();
         await loadUrl(url);
       }
-
-      // --- Bind: inputs inside form ---------------------------------
       if (form) {
         form.addEventListener('change', (e) => {
           if (!e.target) return;
@@ -615,26 +602,20 @@
             applyFilters();
           }
         });
-
         form.querySelectorAll('input[type="text"], input[type="number"]').forEach(inp=>{
           inp.addEventListener('input', ()=>debounceApply(500));
           inp.addEventListener('blur', applyFilters);
         });
-
         form.addEventListener('submit', (e)=>{ e.preventDefault(); applyFilters(); });
       }
-
-      // --- Top controls (sync hidden inputs then apply) --------------
       const sortSel = document.getElementById('sortByTop');
       const pageSizeSel = document.getElementById('pageSizeTop');
       const btnDir = document.getElementById('btnSortDir');
       const inpSort = document.getElementById('SortByHidden');
       const inpSize = document.getElementById('PageSizeHidden');
       const inpDesc = document.getElementById('DescTopHidden');
-
       if (sortSel) sortSel.addEventListener('change', ()=>{ if (inpSort) inpSort.value = sortSel.value; applyFilters(); });
       if (pageSizeSel) pageSizeSel.addEventListener('change', ()=>{ if (inpSize) inpSize.value = pageSizeSel.value; applyFilters(); });
-
       if (btnDir) btnDir.addEventListener('click', ()=>{
         const isDesc = (btnDir.getAttribute('data-desc') === 'true');
         const next = !isDesc;
@@ -647,14 +628,10 @@
         if (label) label.textContent = next ? 'Desc' : 'Asc';
         applyFilters();
       });
-
-      // --- Pagination: intercept links -------------------------------
       document.addEventListener('click', (e)=>{
         const a = e.target.closest('a.js-nav');
         if (!a) return;
         e.preventDefault();
-
-        // Слагаме Page в формата според href
         try{
           const url = new URL(a.href, window.location.origin);
           const sp = new URLSearchParams(url.search);
@@ -666,18 +643,13 @@
           loadUrl(buildUrlFromForm());
         }catch{ window.location.href = a.href; }
       });
-
-      // Clear all
       const btnClear = document.getElementById('btnClearFilters');
       if (btnClear) btnClear.addEventListener('click', ()=>{
         if (!form) return;
-        // text/number
         form.querySelectorAll('input[type="text"], input[type="number"]').forEach(i => i.value = '');
-        // checkboxes/radios
         form.querySelectorAll('input[type="checkbox"]').forEach(i => i.checked = false);
         form.querySelectorAll('.rating-pills input[type="radio"]').forEach(i => i.checked = false);
         document.querySelectorAll('.rating-pill').forEach(p => p.classList.remove('active'));
-        // top controls defaults
         if (sortSel){ sortSel.value = '0'; inpSort.value = '0'; }
         if (pageSizeSel){ pageSizeSel.value = '20'; inpSize.value = '20'; }
         if (btnDir){
@@ -689,21 +661,16 @@
         const p = form.querySelector('input[name="Page"]'); if (p) p.value = '1';
         applyFilters();
       });
-
-      // Rating pills: allow deselect
       document.querySelectorAll('.rating-pills .rating-pill').forEach(pill => {
         pill.addEventListener('click', (e) => {
           const val = pill.getAttribute('data-value');
           const input = document.getElementById('minr-' + val);
           const isActive = pill.classList.contains('active');
-
           document.querySelectorAll('.rating-pills .rating-pill').forEach(p => p.classList.remove('active'));
           if (!isActive) pill.classList.add('active');
-
           if (input) {
             if (isActive && input.checked) {
               input.checked = false;
-              // премахваме стойността чрез скрит празен MinRating -> няма да добавяме; просто не е checked
             } else { input.checked = true; }
           }
           const p = form.querySelector('input[name="Page"]');
@@ -712,8 +679,6 @@
           e.preventDefault();
         });
       });
-
-      // handle back/forward navigation
       window.addEventListener('popstate', ()=> loadUrl(new URL(window.location.href)));
     })();
 </script>

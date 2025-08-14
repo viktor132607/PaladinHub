@@ -15,8 +15,6 @@ public class ProductDetailsViewModel
 	public List<ReviewVm> Reviews { get; init; } = new();
 
 	public List<SimilarVm> Similar { get; init; } = new();
-
-	// галерия за детайлите (read-only)
 	public List<ImageItem> Images { get; init; } = new();
 	public record ImageItem
 	{
@@ -50,5 +48,5 @@ public class AddReviewInput
 {
 	[Required] public string ProductId { get; set; } = default!;
 	[Range(1, 5)] public int Rating { get; set; }
-	[MaxLength(2000)] public string? Content { get; set; }   // optional
+	[MaxLength(2000)] public string? Content { get; set; }  
 }

@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Delete Page Confirmation";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div class="container mt-4">
@@ -16,7 +15,7 @@
         <br />This action <strong>cannot</strong> be undone.
     </div>
 
-    <form asp-area="Admin" asp-controller="PageBuilder" asp-action="DeleteConfirmed" method="post">
+    <form asp-controller="PageBuilder" asp-action="DeleteConfirmed" method="post">
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Section" />
         <input type="hidden" asp-for="Slug" />
@@ -25,7 +24,7 @@
             <button type="submit" class="btn btn-danger">
                 <i class="fa-solid fa-trash"></i> Confirm Delete
             </button>
-            <a asp-area="" asp-controller="@Model.Section" asp-action="Overview" class="btn btn-secondary">Cancel</a>
+            <a asp-controller="@Model.Section" asp-action="Overview" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 </div>

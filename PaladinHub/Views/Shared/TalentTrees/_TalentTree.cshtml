@@ -3,7 +3,6 @@
 @using Microsoft.AspNetCore.Html
 
 @{
-    // получаваме списъците от агрегатора _SectionTalentTrees.cshtml
     var spells = (ViewData["Spells"] as List<Spell>) ?? new List<Spell>();
     var spellDict = spells
         .Where(s => !string.IsNullOrWhiteSpace(s.Name))

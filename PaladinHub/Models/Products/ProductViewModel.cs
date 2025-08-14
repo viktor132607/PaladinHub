@@ -1,5 +1,4 @@
 ﻿using PaladinHub.Data.Models;
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PaladinHub.Models.Products
@@ -27,11 +26,9 @@ namespace PaladinHub.Models.Products
 
 		public string? Description { get; set; }
 
-		// ⭐ Ново поле за среден рейтинг
 		[Range(0, 5)]
 		public double AverageRating { get; set; }
 
-		// ⭐ Ново поле за брой ревюта
 		public int ReviewsCount { get; set; }
 	}
 }

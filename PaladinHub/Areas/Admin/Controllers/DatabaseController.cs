@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using PaladinHub.Areas.Admin.ViewModels;
 using PaladinHub.Data;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PaladinHub.Areas.Admin.Controllers
 {

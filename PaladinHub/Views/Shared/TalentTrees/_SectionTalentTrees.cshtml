@@ -6,36 +6,30 @@
 @inherits PaladinHub.Views.Shared.SpellsAndItemsView
 
 @{
-	// -------- Resolve requested keys (robust, no crashes) --------
 	var provided = (ViewData["keys"] as IEnumerable<string>)?
 				   .Where(k => !string.IsNullOrWhiteSpace(k))
 				   .Select(k => k.Trim())
 				   .ToArray()
 				   ?? Array.Empty<string>();
 
-	// Case-insensitive map of available trees
 	var trees = (Model.TalentTrees ?? new Dictionary<string, TalentTreeViewModel>())
 		.ToDictionary(x => x.Key, x => x.Value, StringComparer.OrdinalIgnoreCase);
 
-	// Helper: try to resolve a key to an existing one
 	bool TryResolveKey(string raw, out string resolved)
 	{
 		resolved = null!;
 		if (string.IsNullOrWhiteSpace(raw)) return false;
 
-		// 1) Exact (case-insensitive)
 		if (trees.ContainsKey(raw))
 		{
 			resolved = trees.Keys.First(k => string.Equals(k, raw, StringComparison.OrdinalIgnoreCase));
 			return true;
 		}
 
-		// 2) EndsWith / Contains (aliases like "holy-herald")
 		var hit = trees.Keys.FirstOrDefault(k => k.EndsWith(raw, StringComparison.OrdinalIgnoreCase))
 			   ?? trees.Keys.FirstOrDefault(k => k.Contains(raw, StringComparison.OrdinalIgnoreCase));
 		if (hit != null) { resolved = hit; return true; }
 
-		// 3) Hero short aliases ("herald","lightsmith","templar")
 		var alias = raw.ToLowerInvariant();
 		if (alias is "herald" or "lightsmith" or "templar")
 		{
@@ -46,17 +40,14 @@
 		return false;
 	}
 
-	// Pick paladin/spec/hero in this order
 	string paladinKey = null, specKey = null, heroKey = null;
 
 	if (TryResolveKey("paladin", out var p2)) paladinKey = p2;
 
-	// try to keep spec preference holy > protection > retribution
 	if (TryResolveKey("holy", out var sHoly)) specKey = sHoly;
 	if (specKey == null && TryResolveKey("protection", out var sProt)) specKey = sProt;
 	if (specKey == null && TryResolveKey("retribution", out var sRet)) specKey = sRet;
 
-	// hero that matches spec
 	if (!string.IsNullOrWhiteSpace(specKey))
 	{
 		TryResolveKey($"{specKey}-herald", out var hHerald);
@@ -65,7 +56,6 @@
 		heroKey = hHerald ?? hLight ?? hTemplar;
 	}
 
-	// override with provided keys if any
 	foreach (var raw in provided)
 	{
 		if (raw.Equals("paladin", StringComparison.OrdinalIgnoreCase) && TryResolveKey(raw, out var r1)) paladinKey = r1;
@@ -76,20 +66,17 @@
 		else if (TryResolveKey(raw, out var r3)) heroKey = r3;
 	}
 
-	// Final ordered list: Paladin | Hero | Spec (no duplicates, only existing)
 	var orderedKeys = new[] { paladinKey, heroKey, specKey }
 		.Where(k => !string.IsNullOrWhiteSpace(k) && trees.ContainsKey(k))
 		.Distinct(StringComparer.OrdinalIgnoreCase)
 		.ToList();
 
-	// unique id to scope JS per partial instance
 	var uid = "trees_" + Guid.NewGuid().ToString("N");
 }
 
 <div class="trees-container">
 	<div id="@uid" class="talents-container">
 		<div class="tree-toolbar">
-			<div class="tree-toolbar-title">Talent Trees</div>
 
 			@if (User?.IsInRole("Admin") == true)
 			{

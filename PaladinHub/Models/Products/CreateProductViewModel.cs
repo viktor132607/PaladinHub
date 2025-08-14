@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PaladinHub.Models.Products
 {
-	/// <summary>
-	/// ViewModel за създаване на продукт с галерия и избор на thumbnail.
-	/// </summary>
 	public class CreateProductViewModel
 	{
 		[Required, MaxLength(100)]
@@ -18,33 +14,18 @@ namespace PaladinHub.Models.Products
 		[MaxLength(50)]
 		public string Category { get; set; } = "Other";
 
-		/// <summary>
-		/// За избор или въвеждане на нова категория.
-		/// </summary>
 		[MaxLength(50)]
 		public string? NewCategory { get; set; }
 
 		[MaxLength(1000)]
 		public string? Description { get; set; }
 
-		/// <summary>
-		/// Списък с изображения за новия продукт.
-		/// </summary>
 		public List<ProductImageInputModel> Images { get; set; } = new();
 
-		/// <summary>
-		/// Id на избраното изображение за thumbnail (определя се след създаване).
-		/// </summary>
 		public int? ThumbnailImageId { get; set; }
 
-		/// <summary>
-		/// Индекс в Images на избраното thumbnail изображение.
-		/// </summary>
 		public int? ThumbnailIndex { get; set; }
 
-		/// <summary>
-		/// Dropdown за избор на категория.
-		/// </summary>
 		public IEnumerable<SelectListItem>? CategorySelectList { get; set; }
 	}
 }

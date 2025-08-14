@@ -2,12 +2,9 @@
 
 namespace PaladinHub.Models.Products
 {
-	/// <summary>
-	/// Input модел за едно изображение в галерията при Create/Edit.
-	/// </summary>
 	public class ProductImageInputModel
 	{
-		public int? Id { get; set; } // null при ново изображение
+		public int? Id { get; set; }
 
 		[Required, Url, MaxLength(2048)]
 		public string Url { get; set; } = default!;

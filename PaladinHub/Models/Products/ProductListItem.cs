@@ -9,8 +9,7 @@
 		public string? Description { get; set; }
 		public decimal Price { get; set; }
 
-		// ⭐ Нови полета за рейтинг
-		public decimal AverageRating { get; set; } // 0..5
+		public decimal AverageRating { get; set; }
 		public int ReviewsCount { get; set; }
 	}
 }

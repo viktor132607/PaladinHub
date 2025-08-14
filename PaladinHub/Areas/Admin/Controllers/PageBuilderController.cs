@@ -1,12 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PaladinHub.Areas.Admin.Models;   // CreatePageViewModel, DeletePageViewModel
+using PaladinHub.Areas.Admin.Models;
 using PaladinHub.Data;
-using PaladinHub.Data.Models;          // ContentPage
+using PaladinHub.Data.Models;        
 
 namespace PaladinHub.Areas.Admin.Controllers
 {
@@ -36,13 +33,11 @@ namespace PaladinHub.Areas.Admin.Controllers
 		private static string Slugify(string? s)
 		{
 			var slug = (s ?? "").Trim().ToLowerInvariant();
-			// позволяваме букви/цифри/тире; премахваме други
+
 			slug = new string(slug.Where(ch => char.IsLetterOrDigit(ch) || ch == '-').ToArray());
 			slug = string.Join("-", slug.Split('-', StringSplitOptions.RemoveEmptyEntries));
 			return string.IsNullOrWhiteSpace(slug) ? "page" : slug;
 		}
-
-		// ===================== CREATE =====================
 
 		[HttpGet("Create")]
 		public IActionResult Create([FromQuery] string? section)
@@ -61,13 +56,12 @@ namespace PaladinHub.Areas.Admin.Controllers
 		public async Task<IActionResult> Create(CreatePageViewModel vm, [FromForm] string jsonLayout)
 		{
 			var sec = NormalizeSection(vm.Section);
-			// ако Slug е празен – генерираме от Title
+
 			var rawSlug = string.IsNullOrWhiteSpace(vm.Slug) ? vm.Title : vm.Slug;
 			var slug = Slugify(rawSlug);
 
 			if (!ModelState.IsValid) return View(vm);
 
-			// уникалност в рамките на секцията
 			var exists = await _db.ContentPages.AnyAsync(p => p.Section == sec && p.Slug == slug);
 			if (exists)
 			{
@@ -85,21 +79,15 @@ namespace PaladinHub.Areas.Admin.Controllers
 				CreatedAt = DateTime.UtcNow,
 				UpdatedAt = DateTime.UtcNow,
 
-				// КРИТИЧНО: да изпратим стойност за NOT NULL bytea
 				RowVersion = Array.Empty<byte>()
 			};
 
 			_db.ContentPages.Add(page);
 			await _db.SaveChangesAsync();
 
-			// публичният рут е /{Section}/{slug}
 			return Redirect($"/{Cap(sec)}/{slug}");
 		}
 
-		// ===================== DELETE (GET Confirm) =====================
-
-		// Поддържаме точно URL-то от менюто:
-		// /Admin/PageBuilder/DeleteConfirm?section=...&slug=...
 		[HttpGet("DeleteConfirm")]
 		public async Task<IActionResult> DeleteConfirm([FromQuery] string section, [FromQuery] string slug)
 		{
@@ -121,12 +109,9 @@ namespace PaladinHub.Areas.Admin.Controllers
 			return View("DeleteConfirm", vm);
 		}
 
-		// (поддържаме и стария alias /Admin/PageBuilder/Delete?section=...&slug=...)
 		[HttpGet("Delete")]
 		public Task<IActionResult> Delete([FromQuery] string section, [FromQuery] string slug)
 			=> DeleteConfirm(section, slug);
-
-		// ===================== DELETE (POST) =====================
 
 		[HttpPost("Delete")]
 		[ValidateAntiForgeryToken]
@@ -142,11 +127,8 @@ namespace PaladinHub.Areas.Admin.Controllers
 				await _db.SaveChangesAsync();
 			}
 
-			// след триене – към Overview на секцията
 			return Redirect($"/{Cap(sec)}/Overview");
 		}
-
-		// ===================== EDIT (временно ползва Create view) =====================
 
 		[HttpGet("Edit")]
 		public async Task<IActionResult> Edit([FromQuery] string section, [FromQuery] string slug)
@@ -166,10 +148,8 @@ namespace PaladinHub.Areas.Admin.Controllers
 				Slug = page.Slug
 			};
 
-			// подаваме текущия JSON към редактора
 			ViewBag.JsonLayout = page.JsonLayout;
 
-			// временно реюзваме Create.cshtml
 			return View("Create", vm);
 		}
 
@@ -186,9 +166,6 @@ namespace PaladinHub.Areas.Admin.Controllers
 			page.Title = string.IsNullOrWhiteSpace(vm.Title) ? page.Title : vm.Title.Trim();
 			page.JsonLayout = string.IsNullOrWhiteSpace(jsonLayout) ? page.JsonLayout : jsonLayout.Trim();
 			page.UpdatedAt = DateTime.UtcNow;
-
-			// RowVersion се управлява през отделния API при PUT layout (ако имаш такъв).
-			// Тук не го пипаме.
 
 			await _db.SaveChangesAsync();
 

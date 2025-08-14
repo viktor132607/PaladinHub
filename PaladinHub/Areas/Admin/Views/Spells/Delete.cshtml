@@ -3,7 +3,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Delete Spell";
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Delete Spell</h2>
@@ -13,10 +12,16 @@
 <dl class="row">
     <dt class="col-sm-3">Name</dt>
     <dd class="col-sm-9">@Model.Name</dd>
+
+    <dt class="col-sm-3">Description</dt>
+    <dd class="col-sm-9">@Model.Description</dd>
+
+    <dt class="col-sm-3">Quality</dt>
+    <dd class="col-sm-9">@Model.Quality</dd>
 </dl>
 
 <form asp-action="Delete" method="post">
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Delete</button>
-    <a asp-area="Admin" asp-controller="Database" asp-action="Index" asp-route-entity="Spells" class="btn btn-secondary">Cancel</a>
+    <a asp-controller="Database" asp-action="Index" asp-route-entity="Spells" class="btn btn-secondary">Cancel</a>
 </form>

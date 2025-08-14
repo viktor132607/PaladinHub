@@ -2,8 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace PaladinHub.Areas.Admin.Controllers
 {

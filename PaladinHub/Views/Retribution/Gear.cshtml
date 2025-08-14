@@ -1,12 +1,10 @@
 ﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
 @model PaladinHub.Models.CombinedViewModel
 @{
+	ViewData["Title"] = "Retribution Paladin Consumables";
 	Layout = "~/Views/Shared/_Layout.cshtml";
-	ViewData["Title"] = "Retribution Paladin Guide";
 }
-
-<link rel="stylesheet" href="~/css/site.css" />
-@*<link rel="stylesheet" href="~/css/retribution/retributionGear.css/>*@
+@*<link rel="stylesheet" href="~/css//Retribution/RetributionGear.css" />*@
 
 <body>
 	<div class="outer-wrapper">
@@ -15,28 +13,28 @@
 
 				<h2 class="section-header">
 					<img src="/images/icons/EyeOfKezan.jpg" alt="Trinkets Icon" class="section-icon">
-					Best Trinkets for Holy Paladin - Season 2
+					Best Trinkets for Retribution Paladin - Season 2
 				</h2>
 
 				<section id="gear-intro">
 					<h2>
 						<img src="/images/icons/EyeOfKezan.jpg" alt="Cartel Chip Icon" class="section-icon"
-							 style="text-align:center; color:#ff66cc;">
-						RECOMMENDED GEAR FOR HOLY PALADIN IN THE WAR WITHIN SEASON 2
+							style="text-align:center; color:#ff66cc;">
+						RECOMMENDED GEAR FOR Retribution PALADIN IN THE WAR WITHIN SEASON 2
 					</h2>
 
 					<div class="gear-intro-section">
 						<p style="font-size: 16px; line-height: 1.6;">
 							With many different sources of gearing and loot scarcity in <strong>The War Within</strong>,
 							targeting your absolute Best in Slot (BiS) gear isn’t entirely realistic;
-							instead, we’ve created a Best in Slot list from the ideal Holy Paladin drops found in The
+							instead, we’ve created a Best in Slot list from the ideal Retribution Paladin drops found in The
 							War Within Season 2 from
 							<a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/overview"
-							   target="_blank" rel="noopener noreferrer" style="color:#ffc400; text-decoration: none;">
+								target="_blank" rel="noopener noreferrer" style="color:#ffc400; text-decoration: none;">
 								Mythic+ Dungeons
 							</a> and
 							<a href="https://www.wowhead.com/guide/raids/liberation-of-undermine/overview"
-							   target="_blank" rel="noopener noreferrer" style="color:#9bff9b; text-decoration: none;">
+								target="_blank" rel="noopener noreferrer" style="color:#9bff9b; text-decoration: none;">
 								Liberation of Undermine
 							</a> to help you decide what to prioritize.
 						</p>
@@ -44,11 +42,11 @@
 						<p style="font-size: 16px; line-height: 1.6;">
 							While raid drops are generally the most reliable way of getting high item level gear, many
 							other items can be just as good, if not better,
-							so you should reference the <strong>stat priorities for Holy Paladin</strong> to help
+							so you should reference the <strong>stat priorities for Retribution Paladin</strong> to help
 							determine your own BiS gear based on what is available to you.
 							<img src="/images/icons/logo-64.svg" alt="Archon Icon" class="item-icon" />
-							<a href="https://www.archon.gg/wow/builds/holy/paladin/mythic-plus/gear-and-tier-set/10/all-dungeons/this-week#gear-tables"
-							   target="_blank" rel="noopener noreferrer" style="color:#cc99ff; text-decoration: none;">
+							<a href="https://www.archon.gg/wow/builds/Retribution/paladin/mythic-plus/gear-and-tier-set/10/all-dungeons/this-week#gear-tables"
+								target="_blank" rel="noopener noreferrer" style="color:#cc99ff; text-decoration: none;">
 								Archon
 							</a> can be a helpful tool for seeing what alternative gear options exist if you can't get
 							your hands on the best in slot.
@@ -114,7 +112,7 @@
 							each Hero Talent tree.
 							With that said, it’s always recommended to use
 							<a href="https://questionablyepic.com/live/" target="_blank" rel="noopener noreferrer"
-							   style="color:#66ccff; text-decoration: none;">
+								style="color:#66ccff; text-decoration: none;">
 								Questionably Epic
 							</a> to find the best upgrades for you.
 						</p>
@@ -130,24 +128,24 @@
 					<div class="bis-overall">
 						<h2>
 							<img src="/images/icons/inv_plate_raidpaladingoblin_d_01_helm.jpg" alt="Cartel Chip Icon"
-								 class="section-icon" style="text-align:center; color:#ff66cc;">
+								class="section-icon" style="text-align:center; color:#ff66cc;">
 
-							Overall Holy Paladin Best in Slot Gear
+							Overall Retribution Paladin Best in Slot Gear
 						</h2>
 
 						<p style="font-size: 16px; line-height: 1.6;">
 							This list consists of gear from both
 							<a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/overview"
-							   target="_blank" rel="noopener noreferrer" style="color:#ffc400; text-decoration: none;">
+								target="_blank" rel="noopener noreferrer" style="color:#ffc400; text-decoration: none;">
 								Mythic+
 							</a> and
 							<a href="https://www.wowhead.com/guide/raids/liberation-of-undermine/overview"
-							   target="_blank" rel="noopener noreferrer" style="color:#9bff9b; text-decoration: none;">
+								target="_blank" rel="noopener noreferrer" style="color:#9bff9b; text-decoration: none;">
 								Liberation of Undermine
 							</a>, and attempts to create a list of gear that will work well in both types of content.
 							As always, <strong>you should not follow BiS lists blindly</strong> and use
 							<a href="https://questionablyepic.com/live/" target="_blank" rel="noopener noreferrer"
-							   style="color:#66ccff; text-decoration: none;">
+								style="color:#66ccff; text-decoration: none;">
 								Questionably Epic
 							</a> to ensure each item is an actual upgrade for you.
 						</p>
@@ -166,239 +164,207 @@
 									<td>
 										@Item("Aureate Sentry’s Pledge")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
-											 alt="Aureate Sentry’s Pledge" />
+											src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
+											alt="Aureate Sentry’s Pledge" />
 										<a href="https://www.wowhead.com/item=229244/aureate-sentrys-pledge?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Aureate Sentry’s Pledge</a>
+											class="item-link q3" target="_blank">Aureate Sentry’s Pledge</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-										   class="source-link" target="_blank">One-Armed Bandit</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
+											class="source-link" target="_blank">One-Armed Bandit</a></td>
 								</tr>
 								<tr>
 									<td>Neck</td>
 									<td>
 										@Item("Strapped Rescue-Keg")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
-											 alt="Strapped Rescue-Keg" />
+											src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
+											alt="Strapped Rescue-Keg" />
 										<a href="https://www.wowhead.com/item=221060/strapped-rescue-keg?bonus=657:12042:5878:7981:11996"
-										   class="item-link q3" target="_blank">Strapped Rescue-Keg</a>
+											class="item-link q3" target="_blank">Strapped Rescue-Keg</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
-										   class="source-link" target="_blank">Cinderbrew Meadery</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
+											class="source-link" target="_blank">Cinderbrew Meadery</a></td>
 								</tr>
 								<tr>
 									<td>Shoulders</td>
 									<td>
 										@Item("Aureate Sentry’s Roaring Will")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
-											 alt="Aureate Sentry’s Roaring Will" />
+											src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
+											alt="Aureate Sentry’s Roaring Will" />
 										<a href="https://www.wowhead.com/item=229242/aureate-sentrys-roaring-will?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Aureate Sentry’s Roaring Will</a>
+											class="item-link q3" target="_blank">Aureate Sentry’s Roaring Will</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-										   class="source-link" target="_blank">Rik Reverb</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
+											class="source-link" target="_blank">Rik Reverb</a></td>
 								</tr>
 								<tr>
 									<td>Cloak</td>
 									<td>
 										@Item("Test Pilot’s Go-Pack")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/Test Pilot's Go-Pack.jpg")"
-											 alt="Test Pilot’s Go-Pack" />
+											src="@Url.Content("~/images/itemIcons/Test Pilot.jpg")"
+											alt="Test Pilot’s Go-Pack" />
 										<a href="https://www.wowhead.com/item=228844/test-pilots-go-pack?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Test Pilot’s Go-Pack</a>
+											class="item-link q3" target="_blank">Test Pilot’s Go-Pack</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-										   class="source-link" target="_blank">Sprocketmonger</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
+											class="source-link" target="_blank">Sprocketmonger</a></td>
 								</tr>
 								<tr>
 									<td>Chest</td>
 									<td>
 										@Item("Aureate Sentry’s Encasement")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_chest.jpg")"
-											 alt="Aureate Sentry’s Encasement" />
+											src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_chest.jpg")"
+											alt="Aureate Sentry’s Encasement" />
 										<a href="https://www.wowhead.com/item=229247/aureate-sentrys-encasement?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Aureate Sentry’s Encasement</a>
+											class="item-link q3" target="_blank">Aureate Sentry’s Encasement</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-										   class="source-link" target="_blank">Sprocketmonger</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
+											class="source-link" target="_blank">Sprocketmonger</a></td>
 								</tr>
 								<tr>
 									<td>Wrist</td>
 									<td>
 										@Item("Revved-Up Vambraces")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/Revved-Up Vambraces.jpg")"
-											 alt="Revved-Up Vambraces" />
+											src="@Url.Content("~/images/itemIcons/Revved-Up Vambraces.jpg")"
+											alt="Revved-Up Vambraces" />
 										<a href="https://www.wowhead.com/item=228868/revved-up-vambraces?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Revved-Up Vambraces</a>
+											class="item-link q3" target="_blank">Revved-Up Vambraces</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/vexie-boss-strategy-abilities"
-										   class="source-link" target="_blank">Vexie</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/vexie-boss-strategy-abilities"
+											class="source-link" target="_blank">Vexie</a></td>
 								</tr>
 								<tr>
 									<td>Gloves</td>
 									<td>
 										@Item("Jumpstarter’s Scaffold-Scrapers")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/inv_plate_outdoorundermine_c_01_glove.jpg")"
-											 alt="Jumpstarter’s Scaffold-Scrapers" />
+											src="@Url.Content("~/images/itemIcons/inv_plate_outdoorundermine_c_01_glove.jpg")"
+											alt="Jumpstarter’s Scaffold-Scrapers" />
 										<a href="https://www.wowhead.com/item=234504/jumpstarters-scaffold-scrapers?bonus=657:12042:5878:7981:11996"
-										   class="item-link q3" target="_blank">Jumpstarter’s Scaffold-Scrapers</a>
+											class="item-link q3" target="_blank">Jumpstarter’s Scaffold-Scrapers</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
-										   class="source-link" target="_blank">Operation: Floodgate</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
+											class="source-link" target="_blank">Operation: Floodgate</a></td>
 								</tr>
 								<tr>
 									<td>Belt</td>
 									<td>
 										@Item("Venture Contractor’s Floodlight")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/Venture Contractor's Floodlight.jpg")"
-											 alt="Venture Contractor’s Floodlight" />
+											src="@Url.Content("~/images/itemIcons/Venture Contractor's Floodlight.jpg")"
+											alt="Venture Contractor’s Floodlight" />
 										<a href="https://www.wowhead.com/item=234505/venture-contractors-floodlight?bonus=657:12042:5878:7981:11996"
-										   class="item-link q3" target="_blank">Venture Contractor’s Floodlight</a>
+											class="item-link q3" target="_blank">Venture Contractor’s Floodlight</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
-										   class="source-link" target="_blank">Operation: Floodgate</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
+											class="source-link" target="_blank">Operation: Floodgate</a></td>
 								</tr>
 								<tr>
 									<td>Legs</td>
 									<td>
 										@Item("Aureate Sentry’s Legguards")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
-											 alt="Aureate Sentry’s Legguards" />
+											src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
+											alt="Aureate Sentry’s Legguards" />
 										<a href="https://www.wowhead.com/item=229243/aureate-sentrys-legguards?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Aureate Sentry’s Legguards</a>
+											class="item-link q3" target="_blank">Aureate Sentry’s Legguards</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
-										   class="source-link" target="_blank">Stix Bunkjunker</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
+											class="source-link" target="_blank">Stix Bunkjunker</a></td>
 								</tr>
 								<tr>
 									<td>Boots</td>
 									<td>
 										@Item("Rik’s Walkin’ Boots")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/Rik's Walkin' Boots.jpg")"
-											 alt="Rik’s Walkin’ Boots" />
+											 src="@Url.Content("~/images/itemIcons/RiksWalkinBoots.jpg")"
+											alt="Rik’s Walkin’ Boots" />
 										<a href="https://www.wowhead.com/item=228874/riks-walkin-boots?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Rik’s Walkin’ Boots</a>
+											class="item-link q3" target="_blank">Rik’s Walkin’ Boots</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-										   class="source-link" target="_blank">Rik Reverb</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
+											class="source-link" target="_blank">Rik Reverb</a></td>
 								</tr>
 								<tr>
 									<td>Ring</td>
 									<td>
 										@Item("The Jastor Diamond")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/TheJastorDiamond.png")"
-											 alt="The Jastor Diamond" />
+											src="@Url.Content("~/images/itemIcons/TheJastorDiamond.png")"
+											alt="The Jastor Diamond" />
 										<a href="https://www.wowhead.com/item=231265/the-jastor-diamond?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">The Jastor Diamond</a>
+											class="item-link q3" target="_blank">The Jastor Diamond</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-										   class="source-link" target="_blank">Chrome King Gallywix</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
+											class="source-link" target="_blank">Chrome King Gallywix</a></td>
 								</tr>
 								<tr>
 									<td>Ring</td>
 									<td>
 										@Item("Miniature Roulette Wheel")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/MiniatureRouletteWheel.png")"
-											 alt="Miniature Roulette Wheel" />
+											src="@Url.Content("~/images/itemIcons/MiniatureRouletteWheel.png")"
+											alt="Miniature Roulette Wheel" />
 										<a href="https://www.wowhead.com/item=228843/miniature-roulette-wheel?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Miniature Roulette Wheel</a>
+											class="item-link q3" target="_blank">Miniature Roulette Wheel</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-										   class="source-link" target="_blank">One-Armed Bandit</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
+											class="source-link" target="_blank">One-Armed Bandit</a></td>
 								</tr>
 								<tr>
 									<td>Trinket</td>
 									<td>
 										@Item("Eye of Kezan")
 										<img class="item-icon" src="@Url.Content("~/images/itemIcons/EyeOfKezan.png")"
-											 alt="Eye of Kezan" />
+											alt="Eye of Kezan" />
 										<a href="https://www.wowhead.com/item=230198/eye-of-kezan?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Eye of Kezan</a>
+											class="item-link q3" target="_blank">Eye of Kezan</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-										   class="source-link" target="_blank">Chrome King Gallywix</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
+											class="source-link" target="_blank">Chrome King Gallywix</a></td>
 								</tr>
 								<tr>
 									<td>Trinket</td>
 									<td>
 										@Item("Mister Pick-Me-Up")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/Misterpick-me-up.png")"
-											 alt="Mister Pick-Me-Up" />
+											src="@Url.Content("~/images/itemIcons/Misterpick-me-up.png")"
+											alt="Mister Pick-Me-Up" />
 										<a href="https://www.wowhead.com/item=230186/mister-pick-me-up?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Mister Pick-Me-Up</a>
+											class="item-link q3" target="_blank">Mister Pick-Me-Up</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-										   class="source-link" target="_blank">Sprocketmonger</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
+											class="source-link" target="_blank">Sprocketmonger</a></td>
 								</tr>
 								<tr>
 									<td>Main Hand</td>
 									<td>
 										@Item("Big Earner’s Bludgeon")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/BigEarner'sBludgeon.png")"
-											 alt="Big Earner’s Bludgeon" />
+											 src="@Url.Content("~/images/itemIcons/BigEarnersBludgeon.jpg")"
+											alt="Big Earner’s Bludgeon" />
 										<a href="https://www.wowhead.com/item=228901/big-earners-bludgeon?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Big Earner’s Bludgeon</a>
+											class="item-link q3" target="_blank">Big Earner’s Bludgeon</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
-										   class="source-link" target="_blank">Mug’zee, Heads of Security</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
+											class="source-link" target="_blank">Mug’zee, Heads of Security</a></td>
 								</tr>
 								<tr>
 									<td>Shield</td>
 									<td>
 										@Item("Titan of Industry")
 										<img class="item-icon"
-											 src="@Url.Content("~/images/itemIcons/TitanOfIndustry.png")"
-											 alt="Titan of Industry" />
+											src="@Url.Content("~/images/itemIcons/TitanOfIndustry.png")"
+											alt="Titan of Industry" />
 										<a href="https://www.wowhead.com/item=228889/titan-of-industry?bonus=7981:12042:5878:11996"
-										   class="item-link q3" target="_blank">Titan of Industry</a>
+											class="item-link q3" target="_blank">Titan of Industry</a>
 									</td>
-									<td>
-										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-										   class="source-link" target="_blank">Chrome King Gallywix</a>
-									</td>
+									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
+											class="source-link" target="_blank">Chrome King Gallywix</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -407,15 +373,14 @@
 
 				<section id="bis-tabs">
 					<div class="bis-tabs">
-						<!-- Main Buttons -->
+
 						<div class="tab-header">
 							<button class="tab-button active" onclick="showTab('raid-tab', event)">Raid</button>
 							<button class="tab-button" onclick="showTab('mythic-tab', event)">Mythic+</button>
 						</div>
-
-						<!-- RAID TAB CONTENT -->
+>
 						<div id="raid-tab" class="tab-content" style="display: block;">
-							<h2>Best in Slot Gear from Liberation of Undermine for Holy Paladin</h2>
+							<h2>Best in Slot Gear from Liberation of Undermine for Retribution Paladin</h2>
 							<p>
 								While <strong><span style="color:#9bff9b;">Liberation of Undermine</span></strong> raid
 								items are more deterministically obtainable than Mythic+,
@@ -436,253 +401,218 @@
 										<td>
 											@Item("Aureate Sentry’s Pledge")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
-												 alt="Aureate Sentry’s Pledge" />
+												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
+												alt="Aureate Sentry’s Pledge" />
 											<a href="https://www.wowhead.com/item=229244/aureate-sentrys-pledge?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Aureate Sentry’s Pledge</a>
+												class="item-link q3" target="_blank">Aureate Sentry’s Pledge</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-											   class="source-link" target="_blank">One-Armed Bandit</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
+												class="source-link" target="_blank">One-Armed Bandit</a></td>
 									</tr>
 									<tr>
 										<td>Neck</td>
 										<td>
 											@Item("Gobfather's Gifted Bling")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
-												 alt="Gobfather's Gifted Bling" />
+												src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
+												alt="Gobfather's Gifted Bling" />
 											<a href="https://www.wowhead.com/item=228842/gobfathers-gifted-bling?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Gobfather's Gifted Bling</a>
+												class="item-link q3" target="_blank">Gobfather's Gifted Bling</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
-											   class="source-link" target="_blank">Mug’zee, Heads of Security</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
+												class="source-link" target="_blank">Mug’zee, Heads of Security</a></td>
 									</tr>
 									<tr>
 										<td>Shoulders</td>
 										<td>
 											@Item("Aureate Sentry’s Roaring Will")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
-												 alt="Aureate Sentry’s Roaring Will" />
+												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
+												alt="Aureate Sentry’s Roaring Will" />
 											<a href="https://www.wowhead.com/item=229242/aureate-sentrys-roaring-will?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Aureate Sentry’s Roaring Will</a>
+												class="item-link q3" target="_blank">Aureate Sentry’s Roaring Will</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-											   class="source-link" target="_blank">Rik Reverb</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
+												class="source-link" target="_blank">Rik Reverb</a></td>
 									</tr>
 									<tr>
 										<td>Cloak</td>
 										<td>
 											@Item("Test Pilot’s Go-Pack")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/Test Pilot's Go-Pack.jpg")"
-												 alt="Test Pilot’s Go-Pack" />
+												src="@Url.Content("~/images/itemIcons/Test Pilot.jpg")"
+												alt="Test Pilot’s Go-Pack" />
 											<a href="https://www.wowhead.com/item=228844/test-pilots-go-pack?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Test Pilot’s Go-Pack</a>
+												class="item-link q3" target="_blank">Test Pilot’s Go-Pack</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-											   class="source-link" target="_blank">Sprocketmonger</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
+												class="source-link" target="_blank">Sprocketmonger</a></td>
 									</tr>
 									<tr>
 										<td>Chest</td>
 										<td>
 											@Item("Aureate Sentry’s Encasement")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_chest.jpg")"
-												 alt="Aureate Sentry’s Encasement" />
+												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_chest.jpg")"
+												alt="Aureate Sentry’s Encasement" />
 											<a href="https://www.wowhead.com/item=229247/aureate-sentrys-encasement?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Aureate Sentry’s Encasement</a>
+												class="item-link q3" target="_blank">Aureate Sentry’s Encasement</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-											   class="source-link" target="_blank">Sprocketmonger</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
+												class="source-link" target="_blank">Sprocketmonger</a></td>
 									</tr>
 									<tr>
 										<td>Wrist</td>
 										<td>
 											@Item("Revved-Up Vambraces")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/Revved-Up Vambraces.jpg")"
-												 alt="Revved-Up Vambraces" />
+												src="@Url.Content("~/images/itemIcons/Revved-Up Vambraces.jpg")"
+												alt="Revved-Up Vambraces" />
 											<a href="https://www.wowhead.com/item=228868/revved-up-vambraces?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Revved-Up Vambraces</a>
+												class="item-link q3" target="_blank">Revved-Up Vambraces</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/vexie-boss-strategy-abilities"
-											   class="source-link" target="_blank">Vexie</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/vexie-boss-strategy-abilities"
+												class="source-link" target="_blank">Vexie</a></td>
 									</tr>
 									<tr>
 										<td>Gloves</td>
 										<td>
 											@Item("Dumpmech Compactors")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_glove_plate_raidwarriorgoblin_d_01.jpg")"
-												 alt="Dumpmech Compactors" />
+												src="@Url.Content("~/images/itemIcons/inv_glove_plate_raidwarriorgoblin_d_01.jpg")"
+												alt="Dumpmech Compactors" />
 											<a href="https://www.wowhead.com/item=228849/dumpmech-compactors?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Dumpmech Compactors</a>
+												class="item-link q3" target="_blank">Dumpmech Compactors</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
-											   class="source-link" target="_blank">Stix Bunkjunker</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
+												class="source-link" target="_blank">Stix Bunkjunker</a></td>
 									</tr>
 									<tr>
 										@Item("Coin-Operated Girdle")
 										<td>Belt</td>
 										<td>
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_belt.jpg")"
-												 alt="Coin-Operated Girdle" />
+												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_belt.jpg")"
+												alt="Coin-Operated Girdle" />
 											<a href="https://www.wowhead.com/item=228886/coin-operated-girdle?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Coin-Operated Girdle</a>
+												class="item-link q3" target="_blank">Coin-Operated Girdle</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-											   class="source-link" target="_blank">One-Armed Bandit</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
+												class="source-link" target="_blank">One-Armed Bandit</a></td>
 									</tr>
 									<tr>
 										<td>Legs</td>
 										<td>
 											@Item("Aureate Sentry’s Legguards")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
-												 alt="Aureate Sentry’s Legguards" />
+												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
+												alt="Aureate Sentry’s Legguards" />
 											<a href="https://www.wowhead.com/item=229243/aureate-sentrys-legguards?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Aureate Sentry’s Legguards</a>
+												class="item-link q3" target="_blank">Aureate Sentry’s Legguards</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
-											   class="source-link" target="_blank">Stix Bunkjunker</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
+												class="source-link" target="_blank">Stix Bunkjunker</a></td>
 									</tr>
 									<tr>
 										<td>Boots</td>
 										<td>
 											@Item("Rik’s Walkin’ Boots")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/Rik's Walkin' Boots.jpg")"
-												 alt="Rik’s Walkin’ Boots" />
+												 src="@Url.Content("~/images/itemIcons/RiksWalkinBoots.jpg")"
+												alt="Rik’s Walkin’ Boots" />
 											<a href="https://www.wowhead.com/item=228874/riks-walkin-boots?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Rik’s Walkin’ Boots</a>
+												class="item-link q3" target="_blank">Rik’s Walkin’ Boots</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-											   class="source-link" target="_blank">Rik Reverb</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
+												class="source-link" target="_blank">Rik Reverb</a></td>
 									</tr>
 									<tr>
 										<td>Ring</td>
 										<td>
 											@Item("The Jastor Diamond")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/TheJastorDiamond.png")"
-												 alt="The Jastor Diamond" />
+												src="@Url.Content("~/images/itemIcons/TheJastorDiamond.png")"
+												alt="The Jastor Diamond" />
 											<a href="https://www.wowhead.com/item=231265/the-jastor-diamond?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">The Jastor Diamond</a>
+												class="item-link q3" target="_blank">The Jastor Diamond</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-											   class="source-link" target="_blank">Chrome King Gallywix</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
+												class="source-link" target="_blank">Chrome King Gallywix</a></td>
 									</tr>
 									<tr>
 										<td>Ring</td>
 										<td>
 											@Item("Miniature Roulette Wheel")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/MiniatureRouletteWheel.png")"
-												 alt="Miniature Roulette Wheel" />
+												src="@Url.Content("~/images/itemIcons/MiniatureRouletteWheel.png")"
+												alt="Miniature Roulette Wheel" />
 											<a href="https://www.wowhead.com/item=228843/miniature-roulette-wheel?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Miniature Roulette Wheel</a>
+												class="item-link q3" target="_blank">Miniature Roulette Wheel</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-											   class="source-link" target="_blank">One-Armed Bandit</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
+												class="source-link" target="_blank">One-Armed Bandit</a></td>
 									</tr>
 									<tr>
 										<td>Trinket</td>
 										<td>
 											@Item("Eye of Kezan")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/EyeOfKezan.png")"
-												 alt="Eye of Kezan" />
+												src="@Url.Content("~/images/itemIcons/EyeOfKezan.png")"
+												alt="Eye of Kezan" />
 											<a href="https://www.wowhead.com/item=230198/eye-of-kezan?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Eye of Kezan</a>
+												class="item-link q3" target="_blank">Eye of Kezan</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-											   class="source-link" target="_blank">Chrome King Gallywix</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
+												class="source-link" target="_blank">Chrome King Gallywix</a></td>
 									</tr>
 									<tr>
 										<td>Trinket</td>
 										<td>
 											@Item("Mister Pick-Me-Up")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/Misterpick-me-up.png")"
-												 alt="Mister Pick-Me-Up" />
+												src="@Url.Content("~/images/itemIcons/Misterpick-me-up.png")"
+												alt="Mister Pick-Me-Up" />
 											<a href="https://www.wowhead.com/item=230186/mister-pick-me-up?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Mister Pick-Me-Up</a>
+												class="item-link q3" target="_blank">Mister Pick-Me-Up</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-											   class="source-link" target="_blank">Sprocketmonger</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
+												class="source-link" target="_blank">Sprocketmonger</a></td>
 									</tr>
 									<tr>
 										<td>Main Hand</td>
 										<td>
 											@Item("Big Earner’s Bludgeon")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/BigEarner'sBludgeon.png")"
-												 alt="Big Earner’s Bludgeon" />
+												 src="@Url.Content("~/images/itemIcons/BigEarnersBludgeon.jpg")"
+												alt="Big Earner’s Bludgeon" />
 											<a href="https://www.wowhead.com/item=228901/big-earners-bludgeon?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Big Earner’s Bludgeon</a>
+												class="item-link q3" target="_blank">Big Earner’s Bludgeon</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
-											   class="source-link" target="_blank">Mug’zee, Heads of Security</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
+												class="source-link" target="_blank">Mug’zee, Heads of Security</a></td>
 									</tr>
 									<tr>
 										<td>Shield</td>
 										<td>
 											@Item("Titan of Industry")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/TitanOfIndustry.png")"
-												 alt="Titan of Industry" />
+												src="@Url.Content("~/images/itemIcons/TitanOfIndustry.png")"
+												alt="Titan of Industry" />
 											<a href="https://www.wowhead.com/item=228889/titan-of-industry?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Titan of Industry</a>
+												class="item-link q3" target="_blank">Titan of Industry</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-											   class="source-link" target="_blank">Chrome King Gallywix</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
+												class="source-link" target="_blank">Chrome King Gallywix</a></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 
-						<!-- MYTHIC+ TAB CONTENT -->
 						<div id="mythic-tab" class="tab-content" style="display: none;">
-							<h2>Best in Slot Gear from Mythic+ for Holy Paladin</h2>
+							<h2>Best in Slot Gear from Mythic+ for Retribution Paladin</h2>
 							<p>
-								Use <strong>
-									<a href="https://questionablyepic.com/live/" style="color:#9bff9b;"
-									   target="_blank" rel="noopener noreferrer">Questionably Epic</a>
-								</strong> to
+								Use <strong><a href="https://questionablyepic.com/live/" style="color:#9bff9b;"
+										target="_blank" rel="noopener noreferrer">Questionably Epic</a></strong> to
 								verify upgrades. This Mythic+ BiS list focuses on healing-centric dungeons. Stat value
 								can vary per build.
 							</p>
@@ -700,165 +630,143 @@
 										<td>
 											@Item("Aureate Sentry’s Pledge")"
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
-												 alt="Aureate Sentry’s Pledge" />
+												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
+												alt="Aureate Sentry’s Pledge" />
 											<a href="https://www.wowhead.com/item=229244/aureate-sentrys-pledge?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Aureate Sentry’s Pledge</a>
+												class="item-link q3" target="_blank">Aureate Sentry’s Pledge</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-											   class="source-link" target="_blank">One-Armed Bandit</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
+												class="source-link" target="_blank">One-Armed Bandit</a></td>
 									</tr>
 									<tr>
 										<td>Neck</td>
 										<td>
 											@Item("Strapped Rescue - Keg")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
-												 alt="Strapped Rescue-Keg" />
+												src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
+												alt="Strapped Rescue-Keg" />
 											<a href="https://www.wowhead.com/item=221060/strapped-rescue-keg?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Strapped Rescue-Keg</a>
+												class="item-link q3" target="_blank">Strapped Rescue-Keg</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
-											   class="source-link" target="_blank">Cinderbrew Meadery</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
+												class="source-link" target="_blank">Cinderbrew Meadery</a></td>
 									</tr>
 									<tr>
 										<td>Shoulders</td>
 										<td>
 											@Item("Aureate Sentry’s Roaring Will")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
-												 alt="Aureate Sentry’s Roaring Will" />
+												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
+												alt="Aureate Sentry’s Roaring Will" />
 											<a href="https://www.wowhead.com/item=229242/aureate-sentrys-roaring-will?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Aureate Sentry’s Roaring Will</a>
+												class="item-link q3" target="_blank">Aureate Sentry’s Roaring Will</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-											   class="source-link" target="_blank">Rik Reverb</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
+												class="source-link" target="_blank">Rik Reverb</a></td>
 									</tr>
 									<tr>
 										<td>Cloak</td>
 										<td>
 											@Item("Cloak of Questionable Intent")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_bracer_plate_earthendungeon_c_01.jpg")"
-												 alt="Cloak of Questionable Intent" />
+												src="@Url.Content("~/images/itemIcons/inv_bracer_plate_earthendungeon_c_01.jpg")"
+												alt="Cloak of Questionable Intent" />
 											<a href="https://www.wowhead.com/item=159287/cloak-of-questionable-intent?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Cloak of Questionable Intent</a>
+												class="item-link q3" target="_blank">Cloak of Questionable Intent</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/the-motherlode"
-											   class="source-link" target="_blank">The MOTHERLODE!!</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/the-motherlode"
+												class="source-link" target="_blank">The MOTHERLODE!!</a></td>
 									</tr>
 									<tr>
 										<td>Chest</td>
 										<td>
 											@Item("Slashproof Business Plate")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_chest_plate_earthendungeon_c_01.jpg")"
-												 alt="Slashproof Business Plate" />
+												src="@Url.Content("~/images/itemIcons/inv_chest_plate_earthendungeon_c_01.jpg")"
+												alt="Slashproof Business Plate" />
 											<a href="https://www.wowhead.com/item=221069/slashproof-business-plate?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Slashproof Business Plate</a>
+												class="item-link q3" target="_blank">Slashproof Business Plate</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
-											   class="source-link" target="_blank">Cinderbrew Meadery</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
+												class="source-link" target="_blank">Cinderbrew Meadery</a></td>
 									</tr>
 									<tr>
 										<td>Wrist</td>
 										<td>
 											@Item("Fuzzy Cindercuffs")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_bracer_plate_earthendungeon_c_01.jpg")"
-												 alt="Fuzzy Cindercuffs" />
+												src="@Url.Content("~/images/itemIcons/inv_bracer_plate_earthendungeon_c_01.jpg")"
+												alt="Fuzzy Cindercuffs" />
 											<a href="https://www.wowhead.com/item=221064/fuzzy-cindercuffs?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Fuzzy Cindercuffs</a>
+												class="item-link q3" target="_blank">Fuzzy Cindercuffs</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
-											   class="source-link" target="_blank">Cinderbrew Meadery</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
+												class="source-link" target="_blank">Cinderbrew Meadery</a></td>
 									</tr>
 									<tr>
 										<td>Gloves</td>
 										<td>
 											@Item("Aureate Sentry's Gauntlets")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_glove.jpg")"
-												 alt="Aureate Sentry's Gauntlets" />
+												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_glove.jpg")"
+												alt="Aureate Sentry's Gauntlets" />
 											<a href="https://www.wowhead.com/item=229245/aureate-sentrys-gauntlets?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Aureate Sentry's Gauntlets</a>
+												class="item-link q3" target="_blank">Aureate Sentry's Gauntlets</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/cauldron-of-carnage-boss-strategy"
-											   class="source-link" target="_blank">Cauldron of Carnage</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/cauldron-of-carnage-boss-strategy"
+												class="source-link" target="_blank">Cauldron of Carnage</a></td>
 									</tr>
 									<tr>
 										<td>Belt</td>
 										<td>
 											@Item("Venture Contractor’s Floodlight")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/Venture Contractor's Floodlight.jpg")"
-												 alt="Venture Contractor’s Floodlight" />
+												src="@Url.Content("~/images/itemIcons/Venture Contractor's Floodlight.jpg")"
+												alt="Venture Contractor’s Floodlight" />
 											<a href="https://www.wowhead.com/item=234505/venture-contractors-floodlight?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Venture Contractor’s Floodlight</a>
+												class="item-link q3" target="_blank">Venture Contractor’s Floodlight</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
-											   class="source-link" target="_blank">Operation: Floodgate</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
+												class="source-link" target="_blank">Operation: Floodgate</a></td>
 									</tr>
 									<tr>
 										<td>Legs</td>
 										<td>
 											@Item("Aureate Sentry’s Legguards")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
-												 alt="Aureate Sentry’s Legguards" />
+												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
+												alt="Aureate Sentry’s Legguards" />
 											<a href="https://www.wowhead.com/item=229243/aureate-sentrys-legguards?bonus=7981:12042:5878:11996"
-											   class="item-link q3" target="_blank">Aureate Sentry’s Legguards</a>
+												class="item-link q3" target="_blank">Aureate Sentry’s Legguards</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
-											   class="source-link" target="_blank">Stix Bunkjunker</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
+												class="source-link" target="_blank">Stix Bunkjunker</a></td>
 									</tr>
 									<tr>
 										<td>Boots</td>
 										<td>
 											@Item("Sabatons of Rampaging Elements")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_boot_plate_zandalardungeon_c_01.jpg")"
-												 alt="Sabatons of Rampaging Elements" />
+												src="@Url.Content("~/images/itemIcons/inv_boot_plate_zandalardungeon_c_01.jpg")"
+												alt="Sabatons of Rampaging Elements" />
 											<a href="https://www.wowhead.com/item=159679/sabatons-of-rampaging-elements?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Sabatons of Rampaging Elements</a>
+												class="item-link q3" target="_blank">Sabatons of Rampaging Elements</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/the-motherlode"
-											   class="source-link" target="_blank">The MOTHERLODE!!</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/the-motherlode"
+												class="source-link" target="_blank">The MOTHERLODE!!</a></td>
 									</tr>
 									<tr>
 										<td>Ring</td>
 										<td>
 											@Item("Wick's Golden Loop")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_11_0_earthen_earthenring_color2.jpg")"
-												 alt="Wick's Golden Loop" />
+												src="@Url.Content("~/images/itemIcons/inv_11_0_earthen_earthenring_color2.jpg")"
+												alt="Wick's Golden Loop" />
 											<a href="https://www.wowhead.com/item=221099/wicks-golden-loop?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Wick's Golden Loop</a>
+												class="item-link q3" target="_blank">Wick's Golden Loop</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/dungeons/darkflame-cleft-overview"
-											   class="source-link" target="_blank">Darkflame Cleft</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/darkflame-cleft-overview"
+												class="source-link" target="_blank">Darkflame Cleft</a></td>
 
 									</tr>
 									<tr>
@@ -866,78 +774,66 @@
 										<td>
 											@Item("Bloodoath Signet")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_ring_maldraxxus_01_red.jpg")"
-												 alt="Bloodoath Signet" />
+												src="@Url.Content("~/images/itemIcons/inv_ring_maldraxxus_01_red.jpg")"
+												alt="Bloodoath Signet" />
 											<a href="https://www.wowhead.com/item=178871/bloodoath-signet?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Bloodoath Signet</a>
+												class="item-link q3" target="_blank">Bloodoath Signet</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/theater-of-pain"
-											   class="source-link" target="_blank">Theater of Pain</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/theater-of-pain"
+												class="source-link" target="_blank">Theater of Pain</a></td>
 									</tr>
 									<tr>
 										<td>Trinket</td>
 										<td>
 											@Item("Signet of the Priory")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/Signetofthepriory.png")"
-												 alt="Signet of the Priory" />
+												src="@Url.Content("~/images/itemIcons/Signetofthepriory.png")"
+												alt="Signet of the Priory" />
 											<a href="https://www.wowhead.com/item=219308/signet-of-the-priory?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Signet of the Priory</a>
+												class="item-link q3" target="_blank">Signet of the Priory</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/dungeons/priory-of-the-sacred-flame-overview"
-											   class="source-link" target="_blank">Priory of the Sacred Flame</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/priory-of-the-sacred-flame-overview"
+												class="source-link" target="_blank">Priory of the Sacred Flame</a></td>
 									</tr>
 									<tr>
 										<td>Trinket</td>
 										<td>
 											@Item("Carved Blazikon Wax")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_misc_candlekobold_color1.jpg")"
-												 alt="Carved Blazikon Wax" />
+												src="@Url.Content("~/images/itemIcons/inv_misc_candlekobold_color1.jpg")"
+												alt="Carved Blazikon Wax" />
 											<a href="https://www.wowhead.com/item=219305/carved-blazikon-wax?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Carved Blazikon Wax</a>
+												class="item-link q3" target="_blank">Carved Blazikon Wax</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/dungeons/darkflame-cleft-overview"
-											   class="source-link" target="_blank">Darkflame Cleft</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/darkflame-cleft-overview"
+												class="source-link" target="_blank">Darkflame Cleft</a></td>
 									</tr>
 									<tr>
 										<td>Main Hand</td>
 										<td>
 											@Item("Electrifying Cognitive Amplifier")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_mace_1h_enprofession_c_01.jpg")"
-												 alt="Electrifying Cognitive Amplifier" />
+												src="@Url.Content("~/images/itemIcons/inv_mace_1h_enprofession_c_01.jpg")"
+												alt="Electrifying Cognitive Amplifier" />
 											<a href="https://www.wowhead.com/item=168955/electrifying-cognitive-amplifier?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">
-												Electrifying Cognitive
-												Amplifier
-											</a>
+												class="item-link q3" target="_blank">Electrifying Cognitive
+												Amplifier</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/operation-mechagon-workshop"
-											   class="source-link" target="_blank">Operation: Mechagon</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/operation-mechagon-workshop"
+												class="source-link" target="_blank">Operation: Mechagon</a></td>
 									</tr>
 									<tr>
 										<td>Shield</td>
 										<td>
 											@Item("Galebreaker Bulwark")
 											<img class="item-icon"
-												 src="@Url.Content("~/images/itemIcons/inv_shield_1h_earthendungeon_c_02.jpg")"
-												 alt="Galebreaker Bulwark" />
+												src="@Url.Content("~/images/itemIcons/inv_shield_1h_earthendungeon_c_02.jpg")"
+												alt="Galebreaker Bulwark" />
 											<a href="https://www.wowhead.com/item=221045/galebreaker-bulwark?bonus=657:12042:5878:7981:11996"
-											   class="item-link q3" target="_blank">Galebreaker Bulwark</a>
+												class="item-link q3" target="_blank">Galebreaker Bulwark</a>
 										</td>
-										<td>
-											<a href="https://www.wowhead.com/guide/the-war-within/dungeons/the-rookery-overview"
-											   class="source-link" target="_blank">The Rookery</a>
-										</td>
+										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/the-rookery-overview"
+												class="source-link" target="_blank">The Rookery</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -945,7 +841,6 @@
 					</div>
 				</section>
 
-				<!-- Tab Script -->
 				<script>
 					function showTab(tabId, event) {
 						const tabs = document.querySelectorAll(".bis-tabs .tab-content");
@@ -969,18 +864,15 @@
 				<section id="trinkets">
 					<h2 class="section-header">
 						<img src="/images/icons/EyeOfKezan.jpg" alt="Trinkets Icon" class="section-icon">
-						Best Trinkets for Holy Paladin - Season 2
+						Best Trinkets for Retribution Paladin - Season 2
 					</h2>
 
-					<p>
-						Holy Paladins generally prefer using passive stat stick trinkets, though as Herald of the Sun, a
+					<p>Retribution Paladins generally prefer using passive stat stick trinkets, though as Herald of the Sun, a
 						2-minute cooldown trinket to use with your strong burst healing during Avenging Wrath can also
-						be a great option.
-					</p>
+						be a great option.</p>
 
 					<div class="tier-list">
 
-						<!-- S TIER -->
 						<div class="tier-row">
 							<div class="tier-label tier-S">S</div>
 							<div class="trinket-icons">
@@ -996,7 +888,6 @@
 						</div>
 					</div>
 
-					<!-- A TIER -->
 					<div class="tier-row">
 						<div class="tier-label tier-A">A</div>
 						<div class="trinket-icons">
@@ -1029,13 +920,12 @@
 						</div>
 					</div>
 
-					<!-- B TIER -->
 					<div class="tier-row">
 						<div class="tier-label tier-B">B</div>
 						<div class="trinket-icons">
 							<div class="trinket">
 								<img src="/images/itemIcons/Unstable Power Suit Core.jpg"
-									 alt="Unstable Power Suit Core">
+									alt="Unstable Power Suit Core">
 								<div class="trinket-name">Unstable Power Suit Core</div>
 							</div>
 							<div class="trinket">
@@ -1053,13 +943,12 @@
 						</div>
 					</div>
 
-					<!-- C TIER -->
 					<div class="tier-row">
 						<div class="tier-label tier-C">C</div>
 						<div class="trinket-icons">
 							<div class="trinket">
 								<img src="/images/itemIcons/Sigil of Algari Concordance.jpg"
-									 alt="Sigil of Algari Concordance">
+									alt="Sigil of Algari Concordance">
 								<div class="trinket-name">Sigil of Algari Concordance</div>
 							</div>
 							<div class="trinket">
@@ -1068,17 +957,17 @@
 							</div>
 							<div class="trinket">
 								<img src="/images/itemIcons/Burin of the Candle King.jpg"
-									 alt="Burin of the Candle King">
+									alt="Burin of the Candle King">
 								<div class="trinket-name">Burin of the Candle King</div>
 							</div>
 							<div class="trinket">
 								<img src="/images/itemIcons/Synergistic Brewterializer.jpg"
-									 alt="Synergistic Brewtializer">
+									alt="Synergistic Brewtializer">
 								<div class="trinket-name">Synergistic Brewtializer</div>
 							</div>
 							<div class="trinket">
 								<img src="/images/itemIcons/Vial of Spectral Essence.jpg"
-									 alt="Vial of Spectral Essence">
+									alt="Vial of Spectral Essence">
 								<div class="trinket-name">Vial of Spectral Essence</div>
 							</div>
 							<div class="trinket">
@@ -1104,8 +993,8 @@
 				<section id="best-items-to-upgrade">
 					<h2 class="section-header">
 						<img src="/images/icons/inv_crestupgrade_undermine_gilded.jpg" alt="Upgrade Items Icon"
-							 class="section-icon">
-						Best Items to Upgrade for Holy Paladin
+							class="section-icon">
+						Best Items to Upgrade for Retribution Paladin
 					</h2>
 					<p>
 						Completing endgame activities in The War Within will award you with Undermine Crests and
@@ -1175,52 +1064,52 @@
 				<section id="cyrces-circlet">
 					<h2 class="section-header">
 						<img src="/images/icons/Cyrce's Circlet.jpg" alt="Circlet Icon" class="section-icon">
-						Cyrce's Circlet for Holy Paladin
+						Cyrce's Circlet for Retribution Paladin
 					</h2>
 
 					<p>
 						Patch 11.0.7 introduced
 						<img src="/images/icons/Cyrce's Circlet.jpg" alt="Circlet Icon" class="item-icon" />
 						<a href="https://www.wowhead.com/guide/the-war-within/patch-11-0-7-cyrces-circlet-customizable-ring"
-						   class="item epic" target="_blank" rel="noopener noreferrer">
+							class="item epic" target="_blank" rel="noopener noreferrer">
 							Cyrce's Circlet
 						</a>, a highly customizable and upgradable ring.
 					</p>
 
 					<h3 class="section-title">
 						<img src="/images/itemIcons/inv_siren_isle_singing_citrine_prismatic.jpg"
-							 alt="Embellishment Icon" class="section-icon small-icon">
+							alt="Embellishment Icon" class="section-icon small-icon">
 						When to Replace Your Cyrce's Circlet in Season 2?
 					</h3>
 
 					<p>
-						As a Holy Paladin,
+						As a Retribution Paladin,
 						<img src="/images/icons/Cyrce's Circlet.jpg" alt="Circlet Icon" class="item-icon" />
 						<a href="https://www.wowhead.com/guide/the-war-within/patch-11-0-7-cyrces-circlet-customizable-ring"
-						   class="item epic" target="_blank" rel="noopener noreferrer">
+							class="item epic" target="_blank" rel="noopener noreferrer">
 							Cyrce's Circlet
 						</a> remains competitive until you acquire another ring at or above item level
 						<strong>672</strong>.
 						The tipping point depends heavily on your <strong>Mastery</strong> due to how well
 						<img src="/images/itemIcons/fathomdweller-icon.jpg" alt="Fathomdweller Icon"
-							 class="item-icon" />
+							class="item-icon" />
 						<a href="https://www.wowhead.com/item=228639/fathomdwellers-runed-citrine" class="item epic"
-						   target="_blank">
+							target="_blank">
 							Fathomdweller's Runed Citrine
 						</a> scales.
 					</p>
 
 					<h3 class="section-title">
 						<img src="/images/itemIcons/inv_siren_isle_blessed_citrine_red.jpg" alt="Embellishment Icon"
-							 class="section-icon small-icon">
-						Best Citrine Gems for Holy Paladin
+							class="section-icon small-icon">
+						Best Citrine Gems for Retribution Paladin
 					</h3>
 
 					<p>
 						This is the optimal gem setup in your
 						<img src="/images/itemIcons/Cyrce's Circlet.jpg" alt="Circlet Icon" class="item-icon" />
 						<a href="https://www.wowhead.com/guide/the-war-within/patch-11-0-7-cyrces-circlet-customizable-ring"
-						   class="item epic" target="_blank" rel="noopener noreferrer">
+							class="item epic" target="_blank" rel="noopener noreferrer">
 							Cyrce's Circlet
 						</a> for both raids and Mythic+:
 					</p>
@@ -1229,18 +1118,18 @@
 						<li>
 							<strong style="color:#f0da69;">Singing Thunder Citrine:</strong>
 							<img src="/images/itemIcons/stormbringer-icon.jpg" alt="Stormbringer Icon"
-								 class="item-icon" />
+								class="item-icon" />
 							<a href="https://www.wowhead.com/item=228638/stormbringers-runed-citrine" class="item epic"
-							   target="_blank">
+								target="_blank">
 								Stormbringer's Runed Citrine
 							</a>
 						</li>
 						<li>
 							<strong style="color:#69ccf0;">Singing Sea Citrine:</strong>
 							<img src="/images/itemIcons/fathomdweller-icon.jpg" alt="Fathomdweller Icon"
-								 class="item-icon" />
+								class="item-icon" />
 							<a href="https://www.wowhead.com/item=228639/fathomdwellers-runed-citrine" class="item epic"
-							   target="_blank">
+								target="_blank">
 								Fathomdweller's Runed Citrine
 							</a>
 						</li>
@@ -1248,7 +1137,7 @@
 							<strong style="color:#f0788a;">Singing Wind Citrine:</strong>
 							<img src="/images/itemIcons/windsinger-icon.jpg" alt="Windsinger Icon" class="item-icon" />
 							<a href="https://www.wowhead.com/item=228640/windsingers-runed-citrine" class="item epic"
-							   target="_blank">
+								target="_blank">
 								Windsinger's Runed Citrine
 							</a>
 						</li>
@@ -1263,7 +1152,7 @@
 				<section id="corruptions">
 					<h2 class="section-header">
 						<img src="/images/icons/inv_eyeofnzothpet.jpg" alt="Corruption Icon" class="section-icon">
-						Corruptions for Holy Paladin
+						Corruptions for Retribution Paladin
 					</h2>
 
 					<p>
@@ -1272,15 +1161,15 @@
 					</p>
 
 					<p>
-						For <strong>Holy Paladins</strong>, the best — and only worthwhile — corruption is:
+						For <strong>Retribution Paladins</strong>, the best — and only worthwhile — corruption is:
 					</p>
 
 					<ul style="list-style: none; padding-left: 0;">
 						<li>
 							<img src="/images/icons/inv_inscription_majorglyph20.jpg" alt="Void Ritual Icon"
-								 class="item-icon" />
+								class="item-icon" />
 							<a href="https://www.wowhead.com/item=239095/greater-rune-of-the-void-ritual"
-							   target="_blank" rel="noopener noreferrer" class="item epic">
+								target="_blank" rel="noopener noreferrer" class="item epic">
 								Greater Rune of the Void Ritual
 							</a> – This enchant is the only one that provides a direct <em>healing increase</em>, making
 							it the clear choice for all content.
@@ -1300,14 +1189,14 @@
 				<section id="cartel-chip">
 					<h2 class="section-header">
 						<img src="/images/icons/inv_misc_curiouscoin.jpg" alt="Cartel Chip Icon" class="section-icon">
-						Spending Puzzling Cartel Chip as a Holy Paladin
+						Spending Puzzling Cartel Chip as a Retribution Paladin
 					</h2>
 
 					<p>
 						<img src="/images/icons/inv_misc_curiouscoin.jpg" alt="Puzzling Cartel Chip Icon"
-							 class="item-icon">
+							class="item-icon">
 						<a href="https://www.wowhead.com/item=237502/puzzling-cartel-chip" target="_blank"
-						   class="item epic">Puzzling Cartel Chips</a> (commonly called Dinars) allow you to purchase
+							class="item epic">Puzzling Cartel Chips</a> (commonly called Dinars) allow you to purchase
 						specific raid items you’ve unlocked by defeating the relevant boss. These items can be upgraded
 						all the way to <strong>Myth track</strong> if you’ve cleared the content.
 					</p>
@@ -1320,36 +1209,36 @@
 
 					<h3 class="section-title">
 						<img src="/images/icons/inv_misc_curiouscoin.jpg" alt="Gem Icon"
-							 class="section-icon small-icon">
+							class="section-icon small-icon">
 						Recommended Purchases (Myth Track Priority)
 					</h3>
 
 					<ol class="crafting-order-list">
 						<li>
 							<img src="/images/itemIcons/Misterpick-me-up.png" alt="Mister Pick-Me-Up Icon"
-								 class="item-icon">
+								class="item-icon">
 							<a href="https://www.wowhead.com/item=230186/mister-pick-me-up" target="_blank"
-							   class="item epic">Mister Pick-Me-Up</a> – Versatile trinket, excellent across all
+								class="item epic">Mister Pick-Me-Up</a> – Versatile trinket, excellent across all
 							content.
 						</li>
 						<li>
 							<img src="/images/itemIcons/TheJastorDiamond.png" alt="Jastor Diamond Icon"
-								 class="item-icon">
+								class="item-icon">
 							<a href="https://www.wowhead.com/item=231265/the-jastor-diamond" target="_blank"
-							   class="item epic">The Jastor Diamond</a> – Solid ring with high performance and
+								class="item epic">The Jastor Diamond</a> – Solid ring with high performance and
 							universal value.
 						</li>
 						<li>
 							<img src="/images/itemIcons/EyeOfKezan.png" alt="Eye of Kezan Icon" class="item-icon">
 							<a href="https://www.wowhead.com/item=230198/eye-of-kezan" target="_blank"
-							   class="item epic">Eye of Kezan</a> – Excellent in raid on later bosses, weaker in early
+								class="item epic">Eye of Kezan</a> – Excellent in raid on later bosses, weaker in early
 							encounters and Mythic+.
 						</li>
 					</ol>
 
 					<h2 class="section-header">
 						<img src="/images/icons/inv_misc_curiouscoin.jpg" alt="Gadget Icon"
-							 class="section-icon small-icon">
+							class="section-icon small-icon">
 						Other Viable Picks
 					</h2>
 
@@ -1357,47 +1246,47 @@
 						<li>
 							<img src="/images/itemIcons/Mug'sMoxieJug.jpg" alt="Mug's Moxie Jug Icon" class="item-icon">
 							<a href="https://www.wowhead.com/item=230192/mugs-moxie-jug" target="_blank"
-							   class="item epic">Mug's Moxie Jug</a> – Good burst trinket if paired with cooldowns.
+								class="item epic">Mug's Moxie Jug</a> – Good burst trinket if paired with cooldowns.
 						</li>
 						<li>
 							<img src="/images/itemIcons/Reverbradio.png" alt="Reverb Radio Icon" class="item-icon">
 							<a href="https://www.wowhead.com/item=230194/reverb-radio" target="_blank"
-							   class="item epic">Reverb Radio</a> – Situational but functional.
+								class="item epic">Reverb Radio</a> – Situational but functional.
 						</li>
 						<li>
 							<img src="/images/itemIcons/CarvedBlazikonWax.jpg" alt="Blazikon Wax Icon"
-								 class="item-icon">
+								class="item-icon">
 							<a href="https://www.wowhead.com/item=219305/carved-blazikon-wax" target="_blank"
-							   class="item epic">Carved Blazikon Wax</a> – Passive stat stick, decent value.
+								class="item epic">Carved Blazikon Wax</a> – Passive stat stick, decent value.
 						</li>
 						<li>
 							<img src="/images/itemIcons/SignetOfThePriory.jpg" alt="Signet of the Priory Icon"
-								 class="item-icon">
+								class="item-icon">
 							<a href="https://www.wowhead.com/item=219308/signet-of-the-priory" target="_blank"
-							   class="item epic">Signet of the Priory</a> – Alternative ring for Mastery stacking
+								class="item epic">Signet of the Priory</a> – Alternative ring for Mastery stacking
 							builds.
 						</li>
 					</ol>
 
 					<h3 class="section-title">
 						<img src="/images/itemIcons/ability_racial_etherealconnection.jpg" alt="Low Priority Icon"
-							 class="section-icon small-icon">
+							class="section-icon small-icon">
 						Low Priority or Cosmetic Picks
 					</h3>
 
 
 					<ol class="crafting-order-list">
 						<li>
-							<img src="/images/itemIcons/BigEarner'sBludgeon.png" alt="Big Earner Icon"
-								 class="item-icon">
+							<img src="/images/itemIcons/BigEarnersBludgeon.jpg" alt="Big Earner Icon"
+								class="item-icon">
 							<a href="https://www.wowhead.com/item=228901/big-earners-bludgeon" target="_blank"
-							   class="item epic">Big Earner's Bludgeon</a> – Only worth buying if you lack a max item
+								class="item epic">Big Earner's Bludgeon</a> – Only worth buying if you lack a max item
 							level weapon.
 						</li>
 						<li>
 							<img src="/images/itemIcons/TitanOfIndustry.png" alt="Titan Icon" class="item-icon">
 							<a href="https://www.wowhead.com/item=228889/titan-of-industry" target="_blank"
-							   class="item epic">Titan of Industry</a> – Similar case; skip it if you already have
+								class="item epic">Titan of Industry</a> – Similar case; skip it if you already have
 							better from crafting or drops.
 						</li>
 					</ol>
@@ -1413,24 +1302,24 @@
 				</div>
 
 				<section id="best-items-to-upgrade">
-					<h2 class="section-title">
+					<h2 class="section-header">
 						<img src="/images/icons/inv_spark_whole_orange (1).jpg" alt="Crafted Gear Icon"
-							 class="section-icon">
-						Best Crafted Gear for Holy Paladin
+							class="section-icon">
+						Best Crafted Gear for Retribution Paladin
 					</h2>
 
 					<section>
 						<h3 class="section-title">
 							<img src="/images/itemIcons/ui_profession_blacksmithing.jpg" alt="Crafting Icon"
-								 class="section-icon small-icon">
+								class="section-icon small-icon">
 							Recommended Crafting Order
 						</h3>
 
 						<p>
-							Here is the best crafting order for <span style="color:#ff80b3;">Holy Paladin</span> using
+							Here is the best crafting order for <span style="color:#ff80b3;">Retribution Paladin</span> using
 							<img src="/images/icons/inv_spark_whole_orange (1).jpg" alt="Spark Icon" class="item-icon">
 							<a href="https://www.wowhead.com/item=230906/spark-of-fortunes" target="_blank"
-							   rel="noopener noreferrer" class="item epic">
+								rel="noopener noreferrer" class="item epic">
 								Spark of Fortunes
 							</a>:
 						</p>
@@ -1440,29 +1329,30 @@
 								<strong>
 									Craft
 									<img src="/images/itemIcons/inv_sword_1h_arathor_c_01.jpg" alt="Hexsword Icon"
-										 class="item-icon">
+										class="item-icon">
 									<a href="https://www.wowhead.com/item=222444/charged-hexsword?bonus=12040:1515"
-									   target="_blank" class="item epic">
+										target="_blank" class="item epic">
 										Charged Hexsword
 									</a> with
 									<img src="/images/itemIcons/DarkmoonSigilAscension.jpg" alt="Ascension Icon"
-										 class="item-icon">
+										class="item-icon">
 									<a href="https://www.wowhead.com/item=226024/darkmoon-sigil-ascension"
-									   target="_blank" class="item rare">
+										target="_blank" class="item rare">
 										Darkmoon Sigil: Ascension
 										<img src="/images/itemIcons/professions-chaticon-quality-tier3.png"
-											 alt="Item quality" class="item-icon" />
+											alt="Item quality" class="item-icon" />
 									</a>
 								</strong>
 								<div class="list-indent">
 									Weapons are always a great option to craft if you haven't gotten a high item level
 									one already.
 									<img src="/images/itemIcons/DarkmoonSigilAscension.jpg" alt="Ascension Icon"
-										 class="item-icon">
+										class="item-icon">
 									<a href="https://www.wowhead.com/item=226024/darkmoon-sigil-ascension"
-									   target="_blank" class="item rare">
-										Darkmoon Sigil: Ascension <img src="/images/itemIcons/professions-chaticon-quality-tier3.png"
-										 alt="Item quality" class="item-icon" />
+										target="_blank" class="item rare">
+										Darkmoon Sigil: Ascension <img
+											src="/images/itemIcons/professions-chaticon-quality-tier3.png"
+											alt="Item quality" class="item-icon" />
 									</a>
 									is the best Embellishment to put on your crafted weapon.
 								</div>
@@ -1472,24 +1362,24 @@
 								<strong>
 									Shield or any Plate item with
 									<img src="/images/itemIcons/inv_10_skinning_craftedoptionalreagent_studdedleatherswatch_color2.jpg"
-										 alt="Writhing Armor Banding Icon" class="item-icon">
+										alt="Writhing Armor Banding Icon" class="item-icon">
 									<a href="https://www.wowhead.com/item=219506/writhing-armor-banding" target="_blank"
-									   class="item rare">
+										class="item rare">
 										Writhing Armor Banding
 										<img src="/images/itemIcons/professions-chaticon-quality-tier3.png"
-											 alt="Item quality" class="item-icon" />
+											alt="Item quality" class="item-icon" />
 									</a>
 								</strong>
 								<div class="list-indent">
 									<img src="/images/itemIcons/DarkmoonSigilAscension.jpg" alt="Ascension Icon"
-										 class="item-icon">
+										class="item-icon">
 									<a href="https://www.wowhead.com/item=226024/darkmoon-sigil-ascension"
-									   target="_blank" class="item epic">Darkmoon Sigil: Ascension</a>
+										target="_blank" class="item epic">Darkmoon Sigil: Ascension</a>
 									is a Nerubian Embellishment, meaning that it gets doubled by
 									<img src="/images/itemIcons/inv_10_skinning_craftedoptionalreagent_studdedleatherswatch_color2.jpg"
-										 alt="Writhing Icon" class="item-icon">
+										alt="Writhing Icon" class="item-icon">
 									<a href="https://www.wowhead.com/item=219506/writhing-armor-banding" target="_blank"
-									   class="item epic">Writhing Armor Banding</a>.
+										class="item epic">Writhing Armor Banding</a>.
 									It is recommended you craft this in a slot that will not be replaced. I recommend
 									Bracers, Boots, or Belt for this purpose.
 								</div>
@@ -1507,21 +1397,21 @@
 						<p style="margin-top: 10px;">
 							<strong>Note:</strong> While crafting a weapon is a great idea early on for the biggest
 							immediate boost, your eventual goal will be to pick up
-							<img src="/images/itemIcons/BigEarner'sBludgeon.png" alt="Big Earner Icon"
-								 class="item-icon">
+							<img src="/images/itemIcons/BigEarnersBludgeon.jpg" alt="Big Earner Icon"
+								class="item-icon">
 							<a href="https://www.wowhead.com/item=228901/big-earners-bludgeon" target="_blank"
-							   class="item epic">Big Earner’s Bludgeon</a> and
+								class="item epic">Big Earner’s Bludgeon</a> and
 							<img src="/images/itemIcons/TitanOfIndustry.png" alt="Titan Icon" class="item-icon">
 							<a href="https://www.wowhead.com/item=228889/titan-of-industry" target="_blank"
-							   class="item epic">Titan of Industry</a>
+								class="item epic">Titan of Industry</a>
 							as your BiS weapon setup. Once you are able to obtain these items, you should craft two
 							armor pieces with
 							<img src="/images/itemIcons/inv_10_tailoring_tailoringconsumable_color2.jpg"
-								 alt="Dawnthread Icon" class="item-icon">
+								alt="Dawnthread Icon" class="item-icon">
 							<a href="https://www.wowhead.com/item=222870/dawnthread-lining" target="_blank"
-							   class="item rare">
+								class="item rare">
 								Dawnthread Lining <img src="/images/itemIcons/professions-chaticon-quality-tier3.png"
-									   alt="Item quality" class="item-icon" />
+									alt="Item quality" class="item-icon" />
 							</a> on them.
 						</p>
 					</section>
@@ -1529,7 +1419,7 @@
 					<section id="cartel-chip-usage">
 						<h3 class="section-title">
 							<img src="/images/icons/inv_10_inscription2_repcontracts_scroll_02_uprez_color2.jpg"
-								 alt="Missives Icon" class="section-icon small-icon">
+								alt="Missives Icon" class="section-icon small-icon">
 							Missives
 						</h3>
 
@@ -1537,23 +1427,23 @@
 						<ul style="list-style: none; padding-left: 0;">
 							<li style="margin-bottom: 10px;">
 								<img src="/images/icons/inv_10_inscription2_repcontracts_scroll_02_uprez_color2.jpg"
-									 alt="Feverflare Icon" class="item-icon" />
+									alt="Feverflare Icon" class="item-icon" />
 								<a href="https://www.wowhead.com/item=222584/algari-missive-of-the-feverflare"
-								   target="_blank" rel="noopener noreferrer" class="item uncommon">
+									target="_blank" rel="noopener noreferrer" class="item uncommon">
 									Algari Missive of the Feverflare
 									<img src="/images/itemIcons/professions-chaticon-quality-tier3.png"
-										 alt="Item quality" class="item-icon" />
+										alt="Item quality" class="item-icon" />
 								</a>
 								– <span>(Haste + Mastery)</span> – Recommended for crafting raid gear.
 							</li>
 							<li>
 								<img src="/images/icons/inv_10_inscription2_repcontracts_scroll_02_uprez_color2.jpg"
-									 alt="Fireflash Icon" class="item-icon" />
+									alt="Fireflash Icon" class="item-icon" />
 								<a href="https://www.wowhead.com/item=222587/algari-missive-of-the-fireflash"
-								   target="_blank" rel="noopener noreferrer" class="item uncommon">
+									target="_blank" rel="noopener noreferrer" class="item uncommon">
 									Algari Missive of the Fireflash
 									<img src="/images/itemIcons/professions-chaticon-quality-tier3.png"
-										 alt="Item quality" class="item-icon" />
+										alt="Item quality" class="item-icon" />
 								</a>
 								– <span>(Haste + Crit)</span> – Recommended for Mythic+ crafting.
 							</li>
@@ -1563,7 +1453,7 @@
 					<section id="crafted-gear">
 						<h3 class="section-title">
 							<img src="/images/icons/inv_10_tailoring_silkrare_color1.jpg" alt="Embellishment Icon"
-								 class="section-icon small-icon">
+								class="section-icon small-icon">
 							Best Embellishments
 						</h3>
 
@@ -1577,12 +1467,12 @@
 						<ol style="list-style-position: outside; padding-left: 1.2em;">
 							<li>
 								<img src="/images/itemIcons/DarkmoonSigilAscension.jpg" alt="Darkmoon Sigil Icon"
-									 class="item-icon" />
+									class="item-icon" />
 								<a href="https://www.wowhead.com/item=226024/darkmoon-sigil-ascension" target="_blank"
-								   rel="noopener noreferrer" class="item rare">
+									rel="noopener noreferrer" class="item rare">
 									Darkmoon Sigil: Ascension
 									<img src="/images/itemIcons/professions-chaticon-quality-tier3.png"
-										 alt="Item quality" class="item-icon" />
+										alt="Item quality" class="item-icon" />
 								</a>
 								<p>
 									This Embellishment takes a while to stack up, meaning that it will not be good until
@@ -1596,12 +1486,12 @@
 
 							<li>
 								<img src="/images/itemIcons/inv_10_skinning_craftedoptionalreagent_studdedleatherswatch_color2.jpg"
-									 alt="Writhing Armor Banding Icon" class="item-icon" />
+									alt="Writhing Armor Banding Icon" class="item-icon" />
 								<a href="https://www.wowhead.com/item=219506/writhing-armor-banding" target="_blank"
-								   rel="noopener noreferrer" class="item rare">
+									rel="noopener noreferrer" class="item rare">
 									Writhing Armor Banding
 									<img src="/images/itemIcons/professions-chaticon-quality-tier3.png"
-										 alt="Item quality" class="item-icon" />
+										alt="Item quality" class="item-icon" />
 								</a>
 								<p>
 									This Embellishment doubles the value of our best Embellishment, Darkmoon Sigil:
@@ -1611,22 +1501,22 @@
 
 							<li>
 								<img src="/images/itemIcons/inv_10_tailoring_tailoringconsumable_color2.jpg"
-									 alt="Dawnthread Lining Icon" class="item-icon" />
+									alt="Dawnthread Lining Icon" class="item-icon" />
 								<a href="https://www.wowhead.com/item=222870/dawnthread-lining" target="_blank"
-								   rel="noopener noreferrer" class="item rare">
+									rel="noopener noreferrer" class="item rare">
 									Dawnthread Lining
 									<img src="/images/itemIcons/professions-chaticon-quality-tier3.png"
-										 alt="Item quality" class="item-icon" />
+										alt="Item quality" class="item-icon" />
 								</a>
 								<p style="font-size: 16px; line-height: 1.6;">
 									While raid drops are generally the most reliable way of getting high item level
 									gear, many other items can be just as good, if not better,
-									so you should reference the <strong>stat priorities for Holy Paladin</strong> to
+									so you should reference the <strong>stat priorities for Retribution Paladin</strong> to
 									help determine your own BiS gear based on what is available to you.
 									<img src="/images/icons/logo-64.svg" alt="Archon Icon" class="item-icon" />
-									<a href="https://www.archon.gg/wow/builds/holy/paladin/mythic-plus/gear-and-tier-set/10/all-dungeons/this-week#gear-tables"
-									   target="_blank" rel="noopener noreferrer"
-									   style="color:#cc99ff; text-decoration: none;">
+									<a href="https://www.archon.gg/wow/builds/Retribution/paladin/mythic-plus/gear-and-tier-set/10/all-dungeons/this-week#gear-tables"
+										target="_blank" rel="noopener noreferrer"
+										style="color:#cc99ff; text-decoration: none;">
 										Archon
 									</a> can be a helpful tool for seeing what alternative gear options exist if you
 									can't get your hands on the best in slot.

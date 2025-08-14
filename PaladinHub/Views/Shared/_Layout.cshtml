@@ -1,47 +1,41 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<User> signInManager
 @inject UserManager<User> userManager
-
-@* за динамичните елементи в менюто *@
 @using PaladinHub.Data
 @inject AppDbContext Db
-
 @{
     var headerModel = Model as PaladinHub.Models.CombinedViewModel;
 }
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <title>@(ViewData["Title"] ?? "PaladinHub")</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="~/js/site.js"></script>
+    <!-- Премахнато дублираното зареждане на site.js от <head> -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PaladinHub.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="~/images/WoW_icon.svg.png" type="image/svg+xml" asp-append-version="true" />
 </head>
-
 <body>
+    <!-- Глобален anti-forgery token за AJAX от mini cart -->
+    <form id="__af" method="post" class="d-none">
+        @Html.AntiForgeryToken()
+    </form>
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Home">Home</a>
                         </li>
-
-                        <!-- HOLY -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="/Holy/Overview" id="holyDropdown" role="button">
                                 Holy Paladin
@@ -52,40 +46,30 @@
                                                                 ("Gear","gear"), ("Talents","talents"), ("Consumables","consumables"),
                                                                 ("Rotation","rotation"), ("Stats","stats")
                                                                 };
-
                                     var holyDb = Db.ContentPages
                                     .Where(p => p.Section == "holy" && p.IsPublished)
                                     .OrderBy(p => p.Title)
                                     .Select(p => new { p.Title, p.Slug })
                                     .ToList();
-
                                     var holyBySlug = new Dictionary<string, (string Title, bool FromDb)>(StringComparer.OrdinalIgnoreCase);
                                     foreach (var s in holyStatic) holyBySlug[s.Slug] = (s.Title, false);
                                     foreach (var p in holyDb) holyBySlug[p.Slug] = (p.Title, true);
                                 }
-
                                 @foreach (var kv in holyBySlug)
                                 {
                                     var slug = kv.Key;
                                     var title = kv.Value.Title;
                                     var isDb = kv.Value.FromDb;
-                                    var actionName = char.ToUpper(slug[0]) + slug.Substring(1); // Gear/Talents/...
-                                    var href = isDb
-                                    ? $"/Holy/{slug}"                // динамични CMS страници
-                                    : $"/Holy/{actionName}";         // статични действия в контролера
-
+                                    var actionName = char.ToUpper(slug[0]) + slug.Substring(1);
+                                    var href = isDb ? $"/Holy/{slug}" : $"/Holy/{actionName}";
                                     <li class="position-relative">
                                         <a class="dropdown-item pe-5" href="@href">@title</a>
                                         @if (User.IsInRole("Admin"))
                                         {
-                                            <a class="text-danger position-absolute top-50 translate-middle-y"
-                                               style="right: 12px; text-decoration: none;"
-                                               title="Delete page"
-                                               href="/Admin/PageBuilder/DeleteConfirm?section=Holy&slug=@slug">✕</a>
+                                            <a class="text-danger position-absolute top-50 translate-middle-y" style="right: 12px; text-decoration: none;" title="Delete page" href="/Admin/PageBuilder/DeleteConfirm?section=Holy&slug=@slug">✕</a>
                                         }
                                     </li>
                                 }
-
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <li><hr class="dropdown-divider" /></li>
@@ -97,8 +81,6 @@
                                 }
                             </ul>
                         </li>
-
-                        <!-- PROTECTION -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="/Protection/Overview" id="protDropdown" role="button">
                                 Protection Paladin
@@ -109,40 +91,30 @@
                                                                 ("Gear","gear"), ("Talents","talents"), ("Consumables","consumables"),
                                                                 ("Rotation","rotation"), ("Stats","stats")
                                                                 };
-
                                     var protDb = Db.ContentPages
                                     .Where(p => p.Section == "protection" && p.IsPublished)
                                     .OrderBy(p => p.Title)
                                     .Select(p => new { p.Title, p.Slug })
                                     .ToList();
-
                                     var protBySlug = new Dictionary<string, (string Title, bool FromDb)>(StringComparer.OrdinalIgnoreCase);
                                     foreach (var s in protStatic) protBySlug[s.Slug] = (s.Title, false);
                                     foreach (var p in protDb) protBySlug[p.Slug] = (p.Title, true);
                                 }
-
                                 @foreach (var kv in protBySlug)
                                 {
                                     var slug = kv.Key;
                                     var title = kv.Value.Title;
                                     var isDb = kv.Value.FromDb;
                                     var actionName = char.ToUpper(slug[0]) + slug.Substring(1);
-                                    var href = isDb
-                                    ? $"/Protection/{slug}"
-                                    : $"/Protection/{actionName}";
-
+                                    var href = isDb ? $"/Protection/{slug}" : $"/Protection/{actionName}";
                                     <li class="position-relative">
                                         <a class="dropdown-item pe-5" href="@href">@title</a>
                                         @if (User.IsInRole("Admin"))
                                         {
-                                            <a class="text-danger position-absolute top-50 translate-middle-y"
-                                               style="right: 12px; text-decoration: none;"
-                                               title="Delete page"
-                                               href="/Admin/PageBuilder/DeleteConfirm?section=Protection&slug=@slug">✕</a>
+                                            <a class="text-danger position-absolute top-50 translate-middle-y" style="right: 12px; text-decoration: none;" title="Delete page" href="/Admin/PageBuilder/DeleteConfirm?section=Protection&slug=@slug">✕</a>
                                         }
                                     </li>
                                 }
-
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <li><hr class="dropdown-divider" /></li>
@@ -154,8 +126,6 @@
                                 }
                             </ul>
                         </li>
-
-                        <!-- RETRIBUTION -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="/Retribution/Overview" id="retriDropdown" role="button">
                                 Retribution Paladin
@@ -166,40 +136,30 @@
                                                                 ("Gear","gear"), ("Talents","talents"), ("Consumables","consumables"),
                                                                 ("Rotation","rotation"), ("Stats","stats")
                                                                 };
-
                                     var retDb = Db.ContentPages
                                     .Where(p => p.Section == "retribution" && p.IsPublished)
                                     .OrderBy(p => p.Title)
                                     .Select(p => new { p.Title, p.Slug })
                                     .ToList();
-
                                     var retBySlug = new Dictionary<string, (string Title, bool FromDb)>(StringComparer.OrdinalIgnoreCase);
                                     foreach (var s in retStatic) retBySlug[s.Slug] = (s.Title, false);
                                     foreach (var p in retDb) retBySlug[p.Slug] = (p.Title, true);
                                 }
-
                                 @foreach (var kv in retBySlug)
                                 {
                                     var slug = kv.Key;
                                     var title = kv.Value.Title;
                                     var isDb = kv.Value.FromDb;
                                     var actionName = char.ToUpper(slug[0]) + slug.Substring(1);
-                                    var href = isDb
-                                    ? $"/Retribution/{slug}"
-                                    : $"/Retribution/{actionName}";
-
+                                    var href = isDb ? $"/Retribution/{slug}" : $"/Retribution/{actionName}";
                                     <li class="position-relative">
                                         <a class="dropdown-item pe-5" href="@href">@title</a>
                                         @if (User.IsInRole("Admin"))
                                         {
-                                            <a class="text-danger position-absolute top-50 translate-middle-y"
-                                               style="right: 12px; text-decoration: none;"
-                                               title="Delete page"
-                                               href="/Admin/PageBuilder/DeleteConfirm?section=Retribution&slug=@slug">✕</a>
+                                            <a class="text-danger position-absolute top-50 translate-middle-y" style="right: 12px; text-decoration: none;" title="Delete page" href="/Admin/PageBuilder/DeleteConfirm?section=Retribution&slug=@slug">✕</a>
                                         }
                                     </li>
                                 }
-
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <li><hr class="dropdown-divider" /></li>
@@ -211,18 +171,15 @@
                                 }
                             </ul>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" href="/Discussions/Index">Discussion</a>
                         </li>
-
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="Admin" asp-controller="Database" asp-action="Index">Database</a>
                             </li>
                         }
-
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
@@ -235,10 +192,15 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Carts" asp-action="MyCart">
-                                <i class="fa-solid fa-cart-shopping"></i> My Cart
+                        <!-- Единствената количка: popup + badge -->
+                        <li id="nav-cart" class="nav-item position-relative">
+                            <a class="nav-link position-relative" asp-area="" asp-controller="Carts" asp-action="MyCart" title="My Cart">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span id="cart-badge" class="cart-badge d-none">0</span>
                             </a>
+                            <div id="mini-cart-panel" class="mini-cart-panel d-none">
+                                <div class="p-3 text-center text-muted">Loading...</div>
+                            </div>
                         </li>
 
                         @if (signInManager.IsSignedIn(User))
@@ -258,31 +220,25 @@
                 </div>
             </div>
         </nav>
-        @* ==== EDIT PAGE TOGGLE (Admin only) ==== *@
 
     </header>
-
     <div style="padding-top: 80px;">
         @if (headerModel != null)
         {
             @await Html.PartialAsync("_PageHeader", headerModel)
         }
-
         <main role="main" class="pb-5 container">
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted text-center mt-5 py-3">
         <div class="container">
             &copy; @DateTime.Now.Year - PaladinHub | Made with 💛 for WoW Paladins
         </div>
     </footer>
-
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
     <script>
         const navbar = document.querySelector(".navbar-custom");
         function updateNavbarVisibility(mouseY) {
@@ -296,7 +252,6 @@
         window.addEventListener("scroll", () => updateNavbarVisibility(999));
         updateNavbarVisibility(999);
     </script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

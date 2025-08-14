@@ -1,7 +1,5 @@
 ﻿using PaladinHub.Data.Entities;
 using PaladinHub.Data.Models;
-using System;
-using System.Collections.Generic;
 
 namespace PaladinHub.Models.Carts
 {

@@ -12,10 +12,7 @@
     <div class="page-container">
         <div class="main-wrapper">
 
-            <h1>Holy Paladin Talents - The War Within</h1>
-
-            <!-- === ДЪРВЕТА: Holy + Herald === -->
-            <section class="mb-4">
+            <section class="mb-4" id="talent-tree-1">
                 <h2 style="text-align:center;margin-top: 10px">Holy + Herald of the Sun</h2>
                 @await Html.PartialAsync(
                     "~/Views/Shared/TalentTrees/_SectionTalentTrees.cshtml",
@@ -25,8 +22,11 @@
                     })
             </section>
 
-            <!-- === ДЪРВЕТА: Holy + Lightsmith === -->
-            <section class="mb-4">
+            <div class="separator-container">
+                <img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
+            </div>
+
+            <section class="mb-4" id="talent-tree-2">
                 <h2 style="text-align:center;margin-top: 10px">Holy + Lightsmith</h2>
                 @await Html.PartialAsync(
                     "~/Views/Shared/TalentTrees/_SectionTalentTrees.cshtml",
@@ -34,218 +34,7 @@
                     new ViewDataDictionary(ViewData) {
                         ["keys"] = new[] { "paladin", "holy-lightsmith", "holy" }
                     })
-            </section>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
-            </div>
-
-            <section id="overview">
-                <p><strong>Holy Paladin</strong> remains a powerhouse healer in both dungeons and raids. Our strengths lie in high throughput, extremely durable survivability, and strong utility offerings. In <em>The War Within</em>, we're looking at a very solid toolkit with minor talent shifts but the core gameplay remains familiar and strong.</p>
-
-                <h3>Sections Covered:</h3>
-                <div class="section-buttons">
-                    <a href="#builds">Talent Builds</a>
-                    <a href="#hero-talents">Hero Talents</a>
-                    <a href="#rotation">Rotation</a>
-                    <a href="#gear">Gear</a>
-                    <a href="#leveling">Leveling</a>
-                    <a href="#abilities">Abilities & Talents</a>
-                    <a href="#stats">Stats</a>
-                    <a href="#consumables">Consumables</a>
-                    <a href="#addons">WA & Addons</a>
-                </div>
-            </section>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-            </div>
-
-            <div class="content-columns">
-                <div>
-                    <h2>Strengths</h2>
-                    <ul>
-                        <li>Very strong single-target and group healing output.</li>
-                        <li>Excellent defensives and personal survivability.</li>
-                        <li>High mobility through <strong>Divine Steed</strong> and instant casts.</li>
-                        <li>Powerful utility tools like <strong>Lay on Hands</strong>, <strong>Blessing of Freedom</strong>, and <strong>Cleanse</strong>.</li>
-                        <li>Beacon healing makes damage patterns more manageable.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h2>Weaknesses</h2>
-                    <ul>
-                        <li>Somewhat reliant on good positioning and being in melee range.</li>
-                        <li>Resource (Holy Power) management is important and can be punishing if neglected.</li>
-                        <li>Limited raid-wide cooldowns compared to some other healers.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D3.png" alt="Separator 3" class="separator" />
-            </div>
-
-            <h2 class="hero-talents-title">Hero Talents</h2>
-
-            <div class="content-columns">
-                <div class="hero-talent-entry">
-                    <img src="~/images/Herald.jpg" alt="Herald of the Sun" />
-                    <h2>Herald Of The Sun</h2>
-                    <ul>
-                        <li>Very strong single-target and group healing output.</li>
-                        <li>Excellent defensives and personal survivability.</li>
-                        <li>High mobility through <strong>Divine Steed</strong> and instant casts.</li>
-                        <li>Powerful utility tools like <strong>Lay on Hands</strong>, <strong>Blessing of Freedom</strong>, and <strong>Cleanse</strong>.</li>
-                        <li>Beacon healing makes damage patterns more manageable.</li>
-                    </ul>
-                </div>
-                <div class="hero-talent-entry">
-                    <img src="~/images/Lightsmith.jpg" alt="Lightsmith" />
-                    <h2>Lightsmith</h2>
-                    <ul>
-                        <li>Somewhat reliant on good positioning and being in melee range.</li>
-                        <li>Resource (Holy Power) management is important and can be punishing if neglected.</li>
-                        <li>Limited raid-wide cooldowns compared to some other healers.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
-            </div>
-
-            <h2>Playstyle Overview</h2>
-            <p>Holy Paladins focus on generating <strong>Holy Power</strong> through abilities like <strong>Holy Shock</strong> and <strong>Crusader Strike</strong>, and spending it on powerful finishers like <strong>Word of Glory</strong> or <strong>Light of Dawn</strong>. Melee uptime is key for maximizing your generation and efficiency, but you have strong ranged options when needed.</p>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D5.png" alt="Separator 5" class="separator" />
-            </div>
-
-            <h2>Key Talents and Changes</h2>
-            <ul>
-                <li><strong>Infusion of Light</strong> procs are crucial for free and empowered heals.</li>
-                <li><strong>Barrier of Faith</strong> remains a strong tool for focused healing targets.</li>
-                <li><strong>Daybreak</strong> lets you reset your Beacon healing, adding burst power during key moments.</li>
-                <li><strong>Hand of Divinity</strong> improves your healing rotation significantly.</li>
-            </ul>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
-            </div>
-
-            <h2>Stat Priority</h2>
-            <p><strong>Primary Stat:</strong> Intellect</p>
-            <p><strong>Secondary Stats:</strong> Haste &gt; Crit &gt; Versatility &gt; Mastery</p>
-
-            <h2>Summary</h2>
-            <p>Overall, Holy Paladin is in a very strong spot in <em>The War Within</em>. It's a top-tier option for players who enjoy a mobile, aggressive healing style with a ton of clutch playmaking potential through smart cooldown use and positioning.</p>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-            </div>
-
-            <h1>Core Build - The Faithful Martyr</h1>
-
-            <p>The Faithful Martyr is an aggressive, powerful instant cast-focused build that will usher in a new golden age for Holy Paladins in Season 2. In Mythic+, you spend Holy Power on Eternal Flame for healing and Shield of the Righteous for damage, while in raid you'll use both Eternal Flame and Light of Dawn depending on if you want AoE or spot healing.</p>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
-            </div>
-
-            <h2>Mythic+ Version</h2>
-            <p>In Mythic+ you will spend Holy Power on Eternal Flame for healing and Shield of the Righteous for damage. Here is what your talent priority will look like:</p>
-
-            <div class="build-images">
-                <img src="~/images/TalentBuildsHoly/the-faithful-martyr-mplus-s2-v1.jpg" alt="Mythic+ Build" />
-            </div>
-
-            <div class="content-columns">
-                <div>
-                    <ul>
-                        <li>1. Divine Toll</li>
-                        <li>2. Holy Prism</li>
-                        <li>3. Spend Holy Power (don’t overcap)</li>
-                        <li>4. Holy Shock (2 Charges)</li>
-                        <li>5. Judgment</li>
-                    </ul>
-                </div>
-                <div>
-                    <ul>
-                        <li>6. Hammer of Wrath</li>
-                        <li>7. Holy Shock (1 Charge)</li>
-                        <li>8. Crusader Strike</li>
-                        <li>9. Keep your Consecration down at all times</li>
-                        <li>10. Holy Light with Divine Favor for spot healing</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-            </div>
-
-            <h2>Raid Version</h2>
-            <p>In raid, this build plays very similar to Mythic+, and your beacons should similarly go on either high HPS requirement tanks like Brewmasters, or squishy ranged like hunters/evokers/mages.</p>
-
-            <div class="build-images">
-                <img src="~/images/TalentBuildsHoly/the-faithful-martyr-raid-s2-v2.jpg" alt="Raid Build" />
-            </div>
-
-            <div class="content-columns">
-                <div>
-                    <ul>
-                        <li>1. Holy Prism</li>
-                        <li>2. Spend Holy Power (don’t overcap)</li>
-                        <li>3. Holy Shock</li>
-                        <li>4. Judgment</li>
-                    </ul>
-                </div>
-                <div>
-                    <ul>
-                        <li>5. Crusader Strike</li>
-                        <li>6. Holy Light w/ Infusion (if needed for spot healing)</li>
-                        <li>7. Hammer of Wrath</li>
-                        <li>8. Consecration</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D3.png" alt="Separator 3" class="separator" />
-            </div>
-
-            <!-- Tier Set Section - Centered -->
-            <div class="tier-set-section">
-                <h3>Tier Set - Best in Slot</h3>
-                <p><strong>Set Pieces:</strong></p>
-                <ul class="tier-set-list">
-                    <li>
-                        <img src="~/images/TierSets/undermine-tier-helm.png" alt="Helmet" class="tier-set-img" />
-                        Helmet
-                    </li>
-                    <li>
-                        <img src="~/images/TierSets/undermine-tier-shoulders.png" alt="Shoulders" class="tier-set-img" />
-                        Shoulders
-                    </li>
-                    <li>
-                        <img src="~/images/TierSets/undermine-tier-chest.png" alt="Chestplate" class="tier-set-img" />
-                        Chestplate
-                    </li>
-                    <li>
-                        <img src="~/images/TierSets/undermine-tier-gloves.png" alt="Gloves" class="tier-set-img" />
-                        Gloves
-                    </li>
-                    <li>
-                        <img src="~/images/TierSets/undermine-tier-pants.png" alt="Pants" class="tier-set-img" />
-                        Pants
-                    </li>
-                </ul>
-            </div>
-
-            <div class="separator-container">
-                <img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
-            </div>
+            </section>  
 
         </div>
     </div>

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PaladinHub.Models.Products
 {
@@ -24,8 +23,6 @@ namespace PaladinHub.Models.Products
 
 		[Range(0, double.MaxValue)]
 		public decimal? MaxPrice { get; set; }
-
-		// Чекбокси за диапазони: "0-100", "100-200", "200-500", "500+"
 		public List<string> PriceRanges { get; set; } = new();
 
 		[Range(1, 5)]

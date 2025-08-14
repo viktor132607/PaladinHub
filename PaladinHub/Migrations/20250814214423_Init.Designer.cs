@@ -12,7 +12,7 @@ using PaladinHub.Data;
 namespace PaladinHub.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250814130801_Init")]
+    [Migration("20250814214423_Init")]
     partial class Init
     {
         /// <inheritdoc />

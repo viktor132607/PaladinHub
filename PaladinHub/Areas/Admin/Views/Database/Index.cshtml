@@ -2,7 +2,7 @@
 @using PaladinHub.Areas.Admin.ViewModels
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     ViewData["Title"] = "Admin Database";
 }
 
@@ -11,7 +11,6 @@
 }
 
 <style>
-    /* Full-bleed: изкарва секцията извън родителския .container и я разтяга на 100vw */
     #admin-db-bleed {
         position: relative;
         left: 50%;
@@ -20,11 +19,11 @@
         margin-right: -50vw;
         width: 100vw;
     }
-    /* Истинската „вътрешна“ ширина за тази страница */
+
     #admin-db-inner {
-        max-width: 1920px; /* тук сменяш колкото искаш */
+        max-width: 1920px;
         margin: 0 auto;
-        padding: 0 16px; /* малък gutter */
+        padding: 0 16px;
     }
 
     .table-responsive {
@@ -61,7 +60,7 @@
     .w-icon {
         width: 140px;
     }
-    /* място за снимка + име */
+
     .text-trim {
         max-width: 520px;
         overflow: hidden;
@@ -74,7 +73,6 @@
     }
 </style>
 
-<!-- full-bleed wrapper, за да заобиколим <main class="container"> от Layout-а -->
 <div id="admin-db-bleed">
     <div id="admin-db-inner">
 
@@ -272,5 +270,5 @@
                 </ul>
             </nav>
         }
-    </div> 
-</div> 
+    </div>
+</div>

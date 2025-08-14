@@ -87,7 +87,8 @@ namespace PaladinHub.Services.SectionServices
 			},
 			["Talents"] = new()
 			{
-				new() { Url = "#talents", Text = "Scroll to Talents", Icon = "/images/itemIcons/talents.jpg", IsAnchor = true }
+				new() { Url = "#talents-tree-1", Text = "Scroll to Talents", Icon = "/images/itemIcons/talents.jpg", IsAnchor = true },
+				new() { Url = "#talents-tree-2", Text = "Scroll to Talents", Icon = "/images/itemIcons/talents.jpg", IsAnchor = true }
 			}
 		};
 	}

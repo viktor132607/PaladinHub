@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PaladinHub.Areas.Admin.Models
+﻿namespace PaladinHub.Areas.Admin.Models
 {
 	public class DeletePageViewModel
 	{
