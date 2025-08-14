@@ -1,8 +1,9 @@
-﻿@{
-	ViewData["Title"] = "Retribution Paladin Guide";
-}
+﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
 @model PaladinHub.Models.CombinedViewModel
-
+@{
+	ViewData["Title"] = "Retribution Paladin Guide";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <link rel="stylesheet" href="~/css/site.css" />
 @*<link rel="stylesheet" href="~/css/retribution/retributionOverview.css" />*@

@@ -36,7 +36,8 @@ namespace PaladinHub.Services.PageBuilder
 
 			foreach (var block in root.EnumerateArray())
 			{
-				var type = block.TryGetProperty("type", out var t) ? t.GetString() ?? "" : "";
+				var rawType = block.TryGetProperty("type", out var t) ? t.GetString() ?? "" : "";
+				var type = (rawType ?? string.Empty).Trim();
 				if (string.IsNullOrWhiteSpace(type))
 				{
 					sb.Append("<div class=\"alert alert-warning\">Block missing <code>type</code>.</div>");
@@ -65,28 +66,31 @@ namespace PaladinHub.Services.PageBuilder
 		private (IView? view, List<string> searched) TryResolveView(string type)
 		{
 			var searched = new List<string>();
-			var pascal = ToPascal(type);                 // e.g. "Heading", "Table.Generic", "TalentTree"
-			var pascalNoDots = pascal.Replace('.', '_'); // "Table_Generic" за legacy подчертавки
 
-			// Кандидати по ИМЕ (FindView) – спазва ViewLocations и работи и за RCL
+			// Нормализираме към PascalCase, но ще пробваме и lower/оригинал.
+			var pascal = ToPascal(type);                 // e.g. "Heading", "Table.Generic", "TalentTree"
+			var lower = pascal.Length > 0
+				? char.ToLowerInvariant(pascal[0]) + pascal[1..]   // "heading", "table.Generic"
+				: string.Empty;
+			var pascalNoDots = pascal.Replace('.', '_'); // "Table_Generic"
+			var lowerNoDots = lower.Replace('.', '_');  // "table_Generic"
+
+			// ---- 1) Кандидати по ИМЕ (FindView) – спазва ViewLocations и работи и за RCL
 			var viewNameCandidates = new[]
 			{
-				$"Blocks/_{pascal}",               // Blocks/_Heading
-				$"Blocks/{pascal}",                // Blocks/Heading
-				$"Blocks/_Block.{pascal}",         // Blocks/_Block.Heading
-				$"Blocks/_Block_{pascalNoDots}",   // Blocks/_Block_Table_Generic
+				// Pascal
+				$"Blocks/_{pascal}",
+				$"Blocks/{pascal}",
+				$"Blocks/_Block.{pascal}",
+				$"Blocks/_Block_{pascalNoDots}",
+
+				// Lower (case-insensitive alias)
+				$"Blocks/_{lower}",
+				$"Blocks/{lower}",
+				$"Blocks/_Block.{lower}",
+				$"Blocks/_Block_{lowerNoDots}",
 			};
 
-			// Кандидати по ПЪТ (GetView) – абсолютни
-			var absPathCandidates = new[]
-			{
-				$"~/Views/Shared/Blocks/_{pascal}.cshtml",
-				$"~/Views/Shared/Blocks/{pascal}.cshtml",
-				$"~/Views/Shared/Blocks/_Block.{pascal}.cshtml",
-				$"~/Views/Shared/Blocks/_Block_{pascalNoDots}.cshtml",
-			};
-
-			// 1) FindView – по ред на кандидатите
 			foreach (var name in viewNameCandidates)
 			{
 				var (view, list) = TryFindView(name);
@@ -94,7 +98,32 @@ namespace PaladinHub.Services.PageBuilder
 				if (view != null) return (view, searched);
 			}
 
-			// 2) GetView – абсолютни пътища
+			// ---- 2) Абсолютни пътища (GetView) – пробваме и "~/" и "/" варианти
+			var absPathCandidates = new[]
+			{
+				// Pascal
+				$"~/Views/Shared/Blocks/_{pascal}.cshtml",
+				$"~/Views/Shared/Blocks/{pascal}.cshtml",
+				$"~/Views/Shared/Blocks/_Block.{pascal}.cshtml",
+				$"~/Views/Shared/Blocks/_Block_{pascalNoDots}.cshtml",
+
+				$"/Views/Shared/Blocks/_{pascal}.cshtml",
+				$"/Views/Shared/Blocks/{pascal}.cshtml",
+				$"/Views/Shared/Blocks/_Block.{pascal}.cshtml",
+				$"/Views/Shared/Blocks/_Block_{pascalNoDots}.cshtml",
+
+				// Lower (case-insensitive alias)
+				$"~/Views/Shared/Blocks/_{lower}.cshtml",
+				$"~/Views/Shared/Blocks/{lower}.cshtml",
+				$"~/Views/Shared/Blocks/_Block.{lower}.cshtml",
+				$"~/Views/Shared/Blocks/_Block_{lowerNoDots}.cshtml",
+
+				$"/Views/Shared/Blocks/_{lower}.cshtml",
+				$"/Views/Shared/Blocks/{lower}.cshtml",
+				$"/Views/Shared/Blocks/_Block.{lower}.cshtml",
+				$"/Views/Shared/Blocks/_Block_{lowerNoDots}.cshtml",
+			};
+
 			foreach (var path in absPathCandidates)
 			{
 				var (view, list) = TryGetView(path);
@@ -102,41 +131,7 @@ namespace PaladinHub.Services.PageBuilder
 				if (view != null) return (view, searched);
 			}
 
-			// 3) Допълнителни case-варианти (ако някой файл е с малка буква)
-			if (!char.IsLower(pascal[0]))
-			{
-				var lower = char.ToLowerInvariant(pascal[0]) + pascal[1..];
-				var lowerNoDots = lower.Replace('.', '_');
-
-				var extraNames = new[]
-				{
-					$"Blocks/_{lower}",
-					$"Blocks/{lower}",
-					$"Blocks/_Block.{lower}",
-					$"Blocks/_Block_{lowerNoDots}",
-				};
-				var extraPaths = new[]
-				{
-					$"~/Views/Shared/Blocks/_{lower}.cshtml",
-					$"~/Views/Shared/Blocks/{lower}.cshtml",
-					$"~/Views/Shared/Blocks/_Block.{lower}.cshtml",
-					$"~/Views/Shared/Blocks/_Block_{lowerNoDots}.cshtml",
-				};
-
-				foreach (var name in extraNames)
-				{
-					var (view, list) = TryFindView(name);
-					searched.AddRange(list);
-					if (view != null) return (view, searched);
-				}
-				foreach (var path in extraPaths)
-				{
-					var (view, list) = TryGetView(path);
-					searched.AddRange(list);
-					if (view != null) return (view, searched);
-				}
-			}
-
+			// ---- 3) Ако стигнем дотук – не открихме нищо
 			return (null, searched);
 		}
 
@@ -160,6 +155,7 @@ namespace PaladinHub.Services.PageBuilder
 			var result = _viewEngine.GetView(executingFilePath: null, viewPath: absolutePath, isMainPage: false);
 			if (result.Success) return (result.View, searched);
 			if (result is ViewEngineResult ver && ver.SearchedLocations != null) searched.AddRange(ver.SearchedLocations);
+
 			// При GetView обикновено няма SearchedLocations – добавяме пътя за яснота
 			if (!string.IsNullOrWhiteSpace(absolutePath)) searched.Add(absolutePath);
 			return (null, searched);

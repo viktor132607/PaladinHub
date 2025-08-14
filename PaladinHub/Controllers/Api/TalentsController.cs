@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PaladinHub.Data;
 using PaladinHub.Models;
@@ -9,7 +8,9 @@ using PaladinHub.Services.TalentTrees;
 
 namespace PaladinHub.Controllers
 {
-	public class TalentsController : Controller
+	// Вече не е MVC Controller, няма маршрути и IActionResult.
+	// Регистрирай го в DI и го викай от PaladinController.
+	public class TalentsController
 	{
 		private readonly AppDbContext _db;
 		private readonly ITalentTreeService _talentTrees;
@@ -20,12 +21,12 @@ namespace PaladinHub.Controllers
 			_talentTrees = talentTrees;
 		}
 
-		[HttpGet]
-		[Route("{section:palsec}/Talents")]
-		public async Task<IActionResult> Talents(string section)
+		public async Task<(CombinedViewModel Model, IEnumerable<string> Keys, string ViewPath)> BuildPageAsync(string section)
 		{
-			var sec = section?.Trim().ToLowerInvariant();
-			if (sec is null) return NotFound();
+			if (string.IsNullOrWhiteSpace(section))
+				throw new ArgumentException("section is required", nameof(section));
+
+			var sec = section.Trim().ToLowerInvariant();
 
 			var spells = await _db.Spells.AsNoTracking().ToListAsync();
 			var items = await _db.Items.AsNoTracking().ToListAsync();
@@ -39,11 +40,10 @@ namespace PaladinHub.Controllers
 
 			model.TalentTrees = await _talentTrees.GetTalentTrees(sec, spells);
 
-			ViewData["ShowTalentTrees"] = true;
-			ViewData["TalentTreeKeys"] = KeysFor(sec); // подредба/филтър за _SectionTalentTrees
-
+			var keys = KeysFor(sec);
 			var viewPath = $"~/Views/{Cap(sec)}/Talents.cshtml";
-			return View(viewPath, model);
+
+			return (model, keys, viewPath);
 		}
 
 		private static string Cap(string s)
@@ -51,7 +51,7 @@ namespace PaladinHub.Controllers
 
 		private static IEnumerable<string> KeysFor(string sec) => sec switch
 		{
-			"holy" => new[] { "paladin", "holy-herald", "holy" },             // ляво | среда | дясно
+			"holy" => new[] { "paladin", "holy-herald", "holy" },
 			"protection" => new[] { "paladin", "protection-lightsmith", "protection" },
 			"retribution" => new[] { "paladin", "retribution-templar", "retribution" },
 			_ => Array.Empty<string>()

@@ -373,6 +373,8 @@ namespace PaladinHub.Data
 			new Spell { Id =353, Name ="Swift Justice", Icon = "Blessed Calling.jpg", Url = "https://www.wowhead.com/spell=383228/swift-justice", Description = "Reduces the cooldown of Judgment by 2 sec and Crusader Strike by 2 sec." },
 			new Spell { Id =354, Name ="Judgement of Justice", Icon = "Highlords Wrath.jpg", Url = "https://www.wowhead.com/wotlk/spell=53407/judgement-of-justice", Description = "Unleashes the energy of a Seal spell to judge an enemy for 20 sec, preventing them from fleeing and limiting their movement speed.  Refer to individual Seals for additional Judgement effect.  Only one Judgement per Paladin can be active at any one time." },
 			new Spell { Id =355, Name ="Mastery: Lightbringer", Icon = "inv_hammer_04.jpg", Url = "https://www.wowhead.com/spell=183997/mastery-lightbringer", Description = "Increases healing done by up to 12.00%, based on the proximity of your target." },
+			new Spell { Id =356, Name ="Solidarity", Icon = "inv_hammer_04.jpg", Url = "https://www.wowhead.com/spell=432802/solidarity", Description = "\nIf you bestow an Armament upon an ally, you also gain its benefits.\n\nIf you bestow an Armament upon yourself, a nearby ally also gains its benefits." },
+			new Spell { Id =357, Name ="Shared Resolve", Icon = "inv_hammer_04.jpg", Url = "https://www.wowhead.com/spell=432803/empyrean-power", Description = "Your abilities have a chance to grant you Empyrean Power, increasing your damage and healing by 5% for 10 sec. Empyrean Power can stack up to 3 times." }
 			};
 
 			await db.Spells.AddRangeAsync(spells);

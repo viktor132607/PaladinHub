@@ -9,7 +9,7 @@
         @foreach (var md in parts)
         {
             <div class="col">
-                @Html.Raw(md ?? "")
+                @Html.SafeHtml(md ?? "")
             </div>
         }
     </div>

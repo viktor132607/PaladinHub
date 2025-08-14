@@ -1,5 +1,9 @@
 ﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
-@{ViewData["Title"] = "Holy Paladin Consumables";}
+@model PaladinHub.Models.CombinedViewModel
+@{
+	ViewData["Title"] = "Holy Paladin Consumables";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @*<link rel="stylesheet" href="~/css/holy/holyOverview.css" />*@
 
 <body>
@@ -299,31 +303,6 @@
 					</div>
 				</section>
 
-				<section>
-					<div class="toolbar">
-						<button onclick="addNode()">Add Node</button>
-						<button onclick="exportTree()">Share Build</button>
-						<input type="file" id="importFile" onchange="importTree()">
-					</div>
-
-					<div class="builder-wrapper">
-						<svg id="connections"></svg>
-						<div id="builder"></div>
-					</div>
-
-					<div id="nodeEditor" class="popup">
-						<h3>Edit Node</h3>
-						<label>Title: <input type="text" id="nodeTitle"></label><br>
-						<label>Icon URL: <input type="text" id="nodeIcon"></label><br>
-						<label>Prerequisites (comma IDs): <input type="text" id="nodePrereq"></label><br>
-						<button onclick="saveNode()">Save</button>
-						<button onclick="closeEditor()">Close</button>
-					</div>
-
-					@section Scripts {
-						<script src="~/js/builder.js"></script>
-					}
-				</section>
 			</div>
 		</div>
 	</div>

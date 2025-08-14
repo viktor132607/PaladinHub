@@ -1,5 +1,10 @@
 ﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
-@{ViewData["Title"] = "Holy Paladin Consumables";}
+@model PaladinHub.Models.CombinedViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Holy Paladin Rotation";
+}
+
 @*<link rel="stylesheet" href="~/css/holy/holyRotation.css" />*@
 
 <div class="outer-wrapper">

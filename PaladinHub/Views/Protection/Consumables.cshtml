@@ -1,4 +1,5 @@
 ﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
+@model PaladinHub.Models.CombinedViewModel
 @{
 	ViewData["Title"] = "Protection Paladin Consumables";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,7 +16,7 @@
 				</h2>
 
 				<p>
-					Below is a list of the recommended enchants to use on your Retribution Paladin gear during The War Within Season 2.
+					Below is a list of the recommended enchants to use on your gear during The War Within Season 2.
 				</p>
 
 				<br>
@@ -74,25 +75,25 @@
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Bracers</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Item("Enchant Bracer - Chant of Armored Avoidance")
+								@Item("Enchant Bracer - Chant of Armored Leech")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Item("Enchant Bracer - Chant of Armored Speed")
+								@Item("Enchant Bracer - Whisper of Armored Leech")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Legs</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Item("Stormbound Armor Kit")
+								@Item("Daybreak Spellthread")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								-
+								@Item("Weavercloth Spellthread")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Boots</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Item("Enchant Boots - Scout's March")
+								@Item("Enchant Boots - Defender's March")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
 								-

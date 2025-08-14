@@ -1,7 +1,11 @@
 ﻿using DotNetEnv;
+using Ganss.Xss;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using PaladinHub.Controllers;                 // <-- за DI на TalentsController (оркестратор)
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;
 using PaladinHub.Data.Repositories.Contracts;
@@ -10,17 +14,19 @@ using PaladinHub.Infrastructure.Routing;
 using PaladinHub.Services;
 using PaladinHub.Services.Carts;
 using PaladinHub.Services.Discussions;
-using PaladinHub.Services.PageBuilder;   // <-- за IPageService, IJsonLayoutValidator
+using PaladinHub.Services.PageBuilder;
 using PaladinHub.Services.Presets;
 using PaladinHub.Services.SectionServices;
 using PaladinHub.Services.ServiceExtension;
 using PaladinHub.Services.TalentTrees;
 using StackExchange.Redis;
+using System.Text;
 
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
+// MVC + глобални филтри/локации
 builder.Services
 	.AddControllersWithViews(options =>
 	{
@@ -34,6 +40,7 @@ builder.Services
 builder.Services.AddSession();
 builder.Services.AddCustomServices();
 
+// Сървиси
 builder.Services.AddScoped<IItemsService, ItemsService>();
 builder.Services.AddScoped<ISpellbookService, SpellbookService>();
 builder.Services.AddScoped<HolySectionService>();
@@ -50,11 +57,21 @@ builder.Services.AddScoped<IClassTreeBuilder, PaladinClassTreeBuilder>();
 builder.Services.AddScoped<IHeroTalentTreesService, HeroTalentTreesService>();
 builder.Services.AddScoped<ITalentTreeService, TalentTreeService>();
 
-// ***** ВАЖНО: правилната регистрация за Page Builder услугите *****
-builder.Services.AddScoped<IPageService, PageService>();                 // PaladinHub.Services.PageBuilder
-builder.Services.AddScoped<IJsonLayoutValidator, JsonLayoutValidator>(); // PaladinHub.Services.PageBuilder
+// ***** Page Builder услуги *****
+builder.Services.AddScoped<IPageService, PageService>();
+builder.Services.AddScoped<IJsonLayoutValidator, JsonLayoutValidator>();
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IDataPresetService, DataPresetService>();
+
+// *** DI за HTML Sanitizer ***
+builder.Services.AddSingleton<IHtmlSanitizer>(_ =>
+{
+	var s = new HtmlSanitizer();
+	s.AllowedTags.Add("p"); s.AllowedTags.Add("b"); s.AllowedTags.Add("i");
+	s.AllowedTags.Add("ul"); s.AllowedTags.Add("ol"); s.AllowedTags.Add("li");
+	s.AllowedTags.Add("a"); s.AllowedAttributes.Add("href");
+	return s;
+});
 
 // case-insensitive секции: {section:palsec}
 builder.Services.Configure<RouteOptions>(opt =>
@@ -62,12 +79,14 @@ builder.Services.Configure<RouteOptions>(opt =>
 	opt.ConstraintMap["palsec"] = typeof(AllowedSectionConstraint);
 });
 
+// DB
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
 	string conn = Environment.GetEnvironmentVariable("DB_CONNECTION")!;
 	options.UseNpgsql(conn);
 });
 
+// Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
 	options.Password.RequireNonAlphanumeric = false;
@@ -82,11 +101,34 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
+// JWT Auth
+var jwt = builder.Configuration.GetSection("Jwt");
+var jwtKey = jwt["Key"] ?? throw new InvalidOperationException("Jwt:Key is missing.");
+
+builder.Services
+	.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	.AddJwtBearer(o =>
+	{
+		o.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateIssuer = true,
+			ValidateAudience = true,
+			ValidateIssuerSigningKey = true,
+			ValidIssuer = jwt["Issuer"],
+			ValidAudience = jwt["Audience"],
+			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+		};
+	});
+
 // Redis connection & CartStore
 string redisConn = Environment.GetEnvironmentVariable("REDIS_CONNECTION") ?? "localhost:6379";
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConn));
 builder.Services.AddScoped<ICartStore, RedisCartStore>();
 
+// *** Talents orchestrator DI (НЕ е MVC контролер вече) ***
+builder.Services.AddTransient<TalentsController>();     // <-- важно за оркестратора
+
+// Kestrel Port (за контейнер/хостинг)
 string httpPort = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 builder.WebHost.ConfigureKestrel(options => { options.ListenAnyIP(int.Parse(httpPort)); });
 
@@ -103,6 +145,7 @@ app.UseWhen(ctx => !ctx.Request.Path.StartsWithSegments("/api"),
 );
 
 app.UseStaticFiles();
+
 
 // Канонизация на адресите към главна буква (без Admin); некеширащ redirect (permanent:false)
 app.Use(async (ctx, next) =>
@@ -146,6 +189,8 @@ app.Use(async (ctx, next) =>
 
 app.UseRouting();
 app.UseSession();
+
+// ВАЖНО: Authentication преди Authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -158,11 +203,14 @@ app.MapControllerRoute(
 	pattern: "{area:exists}/{controller=Database}/{action=Index}/{id?}"
 );
 
-// Статичните MVC маршрути
+// Статичните MVC маршрути (default към Home/Home)
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Home}/{id?}"
 );
+
+// Изричен root -> Home/Home (за да няма изненади при празен път)
+app.MapGet("/", () => Results.Redirect("/Home/Home"));
 
 // Динамичните CMS страници – /{Section}/{slug}
 app.MapControllerRoute(

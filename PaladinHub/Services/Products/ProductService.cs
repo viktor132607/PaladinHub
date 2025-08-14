@@ -1,16 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PaladinHub.Data;
-using PaladinHub.Data.Entities;   // Product, User, Cart
-using PaladinHub.Data.Models;     // CartProduct, ProductReview, ProductImage
-using PaladinHub.Models;          // PagedResult<T>
+using PaladinHub.Data.Entities;   
+using PaladinHub.Data.Models;     
+using PaladinHub.Models;        
 using PaladinHub.Models.Carts;
 using PaladinHub.Models.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace PaladinHub.Services.Products
 {
@@ -19,36 +14,6 @@ namespace PaladinHub.Services.Products
 		private readonly AppDbContext context;
 		public ProductService(AppDbContext context) => this.context = context;
 
-		// --------- Helpers ---------
-		private static IQueryable<string?> ThumbnailUrlQuery(AppDbContext db, IQueryable<Product> products)
-		{
-			return from p in products
-				   let selected = db.ProductImages
-					   .Where(i => i.ProductId == p.Id && i.Id == p.ThumbnailImageId)
-					   .Select(i => i.Url)
-					   .FirstOrDefault()
-				   let fallback = db.ProductImages
-					   .Where(i => i.ProductId == p.Id)
-					   .OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
-					   .Select(i => i.Url)
-					   .FirstOrDefault()
-				   select selected ?? fallback;
-		}
-
-		private static IQueryable<string?> ThumbnailUrlForProduct(AppDbContext db, IQueryable<Product> productQ)
-			=> from p in productQ
-			   select
-				   db.ProductImages
-					 .Where(i => i.ProductId == p.Id && i.Id == p.ThumbnailImageId)
-					 .Select(i => i.Url)
-					 .FirstOrDefault()
-				   ?? db.ProductImages
-					 .Where(i => i.ProductId == p.Id)
-					 .OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
-					 .Select(i => i.Url)
-					 .FirstOrDefault();
-
-		// --------- GetAll (списък) ---------
 		public async Task<ICollection<ProductViewModel>> GetAll()
 			=> await context.Products.AsNoTracking()
 				.Select(p => new ProductViewModel

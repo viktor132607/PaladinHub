@@ -1,7 +1,12 @@
 ﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
-@{ViewData["Title"] = "Holy Paladin Consumables";}
+@model PaladinHub.Models.CombinedViewModel
 @*<link rel="stylesheet" href="~/css//holy/holyGear.css" />*@
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Holy Paladin Stats";
+}
 
+<body>
 	<div class="outer-wrapper">
 		<div class="page-container">
 			<div class="main-wrapper">
@@ -47,3 +52,4 @@
 			</div>
 		</div>
 	</div>
+</body>

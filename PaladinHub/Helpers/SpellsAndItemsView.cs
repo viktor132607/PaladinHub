@@ -9,7 +9,6 @@ namespace PaladinHub.Views.Shared
 {
 	public abstract class SpellsAndItemsView : RazorPage<PaladinHub.Models.CombinedViewModel>
 	{
-		// ===== Кеширани речници по име =====
 		protected IReadOnlyDictionary<string, Spell> SpellsByName =>
 			(Model?.Spells ?? Enumerable.Empty<Spell>())
 				.Where(s => !string.IsNullOrWhiteSpace(s.Name))
@@ -24,7 +23,6 @@ namespace PaladinHub.Views.Shared
 				.Select(g => g.First())
 				.ToDictionary(i => i.Name!.Trim(), StringComparer.OrdinalIgnoreCase);
 
-		// ===== Път до икона (поддържа http(s), абсолютни / и fallback) =====
 		private static string ResolveIconPath(string? icon, string folder, string fallback = "placeholder.png")
 		{
 			if (string.IsNullOrWhiteSpace(icon))
@@ -42,7 +40,6 @@ namespace PaladinHub.Views.Shared
 			return $"/images/{folder}/{s}";
 		}
 
-		// ===== Новите линкове (иконка + име) =====
 		protected IHtmlContent SpellLink(string spellName, int size = 20)
 		{
 			if (!SpellsByName.TryGetValue(spellName, out var spell))
@@ -77,17 +74,16 @@ namespace PaladinHub.Views.Shared
 				: $"<img src='{icon2}' title='{item.SecondIcon}' width='{size}' height='{size}' style='vertical-align:middle;' />";
 
 			var html = $@"
-<span class='item-ref'>
-  <a href='{url}' target='_blank' class='item-link item {qualityClass}' style='display:inline-flex;align-items:center;gap:6px;text-decoration:none;'>
-    <img src='{icon1}' alt='{item.Name}' width='{size}' height='{size}' style='vertical-align:middle;' />
-    <span>{item.Name}</span>
-    {secondIcon}
-  </a>
-</span>";
+			<span class='item-ref'>
+			  <a href='{url}' target='_blank' class='item-link item {qualityClass}' style='display:inline-flex;align-items:center;gap:6px;text-decoration:none;'>
+			    <img src='{icon1}' alt='{item.Name}' width='{size}' height='{size}' style='vertical-align:middle;' />
+			    <span>{item.Name}</span>
+			    {secondIcon}
+			  </a>
+			</span>";
 			return new HtmlString(html);
 		}
 
-		// ===== СТАРИТЕ ИМЕНА (съвместимост) + алиаси с малки букви =====
 		protected IHtmlContent Item(string itemName, int size = 20) => ItemLink(itemName, size);
 		protected IHtmlContent Spell(string spellName, int size = 20) => SpellLink(spellName, size);
 		protected IHtmlContent item(string itemName, int size = 20) => ItemLink(itemName, size);
@@ -112,16 +108,15 @@ namespace PaladinHub.Views.Shared
 			var requires = n.Requires != null && n.Requires.Count > 0 ? string.Join(",", n.Requires) : string.Empty;
 
 			var html = $@"
-<div class='node {shapeClass} {stateClass}' style='grid-column:{n.Col};grid-row:{n.Row};'
-     data-id='{n.Id}' data-cost='{n.Cost}' data-requires='{requires}'>
-  <a href='{url}' target='_blank' tabindex='-1' aria-label='{alt}'>
-    <img src='{icon}' alt='{alt}' />
-  </a>
-</div>";
+			<div class='node {shapeClass} {stateClass}' style='grid-column:{n.Col};grid-row:{n.Row};'
+			     data-id='{n.Id}' data-cost='{n.Cost}' data-requires='{requires}'>
+			  <a href='{url}' target='_blank' tabindex='-1' aria-label='{alt}'>
+			    <img src='{icon}' alt='{alt}' />
+			  </a>
+			</div>";
 			return new HtmlString(html);
 		}
 
-		// ===== Старият overload: по име + координати =====
 		protected IHtmlContent SpellNode(string spellName, int col, int row, string shape = "circle")
 		{
 			if (!SpellsByName.TryGetValue(spellName, out var spell))
@@ -133,22 +128,22 @@ namespace PaladinHub.Views.Shared
 			var alt = spell.Name ?? spellName;
 
 			var html = $@"
-<div class='node {shapeClass} active' style='grid-column:{col};grid-row:{row};'>
-  <a href='{url}' target='_blank' tabindex='-1' aria-label='{alt}'>
-    <img src='{icon}' alt='{alt}' />
-  </a>
-</div>";
+			<div class='node {shapeClass} active' style='grid-column:{col};grid-row:{row};'>
+			  <a href='{url}' target='_blank' tabindex='-1' aria-label='{alt}'>
+			    <img src='{icon}' alt='{alt}' />
+			  </a>
+			</div>";
 			return new HtmlString(html);
 		}
 
 		// ===== Линии – НУЛЕВ офсет (x/y) =====
-		protected IHtmlContent Line(int fromCol, int fromRow, int toCol, int toRow, double offsetX = 0, double offsetY = 0)
+		protected IHtmlContent Line(int fromCol, int fromRow, int toCol, int toRow, double offsetX = -8, double offsetY = -8)
 		{
 			var style = LineStyle(fromCol, fromRow, toCol, toRow, offsetX, offsetY);
 			return new HtmlString($"<div class='line' style='{style}'></div>");
 		}
 
-		protected string LineStyle(int fromCol, int fromRow, int toCol, int toRow, double offsetX = 0, double offsetY = 0)
+		protected string LineStyle(int fromCol, int fromRow, int toCol, int toRow, double offsetX = -8, double offsetY = -8)
 		{
 			const int cellW = 50;
 			const int cellH = 60;

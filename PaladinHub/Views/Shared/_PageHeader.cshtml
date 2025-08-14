@@ -12,6 +12,20 @@
         }
 
         <div class="main-wrapper">
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="nav-item">
+                    <button id="pb-edit-toggle"
+                            class="btn btn-sm btn-warning ms-2"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#pb-overlay-col"
+                            aria-expanded="false"
+                            aria-controls="pb-overlay-col">
+                        ✎ Edit Page
+                    </button>
+                </div>
+            }
             <br>
             @if (!string.IsNullOrEmpty(Model.PageTitle))
             {

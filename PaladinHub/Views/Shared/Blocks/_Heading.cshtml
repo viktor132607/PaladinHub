@@ -1,4 +1,5 @@
-﻿@model dynamic
+﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@model dynamic
 @{
     var id = (string)(Model?.SectionId ?? $"block-heading-{Guid.NewGuid():N}");
     var text = (string)(Model?.Text ?? "Heading");
@@ -7,5 +8,22 @@
     var css = (string)(Model?.CssClass ?? "");
 }
 <section id="@id">
-    @: <@level class="@css" style="text-align:@align">@Html.Raw(text)</@level>
+    @if (string.Equals(level, "h1", StringComparison.OrdinalIgnoreCase))
+    {
+        <h1 class="@css" style="text-align:@align">
+            @PaladinHub.Infrastructure.SafeHtmlExtensions.SafeHtml((IHtmlHelper)Html, text)
+        </h1>
+    }
+    else if (string.Equals(level, "h3", StringComparison.OrdinalIgnoreCase))
+    {
+        <h3 class="@css" style="text-align:@align">
+            @PaladinHub.Infrastructure.SafeHtmlExtensions.SafeHtml((IHtmlHelper)Html, text)
+        </h3>
+    }
+    else
+    {
+        <h2 class="@css" style="text-align:@align">
+            @PaladinHub.Infrastructure.SafeHtmlExtensions.SafeHtml((IHtmlHelper)Html, text)
+        </h2>
+    }
 </section>

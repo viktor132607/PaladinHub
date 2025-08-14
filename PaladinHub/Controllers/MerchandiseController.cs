@@ -12,7 +12,7 @@ using PaladinHub.Models.Products;
 
 namespace PaladinHub.Controllers
 {
-	[Route("")]
+	[Route("Merchandise")]
 	[Controller]
 	public class MerchandiseController : Controller
 	{
@@ -25,10 +25,13 @@ namespace PaladinHub.Controllers
 			_db = db;
 		}
 
+		// /Merchandise  -> показва списъка
 		[HttpGet("")]
-		public IActionResult Index() => RedirectToAction(nameof(Merchandise));
+		public async Task<IActionResult> Index([FromQuery] ProductQueryOptions options, CancellationToken ct = default)
+			=> await Merchandise(options, ct);
 
-		[HttpGet("Merchandise")]
+		// /Merchandise/List  -> алтернативен URL за същия списък
+		[HttpGet("List")]
 		public async Task<IActionResult> Merchandise([FromQuery] ProductQueryOptions options, CancellationToken ct = default)
 		{
 			Normalize(options);
@@ -129,6 +132,5 @@ namespace PaladinHub.Controllers
 
 			return buckets;
 		}
-
 	}
 }

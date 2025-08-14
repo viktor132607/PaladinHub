@@ -68,8 +68,14 @@
                                 {
                                     var slug = kv.Key;
                                     var title = kv.Value.Title;
+                                    var isDb = kv.Value.FromDb;
+                                    var actionName = char.ToUpper(slug[0]) + slug.Substring(1); // Gear/Talents/...
+                                    var href = isDb
+                                    ? $"/Holy/{slug}"                // динамични CMS страници
+                                    : $"/Holy/{actionName}";         // статични действия в контролера
+
                                     <li class="position-relative">
-                                        <a class="dropdown-item pe-5" href="/Holy/@(char.ToUpper(slug[0]) + slug.Substring(1))">@title</a>
+                                        <a class="dropdown-item pe-5" href="@href">@title</a>
                                         @if (User.IsInRole("Admin"))
                                         {
                                             <a class="text-danger position-absolute top-50 translate-middle-y"
@@ -103,11 +109,13 @@
                                                                 ("Gear","gear"), ("Talents","talents"), ("Consumables","consumables"),
                                                                 ("Rotation","rotation"), ("Stats","stats")
                                                                 };
+
                                     var protDb = Db.ContentPages
                                     .Where(p => p.Section == "protection" && p.IsPublished)
                                     .OrderBy(p => p.Title)
                                     .Select(p => new { p.Title, p.Slug })
                                     .ToList();
+
                                     var protBySlug = new Dictionary<string, (string Title, bool FromDb)>(StringComparer.OrdinalIgnoreCase);
                                     foreach (var s in protStatic) protBySlug[s.Slug] = (s.Title, false);
                                     foreach (var p in protDb) protBySlug[p.Slug] = (p.Title, true);
@@ -117,8 +125,14 @@
                                 {
                                     var slug = kv.Key;
                                     var title = kv.Value.Title;
+                                    var isDb = kv.Value.FromDb;
+                                    var actionName = char.ToUpper(slug[0]) + slug.Substring(1);
+                                    var href = isDb
+                                    ? $"/Protection/{slug}"
+                                    : $"/Protection/{actionName}";
+
                                     <li class="position-relative">
-                                        <a class="dropdown-item pe-5" href="/Protection/@(char.ToUpper(slug[0]) + slug.Substring(1))">@title</a>
+                                        <a class="dropdown-item pe-5" href="@href">@title</a>
                                         @if (User.IsInRole("Admin"))
                                         {
                                             <a class="text-danger position-absolute top-50 translate-middle-y"
@@ -152,11 +166,13 @@
                                                                 ("Gear","gear"), ("Talents","talents"), ("Consumables","consumables"),
                                                                 ("Rotation","rotation"), ("Stats","stats")
                                                                 };
+
                                     var retDb = Db.ContentPages
                                     .Where(p => p.Section == "retribution" && p.IsPublished)
                                     .OrderBy(p => p.Title)
                                     .Select(p => new { p.Title, p.Slug })
                                     .ToList();
+
                                     var retBySlug = new Dictionary<string, (string Title, bool FromDb)>(StringComparer.OrdinalIgnoreCase);
                                     foreach (var s in retStatic) retBySlug[s.Slug] = (s.Title, false);
                                     foreach (var p in retDb) retBySlug[p.Slug] = (p.Title, true);
@@ -166,8 +182,14 @@
                                 {
                                     var slug = kv.Key;
                                     var title = kv.Value.Title;
+                                    var isDb = kv.Value.FromDb;
+                                    var actionName = char.ToUpper(slug[0]) + slug.Substring(1);
+                                    var href = isDb
+                                    ? $"/Retribution/{slug}"
+                                    : $"/Retribution/{actionName}";
+
                                     <li class="position-relative">
-                                        <a class="dropdown-item pe-5" href="/Retribution/@(char.ToUpper(slug[0]) + slug.Substring(1))">@title</a>
+                                        <a class="dropdown-item pe-5" href="@href">@title</a>
                                         @if (User.IsInRole("Admin"))
                                         {
                                             <a class="text-danger position-absolute top-50 translate-middle-y"
@@ -219,22 +241,6 @@
                             </a>
                         </li>
 
-                        @* ==== EDIT PAGE TOGGLE (Admin only) ==== *@
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <li class="nav-item">
-                                <button id="pb-edit-toggle"
-                                        class="btn btn-sm btn-warning ms-2"
-                                        type="button"
-                                        data-bs-toggle="collapse"
-                                        data-bs-target="#pb-overlay-col"
-                                        aria-expanded="false"
-                                        aria-controls="pb-overlay-col">
-                                    ✎ Edit Page
-                                </button>
-                            </li>
-                        }
-
                         @if (signInManager.IsSignedIn(User))
                         {
                             @await Html.PartialAsync("_LoginPartial")
@@ -252,6 +258,8 @@
                 </div>
             </div>
         </nav>
+        @* ==== EDIT PAGE TOGGLE (Admin only) ==== *@
+
     </header>
 
     <div style="padding-top: 80px;">

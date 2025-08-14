@@ -53,9 +53,18 @@
             </div>
         </div>
 
-        <!-- Това поле се POST-ва към [FromForm] string jsonLayout в контролера -->
+        <!--
+            Двете скрити полета по-долу са нарочно:
+
+            1) id="jsonLayout" name="jsonLayout"
+               - нужно за контролера: Create(CreatePageViewModel vm, [FromForm] string jsonLayout)
+
+            2) id="JsonLayoutVm" asp-for="JsonLayout"
+               - нужно за VM валидацията ([Required] върху JsonLayout), иначе ModelState ще е невалиден
+        -->
         <input type="hidden" id="jsonLayout" name="jsonLayout"
                value="@((ViewBag?.JsonLayout as string) ?? Model?.JsonLayout ?? "[]")" />
+        <input type="hidden" id="JsonLayoutVm" asp-for="JsonLayout" />
 
         <div class="row g-4 mt-3">
             <div id="pb-overlay-col" class="col-12 col-lg-3 collapse show">
@@ -81,16 +90,32 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // на submit копираме textarea -> hidden jsonLayout
+        // На submit копираме textarea -> и в ДВЕТЕ скрити полета (за контролера и за VM)
         (function(){
-            const form   = document.currentScript.closest('form');
-            const holder = document.getElementById('pb-json');
-            const hidden = document.getElementById('jsonLayout');
-            if (form && holder && hidden) {
+            const form     = document.currentScript.closest('form');
+            const holder   = document.getElementById('pb-json');
+            const hidden   = document.getElementById('jsonLayout');   // за [FromForm] string jsonLayout
+            const hiddenVm = document.getElementById('JsonLayoutVm'); // за VM.JsonLayout ([Required])
+
+            function sync(val){
+                if (hidden)   hidden.value   = val;
+                if (hiddenVm) hiddenVm.value = val;
+            }
+
+            if (form && holder) {
                 form.addEventListener('submit', function(){
-                    hidden.value = holder.value && holder.value.trim().length ? holder.value : "[]";
+                    const val = (holder.value && holder.value.trim().length) ? holder.value : "[]";
+                    sync(val);
                 });
             }
+
+            // По желание: ако overlay има бутон "Save layout", може да добавим listening и към него.
+            // Но overlay вече синхронизира към #jsonLayout; тук гарантираме и към VM полето.
+            const observer = new MutationObserver(() => {
+                // ако overlay промени #jsonLayout, отрази и към VM
+                if (hidden && hiddenVm && hidden.value !== hiddenVm.value) hiddenVm.value = hidden.value;
+            });
+            if (hidden) observer.observe(hidden, { attributes: true, attributeFilter: ['value'] });
         })();
     </script>
 }
