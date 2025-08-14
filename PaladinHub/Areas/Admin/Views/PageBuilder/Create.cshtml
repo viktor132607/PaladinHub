@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Create Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    // нормализирай входа за selected стойност
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     string sec = (Model?.Section ?? "Holy").Trim();
 }
 

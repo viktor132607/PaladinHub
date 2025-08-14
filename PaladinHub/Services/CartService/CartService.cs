@@ -6,13 +6,17 @@ using PaladinHub.Data.Models;
 using PaladinHub.Models.Carts;
 using PaladinHub.Models.Products;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PaladinHub.Services.Carts
 {
 	public class CartService : ICartService
 	{
-		private AppDbContext context;
-		private UserManager<User> userManager;
+		private readonly AppDbContext context;
+		private readonly UserManager<User> userManager;
+
 		public CartService(AppDbContext context, UserManager<User> userManager)
 		{
 			this.context = context;
@@ -23,15 +27,11 @@ namespace PaladinHub.Services.Carts
 		{
 			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
 			if (product == null)
-			{
 				return false;
-			}
 
 			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
 			if (user == null)
-			{
 				return false;
-			}
 
 			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
 
@@ -40,7 +40,8 @@ namespace PaladinHub.Services.Carts
 				myCart = new Cart
 				{
 					UserId = user.Id,
-					User = user
+					User = user,
+					UpdatedOn = DateTime.UtcNow
 				};
 
 				user.Cart = myCart;
@@ -74,6 +75,7 @@ namespace PaladinHub.Services.Carts
 				context.CartProduct.Add(cartProduct);
 			}
 			cartProduct.Quantity++;
+			myCart.UpdatedOn = DateTime.UtcNow;
 			await context.SaveChangesAsync();
 
 			return true;
@@ -86,10 +88,14 @@ namespace PaladinHub.Services.Carts
 			{
 				cart.IsArchived = true;
 				cart.OrderDate = DateTime.Now.ToString("dd - MM - yyyy  -->  HH:mm:ss");
+				cart.UpdatedOn = DateTime.UtcNow;
 
-				Cart newCart = new Cart();
-				newCart.User = user;
-				newCart.UserId = user.Id;
+				Cart newCart = new Cart
+				{
+					User = user,
+					UserId = user.Id,
+					UpdatedOn = DateTime.UtcNow
+				};
 
 				user.Cart = newCart;
 				user.CartId = newCart.Id;
@@ -111,6 +117,11 @@ namespace PaladinHub.Services.Carts
 			{
 				context.CartProduct.Remove(cartProduct);
 			}
+
+			var cart = await context.Carts.FirstOrDefaultAsync(c => c.Id == user.CartId);
+			if (cart != null)
+				cart.UpdatedOn = DateTime.UtcNow;
+
 			await context.SaveChangesAsync();
 		}
 
@@ -118,15 +129,11 @@ namespace PaladinHub.Services.Carts
 		{
 			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
 			if (product == null)
-			{
 				return false;
-			}
 
 			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
 			if (user == null)
-			{
 				return false;
-			}
 
 			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
 			if (myCart != null)
@@ -137,6 +144,7 @@ namespace PaladinHub.Services.Carts
 				if (cartProduct != null)
 				{
 					cartProduct.Quantity++;
+					myCart.UpdatedOn = DateTime.UtcNow;
 				}
 				await context.SaveChangesAsync();
 			}
@@ -147,15 +155,11 @@ namespace PaladinHub.Services.Carts
 		{
 			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
 			if (product == null)
-			{
 				return false;
-			}
 
 			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
 			if (user == null)
-			{
 				return false;
-			}
 
 			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
 			if (myCart != null)
@@ -166,10 +170,12 @@ namespace PaladinHub.Services.Carts
 				if (cartProduct != null && cartProduct.Quantity > 1)
 				{
 					cartProduct.Quantity--;
+					myCart.UpdatedOn = DateTime.UtcNow;
 				}
 				else if (cartProduct != null && cartProduct.Quantity == 1)
 				{
 					context.CartProduct.Remove(cartProduct);
+					myCart.UpdatedOn = DateTime.UtcNow;
 				}
 				await context.SaveChangesAsync();
 			}
@@ -180,15 +186,11 @@ namespace PaladinHub.Services.Carts
 		{
 			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
 			if (product == null)
-			{
 				return false;
-			}
 
 			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
 			if (user == null)
-			{
 				return false;
-			}
 
 			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
 			if (myCart != null)
@@ -199,6 +201,7 @@ namespace PaladinHub.Services.Carts
 				if (cartProduct != null)
 				{
 					context.CartProduct.Remove(cartProduct);
+					myCart.UpdatedOn = DateTime.UtcNow;
 				}
 				await context.SaveChangesAsync();
 			}

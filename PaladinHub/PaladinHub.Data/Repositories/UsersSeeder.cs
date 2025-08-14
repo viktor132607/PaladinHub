@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PaladinHub.Data.Entities;
 using PaladinHub.Data.Repositories.Contracts;
+using System;
 
 namespace PaladinHub.Data
 {
@@ -16,16 +17,19 @@ namespace PaladinHub.Data
 			var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 			var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
+			// Създаваме ролите
 			foreach (var role in new[] { "Admin", "User" })
 			{
 				if (!await roleManager.RoleExistsAsync(role))
 					await roleManager.CreateAsync(new IdentityRole(role));
 			}
 
-			var adminName = "Viktor Iliev";
-			var adminEmail = "iliev132607@gmail.com";
-			var adminPassword = "iliev132607@gmail.com";
+			// Четем админските данни от .env
+			var adminName = Environment.GetEnvironmentVariable("ADMIN_NAME") ?? "Default Admin";
+			var adminEmail = Environment.GetEnvironmentVariable("ADMIN_EMAIL") ?? throw new Exception("ADMIN_EMAIL not set in .env");
+			var adminPassword = Environment.GetEnvironmentVariable("ADMIN_PASSWORD") ?? throw new Exception("ADMIN_PASSWORD not set in .env");
 
+			// Създаваме или обновяваме админа
 			var admin = await userManager.Users.FirstOrDefaultAsync(u => u.Email == adminEmail);
 			if (admin is null)
 			{
@@ -43,10 +47,23 @@ namespace PaladinHub.Data
 					throw new Exception("Admin create failed: " + msg);
 				}
 			}
+			else
+			{
+				// Автоматично обновяване на паролата
+				var token = await userManager.GeneratePasswordResetTokenAsync(admin);
+				var result = await userManager.ResetPasswordAsync(admin, token, adminPassword);
+				if (!result.Succeeded)
+				{
+					var msg = string.Join("; ", result.Errors.Select(e => e.Description));
+					throw new Exception("Admin password update failed: " + msg);
+				}
+			}
+
 			if (!await userManager.IsInRoleAsync(admin, "Admin"))
 				await userManager.AddToRoleAsync(admin, "Admin");
 
-			var defaultUserPassword = "Paladin#12345"; 
+			// Демонстрационни потребители
+			var defaultUserPassword = "Paladin#12345";
 			var demoUsers = new (string FullName, string Email)[]
 			{
 				("Mila Petkova",      "mila.petkova@paladinhub.test"),

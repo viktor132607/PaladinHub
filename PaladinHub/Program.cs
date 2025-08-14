@@ -2,10 +2,9 @@
 using Ganss.Xss;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using PaladinHub.Controllers;                 // <-- за DI на TalentsController (оркестратор)
+using PaladinHub.Controllers;            
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;
 using PaladinHub.Data.Repositories.Contracts;
@@ -22,7 +21,7 @@ using PaladinHub.Services.TalentTrees;
 using StackExchange.Redis;
 using System.Text;
 
-Env.Load();
+Env.Load(); // Зареждаме .env файла
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +55,7 @@ builder.Services.AddScoped<ISpecializationTreeBuilder, RetributionSpecTreeBuilde
 builder.Services.AddScoped<IClassTreeBuilder, PaladinClassTreeBuilder>();
 builder.Services.AddScoped<IHeroTalentTreesService, HeroTalentTreesService>();
 builder.Services.AddScoped<ITalentTreeService, TalentTreeService>();
+builder.Services.AddHostedService<PaladinHub.Services.Background.CleanupCartService>();
 
 // ***** Page Builder услуги *****
 builder.Services.AddScoped<IPageService, PageService>();
@@ -101,9 +101,11 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-// JWT Auth
-var jwt = builder.Configuration.GetSection("Jwt");
-var jwtKey = jwt["Key"] ?? throw new InvalidOperationException("Jwt:Key is missing.");
+// JWT Auth - четем от .env
+var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY")
+			 ?? throw new InvalidOperationException("JWT_KEY is missing from .env");
+var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "DefaultIssuer";
+var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "DefaultAudience";
 
 builder.Services
 	.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -114,8 +116,8 @@ builder.Services
 			ValidateIssuer = true,
 			ValidateAudience = true,
 			ValidateIssuerSigningKey = true,
-			ValidIssuer = jwt["Issuer"],
-			ValidAudience = jwt["Audience"],
+			ValidIssuer = jwtIssuer,
+			ValidAudience = jwtAudience,
 			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
 		};
 	});
@@ -145,7 +147,6 @@ app.UseWhen(ctx => !ctx.Request.Path.StartsWithSegments("/api"),
 );
 
 app.UseStaticFiles();
-
 
 // Канонизация на адресите към главна буква (без Admin); некеширащ redirect (permanent:false)
 app.Use(async (ctx, next) =>
@@ -209,7 +210,7 @@ app.MapControllerRoute(
 	pattern: "{controller=Home}/{action=Home}/{id?}"
 );
 
-// Изричен root -> Home/Home (за да няма изненади при празен път)
+// Изричен root -> Home/Home
 app.MapGet("/", () => Results.Redirect("/Home/Home"));
 
 // Динамичните CMS страници – /{Section}/{slug}
@@ -218,8 +219,6 @@ app.MapControllerRoute(
 	pattern: "{section:regex(^Holy|Protection|Retribution$)}/{slug:regex(^(?!Overview$|Gear$|Talents$|Consumables$|Rotation$|Stats$).+)}",
 	defaults: new { controller = "Paladin", action = "Page" }
 );
-
-// (махнато беше второто дублирано "default")
 
 if (Environment.GetEnvironmentVariable("APPLY_MIGRATIONS_ON_STARTUP") == "true")
 {

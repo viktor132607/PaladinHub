@@ -1,14 +1,14 @@
-﻿@model PaladinHub.Models.CombinedViewModel
+﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@model PaladinHub.Models.CombinedViewModel
 @inherits PaladinHub.Views.Shared.SpellsAndItemsView
-@using Microsoft.AspNetCore.Mvc.ViewFeatures
-
+@*<link rel="stylesheet" href="~/css/holyTalents.css" />*@
 @{
     ViewData["Title"] = "Holy Paladin Talents";
-    // ВАЖНО: тук НЕ задаваме ShowTalentTrees = true,
-    // защото ще извикаме партиала два пъти с различни ключове.
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="outer-wrapper">
+<body>
+    <div class="outer-wrapper">
     <div class="page-container">
         <div class="main-wrapper">
 
@@ -250,3 +250,4 @@
         </div>
     </div>
 </div>
+</body>

@@ -355,6 +355,9 @@ namespace PaladinHub.Migrations
                     b.Property<string>("OrderDate")
                         .HasColumnType("text");
 
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");

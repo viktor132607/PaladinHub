@@ -54,11 +54,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Areas\Admin\Views\Shared\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="Paladinhub.Tests\PaladinHub.Tests.csproj" />
 	  <None Include="Views\Shared\Blocks\_Table.Consumables.cshtml" />
 	  <None Include="Views\Shared\Blocks\_Table.Generic.cshtml" />
 	  <None Include="Views\Shared\Blocks\_TierList.cshtml" />

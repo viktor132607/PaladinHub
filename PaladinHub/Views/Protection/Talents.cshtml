@@ -1,9 +1,11 @@
-﻿@model PaladinHub.Models.CombinedViewModel
+﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@model PaladinHub.Models.CombinedViewModel
 @inherits PaladinHub.Views.Shared.SpellsAndItemsView
-@using Microsoft.AspNetCore.Mvc.ViewFeatures
-
-
 @*<link rel="stylesheet" href="~/css/protectionTalents.css" />*@
+@{
+    ViewData["Title"] = "Protection Paladin Talents";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <body>
     <div class="outer-wrapper">
