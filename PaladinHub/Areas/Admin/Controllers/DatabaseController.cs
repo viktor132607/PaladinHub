@@ -24,7 +24,7 @@ namespace PaladinHub.Areas.Admin.Controllers
 			if (!Enum.TryParse(entity, true, out AdminEntity which))
 				which = AdminEntity.Spells;
 
-			var vm = new AdminDatabaseIndexVM
+			var vm = new AdminDatabaseIndexViewModel
 			{
 				Entity = which,
 				Search = search ?? "",

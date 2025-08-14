@@ -1999,3 +1999,291 @@ a:focus {
         transition: none;
     }
 }
+
+
+
+
+
+:root {
+    --tt-cell-w: 50px;
+    --tt-cell-h: 60px;
+    --tt-gap: 20px;
+    --tt-gold: #e3c65a;
+    --tt-bg: #0e0e0e;
+    --tt-panel: #111;
+    --tt-border: #2a2a2a;
+}
+
+/* ==== Wrapper + Toolbar =================================================== */
+.talent-section {
+    margin: 0 0 24px 0;
+}
+
+.talent-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .75rem;
+    padding: .6rem .8rem;
+    margin: 0 auto 12px auto;
+    background: var(--tt-panel);
+    border: 1px solid var(--tt-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 18px rgba(0,0,0,.35);
+    max-width: 1600px;
+}
+
+    .talent-toolbar .toolbar-left,
+    .talent-toolbar .toolbar-right {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+    }
+
+.btn-tree {
+    appearance: none;
+    border: 1px solid var(--tt-border);
+    background: #1a1a1a;
+    color: #ddd;
+    padding: .45rem .75rem;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease, transform .08s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+    .btn-tree:hover {
+        background: #222;
+    }
+
+    .btn-tree:active {
+        transform: translateY(1px);
+    }
+
+    .btn-tree.is-active {
+        background: var(--tt-gold);
+        color: #000;
+        border-color: var(--tt-gold);
+        box-shadow: 0 0 0 .15rem rgba(227,198,90,.25);
+    }
+
+.btn-save {
+    background: #ff5fb3;
+    color: #111;
+    border-color: #ff5fb3;
+}
+
+    .btn-save:hover {
+        filter: brightness(1.04);
+    }
+
+    .btn-save:disabled, .btn-save[disabled] {
+        opacity: .5;
+        cursor: not-allowed;
+    }
+
+/* ==== Row with 3 cards (Class | Hero | Spec) ============================= */
+.trees-row {
+    display: flex;
+    gap: 15px; /* колкото старите */
+    padding: 15px 0; /* колкото старите */
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: nowrap; /* държим ги в един ред на широк екран */
+    overflow-x: auto; /* ако ширината не стигне */
+}
+
+/* ==== Card around each tree ============================================= */
+.tree-card {
+    background: var(--tt-bg);
+    border: 1px solid var(--tt-border);
+    border-radius: 8px;
+    padding: 15px; /* колкото старите секции */
+    box-shadow: 0 0 0 1px #000 inset, 0 10px 24px rgba(0,0,0,.45);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 0 0 auto; /* без разтягане/свиване */
+}
+
+/* точните ширини 650 / 250 / 650 */
+.trees-row > .tree-card:nth-child(1) {
+    width: 650px;
+}
+
+.trees-row > .tree-card:nth-child(2) {
+    width: 250px;
+}
+
+.trees-row > .tree-card:nth-child(3) {
+    width: 650px;
+}
+
+.tree-title {
+    text-align: center;
+    font-weight: 700;
+    color: #d7a3ff;
+    margin-bottom: 8px;
+}
+
+/* ==== Root grids (точно като старите) ==================================== */
+.tree-root {
+    position: relative;
+    display: grid;
+    gap: var(--tt-gap); /* 20px */
+    grid-auto-rows: var(--tt-cell-h); /* 60px */
+    justify-content: center;
+    width: fit-content;
+    height: fit-content;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 6px;
+    box-shadow: inset 0 0 24px rgba(255,234,137,.05);
+    padding: 0; /* без вътрешен падинг да не раздува */
+}
+
+/* колони по дърво (1: клас 7 кол., 2: hero 3 кол., 3: holy/spec 9 кол.) */
+.tree-root--class {
+    grid-template-columns: repeat(7, var(--tt-cell-w));
+}
+
+.tree-root--hero {
+    grid-template-columns: repeat(3, var(--tt-cell-w));
+}
+
+.tree-root--spec {
+    grid-template-columns: repeat(9, var(--tt-cell-w));
+}
+
+/* ==== Nodes =============================================================== */
+.node {
+    position: relative;
+    width: 50px;
+    height: 50px; /* точно 50x50 както старите */
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 1;
+    background: gold;
+    border: 2px solid gold;
+}
+
+    .node a {
+        display: block;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+
+    .node img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+.node-square, .node-square a, .node-square img {
+    border-radius: 6px;
+}
+
+.node-hexagon, .node-hexagon a, .node-hexagon img {
+    border-radius: 0;
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%);
+}
+
+.node.inactive img {
+    filter: grayscale(1) brightness(.55);
+    opacity: .85;
+}
+
+.node.active img {
+    filter: none;
+    opacity: 1;
+}
+
+.node:hover {
+    box-shadow: 0 0 15px 5px #FFD700;
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+}
+
+/* ==== Lines (точно 1px дебелина) ======================================== */
+.line {
+    position: absolute;
+    height: 1px;
+    background: yellow;
+    border-radius: 2px;
+    transform-origin: top left;
+    opacity: .95;
+    z-index: 0;
+}
+
+/* nodes above lines */
+.tree-root .node {
+    z-index: 1;
+}
+
+/* ==== Edit mode ========================================================== */
+.talent-section[data-edit-mode="true"] .node a {
+    pointer-events: none;
+}
+
+.talent-section[data-edit-mode="true"] .node {
+    cursor: pointer;
+}
+
+    .talent-section[data-edit-mode="true"] .node.selected img {
+        filter: none !important;
+        opacity: 1 !important;
+        outline: 2px solid #ffd000;
+        box-shadow: 0 0 14px rgba(255,210,0,.55);
+    }
+
+    .talent-section[data-edit-mode="true"] .node.inactive img {
+        opacity: .65;
+        filter: grayscale(1) brightness(.45);
+    }
+
+.talent-section[data-edit-mode="true"] .btn-edit {
+    background: var(--tt-gold);
+    color: #000;
+    border-color: var(--tt-gold);
+    box-shadow: 0 0 0 .15rem rgba(227,198,90,.25);
+}
+
+/* ==== Responsive ========================================================= */
+@media (max-width: 1200px) {
+    .trees-row {
+        flex-wrap: wrap;
+    }
+        /* позволяваме пренасяне */
+        .trees-row > .tree-card {
+            width: 100%;
+        }
+            /* всяка карта на цял ред */
+            .trees-row > .tree-card:nth-child(1),
+            .trees-row > .tree-card:nth-child(3) {
+                max-width: 650px;
+            }
+
+            .trees-row > .tree-card:nth-child(2) {
+                max-width: 250px;
+            }
+}
+
+@media (max-width: 576px) {
+    .trees-row {
+        gap: 16px;
+    }
+}
+
+
+.tree-grid.is-editing .node a {
+    cursor: pointer;
+}
+
+.tree-grid.is-editing .node img {
+    outline: 2px dashed;
+}

@@ -1,0 +1,25 @@
+﻿@model dynamic
+@{
+    var id = (string)(Model?.SectionId ?? $"block-cons-{Guid.NewGuid():N}");
+    var title = (string)(Model?.Title ?? "Best Consumables");
+    var rows = (IEnumerable<dynamic>)(Model?.Rows ?? new List<dynamic>()); // { Type, Best{Id|Name}, Alt{Id|Name} }
+}
+<section id="@id" class="consumables-table">
+    <h3 style="text-align:left">@title</h3>
+    <table class="table table-striped">
+        <thead><tr><th>Type</th><th>Best</th><th>Alternative</th></tr></thead>
+        <tbody>
+            @foreach (var r in rows)
+            {
+                string type = r?.Type ?? "";
+                var bId = (int?)(r?.BestId); var bName = (string)(r?.BestName ?? "");
+                var aId = (int?)(r?.AltId); var aName = (string)(r?.AltName ?? "");
+                <tr>
+                    <td>@type</td>
+                    <td>@(bId.HasValue? Item(bId.Value) : (!string.IsNullOrWhiteSpace(bName) ? Item(bName) : Html.Raw("-")))</td>
+                    <td>@(aId.HasValue? Item(aId.Value) : (!string.IsNullOrWhiteSpace(aName) ? Item(aName) : Html.Raw("-")))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

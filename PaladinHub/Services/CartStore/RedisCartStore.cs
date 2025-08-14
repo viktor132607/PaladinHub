@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using PaladinHub.Common;     // за Constants.Cart
-using PaladinHub.Models;
+using PaladinHub.Models.Carts;
 using StackExchange.Redis;
 
 namespace PaladinHub.Services

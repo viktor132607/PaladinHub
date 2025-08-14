@@ -4,36 +4,47 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PaladinHub.Models.Products
 {
+	/// <summary>
+	/// ViewModel за създаване на продукт с галерия и избор на thumbnail.
+	/// </summary>
 	public class CreateProductViewModel
 	{
-		[Required, StringLength(200)]
+		[Required, MaxLength(100)]
 		public string Name { get; set; } = default!;
 
 		[Range(0, 1_000_000)]
 		public decimal Price { get; set; }
 
-		[Url, MaxLength(2048)]
-		public string? ImageUrl { get; set; }
+		[MaxLength(50)]
+		public string Category { get; set; } = "Other";
 
-		[MaxLength(100)]
-		public string? Category { get; set; }
-
-		[MaxLength(100)]
+		/// <summary>
+		/// За избор или въвеждане на нова категория.
+		/// </summary>
+		[MaxLength(50)]
 		public string? NewCategory { get; set; }
 
-		[MaxLength(2000)]
+		[MaxLength(1000)]
 		public string? Description { get; set; }
 
-		public IEnumerable<SelectListItem> CategorySelectList { get; set; }
-			= System.Linq.Enumerable.Empty<SelectListItem>();
+		/// <summary>
+		/// Списък с изображения за новия продукт.
+		/// </summary>
+		public List<ProductImageInputModel> Images { get; set; } = new();
 
-		public List<AddProductImageInput> Images { get; set; } = new();
-	}
+		/// <summary>
+		/// Id на избраното изображение за thumbnail (определя се след създаване).
+		/// </summary>
+		public int? ThumbnailImageId { get; set; }
 
-	public class AddProductImageInput
-	{
-		[Url, MaxLength(2048)]
-		public string? Url { get; set; }
-		public int SortOrder { get; set; }
+		/// <summary>
+		/// Индекс в Images на избраното thumbnail изображение.
+		/// </summary>
+		public int? ThumbnailIndex { get; set; }
+
+		/// <summary>
+		/// Dropdown за избор на категория.
+		/// </summary>
+		public IEnumerable<SelectListItem>? CategorySelectList { get; set; }
 	}
 }

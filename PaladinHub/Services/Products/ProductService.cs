@@ -5,6 +5,12 @@ using PaladinHub.Data.Models;     // CartProduct, ProductReview, ProductImage
 using PaladinHub.Models;          // PagedResult<T>
 using PaladinHub.Models.Carts;
 using PaladinHub.Models.Products;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace PaladinHub.Services.Products
 {
@@ -13,26 +19,66 @@ namespace PaladinHub.Services.Products
 		private readonly AppDbContext context;
 		public ProductService(AppDbContext context) => this.context = context;
 
+		// --------- Helpers ---------
+		private static IQueryable<string?> ThumbnailUrlQuery(AppDbContext db, IQueryable<Product> products)
+		{
+			return from p in products
+				   let selected = db.ProductImages
+					   .Where(i => i.ProductId == p.Id && i.Id == p.ThumbnailImageId)
+					   .Select(i => i.Url)
+					   .FirstOrDefault()
+				   let fallback = db.ProductImages
+					   .Where(i => i.ProductId == p.Id)
+					   .OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+					   .Select(i => i.Url)
+					   .FirstOrDefault()
+				   select selected ?? fallback;
+		}
+
+		private static IQueryable<string?> ThumbnailUrlForProduct(AppDbContext db, IQueryable<Product> productQ)
+			=> from p in productQ
+			   select
+				   db.ProductImages
+					 .Where(i => i.ProductId == p.Id && i.Id == p.ThumbnailImageId)
+					 .Select(i => i.Url)
+					 .FirstOrDefault()
+				   ?? db.ProductImages
+					 .Where(i => i.ProductId == p.Id)
+					 .OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+					 .Select(i => i.Url)
+					 .FirstOrDefault();
+
+		// --------- GetAll (списък) ---------
 		public async Task<ICollection<ProductViewModel>> GetAll()
 			=> await context.Products.AsNoTracking()
-				.Select(x => new ProductViewModel
+				.Select(p => new ProductViewModel
 				{
-					Id = x.Id,
-					Name = x.Name,
-					Price = x.Price,
-					ImageUrl = x.ImageUrl,
-					Category = x.Category,
-					Description = x.Description
+					Id = p.Id,
+					Name = p.Name,
+					Price = p.Price,
+					ImageUrl =
+						context.ProductImages
+							.Where(i => i.ProductId == p.Id && i.Id == p.ThumbnailImageId)
+							.Select(i => i.Url)
+							.FirstOrDefault()
+						?? context.ProductImages
+							.Where(i => i.ProductId == p.Id)
+							.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+							.Select(i => i.Url)
+							.FirstOrDefault(),
+					Category = p.Category,
+					Description = p.Description
 				})
 				.ToListAsync();
 
+		// --------- Create ---------
 		public async Task<CreateProductViewModel> Create(CreateProductViewModel model)
 		{
+			if (model == null) return null!;
 			if (await context.Products.AnyAsync(x => x.Name == model.Name)) return null!;
 
 			var entity = new Product(model.Name, model.Price)
 			{
-				ImageUrl = model.ImageUrl,
 				Category = model.Category,
 				Description = model.Description
 			};
@@ -40,29 +86,79 @@ namespace PaladinHub.Services.Products
 			await context.Products.AddAsync(entity);
 			await context.SaveChangesAsync();
 
-			if (model.Images != null && model.Images.Count > 0)
+			// Галерия
+			var imagesInput = (model.Images ?? new List<ProductImageInputModel>())
+				.Where(i => !string.IsNullOrWhiteSpace(i.Url))
+				.OrderBy(i => i.SortOrder)
+				.ToList();
+
+			var images = new List<ProductImage>();
+			foreach (var img in imagesInput)
 			{
-				foreach (var img in model.Images.Where(i => !string.IsNullOrWhiteSpace(i.Url)))
+				images.Add(new ProductImage
 				{
-					context.ProductImages.Add(new ProductImage
-					{
-						ProductId = entity.Id,
-						Url = img.Url!.Trim(),
-						SortOrder = img.SortOrder
-					});
+					ProductId = entity.Id,
+					Url = img.Url!.Trim(),
+					SortOrder = img.SortOrder,
+					AltText = string.IsNullOrWhiteSpace(img.AltText) ? null : img.AltText!.Trim()
+				});
+			}
+
+			if (images.Count > 0)
+			{
+				context.ProductImages.AddRange(images);
+				await context.SaveChangesAsync();
+
+				// Избор на thumbnail
+				ProductImage chosen;
+				if (model.ThumbnailIndex.HasValue && model.ThumbnailIndex.Value >= 0)
+				{
+					chosen = images
+						.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+						.Skip(model.ThumbnailIndex.Value)
+						.FirstOrDefault() ?? images.OrderBy(i => i.SortOrder).ThenBy(i => i.Id).First();
 				}
+				else
+				{
+					chosen = images.OrderBy(i => i.SortOrder).ThenBy(i => i.Id).First();
+				}
+
+				entity.ThumbnailImageId = chosen.Id;
 				await context.SaveChangesAsync();
 			}
 
 			return model;
 		}
 
+		// --------- My Cart ---------
 		public async Task<MyCartViewModel> GetMyProducts(User user)
 		{
 			var myCartProducts = await context.CartProduct
 				.Include(x => x.Product).Include(x => x.Cart)
 				.Where(x => x.CartId == user.CartId)
 				.ToListAsync();
+
+			var productIds = myCartProducts.Select(cp => cp.ProductId).Distinct().ToList();
+
+			var thumbs = await context.Products
+				.Where(p => productIds.Contains(p.Id))
+				.Select(p => new
+				{
+					p.Id,
+					ThumbUrl =
+						context.ProductImages
+							.Where(i => i.ProductId == p.Id && i.Id == p.ThumbnailImageId)
+							.Select(i => i.Url)
+							.FirstOrDefault()
+						?? context.ProductImages
+							.Where(i => i.ProductId == p.Id)
+							.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+							.Select(i => i.Url)
+							.FirstOrDefault()
+				})
+				.ToListAsync();
+
+			var thumbMap = thumbs.ToDictionary(x => x.Id, x => x.ThumbUrl);
 
 			var vm = new MyCartViewModel();
 			foreach (var cp in myCartProducts)
@@ -74,7 +170,7 @@ namespace PaladinHub.Services.Products
 						Id = cp.ProductId,
 						Name = cp.Product.Name,
 						Price = cp.Product.Price,
-						ImageUrl = cp.Product.ImageUrl,
+						ImageUrl = thumbMap.GetValueOrDefault(cp.ProductId),
 						Category = cp.Product.Category,
 						Description = cp.Product.Description,
 						Quantity = cp.Quantity,
@@ -87,16 +183,19 @@ namespace PaladinHub.Services.Products
 			return vm;
 		}
 
+		// --------- Delete ---------
 		public async Task<bool> Delete(string id)
 		{
 			if (string.IsNullOrWhiteSpace(id)) return false;
-			var entity = await context.Products.FindAsync(id);
+			var entity = await context.Products.FirstOrDefaultAsync(p => p.Id == id);
 			if (entity == null) return false;
+
 			context.Products.Remove(entity);
 			await context.SaveChangesAsync();
 			return true;
 		}
 
+		// --------- Categories ---------
 		public async Task<List<string>> GetAllCategoriesAsync(CancellationToken ct = default)
 			=> await context.Products.AsNoTracking()
 				.Select(p => p.Category).Where(c => !string.IsNullOrWhiteSpace(c))
@@ -107,7 +206,7 @@ namespace PaladinHub.Services.Products
 				.Select(p => p.Category).Where(c => !string.IsNullOrWhiteSpace(c))
 				.Distinct().OrderBy(c => c).ToListAsync();
 
-		// Клас за join-а с агрегатите – за да избегнем dynamic в expression trees
+		// Клас за join-а с агрегатите
 		private sealed class AggRow
 		{
 			public Product P { get; set; } = default!;
@@ -115,16 +214,19 @@ namespace PaladinHub.Services.Products
 			public int Cnt { get; set; }
 		}
 
+		// --------- Query (филтри/сорт/странициране) ---------
 		public async Task<PagedResult<ProductListItem>> QueryAsync(ProductQueryOptions options, CancellationToken ct = default)
 		{
 			IQueryable<Product> baseQ = context.Products.AsNoTracking();
 
+			// Normalize Min/Max
 			if (options.MinPrice.HasValue && options.MaxPrice.HasValue &&
 				options.MaxPrice.Value < options.MinPrice.Value)
 			{
 				(options.MinPrice, options.MaxPrice) = (options.MaxPrice, options.MinPrice);
 			}
 
+			// Search
 			if (!string.IsNullOrWhiteSpace(options.Search))
 			{
 				var s = options.Search.Trim();
@@ -135,15 +237,76 @@ namespace PaladinHub.Services.Products
 				);
 			}
 
+			// Categories
 			if (options.Categories is { Count: > 0 })
 			{
 				var cats = options.Categories.Where(c => !string.IsNullOrWhiteSpace(c)).ToList();
 				if (cats.Count > 0) baseQ = baseQ.Where(p => cats.Contains(p.Category));
 			}
 
-			if (options.MinPrice.HasValue) baseQ = baseQ.Where(p => p.Price >= options.MinPrice.Value);
-			if (options.MaxPrice.HasValue) baseQ = baseQ.Where(p => p.Price <= options.MaxPrice.Value);
+			// ---------- PRICE: OR между диапазони + свободен Min/Max ----------
+			var bands = new List<(decimal? Min, decimal? Max)>();
 
+			if (options.PriceRanges is { Count: > 0 })
+			{
+				foreach (var token in options.PriceRanges)
+				{
+					switch ((token ?? "").Trim())
+					{
+						case "0-100": bands.Add((0m, 100m)); break;
+						case "100-200": bands.Add((100m, 200m)); break;
+						case "200-500": bands.Add((200m, 500m)); break;
+						case "500+": bands.Add((500m, null)); break;
+					}
+				}
+			}
+
+			if (options.MinPrice.HasValue || options.MaxPrice.HasValue)
+			{
+				var mn = options.MinPrice;
+				var mx = options.MaxPrice;
+				if (mn.HasValue && mx.HasValue && mx < mn) (mn, mx) = (mx, mn);
+				bands.Add((mn, mx));
+			}
+
+			if (bands.Count > 0)
+			{
+				var pParam = Expression.Parameter(typeof(Product), "p");
+				var priceProp = Expression.Property(pParam, nameof(Product.Price));
+
+				Expression? orExpr = null;
+
+				foreach (var (Min, Max) in bands)
+				{
+					Expression bandExpr;
+					if (Min.HasValue && Max.HasValue)
+					{
+						var ge = Expression.GreaterThanOrEqual(priceProp, Expression.Constant(Min.Value, typeof(decimal)));
+						var le = Expression.LessThanOrEqual(priceProp, Expression.Constant(Max.Value, typeof(decimal)));
+						bandExpr = Expression.AndAlso(ge, le);
+					}
+					else if (Min.HasValue)
+					{
+						bandExpr = Expression.GreaterThanOrEqual(priceProp, Expression.Constant(Min.Value, typeof(decimal)));
+					}
+					else if (Max.HasValue)
+					{
+						bandExpr = Expression.LessThanOrEqual(priceProp, Expression.Constant(Max.Value, typeof(decimal)));
+					}
+					else continue;
+
+					orExpr = orExpr == null ? bandExpr : Expression.OrElse(orExpr, bandExpr);
+				}
+
+				if (orExpr != null)
+				{
+					var lambda = Expression.Lambda<Func<Product, bool>>(orExpr, pParam);
+					baseQ = baseQ.Where(lambda);
+				}
+			}
+			// -------------------------------------------------------------------
+
+			// Aggregates
 			var agg = context.ProductReviews
 				.GroupBy(r => r.ProductId)
 				.Select(g => new { ProductId = g.Key, Avg = g.Average(x => (double)x.Rating), Cnt = g.Count() });
@@ -159,16 +322,15 @@ namespace PaladinHub.Services.Products
 					Cnt = (int?)a.Cnt ?? 0
 				};
 
-			// Rating range: 1 → [1.00..1.49], 2 → [2.00..2.49], …, 5 → [5.00..5.00]
+			// Rating band: 1 → [1..1.49], ..., 5 → 5
 			if (options.MinRating is int minR && minR >= 1 && minR <= 5)
 			{
-				double lower = minR;                         // 4 → 4.00
-				double upper = (minR < 5) ? minR + 0.49 : 5; // 4 → 4.49, 5 → 5.00
+				double lower = minR;
+				double upper = (minR < 5) ? minR + 0.49 : 5;
 				withAgg = withAgg.Where(x => x.Avg >= lower && x.Avg <= upper);
 			}
 
-
-
+			// Sort
 			IOrderedQueryable<AggRow> ordered = options.SortBy switch
 			{
 				ProductSortBy.Price =>
@@ -209,9 +371,18 @@ namespace PaladinHub.Services.Products
 					Id = x.P.Id,
 					Name = x.P.Name,
 					Price = x.P.Price,
-					ImageUrl = x.P.ImageUrl,
+					ImageUrl =
+						context.ProductImages
+							.Where(i => i.ProductId == x.P.Id && i.Id == x.P.ThumbnailImageId)
+							.Select(i => i.Url)
+							.FirstOrDefault()
+						?? context.ProductImages
+							.Where(i => i.ProductId == x.P.Id)
+							.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+							.Select(i => i.Url)
+							.FirstOrDefault(),
 					Category = x.P.Category,
-					Description = x.P.Description,
+					//Description = x.P.Description,
 					AverageRating = (decimal)x.Avg,
 					ReviewsCount = x.Cnt
 				})
@@ -226,55 +397,181 @@ namespace PaladinHub.Services.Products
 			};
 		}
 
+		// --------- GetForEdit ---------
 		public async Task<EditProductViewModel?> GetForEditAsync(string id, CancellationToken ct = default)
-			=> await context.Products.AsNoTracking()
-				.Where(p => p.Id == id)
-				.Select(p => new EditProductViewModel
-				{
-					Id = p.Id,
-					Name = p.Name,
-					Price = p.Price,
-					ImageUrl = p.ImageUrl,
-					Category = p.Category,
-					Description = p.Description
-				})
-				.FirstOrDefaultAsync(ct);
+		{
+			var p = await context.Products
+				.AsNoTracking()
+				.Include(x => x.Images)
+				.FirstOrDefaultAsync(x => x.Id == id, ct);
 
+			if (p == null) return null;
+
+			var vm = new EditProductViewModel
+			{
+				Id = p.Id,
+				Name = p.Name,
+				Price = p.Price,
+				Category = p.Category,
+				Description = p.Description,
+				ThumbnailImageId = p.ThumbnailImageId,
+				Images = p.Images
+					.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+					.Select(i => new ProductImageInputModel
+					{
+						Id = i.Id,
+						Url = i.Url,
+						SortOrder = i.SortOrder,
+						AltText = i.AltText
+					})
+					.ToList()
+			};
+
+			if (vm.ThumbnailImageId.HasValue)
+			{
+				var ordered = p.Images.OrderBy(i => i.SortOrder).ThenBy(i => i.Id).ToList();
+				var idx = ordered.FindIndex(i => i.Id == vm.ThumbnailImageId.Value);
+				vm.ThumbnailIndex = idx >= 0 ? idx : null;
+			}
+
+			return vm;
+		}
+
+		// --------- Update ---------
 		public async Task<bool> UpdateAsync(EditProductViewModel model, CancellationToken ct = default)
 		{
-			var entity = await context.Products.FirstOrDefaultAsync(p => p.Id == model.Id, ct);
+			var entity = await context.Products
+				.Include(p => p.Images)
+				.FirstOrDefaultAsync(p => p.Id == model.Id, ct);
+
 			if (entity == null) return false;
 
 			var nameTaken = await context.Products
 				.AnyAsync(p => p.Id != model.Id && p.Name == model.Name, ct);
 			if (nameTaken) return false;
 
+			// Основни полета
 			entity.Name = model.Name;
 			entity.Price = model.Price;
-			entity.ImageUrl = model.ImageUrl;
 			entity.Category = model.Category;
 			entity.Description = model.Description;
 
+			// Галерия – синхронизация
+			var incoming = (model.Images ?? new List<ProductImageInputModel>())
+				.Where(x => !string.IsNullOrWhiteSpace(x.Url))
+				.ToList();
+
+			// Upsert
+			foreach (var im in incoming)
+			{
+				if (im.Id.HasValue)
+				{
+					var existing = entity.Images.FirstOrDefault(x => x.Id == im.Id.Value);
+					if (existing != null)
+					{
+						existing.Url = im.Url!.Trim();
+						existing.SortOrder = im.SortOrder;
+						existing.AltText = string.IsNullOrWhiteSpace(im.AltText) ? null : im.AltText!.Trim();
+					}
+					else
+					{
+						entity.Images.Add(new ProductImage
+						{
+							ProductId = entity.Id,
+							Url = im.Url!.Trim(),
+							SortOrder = im.SortOrder,
+							AltText = string.IsNullOrWhiteSpace(im.AltText) ? null : im.AltText!.Trim()
+						});
+					}
+				}
+				else
+				{
+					entity.Images.Add(new ProductImage
+					{
+						ProductId = entity.Id,
+						Url = im.Url!.Trim(),
+						SortOrder = im.SortOrder,
+						AltText = string.IsNullOrWhiteSpace(im.AltText) ? null : im.AltText!.Trim()
+					});
+				}
+			}
+
+			// Delete
+			var incomingIds = incoming.Where(i => i.Id.HasValue).Select(i => i.Id!.Value).ToHashSet();
+			var toRemove = entity.Images.Where(x => !incomingIds.Contains(x.Id)).ToList();
+			if (toRemove.Count > 0)
+			{
+				context.ProductImages.RemoveRange(toRemove);
+			}
+
+			await context.SaveChangesAsync(ct); // за да получат Id новите изображения
+
+			// Thumbnail избор
+			ProductImage? chosen = null;
+
+			if (model.ThumbnailImageId.HasValue)
+			{
+				chosen = await context.ProductImages
+					.Where(i => i.ProductId == entity.Id && i.Id == model.ThumbnailImageId.Value)
+					.FirstOrDefaultAsync(ct);
+			}
+
+			if (chosen == null && model.ThumbnailIndex.HasValue && model.ThumbnailIndex.Value >= 0)
+			{
+				chosen = await context.ProductImages
+					.Where(i => i.ProductId == entity.Id)
+					.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+					.Skip(model.ThumbnailIndex.Value)
+					.FirstOrDefaultAsync(ct);
+			}
+
+			chosen ??= await context.ProductImages
+				.Where(i => i.ProductId == entity.Id)
+				.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+				.FirstOrDefaultAsync(ct);
+
+			entity.ThumbnailImageId = chosen?.Id;
 			await context.SaveChangesAsync(ct);
 			return true;
 		}
 
+		// --------- Details (опростен) ---------
 		public async Task<ProductDetailsViewModel?> GetDetailsAsync(string id, CancellationToken ct)
 		{
-			var p = await context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, ct);
+			var p = await context.Products.AsNoTracking()
+				.FirstOrDefaultAsync(x => x.Id == id, ct);
 			if (p == null) return null;
+
+			var extras = await context.ProductImages
+				.Where(i => i.ProductId == id)
+				.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+				.Select(i => new ProductDetailsViewModel.ImageItem { Id = i.Id, Url = i.Url })
+				.ToListAsync(ct);
+
+			var thumbUrl =
+				await context.ProductImages
+					.Where(i => i.ProductId == id && i.Id == p.ThumbnailImageId)
+					.Select(i => i.Url)
+					.FirstOrDefaultAsync(ct)
+				?? await context.ProductImages
+					.Where(i => i.ProductId == id)
+					.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+					.Select(i => i.Url)
+					.FirstOrDefaultAsync(ct);
 
 			return new ProductDetailsViewModel
 			{
 				Id = p.Id,
 				Name = p.Name,
 				Price = p.Price,
-				ImageUrl = p.ImageUrl,
+				ImageUrl = thumbUrl,
 				Category = p.Category,
-				Description = p.Description
+				Description = p.Description,
+				Images = extras
 			};
 		}
 
+		// --------- Details (разширен) ---------
 		public async Task<ProductDetailsViewModel?> GetDetailsAsync(string id, string? currentUserId, bool isAdmin, CancellationToken ct)
 		{
 			var p = await context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, ct);
@@ -286,10 +583,16 @@ namespace PaladinHub.Services.Products
 				.Select(i => new ProductDetailsViewModel.ImageItem { Id = i.Id, Url = i.Url })
 				.ToListAsync(ct);
 
-			var images = new List<ProductDetailsViewModel.ImageItem>();
-			if (!string.IsNullOrWhiteSpace(p.ImageUrl))
-				images.Add(new ProductDetailsViewModel.ImageItem { Id = null, Url = p.ImageUrl! });
-			images.AddRange(extras);
+			var thumbUrl =
+				await context.ProductImages
+					.Where(i => i.ProductId == id && i.Id == p.ThumbnailImageId)
+					.Select(i => i.Url)
+					.FirstOrDefaultAsync(ct)
+				?? await context.ProductImages
+					.Where(i => i.ProductId == id)
+					.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+					.Select(i => i.Url)
+					.FirstOrDefaultAsync(ct);
 
 			var reviewRows =
 				await (from r in context.ProductReviews
@@ -313,13 +616,21 @@ namespace PaladinHub.Services.Products
 				.Where(x => x.Category == p.Category && x.Id != p.Id)
 				.OrderByDescending(x => x.Id)
 				.Take(8)
-				// ⚠️ ако SimilarVm е глобален (а не вложен) – този конструкт е правилен:
 				.Select(x => new SimilarVm
 				{
 					Id = x.Id,
 					Name = x.Name,
 					Price = x.Price,
-					ImageUrl = x.ImageUrl
+					ImageUrl =
+						context.ProductImages
+							.Where(i => i.ProductId == x.Id && i.Id == x.ThumbnailImageId)
+							.Select(i => i.Url)
+							.FirstOrDefault()
+						?? context.ProductImages
+							.Where(i => i.ProductId == x.Id)
+							.OrderBy(i => i.SortOrder).ThenBy(i => i.Id)
+							.Select(i => i.Url)
+							.FirstOrDefault()
 				})
 				.ToListAsync(ct);
 
@@ -328,7 +639,7 @@ namespace PaladinHub.Services.Products
 				Id = p.Id,
 				Name = p.Name,
 				Price = p.Price,
-				ImageUrl = p.ImageUrl,
+				ImageUrl = thumbUrl,
 				Category = p.Category,
 				Description = p.Description,
 				AverageRating = Math.Round(avg, 1),
@@ -343,10 +654,11 @@ namespace PaladinHub.Services.Products
 					CanDelete = isAdmin || (currentUserId != null && x.UserId == currentUserId)
 				}).ToList(),
 				Similar = similar,
-				Images = images
+				Images = extras
 			};
 		}
 
+		// --------- Reviews ---------
 		public async Task<bool> AddReviewAsync(AddReviewInput input, string userId, CancellationToken ct)
 		{
 			var hasInCart = await context.CartProduct
@@ -381,6 +693,7 @@ namespace PaladinHub.Services.Products
 			return true;
 		}
 
+		// --------- Images API ---------
 		public async Task<bool> AddImageAsync(string productId, string url, int? sortOrder, CancellationToken ct)
 		{
 			if (string.IsNullOrWhiteSpace(productId) || string.IsNullOrWhiteSpace(url)) return false;

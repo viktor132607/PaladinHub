@@ -1,0 +1,18 @@
+﻿@model dynamic
+@{
+    var id = (string)(Model?.SectionId ?? $"block-spelllist-{Guid.NewGuid():N}");
+    var title = (string)(Model?.Title ?? "");
+    var spells = (IEnumerable<dynamic>)(Model?.Spells ?? new List<dynamic>()); // { Id|Name, Note? }
+}
+<section id="@id" class="spell-list">
+    @if(!string.IsNullOrWhiteSpace(title)){<h3>@title</h3>}
+    <ul>
+        @foreach (var s in spells)
+        {
+            <li>
+                @((s?.Id is int vi) ? Spell(vi) : Spell(s?.Name?.ToString() ?? ""))
+                @if(!string.IsNullOrWhiteSpace(s?.Note)) { @: — @Html.Raw(s.Note) }
+            </li>
+        }
+    </ul>
+</section>

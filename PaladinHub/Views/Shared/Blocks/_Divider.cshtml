@@ -1,0 +1,9 @@
+﻿@model dynamic
+@{
+    var id = (string)(Model?.SectionId ?? $"block-divider-{Guid.NewGuid():N}");
+    var style = (string)(Model?.Style ?? "D1"); // D1..D5
+    var css = (string)(Model?.CssClass ?? "");
+}
+<section id="@id" class="separator-container @css">
+    <img class="separator" src="~/images/Separators/@style.png" alt="Separator @style" />
+</section>

@@ -6,6 +6,26 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="Views\Shared\Blocks\_Callout.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_ColumnsText.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_Divider.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_Heading.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_ItemGrid.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_PageHeader.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_RotationCard.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_Section.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_SpellList.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_Switcher.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_Table.Consumables.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_Table.Gear.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_Table.Generic.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_Tabs.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_TalentBuildMenu.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_TalentTree.cshtml" />
+    <Content Remove="Views\Shared\Blocks\_TierList.cshtml" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="DotNetEnv" Version="3.1.1" />
 		<PackageReference Include="MailKit" Version="4.12.1" />
@@ -19,7 +39,34 @@
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
 		<PackageReference Include="MimeKit" Version="4.12.0" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+		<PackageReference Include="NUnit" Version="4.4.0" />
 		<PackageReference Include="StackExchange.Redis" Version="2.8.58" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Areas\Admin\Views\Shared\" />
+	  <Folder Include="Paladinhub.Tests\ControllerTests\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Paladinhub.Tests\PaladinHub.Tests.csproj" />
+	  <None Include="Views\Shared\Blocks\_Table.Consumables.cshtml" />
+	  <None Include="Views\Shared\Blocks\_Table.Generic.cshtml" />
+	  <None Include="Views\Shared\Blocks\_TierList.cshtml" />
+	  <None Include="Views\Shared\Blocks\_ColumnsText.cshtml" />
+	  <None Include="Views\Shared\Blocks\_TalentTree.cshtml" />
+	  <None Include="Views\Shared\Blocks\_TalentBuildMenu.cshtml" />
+	  <None Include="Views\Shared\Blocks\_ItemGrid.cshtml" />
+	  <None Include="Views\Shared\Blocks\_SpellList.cshtml" />
+	  <None Include="Views\Shared\Blocks\_Callout.cshtml" />
+	  <None Include="Views\Shared\Blocks\_RotationCard.cshtml" />
+	  <None Include="Views\Shared\Blocks\_Switcher.cshtml" />
+	  <None Include="Views\Shared\Blocks\_Section.cshtml" />
+	  <None Include="Views\Shared\Blocks\_Divider.cshtml" />
+	  <None Include="Views\Shared\Blocks\_Heading.cshtml" />
+	  <None Include="Views\Shared\Blocks\_PageHeader.cshtml" />
+	  <None Include="Views\Shared\Blocks\_Table.Gear.cshtml" />
+	  <None Include="Views\Shared\Blocks\_Tabs.cshtml" />
 	</ItemGroup>
 
 

@@ -382,6 +382,99 @@ namespace PaladinHub.Migrations
                     b.ToTable("CartProduct");
                 });
 
+            modelBuilder.Entity("PaladinHub.Data.Models.ContentPage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("JsonLayout")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .HasColumnType("bytea")
+                        .HasDefaultValue(new byte[0]);
+
+                    b.Property<string>("Section")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Slug")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Section", "Slug")
+                        .IsUnique();
+
+                    b.ToTable("ContentPages", (string)null);
+                });
+
+            modelBuilder.Entity("PaladinHub.Data.Models.DataPreset", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Entity")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("JsonQuery")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Section")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Entity", "Name");
+
+                    b.ToTable("DataPresets", (string)null);
+                });
+
             modelBuilder.Entity("PaladinHub.Data.Models.DiscussionCommentLike", b =>
                 {
                     b.Property<Guid>("Id")
@@ -480,9 +573,6 @@ namespace PaladinHub.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("character varying(1000)");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -490,6 +580,9 @@ namespace PaladinHub.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("ThumbnailImageId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -499,7 +592,10 @@ namespace PaladinHub.Migrations
 
                     b.HasIndex("Name");
 
-                    b.ToTable("Products");
+                    b.HasIndex("ThumbnailImageId")
+                        .HasDatabaseName("IX_Products_ThumbnailImageId");
+
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("PaladinHub.Data.Models.ProductImage", b =>
@@ -509,6 +605,10 @@ namespace PaladinHub.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AltText")
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
@@ -522,11 +622,14 @@ namespace PaladinHub.Migrations
 
                     b.Property<string>("Url")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(2048)
+                        .HasColumnType("character varying(2048)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId", "SortOrder");
+                    b.HasIndex("ProductId", "SortOrder")
+                        .IsUnique()
+                        .HasDatabaseName("UX_ProductImages_Product_SortOrder");
 
                     b.ToTable("ProductImages", (string)null);
                 });
@@ -564,6 +667,94 @@ namespace PaladinHub.Migrations
                         .IsUnique();
 
                     b.ToTable("ProductReviews", (string)null);
+                });
+
+            modelBuilder.Entity("PaladinHub.Data.Models.TalentBuild", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("TreeKey")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TreeKey", "Name")
+                        .IsUnique();
+
+                    b.ToTable("TalentBuilds", (string)null);
+                });
+
+            modelBuilder.Entity("PaladinHub.Data.Models.TalentBuildNode", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BuildId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("NodeId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuildId", "NodeId")
+                        .IsUnique();
+
+                    b.ToTable("TalentBuildNodes", (string)null);
+                });
+
+            modelBuilder.Entity("PaladinHub.Data.Models.TalentNodeState", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("NodeId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("TreeKey")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TreeKey", "NodeId")
+                        .IsUnique();
+
+                    b.ToTable("TalentNodeStates", (string)null);
                 });
 
             modelBuilder.Entity("DiscussionComment", b =>
@@ -718,24 +909,46 @@ namespace PaladinHub.Migrations
                     b.HasOne("PaladinHub.Data.Models.Cart", null)
                         .WithMany("Products")
                         .HasForeignKey("CartId");
+
+                    b.HasOne("PaladinHub.Data.Models.ProductImage", "ThumbnailImage")
+                        .WithMany()
+                        .HasForeignKey("ThumbnailImageId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("ThumbnailImage");
                 });
 
             modelBuilder.Entity("PaladinHub.Data.Models.ProductImage", b =>
                 {
-                    b.HasOne("PaladinHub.Data.Models.Product", null)
-                        .WithMany()
+                    b.HasOne("PaladinHub.Data.Models.Product", "Product")
+                        .WithMany("Images")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("PaladinHub.Data.Models.ProductReview", b =>
                 {
-                    b.HasOne("PaladinHub.Data.Models.Product", null)
-                        .WithMany()
+                    b.HasOne("PaladinHub.Data.Models.Product", "Product")
+                        .WithMany("Reviews")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("PaladinHub.Data.Models.TalentBuildNode", b =>
+                {
+                    b.HasOne("PaladinHub.Data.Models.TalentBuild", "Build")
+                        .WithMany("Nodes")
+                        .HasForeignKey("BuildId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Build");
                 });
 
             modelBuilder.Entity("DiscussionComment", b =>
@@ -763,6 +976,15 @@ namespace PaladinHub.Migrations
             modelBuilder.Entity("PaladinHub.Data.Models.Product", b =>
                 {
                     b.Navigation("Carts");
+
+                    b.Navigation("Images");
+
+                    b.Navigation("Reviews");
+                });
+
+            modelBuilder.Entity("PaladinHub.Data.Models.TalentBuild", b =>
+                {
+                    b.Navigation("Nodes");
                 });
 #pragma warning restore 612, 618
         }

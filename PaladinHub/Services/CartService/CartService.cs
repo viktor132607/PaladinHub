@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;
 using PaladinHub.Data.Models;
-using PaladinHub.Models;
 using PaladinHub.Models.Carts;
 using PaladinHub.Models.Products;
 using System;

@@ -1,0 +1,9 @@
+﻿@model dynamic
+@{
+    var id = (string)(Model?.SectionId ?? $"block-section-{Guid.NewGuid():N}");
+    var css = (string)(Model?.CssClass ?? "mb-4");
+    var html = (string)(Model?.Html ?? "");
+}
+<section id="@id" class="@css">
+    @Html.Raw(html)
+</section>

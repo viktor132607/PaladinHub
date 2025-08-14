@@ -1,0 +1,36 @@
+﻿@model dynamic
+@{
+    var id = (string)(Model?.SectionId ?? $"block-table-{Guid.NewGuid():N}");
+    var title = (string)(Model?.Title ?? "");
+    var columns = (IEnumerable<dynamic>)(Model?.Columns ?? new List<dynamic>()); // { key, title, kind:text|item|spell }
+    var rows = (IEnumerable<IDictionary<string,object>>)(Model?.Rows ?? new List<IDictionary<string,object>>());
+}
+<section id="@id" class="generic-table">
+    @if(!string.IsNullOrWhiteSpace(title)){<h3>@title</h3>}
+    <table class="table table-striped">
+        <thead><tr>@foreach (var c in columns){<th>@(c.title ?? c.key)</th>}</tr></thead>
+        <tbody>
+        @foreach (var row in rows)
+        {
+            <tr>
+            @foreach (var c in columns)
+            {
+                string key = c.key ?? ""; string kind = (c.kind ?? "text").ToString();
+                row.TryGetValue(key, out var val);
+                <td>
+                    @if (kind=="item")
+                    {
+                        if (val is int vi) { @:@Item(vi) } else { @:@Item(val?.ToString() ?? "") }
+                    }
+                    else if (kind=="spell")
+                    {
+                        if (val is int vi) { @:@Spell(vi) } else { @:@Spell(val?.ToString() ?? "") }
+                    }
+                    else { @Html.Raw(val?.ToString() ?? "") }
+                </td>
+            }
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

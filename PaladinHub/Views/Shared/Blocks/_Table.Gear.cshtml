@@ -1,0 +1,30 @@
+﻿@model dynamic
+@{
+    var id = (string)(Model?.SectionId ?? $"block-gear-{Guid.NewGuid():N}");
+    var title = (string)(Model?.Title ?? "Best in Slot");
+    var rows = (IEnumerable<dynamic>)(Model?.Rows ?? new List<dynamic>()); // Row { Slot, ItemName|ItemId, Source }
+}
+<section id="@id" class="gear-table">
+    <h3 style="text-align:center">@title</h3>
+    <table class="table table-striped">
+        <thead><tr><th>Slot</th><th>Item</th><th>Source</th></tr></thead>
+        <tbody>
+        @foreach (var r in rows)
+        {
+            string slot = r?.Slot ?? "";
+            var itemName = (string)(r?.ItemName ?? "");
+            int? itemId = (int?)(r?.ItemId);
+            string source = r?.Source ?? "";
+            <tr>
+                <td>@slot</td>
+                <td>
+                    @if (itemId.HasValue) { @:@Item(itemId.Value) }
+                    else if (!string.IsNullOrWhiteSpace(itemName)) { @:@Item(itemName) }
+                    else { <span>-</span> }
+                </td>
+                <td>@Html.Raw(source)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

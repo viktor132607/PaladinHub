@@ -1,148 +1,153 @@
 ﻿@model PaladinHub.Models.Products.CreateProductViewModel
 @{
     ViewData["Title"] = "Create Product";
+    var placeholder = Url.Content("~/images/placeholder.png");
 }
 
 <h1 class="text-center mb-4">Create Product</h1>
 
-<form asp-controller="Products" asp-action="Create" method="post" class="mx-auto" style="max-width:720px;">
+<form asp-action="Create" method="post" class="mx-auto" style="max-width: 960px;">
     @Html.AntiForgeryToken()
-    <div asp-validation-summary="All" class="alert alert-danger py-2" role="alert"></div>
+    <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 d-none" id="val-summary"></div>
 
-    <div class="mb-3">
-        <label asp-for="Name" class="form-label">Name</label>
-        <input asp-for="Name" class="form-control" placeholder="Name..." />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div>
+    <div class="row g-4">
+        <!-- Left: fields -->
+        <div class="col-12 col-lg-7">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label">Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Name..." />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
 
-    <div class="mb-3">
-        <label asp-for="Price" class="form-label">Price</label>
-        <input asp-for="Price" class="form-control" type="number" step="1" min="0" />
-        <span asp-validation-for="Price" class="text-danger"></span>
-    </div>
+            <div class="mb-3">
+                <label asp-for="Price" class="form-label">Price</label>
+                <div class="input-group">
+                    <input asp-for="Price" class="form-control" type="number" step="0.01" min="0" />
+                    <span class="input-group-text">$</span>
+                </div>
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
 
-    <div class="mb-3">
-        <label asp-for="ImageUrl" class="form-label">Image URL (main thumbnail)</label>
-        <div class="input-group">
-            <input asp-for="ImageUrl" class="form-control" placeholder="https://..." />
-            <button type="button" id="btn-pick-from-first" class="btn btn-outline-secondary" title="Use first gallery image">Use 1st gallery</button>
+            <!-- Category -->
+            <div class="mb-2">
+                <label class="form-label">Category</label>
+                <select asp-for="Category" asp-items="Model.CategorySelectList" class="form-select">
+                    <option value="">-- choose --</option>
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <button type="button" id="btn-add-cat" class="btn btn-sm btn-outline-warning">+ Add category</button>
+            </div>
+
+            <div id="new-cat-wrap" class="mb-3 d-none">
+                <label asp-for="NewCategory" class="form-label">New category</label>
+                <input asp-for="NewCategory" class="form-control" placeholder="e.g. Shirts" />
+                <div class="form-text">If filled, it will be used instead of the selected one.</div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label">Description</label>
+                <textarea asp-for="Description" rows="4" class="form-control" placeholder="Optional…"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex">
+                <a asp-controller="Merchandise" asp-action="Merchandise" class="btn btn-outline-light">Cancel</a>
+                <button type="submit" class="btn btn-warning fw-bold px-4">Create</button>
+            </div>
         </div>
-        <div class="form-text">Main image on cards & first in details. You can set it from the gallery below.</div>
-        <span asp-validation-for="ImageUrl" class="text-danger"></span>
-    </div>
 
-    <!-- Gallery (extra images) -->
-    <div class="mb-3">
-        <label class="form-label">Gallery images (optional)</label>
+        <!-- Right: gallery + preview -->
+        <div class="col-12 col-lg-5">
+            <input type="hidden" asp-for="ThumbnailIndex" id="ThumbnailIndex" />
+            <!-- ThumbnailImageId при Create няма Id-та, оставяме го null -->
+            <div class="card bg-dark border border-secondary mb-3">
+                <div class="card-header border-secondary">Main image preview</div>
+                <div class="card-body">
+                    <div class="ratio ratio-1x1 mb-2">
+                        <img id="main-preview" src="@placeholder" alt="preview" class="w-100 h-100 rounded" style="object-fit:cover;">
+                    </div>
+                    <div class="small text-muted">Click the ⭐ on a row to set it as main (thumbnail).</div>
+                </div>
+            </div>
 
-        <div id="img-list" class="d-flex flex-column gap-2"></div>
+            <div class="mb-2 d-flex align-items-center justify-content-between">
+                <label class="form-label m-0">Gallery images</label>
+                <button type="button" id="btn-add-img" class="btn btn-sm btn-outline-warning">+ Add image</button>
+            </div>
 
-        <div class="d-flex align-items-center gap-2 mt-2">
-            <button type="button" id="btn-add-img" class="btn btn-sm btn-outline-warning">
-                <i class="fa-solid fa-plus me-1"></i> Add image
-            </button>
-            <small class="text-muted">Order top-to-bottom is shown after the main image.</small>
+            <div id="img-list" class="d-flex flex-column gap-2"></div>
+            <small class="text-muted">Order is top → bottom. The first non-empty image is used if no main is chosen.</small>
         </div>
-    </div>
-
-    <div class="mb-2">
-        <label class="form-label">Category</label>
-        <select asp-for="Category" asp-items="Model.CategorySelectList" class="form-select">
-            <option value="">-- choose --</option>
-        </select>
-        <span asp-validation-for="Category" class="text-danger"></span>
-    </div>
-    <div class="mb-3">
-        <button type="button" id="btn-add-cat" class="btn btn-sm btn-outline-warning">+ Add category</button>
-    </div>
-
-    <div id="new-cat-wrap" class="mb-3 d-none">
-        <label asp-for="NewCategory" class="form-label">New category</label>
-        <input asp-for="NewCategory" class="form-control" placeholder="e.g. Books" />
-        <div class="form-text">If filled, it will be used instead of the selected one.</div>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Description" class="form-label">Description</label>
-        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Optional..."></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a asp-controller="Merchandise" asp-action="Merchandise" class="btn btn-outline-light me-md-2">Cancel</a>
-        <button type="submit" class="btn btn-warning fw-bold px-4">Create</button>
     </div>
 </form>
 
 <style>
-    .img-row .thumb {
-        width: 48px;
-        height: 48px;
-        object-fit: cover;
+    .img-row {
+        border: 1px solid var(--bs-secondary);
+        border-radius: .5rem;
+        padding: .5rem;
+        background: #111;
     }
 
-    .img-row.active-main {
-        border: 1px solid #f59f00;
-        box-shadow: 0 0 0 2px rgba(245,159,0,.15) inset;
-    }
+        .img-row .thumb {
+            width: 56px;
+            height: 56px;
+            object-fit: cover;
+        }
 
-    .img-row .main-badge {
-        font-size: .65rem;
-    }
+        .img-row.active-main {
+            border-color: #f59f00;
+            box-shadow: 0 0 0 2px rgba(245,159,0,.15) inset;
+        }
+
+        .img-row .badge-main {
+            font-size: .65rem;
+        }
 </style>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
-        // Toggle new category field
         (function () {
-            const btn = document.getElementById('btn-add-cat');
-            const wrap = document.getElementById('new-cat-wrap');
-            if (btn && wrap) btn.addEventListener('click', () => wrap.classList.toggle('d-none'));
-        })();
+            // Show validation summary only if errors
+            const summary = document.getElementById('val-summary');
+            if (summary && summary.querySelector('ul')) {
+                summary.classList.toggle('d-none', summary.querySelectorAll('li').length === 0);
+            }
 
-        // ---- Gallery images dynamic list + choose main thumbnail ----
-        (function () {
+            // Toggle new category field
+            const btnCat = document.getElementById('btn-add-cat');
+            const wrapCat = document.getElementById('new-cat-wrap');
+            if (btnCat && wrapCat) btnCat.addEventListener('click', () => wrapCat.classList.toggle('d-none'));
+
+            // ----- Gallery logic -----
             const list = document.getElementById('img-list');
             const addBtn = document.getElementById('btn-add-img');
-            const pickFirstBtn = document.getElementById('btn-pick-from-first');
-            const mainInput = document.getElementById('ImageUrl'); // asp-for id
-            const placeholder = '@Url.Content("~/images/placeholder.png")';
+            const mainPreview = document.getElementById('main-preview');
+            const placeholder = '@placeholder';
+            const hiddenThumbIndex = document.getElementById('ThumbnailIndex');
 
-            function renderRow(url = '') {
+            function createRow(initial) {
                 const row = document.createElement('div');
-                row.className = 'card bg-dark border-secondary p-2 img-row';
-
+                row.className = 'img-row';
                 row.innerHTML = `
-                  <div class="d-flex align-items-center gap-2">
-                    <span class="text-muted" title="Reorder">
-                      <i class="fa-solid fa-grip-lines"></i>
-                    </span>
-
-                    <div class="position-relative">
-                      <img class="thumb rounded" src="${url || placeholder}">
-                      <span class="badge bg-warning text-dark position-absolute top-0 start-0 main-badge d-none">Main</span>
+                    <div class="d-flex align-items-center gap-2">
+                        <img class="thumb rounded" src="${(initial?.url || '').trim() || placeholder}" alt="">
+                        <span class="badge bg-warning text-dark badge-main d-none">Main</span>
+                        <input class="form-control form-control-sm flex-grow-1 img-url" placeholder="https://..." value="${(initial?.url || '').trim()}">
+                        <input type="hidden" class="img-sort" value="0">
+                        <div class="btn-group btn-group-sm">
+                            <button type="button" class="btn btn-outline-secondary btn-up" title="Up">▲</button>
+                            <button type="button" class="btn btn-outline-secondary btn-down" title="Down">▼</button>
+                        </div>
+                        <button type="button" class="btn btn-outline-warning btn-sm btn-main" title="Set as main">⭐</button>
+                        <button type="button" class="btn btn-outline-danger btn-sm btn-remove" title="Remove">🗑</button>
                     </div>
-
-                    <input class="form-control form-control-sm flex-grow-1 img-url" placeholder="https://..." value="${url}">
-                    <input type="hidden" class="img-sort" value="0">
-
-                    <div class="btn-group btn-group-sm">
-                      <button type="button" class="btn btn-outline-secondary btn-up" title="Move up">▲</button>
-                      <button type="button" class="btn btn-outline-secondary btn-down" title="Move down">▼</button>
-                    </div>
-
-                    <button type="button" class="btn btn-outline-warning btn-sm btn-make-main" title="Set as main">
-                      <i class="fa-solid fa-star"></i>
-                    </button>
-
-                    <button type="button" class="btn btn-outline-danger btn-sm btn-remove" title="Remove">
-                      <i class="fa-solid fa-trash"></i>
-                    </button>
-                  </div>
                 `;
-                list.appendChild(row);
                 bindRow(row);
+                list.appendChild(row);
                 reindex();
                 updateMainUI();
             }
@@ -150,63 +155,72 @@
             function bindRow(row) {
                 const urlInput = row.querySelector('.img-url');
                 const thumb = row.querySelector('.thumb');
-                const btnRemove = row.querySelector('.btn-remove');
                 const btnUp = row.querySelector('.btn-up');
                 const btnDown = row.querySelector('.btn-down');
-                const btnMain = row.querySelector('.btn-make-main');
+                const btnRemove = row.querySelector('.btn-remove');
+                const btnMain = row.querySelector('.btn-main');
 
                 urlInput.addEventListener('input', () => {
                     const v = urlInput.value.trim();
                     thumb.src = v || placeholder;
-                    updateMainUI(); // ако съвпадне с main, маркирай
-                });
-
-                btnRemove.addEventListener('click', () => {
-                    const wasMain = isRowMain(row);
-                    row.remove();
-                    reindex();
-                    if (wasMain) updateMainUI(); // ще падне маркировката; mainInput си остава каквото е
+                    // if no explicit main chosen, show first non-empty as preview
+                    const idxMain = parseInt(hiddenThumbIndex.value || '-1', 10);
+                    if (isNaN(idxMain) || idxMain < 0) {
+                        const first = firstNonEmptyIndex();
+                        mainPreview.src = (first >= 0) ? (getUrlByIndex(first) || placeholder) : placeholder;
+                    }
+                    updateMainUI();
                 });
 
                 btnUp.addEventListener('click', () => {
                     const prev = row.previousElementSibling;
-                    if (prev) { list.insertBefore(row, prev); reindex(); }
+                    if (prev) list.insertBefore(row, prev);
+                    reindex(); updateMainUI();
                 });
 
                 btnDown.addEventListener('click', () => {
                     const next = row.nextElementSibling;
-                    if (next) { list.insertBefore(next, row); reindex(); }
+                    if (next) list.insertBefore(next, row);
+                    reindex(); updateMainUI();
+                });
+
+                btnRemove.addEventListener('click', () => {
+                    const wasMain = row.classList.contains('active-main');
+                    row.remove();
+                    reindex();
+                    if (wasMain) hiddenThumbIndex.value = '';
+                    const first = firstNonEmptyIndex();
+                    mainPreview.src = (first >= 0) ? (getUrlByIndex(first) || placeholder) : placeholder;
+                    updateMainUI();
                 });
 
                 btnMain.addEventListener('click', () => {
-                    const v = urlInput.value.trim();
-                    if (!v) return;
-                    if (mainInput) mainInput.value = v;
+                    const idx = indexOfRow(row);
+                    const url = urlInput.value.trim();
+                    if (!url) return;
+                    hiddenThumbIndex.value = String(idx);
+                    mainPreview.src = url;
                     updateMainUI();
                 });
             }
 
-            function isRowMain(row) {
-                const urlInput = row.querySelector('.img-url');
-                const main = (mainInput?.value || '').trim();
-                return urlInput && urlInput.value.trim() === main && !!main;
+            function rows() { return Array.from(list.querySelectorAll('.img-row')); }
+            function indexOfRow(row) { return rows().indexOf(row); }
+            function getUrlByIndex(i) {
+                const r = rows()[i];
+                return r ? (r.querySelector('.img-url')?.value.trim() || '') : '';
             }
-
-            function updateMainUI() {
-                const rows = Array.from(list.querySelectorAll('.img-row'));
-                const main = (mainInput?.value || '').trim();
-                rows.forEach(row => {
-                    const badge = row.querySelector('.main-badge');
-                    const url = row.querySelector('.img-url')?.value.trim() || '';
-                    const active = main && url === main;
-                    row.classList.toggle('active-main', active);
-                    if (badge) badge.classList.toggle('d-none', !active);
-                });
+            function firstNonEmptyIndex() {
+                const rs = rows();
+                for (let i = 0; i < rs.length; i++) {
+                    const v = rs[i].querySelector('.img-url')?.value.trim();
+                    if (v) return i;
+                }
+                return -1;
             }
 
             function reindex() {
-                const rows = Array.from(list.querySelectorAll('.img-row'));
-                rows.forEach((row, i) => {
+                rows().forEach((row, i) => {
                     const url = row.querySelector('.img-url');
                     const sort = row.querySelector('.img-sort');
                     if (url)  url.name  = `Images[${i}].Url`;
@@ -214,19 +228,29 @@
                 });
             }
 
-            if (addBtn) addBtn.addEventListener('click', () => renderRow());
-            if (pickFirstBtn) pickFirstBtn.addEventListener('click', () => {
-                const first = list.querySelector('.img-row .img-url');
-                if (first && mainInput) {
-                    const v = first.value.trim();
-                    if (v) mainInput.value = v;
-                    updateMainUI();
-                }
-            });
-            if (mainInput) mainInput.addEventListener('input', updateMainUI);
+            function updateMainUI() {
+                const idxMain = parseInt(hiddenThumbIndex.value || '-1', 10);
+                rows().forEach((row, i) => {
+                    const badge = row.querySelector('.badge-main');
+                    const active = i === idxMain;
+                    row.classList.toggle('active-main', active);
+                    if (badge) badge.classList.toggle('d-none', !active);
+                });
+            }
 
-            // optionally: add an empty row by default
-            // renderRow();
+            // init with one empty or existing model images (if any)
+            const serverCount = @Model.Images?.Count;
+            if (serverCount > 0) {
+                @for (var i = 0; i < (Model.Images?.Count ?? 0); i++)
+                {
+                        var im = Model.Images![i];
+                        <text>createRow({ url: '@(im.Url ?? "")' });</text>
+                }
+            } else {
+                createRow({ url: '' });
+            }
+
+            if (addBtn) addBtn.addEventListener('click', () => createRow({ url: '' }));
         })();
     </script>
 }
