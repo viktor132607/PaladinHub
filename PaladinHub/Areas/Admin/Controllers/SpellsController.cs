@@ -12,7 +12,7 @@ namespace PaladinHub.Areas.Admin.Controllers
 		public SpellsController(AppDbContext db) => _db = db;
 
 		[HttpGet]
-		public async Task<IActionResult> Create() => View(new Spell());
+		public IActionResult Create() => View(new Spell());
 
 		[HttpPost, ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(Spell spell)

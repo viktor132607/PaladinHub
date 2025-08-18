@@ -17,7 +17,6 @@ namespace PaladinHub.Controllers.Api
 		private readonly IDataPresetService _presets;
 		public PresetsController(IDataPresetService presets) { _presets = presets; }
 
-		// GET /api/presets?entity=items&section=Holy
 		[HttpGet]
 		public async Task<IActionResult> List([FromQuery] string? entity, [FromQuery] string? section, CancellationToken ct)
 		{
@@ -31,7 +30,6 @@ namespace PaladinHub.Controllers.Api
 			}));
 		}
 
-		// GET /api/presets/{id}
 		[HttpGet("{id:int}")]
 		public async Task<IActionResult> Get(int id, CancellationToken ct)
 		{
@@ -39,7 +37,6 @@ namespace PaladinHub.Controllers.Api
 			return row == null ? NotFound() : Ok(row);
 		}
 
-		// POST /api/presets
 		public sealed record CreateReq(string Name, string Entity, string JsonQuery, string? Section);
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] CreateReq req, CancellationToken ct)
@@ -51,7 +48,6 @@ namespace PaladinHub.Controllers.Api
 			return CreatedAtAction(nameof(Get), new { id = created.Id }, created);
 		}
 
-		// PUT /api/presets/{id}
 		public sealed record UpdateReq(string? Name, string? JsonQuery, string? Section);
 		[HttpPut("{id:int}")]
 		public async Task<IActionResult> Update(int id, [FromBody] UpdateReq req, CancellationToken ct)
@@ -60,7 +56,6 @@ namespace PaladinHub.Controllers.Api
 			return updated == null ? NotFound() : Ok(updated);
 		}
 
-		// DELETE /api/presets/{id}
 		[HttpDelete("{id:int}")]
 		public async Task<IActionResult> Delete(int id, CancellationToken ct)
 		{
@@ -68,7 +63,6 @@ namespace PaladinHub.Controllers.Api
 			return ok ? NoContent() : NotFound();
 		}
 
-		// GET /api/presets/{id}/preview?take=10
 		[HttpGet("{id:int}/preview")]
 		public async Task<IActionResult> Preview(int id, [FromQuery] int? take, CancellationToken ct)
 		{

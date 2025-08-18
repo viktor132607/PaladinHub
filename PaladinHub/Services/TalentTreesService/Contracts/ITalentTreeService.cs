@@ -9,5 +9,6 @@ namespace PaladinHub.Services.TalentTrees
 	{
 		Task<Dictionary<string, TalentTreeViewModel>> GetTalentTrees(string section, List<Spell> spells);
 		Task<TalentTreeViewModel?> GetTalentTree(string key, string section, List<Spell> spells);
+		Task SaveActiveStatesAsync(string key, List<NodeState> nodes);
 	}
 }

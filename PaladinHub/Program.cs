@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using PaladinHub.Controllers;            
+using PaladinHub.Controllers;
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;
 using PaladinHub.Data.Repositories.Contracts;
@@ -21,11 +21,10 @@ using PaladinHub.Services.TalentTrees;
 using StackExchange.Redis;
 using System.Text;
 
-Env.Load(); // Зареждаме .env файла
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
-// MVC + глобални филтри/локации
 builder.Services
 	.AddControllersWithViews(options =>
 	{
@@ -38,8 +37,6 @@ builder.Services
 
 builder.Services.AddSession();
 builder.Services.AddCustomServices();
-
-// Сървиси
 builder.Services.AddScoped<IItemsService, ItemsService>();
 builder.Services.AddScoped<ISpellbookService, SpellbookService>();
 builder.Services.AddScoped<HolySectionService>();
@@ -56,14 +53,11 @@ builder.Services.AddScoped<IClassTreeBuilder, PaladinClassTreeBuilder>();
 builder.Services.AddScoped<IHeroTalentTreesService, HeroTalentTreesService>();
 builder.Services.AddScoped<ITalentTreeService, TalentTreeService>();
 builder.Services.AddHostedService<PaladinHub.Services.Background.CleanupCartService>();
-
-// ***** Page Builder услуги *****
 builder.Services.AddScoped<IPageService, PageService>();
 builder.Services.AddScoped<IJsonLayoutValidator, JsonLayoutValidator>();
 builder.Services.AddMemoryCache();
 builder.Services.AddScoped<IDataPresetService, DataPresetService>();
 
-// *** DI за HTML Sanitizer ***
 builder.Services.AddSingleton<IHtmlSanitizer>(_ =>
 {
 	var s = new HtmlSanitizer();
@@ -73,26 +67,23 @@ builder.Services.AddSingleton<IHtmlSanitizer>(_ =>
 	return s;
 });
 
-// case-insensitive секции: {section:palsec}
 builder.Services.Configure<RouteOptions>(opt =>
 {
 	opt.ConstraintMap["palsec"] = typeof(AllowedSectionConstraint);
 });
 
-// DB
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
 	string conn = Environment.GetEnvironmentVariable("DB_CONNECTION")!;
 	options.UseNpgsql(conn);
 });
 
-// Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
-	options.Password.RequireNonAlphanumeric = false;
+	options.Password.RequireNonAlphanumeric = true;
 	options.Password.RequiredLength = 8;
-	options.Password.RequireUppercase = false;
-	options.Password.RequireLowercase = false;
+	options.Password.RequireUppercase = true;
+	options.Password.RequireLowercase = true;
 	options.User.RequireUniqueEmail = true;
 	options.SignIn.RequireConfirmedAccount = false;
 	options.SignIn.RequireConfirmedEmail = false;
@@ -101,7 +92,6 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddEntityFrameworkStores<AppDbContext>()
 .AddDefaultTokenProviders();
 
-// JWT Auth - четем от .env
 var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY")
 			 ?? throw new InvalidOperationException("JWT_KEY is missing from .env");
 var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "DefaultIssuer";
@@ -122,15 +112,12 @@ builder.Services
 		};
 	});
 
-// Redis connection & CartStore
 string redisConn = Environment.GetEnvironmentVariable("REDIS_CONNECTION") ?? "localhost:6379";
 builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConn));
 builder.Services.AddScoped<ICartStore, RedisCartStore>();
 
-// *** Talents orchestrator DI (НЕ е MVC контролер вече) ***
-builder.Services.AddTransient<TalentsController>();     // <-- важно за оркестратора
+builder.Services.AddTransient<TalentsController>();
 
-// Kestrel Port (за контейнер/хостинг)
 string httpPort = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 builder.WebHost.ConfigureKestrel(options => { options.ListenAnyIP(int.Parse(httpPort)); });
 
@@ -141,14 +128,12 @@ if (!app.Environment.IsDevelopment())
 	app.UseExceptionHandler("/error/500");
 }
 
-// Не прилагай status page re-execute за /api (чупи POST-ове от fetch)
 app.UseWhen(ctx => !ctx.Request.Path.StartsWithSegments("/api"),
 	appBranch => appBranch.UseStatusCodePagesWithReExecute("/error/{0}")
 );
 
 app.UseStaticFiles();
 
-// Канонизация на адресите към главна буква (без Admin); некеширащ redirect (permanent:false)
 app.Use(async (ctx, next) =>
 {
 	var path = ctx.Request.Path.Value ?? "";
@@ -191,29 +176,30 @@ app.Use(async (ctx, next) =>
 app.UseRouting();
 app.UseSession();
 
-// ВАЖНО: Authentication преди Authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Attribute-routed контролери
 app.MapControllers();
 
-// Areas
 app.MapControllerRoute(
 	name: "areas",
 	pattern: "{area:exists}/{controller=Database}/{action=Index}/{id?}"
 );
 
-// Статичните MVC маршрути (default към Home/Home)
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Home}/{id?}"
 );
 
-// Изричен root -> Home/Home
+// 👉 Talents pages route (Holy/Protection/Retribution → TalentsController.SectionPage)
+app.MapControllerRoute(
+	name: "talents-section",
+	pattern: "{section:regex(^Holy|Protection|Retribution$)}/Talents",
+	defaults: new { controller = "Talents", action = "SectionPage" }
+);
+
 app.MapGet("/", () => Results.Redirect("/Home/Home"));
 
-// Динамичните CMS страници – /{Section}/{slug}
 app.MapControllerRoute(
 	name: "paladin-pages",
 	pattern: "{section:regex(^Holy|Protection|Retribution$)}/{slug:regex(^(?!Overview$|Gear$|Talents$|Consumables$|Rotation$|Stats$).+)}",

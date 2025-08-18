@@ -12,7 +12,7 @@ namespace PaladinHub.Areas.Admin.Controllers
 		public ItemsController(AppDbContext db) => _db = db;
 
 		[HttpGet]
-		public async Task<IActionResult> Create() => View(new Item());
+		public IActionResult Create() => View(new Item());
 
 		[HttpPost, ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(Item item)

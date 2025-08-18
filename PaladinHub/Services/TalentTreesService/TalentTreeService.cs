@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using PaladinHub.Data.Entities;
+﻿using PaladinHub.Data.Entities;
 using PaladinHub.Models.Talents;
 
 namespace PaladinHub.Services.TalentTrees
@@ -26,55 +22,42 @@ namespace PaladinHub.Services.TalentTrees
 			_adminStates = adminStates ?? throw new ArgumentNullException(nameof(adminStates));
 		}
 
-		/// <summary>
-		/// Връща речник с всички дървета за секция (paladin class + 1 spec + 1–2 hero),
-		/// като налага админ състоянията за активност на нодовете от БД.
-		/// </summary>
 		public async Task<Dictionary<string, TalentTreeViewModel>> GetTalentTrees(string section, List<Spell> spells)
 		{
 			var dict = new Dictionary<string, TalentTreeViewModel>(StringComparer.OrdinalIgnoreCase);
 			spells ??= new List<Spell>();
+			string sec = Normalize(section);
 
-			string sec = Normalize(section); // "holy" | "protection" | "retribution"
-
-			// ===== Paladin class tree (ляво)
 			var classVm = _classTree.BuildTree(spells);
 			if (classVm != null && !string.IsNullOrWhiteSpace(classVm.Key))
-				dict[classVm.Key] = classVm; // очаквано: "paladin"
+				dict[classVm.Key] = classVm;
 
-			// ===== Spec tree (дясно)
 			var specBuilder = _specBuilders.FirstOrDefault(b =>
 				string.Equals(Normalize(b.BaseKey), sec, StringComparison.OrdinalIgnoreCase));
 
 			if (specBuilder != null)
 			{
-				var specVm = specBuilder.BuildTree(spells); // "holy" | "protection" | "retribution"
+				var specVm = specBuilder.BuildTree(spells);
 				if (specVm != null && !string.IsNullOrWhiteSpace(specVm.Key))
 					dict[specVm.Key] = specVm;
 			}
 
-			// ===== Hero trees (средата) – обикновено 2
 			var heroTrees = _heroTrees.GetHeroTrees(sec, spells);
 			if (heroTrees != null)
 			{
 				foreach (var kv in heroTrees)
 				{
-					// напр. "holy-herald", "holy-lightsmith", "protection-templar", ...
 					if (!string.IsNullOrWhiteSpace(kv.Key) && kv.Value != null)
 						dict[kv.Key] = kv.Value;
 				}
 			}
 
-			// ===== Налагане на админ състоянията (Active) за всеки нод
 			foreach (var tree in dict.Values)
 				await ApplyAdminStatesAsync(tree);
 
 			return dict;
 		}
 
-		/// <summary>
-		/// Връща единично дърво по ключ и секция, с наложени админ състояния.
-		/// </summary>
 		public async Task<TalentTreeViewModel?> GetTalentTree(string key, string section, List<Spell> spells)
 		{
 			if (string.IsNullOrWhiteSpace(key))
@@ -84,12 +67,18 @@ namespace PaladinHub.Services.TalentTrees
 			return all.TryGetValue(key, out var vm) ? vm : null;
 		}
 
+		public async Task SaveActiveStatesAsync(string key, List<NodeState> nodes)
+		{
+			if (string.IsNullOrWhiteSpace(key)) throw new ArgumentException(nameof(key));
+			var dict = (nodes ?? new List<NodeState>())
+				.Where(n => !string.IsNullOrWhiteSpace(n.Id))
+				.ToDictionary(n => n.Id!, n => n.Active, StringComparer.OrdinalIgnoreCase);
+			await _adminStates.SaveStatesAsync(key, dict);
+		}
+
 		private static string Normalize(string s)
 			=> (s ?? string.Empty).Trim().ToLowerInvariant();
 
-		/// <summary>
-		/// Зарежда от БД {NodeId -> IsActive} за даденото дърво и override-ва n.Active.
-		/// </summary>
 		private async Task ApplyAdminStatesAsync(TalentTreeViewModel tree)
 		{
 			if (tree == null || string.IsNullOrWhiteSpace(tree.Key) || tree.Nodes == null || tree.Nodes.Count == 0)

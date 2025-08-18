@@ -3,7 +3,8 @@
 	public class AppException : Exception
 	{
 		public int StatusCode { get; set; } = 500;
-		public List<object>? Args { get; set; }
+
+		public List<object> Args { get; } = new();
 
 		public AppException(string message) : base(message) { }
 
@@ -13,15 +14,12 @@
 			return this;
 		}
 
-		public AppException AddArg(params object[] args)
+		public AppException AddArgs(params object?[]? args)
 		{
-			if (args != null && args.Length > 0)
+			if (args is { Length: > 0 })
 			{
-				Args = new List<object>(args);
+				Args.AddRange(args.OfType<object>());
 			}
-
-			Args.AddRange(args);
-
 			return this;
 		}
 	}

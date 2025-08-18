@@ -1,4 +1,5 @@
-﻿using PaladinHub.Data.Entities;
+﻿using Microsoft.AspNetCore.Html;
+using PaladinHub.Data.Entities;
 using PaladinHub.Models.Talents;
 
 namespace PaladinHub.Models
@@ -27,6 +28,58 @@ namespace PaladinHub.Models
 		public List<string> PageHeaderBadges { get; set; } = new();
 		public string? PageHeaderCtaText { get; set; }
 		public string? PageHeaderCtaUrl { get; set; }
+
+		public IHtmlContent this[string name]
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(name)) return new HtmlString("");
+
+				var key = name.Trim();
+
+				var item = (Items ?? new List<Item>())
+					.FirstOrDefault(i => i.Name.Equals(key, System.StringComparison.OrdinalIgnoreCase));
+				if (item != null)
+				{
+					var url = string.IsNullOrWhiteSpace(item.Url) ? "#" : item.Url!;
+					var icon = string.IsNullOrWhiteSpace(item.Icon)
+						? "/images/ItemIcons/placeholder.png"
+						: (item.Icon.StartsWith("http", System.StringComparison.OrdinalIgnoreCase)
+							? item.Icon
+							: $"/images/ItemIcons/{item.Icon}");
+
+					return new HtmlString($@"
+					<span class='item-ref'>
+					  <a href='{url}' target='_blank' class='item-link'>
+					    <img src='{icon}' alt='{item.Name}' width='20' height='20' />
+					    <span>{item.Name}</span>
+					  </a>
+					</span>");
+				}
+
+				var spell = (Spells ?? new List<Spell>())
+					.FirstOrDefault(s => s.Name.Equals(key, System.StringComparison.OrdinalIgnoreCase));
+				if (spell != null)
+				{
+					var url = string.IsNullOrWhiteSpace(spell.Url) ? "#" : spell.Url!;
+					var icon = string.IsNullOrWhiteSpace(spell.Icon)
+						? "/images/SpellIcons/placeholder.png"
+						: (spell.Icon.StartsWith("http", System.StringComparison.OrdinalIgnoreCase)
+							? spell.Icon
+							: $"/images/SpellIcons/{spell.Icon}");
+
+					return new HtmlString($@"
+					<span class='spell-ref'>
+					  <a href='{url}' target='_blank' class='spell-link'>
+					    <img src='{icon}' alt='{spell.Name}' width='20' height='20' />
+					    <span>{spell.Name}</span>
+					  </a>
+					</span>");
+				}
+
+				return new HtmlString($"<span class='missing-ref'>{key}</span>");
+			}
+		}
 	}
 
 	public class BreadcrumbItem
@@ -35,3 +88,4 @@ namespace PaladinHub.Models
 		public string Url { get; set; } = "#";
 	}
 }
+	

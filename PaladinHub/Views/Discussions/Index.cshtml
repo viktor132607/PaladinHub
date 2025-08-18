@@ -6,7 +6,7 @@
 
 <div class="section-wrapper d-flex justify-content-between align-items-center mb-3">
     <h2 class="m-0"><i class="fa-solid fa-comments"></i> Discussions</h2>
-    @if (User?.Identity?.IsAuthenticated ?? false)
+    @if (User?.Identity?.IsAuthenticated == true)
     {
         <a class="btn btn-outline-primary" asp-controller="Discussions" asp-action="Create">
             <i class="fa-solid fa-plus"></i> New Topic
@@ -47,10 +47,10 @@ else
                     💬 @(p.Comments?.Count ?? 0) • ❤️ @p.Likes
                 </div>
 
-                @if (User.Identity?.IsAuthenticated ?? false)
+                @if (User?.Identity?.IsAuthenticated == true)
                 {
-                    var isAdmin = User.IsInRole("Admin");
-                    var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                    var isAdmin = User?.IsInRole("Admin") == true;
+                    var userId = User?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
                     if (isAdmin || p.AuthorId == userId)
                     {

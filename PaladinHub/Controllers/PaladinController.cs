@@ -1,23 +1,25 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using PaladinHub.Models;
 using PaladinHub.Models.PageBuilder;
-using PaladinHub.Services.IService;
+using PaladinHub.Services;
 using PaladinHub.Services.PageBuilder;
 using PaladinHub.Services.SectionServices;
-using System;
-using System.Linq;
+using PaladinHub.Services.TalentTrees;
 
 namespace PaladinHub.Controllers
 {
-	[Route("[controller]")] // Префикс за контролера, за да не хваща корена "/"
+	[Route("[controller]")]
 	public class PaladinController : BaseController
 	{
 		private readonly BaseSectionService _sectionService;
 		private readonly IPageService _pages;
-		private readonly TalentsController _talentsOrchestrator; // оркестратор за Talents
+		private readonly ITalentTreeService _talentTrees;
 
 		public PaladinController(
 			ISpellbookService spellbookService,
@@ -27,7 +29,7 @@ namespace PaladinHub.Controllers
 			RetributionSectionService retributionService,
 			IPageService pages,
 			IHttpContextAccessor httpContextAccessor,
-			TalentsController talentsOrchestrator
+			ITalentTreeService talentTrees
 		)
 			: base(
 				spellbookService,
@@ -37,10 +39,9 @@ namespace PaladinHub.Controllers
 		{
 			_pages = pages;
 			_sectionService = PickSectionService(httpContextAccessor, holyService, protectionService, retributionService);
-			_talentsOrchestrator = talentsOrchestrator;
+			_talentTrees = talentTrees;
 		}
 
-		// По-толерантна резолюция на секцията: route -> query -> session -> default
 		private static BaseSectionService PickSectionService(
 			IHttpContextAccessor accessor,
 			HolySectionService holy,
@@ -48,99 +49,109 @@ namespace PaladinHub.Controllers
 			RetributionSectionService retri)
 		{
 			var http = accessor.HttpContext;
-
-			// 1) от route: /Paladin/{section}/...
 			string? section =
-				http?.GetRouteData()?.Values.TryGetValue("section", out var rv) == true ? rv?.ToString() : null
-				// 2) от query: ?section=holy
-				?? http?.Request?.Query["section"].FirstOrDefault()
-				// 3) от сесия, ако вече сме пазили последно избраната
-				?? http?.Session?.GetString("current-section")
-				// 4) дефолт, ако липсва
-				?? "Retribution";
+				http?.GetRouteData()?.Values.TryGetValue("section", out var rv) == true ? rv?.ToString() :
+				http?.Request?.Query["section"].FirstOrDefault() ??
+				http?.Session?.GetString("current-section") ??
+				"Retribution";
 
-			// нормализиране
 			section = (section ?? "Retribution").Trim();
 			var sectionLower = section.ToLowerInvariant();
-
-			// запази нормализирания избор за следващи заявки
-			try { http?.Session?.SetString("current-section", sectionLower); } catch { /* ignore */ }
-
-			// мапване към сървис
+			try { http?.Session?.SetString("current-section", sectionLower); } catch { }
 			return sectionLower switch
 			{
 				"holy" => holy,
 				"protection" => prot,
 				"retribution" => retri,
-				// неизвестно => дефолт (без exception)
 				_ => retri
 			};
 		}
 
 		[HttpGet("")]
 		public IActionResult Index()
-			=> RedirectToAction("Merchandise", "Merchandise"); // /Paladin
+			=> RedirectToAction("Merchandise", "Merchandise");
 
-		// ===== SECTION STATIC PAGES =====
-		private CombinedViewModel BuildSectionModel(string actionName)
+		private void PutHeaderToViewData(string actionName)
 		{
 			var section = RouteData.Values.TryGetValue("section", out var s) ? s?.ToString() : null;
-
-			var vm = new CombinedViewModel
-			{
-				Section = section,
-				PageTitle = _sectionService.GetPageTitle(actionName),
-				PageText = _sectionService.GetPageText(actionName),
-				CoverImage = _sectionService.GetCoverImage(),
-				CurrentSectionButtons = _sectionService.GetCurrentSectionButtons(actionName),
-				OtherSectionButtons = _sectionService.GetOtherSectionButtons()
-			};
-			return vm;
+			ViewData["Section"] = section;
+			ViewData["PageTitle"] = _sectionService.GetPageTitle(actionName);
+			ViewData["PageText"] = _sectionService.GetPageText(actionName);
+			ViewData["CoverImage"] = _sectionService.GetCoverImage();
+			ViewData["CurrentSectionButtons"] = _sectionService.GetCurrentSectionButtons(actionName);
+			ViewData["OtherSectionButtons"] = _sectionService.GetOtherSectionButtons();
 		}
 
-		// Абсолютни маршрути (започват с "/"), за да останат на кореново ниво: /Holy/..., /Protection/..., /Retribution/...
 		[HttpGet("/{section:regex(^Holy|Protection|Retribution$)}/Overview")]
 		public IActionResult Overview([FromRoute] string section)
-			=> View("Overview", BuildSectionModel(nameof(Overview)));
+		{
+			PutHeaderToViewData(nameof(Overview));
+			return ViewWithCombinedData("Overview");
+		}
 
 		[HttpGet("/{section:regex(^Holy|Protection|Retribution$)}/Gear")]
 		public IActionResult Gear([FromRoute] string section)
-			=> View("Gear", BuildSectionModel(nameof(Gear)));
+		{
+			PutHeaderToViewData(nameof(Gear));
+			return ViewWithCombinedData("Gear");
+		}
 
 		[HttpGet("/{section:regex(^Holy|Protection|Retribution$)}/Stats")]
 		public IActionResult Stats([FromRoute] string section)
-			=> View("Stats", BuildSectionModel(nameof(Stats)));
+		{
+			PutHeaderToViewData(nameof(Stats));
+			return ViewWithCombinedData("Stats");
+		}
 
 		[HttpGet("/{section:regex(^Holy|Protection|Retribution$)}/Rotation")]
 		public IActionResult Rotation([FromRoute] string section)
-			=> View("Rotation", BuildSectionModel(nameof(Rotation)));
+		{
+			PutHeaderToViewData(nameof(Rotation));
+			return ViewWithCombinedData("Rotation");
+		}
 
 		[HttpGet("/{section:regex(^Holy|Protection|Retribution$)}/Consumables")]
 		public IActionResult Consumables([FromRoute] string section)
-			=> View("Consumables", BuildSectionModel(nameof(Consumables)));
+		{
+			PutHeaderToViewData(nameof(Consumables));
+			return ViewWithCombinedData("Consumables");
+		}
 
-		// ===== TALENTS (рут тук, логика в оркестратора) =====
+		// Talents: пълним TalentTrees + подаваме ViewData["Spells"] за паршълите
 		[HttpGet("/{section:regex(^Holy|Protection|Retribution$)}/Talents")]
 		public async Task<IActionResult> Talents([FromRoute] string section)
 		{
-			// 1) Дърветата + базов VM от оркестратора
-			var (model, keys, viewPath) = await _talentsOrchestrator.BuildPageAsync(section);
+			PutHeaderToViewData(nameof(Talents));
 
-			// 2) Header данни като при останалите секционни страници
-			var header = BuildSectionModel(nameof(Talents));
-			model.Section = header.Section;
-			model.CoverImage = header.CoverImage;
-			model.CurrentSectionButtons = header.CurrentSectionButtons;
-			model.OtherSectionButtons = header.OtherSectionButtons;
+			// 1) Зареждаме базовите данни
+			var spells = await SpellbookService.GetAllAsync();
+			var items = await ItemsService.GetAllAsync();
 
-			// 3) Данни за partial-а с 3-те дървета
-			ViewData["ShowTalentTrees"] = true;
-			ViewData["TalentTreeKeys"] = keys;
+			// 2) Секцията (за да изберем правилните дървета)
+			var sec = (section ?? "Retribution").Trim().ToLowerInvariant();
 
-			return View(viewPath, model);
+			// 3) Генерираме дърветата (вече на база наличните spells)
+			var trees = await _talentTrees.GetTalentTrees(sec, spells);
+
+			// 4) Строим модела (и Page Header-ът остава идентичен)
+			var model = new CombinedViewModel
+			{
+				Spells = spells,
+				Items = items,
+				TalentTrees = trees,
+				PageTitle = _sectionService.GetPageTitle(nameof(Talents)),
+				PageText = _sectionService.GetPageText(nameof(Talents)),
+				CoverImage = _sectionService.GetCoverImage(),
+				CurrentSectionButtons = _sectionService.GetCurrentSectionButtons(nameof(Talents)),
+				OtherSectionButtons = _sectionService.GetOtherSectionButtons()
+			};
+
+			// Някои вюта четат ViewData["Spells"]
+			ViewData["Spells"] = spells;
+
+			return View("Talents", model);
 		}
 
-		// ===== DYNAMIC CMS PAGE =====
 		[AllowAnonymous]
 		[HttpGet("/{section:regex(^Holy|Protection|Retribution$)}/{slug:regex(^(?!Overview$|Gear$|Talents$|Consumables$|Rotation$|Stats$).+)}")]
 		public async Task<IActionResult> Page([FromRoute] string section, [FromRoute] string slug)

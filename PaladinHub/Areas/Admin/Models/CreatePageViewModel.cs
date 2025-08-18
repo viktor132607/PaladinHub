@@ -5,7 +5,7 @@ namespace PaladinHub.Areas.Admin.Models
 	public class CreatePageViewModel
 	{
 		[Required, StringLength(50)]
-		public string Section { get; set; } = string.Empty; 
+		public string Section { get; set; } = string.Empty;
 
 		[Required, StringLength(200)]
 		public string Title { get; set; } = string.Empty;

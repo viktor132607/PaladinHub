@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PaladinHub.Areas.Admin.Models;
 using PaladinHub.Data;
-using PaladinHub.Data.Models;        
+using PaladinHub.Data.Models;
 
 namespace PaladinHub.Areas.Admin.Controllers
 {

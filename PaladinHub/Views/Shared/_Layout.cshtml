@@ -12,7 +12,7 @@
     <meta charset="utf-8" />
     <title>@(ViewData["Title"] ?? "PaladinHub")</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Премахнато дублираното зареждане на site.js от <head> -->
+    <script src="~/js/talents-editor.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PaladinHub.styles.css" asp-append-version="true" />
@@ -20,7 +20,7 @@
     <link rel="icon" href="~/images/WoW_icon.svg.png" type="image/svg+xml" asp-append-version="true" />
 </head>
 <body>
-    <!-- Глобален anti-forgery token за AJAX от mini cart -->
+
     <form id="__af" method="post" class="d-none">
         @Html.AntiForgeryToken()
     </form>
@@ -192,7 +192,6 @@
                             </a>
                         </li>
 
-                        <!-- Единствената количка: popup + badge -->
                         <li id="nav-cart" class="nav-item position-relative">
                             <a class="nav-link position-relative" asp-area="" asp-controller="Carts" asp-action="MyCart" title="My Cart">
                                 <i class="fa-solid fa-cart-shopping"></i>
@@ -231,6 +230,7 @@
             @RenderBody()
         </main>
     </div>
+    <br>
     <footer class="border-top footer text-muted text-center mt-5 py-3">
         <div class="container">
             &copy; @DateTime.Now.Year - PaladinHub | Made with 💛 for WoW Paladins

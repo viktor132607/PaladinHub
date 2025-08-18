@@ -3,228 +3,277 @@
 @using System.Collections.Generic
 @using PaladinHub.Models.Talents
 @model PaladinHub.Models.CombinedViewModel
-@inherits PaladinHub.Views.Shared.SpellsAndItemsView
+@inherits PaladinHub.Helpers.SpellsAndItemsView
 
 @{
-	var provided = (ViewData["keys"] as IEnumerable<string>)?
-				   .Where(k => !string.IsNullOrWhiteSpace(k))
-				   .Select(k => k.Trim())
-				   .ToArray()
-				   ?? Array.Empty<string>();
+    // ===== вход =====
+    var provided = (ViewData["keys"] as IEnumerable<string>)?
+                   .Where(k => !string.IsNullOrWhiteSpace(k))
+                   .Select(k => k.Trim())
+                   .ToArray()
+                   ?? Array.Empty<string>();
 
-	var trees = (Model.TalentTrees ?? new Dictionary<string, TalentTreeViewModel>())
-		.ToDictionary(x => x.Key, x => x.Value, StringComparer.OrdinalIgnoreCase);
+    var trees = (Model.TalentTrees ?? new Dictionary<string, TalentTreeViewModel>())
+        .ToDictionary(x => x.Key, x => x.Value, StringComparer.OrdinalIgnoreCase);
 
-	bool TryResolveKey(string raw, out string resolved)
-	{
-		resolved = null!;
-		if (string.IsNullOrWhiteSpace(raw)) return false;
+    // ===== помощни =====
+    bool IsHeroKey(string key)
+        => key.Contains("-herald", StringComparison.OrdinalIgnoreCase)
+        || key.Contains("-lightsmith", StringComparison.OrdinalIgnoreCase)
+        || key.Contains("-templar", StringComparison.OrdinalIgnoreCase);
 
-		if (trees.ContainsKey(raw))
-		{
-			resolved = trees.Keys.First(k => string.Equals(k, raw, StringComparison.OrdinalIgnoreCase));
-			return true;
-		}
+    bool IsClassKey(string key)
+        => key.Equals("paladin", StringComparison.OrdinalIgnoreCase);
 
-		var hit = trees.Keys.FirstOrDefault(k => k.EndsWith(raw, StringComparison.OrdinalIgnoreCase))
-			   ?? trees.Keys.FirstOrDefault(k => k.Contains(raw, StringComparison.OrdinalIgnoreCase));
-		if (hit != null) { resolved = hit; return true; }
+    bool IsSpecKey(string key)
+        => key.Equals("holy", StringComparison.OrdinalIgnoreCase)
+        || key.Equals("protection", StringComparison.OrdinalIgnoreCase)
+        || key.Equals("retribution", StringComparison.OrdinalIgnoreCase);
 
-		var alias = raw.ToLowerInvariant();
-		if (alias is "herald" or "lightsmith" or "templar")
-		{
-			hit = trees.Keys.FirstOrDefault(k => k.EndsWith("-" + alias, StringComparison.OrdinalIgnoreCase));
-			if (hit != null) { resolved = hit; return true; }
-		}
+    // Разбива ключ на токени по '-'
+    string[] Tokens(string s) => (s ?? "").Split('-', StringSplitOptions.RemoveEmptyEntries);
 
-		return false;
-	}
+    // Най-надежден резолвър:
+    // 1) exact
+    // 2) endswith
+    // 3) съдържа всички токени (напр. "holy-herald" ще хване "paladin-holy-herald")
+    string? ResolveAny(string raw)
+    {
+        if (string.IsNullOrWhiteSpace(raw) || trees.Count == 0) return null;
 
-	string paladinKey = null, specKey = null, heroKey = null;
+        // exact
+        var exact = trees.Keys.FirstOrDefault(k => string.Equals(k, raw, StringComparison.OrdinalIgnoreCase));
+        if (!string.IsNullOrEmpty(exact)) return exact;
 
-	if (TryResolveKey("paladin", out var p2)) paladinKey = p2;
+        // endswith
+        var end = trees.Keys.FirstOrDefault(k => k.EndsWith(raw, StringComparison.OrdinalIgnoreCase));
+        if (!string.IsNullOrEmpty(end)) return end;
 
-	if (TryResolveKey("holy", out var sHoly)) specKey = sHoly;
-	if (specKey == null && TryResolveKey("protection", out var sProt)) specKey = sProt;
-	if (specKey == null && TryResolveKey("retribution", out var sRet)) specKey = sRet;
+        // contains all tokens (order-insensitive)
+        var toks = Tokens(raw.ToLowerInvariant());
+        if (toks.Length > 0)
+        {
+            var hit = trees.Keys.FirstOrDefault(k =>
+            {
+                var kt = Tokens(k.ToLowerInvariant());
+                return toks.All(t => kt.Contains(t));
+            });
+            if (!string.IsNullOrEmpty(hit)) return hit;
+        }
 
-	if (!string.IsNullOrWhiteSpace(specKey))
-	{
-		TryResolveKey($"{specKey}-herald", out var hHerald);
-		TryResolveKey($"{specKey}-lightsmith", out var hLight);
-		TryResolveKey($"{specKey}-templar", out var hTemplar);
-		heroKey = hHerald ?? hLight ?? hTemplar;
-	}
+        // специални алиаси (само hero)
+        var alias = raw.ToLowerInvariant();
+        if (alias is "herald" or "lightsmith" or "templar")
+        {
+            var hit = trees.Keys.FirstOrDefault(k => k.EndsWith("-" + alias, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrEmpty(hit)) return hit;
+        }
 
-	foreach (var raw in provided)
-	{
-		if (raw.Equals("paladin", StringComparison.OrdinalIgnoreCase) && TryResolveKey(raw, out var r1)) paladinKey = r1;
-		else if (raw is "holy" or "protection" or "retribution")
-		{
-			if (TryResolveKey(raw, out var r2)) specKey = r2;
-		}
-		else if (TryResolveKey(raw, out var r3)) heroKey = r3;
-	}
+        return null;
+    }
 
-	var orderedKeys = new[] { paladinKey, heroKey, specKey }
-		.Where(k => !string.IsNullOrWhiteSpace(k) && trees.ContainsKey(k))
-		.Distinct(StringComparer.OrdinalIgnoreCase)
-		.ToList();
+    // Извлечи spec alias от key, ако има
+    string? ExtractSpec(string key)
+    {
+        var k = key.ToLowerInvariant();
+        if (k.Contains("holy")) return "holy";
+        if (k.Contains("protection")) return "protection";
+        if (k.Contains("retribution")) return "retribution";
+        return null;
+    }
 
-	var uid = "trees_" + Guid.NewGuid().ToString("N");
+    // Избери hero за даден spec, по приоритет: herald > lightsmith > templar
+    string? PickHeroForSpec(string spec)
+    {
+        var prio = new[] { "herald", "lightsmith", "templar" };
+        foreach (var a in prio)
+        {
+            var hit = trees.Keys.FirstOrDefault(k =>
+                k.Contains(spec, StringComparison.OrdinalIgnoreCase)
+                && k.EndsWith("-" + a, StringComparison.OrdinalIgnoreCase));
+            if (!string.IsNullOrEmpty(hit)) return hit;
+        }
+        // ако няма точен spec в ключовете (пример: "paladin-holy-herald" липсва),
+        // вземи първия наличен hero от речника
+        return trees.Keys.FirstOrDefault(IsHeroKey);
+    }
+
+    // ===== основна логика =====
+    string? classKey = ResolveAny("paladin"); // ако го има
+    string? heroKey = null;
+    string? specKey = null;
+
+    // стартови стойности според това какво имаме в речника
+    if (!trees.ContainsKey(classKey ?? "")) classKey = null;
+
+    // 1) прекарай подадените ключове и резолвни
+    foreach (var raw in provided)
+    {
+        var k = ResolveAny(raw);
+        if (string.IsNullOrEmpty(k)) continue;
+
+        if (IsClassKey(k)) classKey = k;
+        else if (IsHeroKey(k)) heroKey = k;
+        else if (IsSpecKey(k)) specKey = k;
+        else
+        {
+            // ако е нещо друго, опитай да класифицираш по съдържание
+            if (IsHeroKey(k)) heroKey = k;
+            else
+            {
+                var specAlias = ExtractSpec(k);
+                if (!string.IsNullOrEmpty(specAlias)) specKey = ResolveAny(specAlias) ?? specKey;
+            }
+        }
+    }
+
+    // 2) ако няма spec, но има hero – извади spec от hero
+    if (specKey == null && heroKey != null)
+    {
+        var s = ExtractSpec(heroKey);
+        if (s != null) specKey = ResolveAny(s) ?? specKey;
+    }
+
+    // 3) ако има spec, но няма hero – избери подходящ hero за този spec
+    if (specKey != null && heroKey == null)
+    {
+        heroKey = PickHeroForSpec(ExtractSpec(specKey) ?? "holy");
+    }
+
+    // 4) подреди в желания ред, пази само валидните
+    var orderedKeys = new[] { classKey, heroKey, specKey }
+        .Where(k => !string.IsNullOrWhiteSpace(k) && trees.ContainsKey(k!))
+        .Distinct(StringComparer.OrdinalIgnoreCase)
+        .ToList();
+
+    var uid = "trees_" + Guid.NewGuid().ToString("N");
 }
 
 <div class="trees-container">
-	<div id="@uid" class="talents-container">
-		<div class="tree-toolbar">
+    <div id="@uid" class="talents-container">
+        <div class="tree-toolbar">
+            @if (User?.IsInRole("Admin") == true)
+            {
+                <div class="tree-toolbar-actions">
+                    <button type="button" class="btn btn-warning js-edit" aria-pressed="false">Edit</button>
+                    <button type="button" class="btn btn-success js-save d-none">Save changes</button>
+                </div>
+            }
+        </div>
 
-			@if (User?.IsInRole("Admin") == true)
-			{
-				<div class="tree-toolbar-actions">
-					<button type="button" class="btn btn-warning js-edit" aria-pressed="false">Edit</button>
-					<button type="button" class="btn btn-success js-save d-none">Save changes</button>
-				</div>
-			}
-		</div>
+        <section class="talent-section">
+            <div class="trees-row">
+                @foreach (var key in orderedKeys)
+                {
+                    if (string.IsNullOrEmpty(key) || !trees.TryGetValue(key, out var vm)) { continue; }
 
-		<section class="talent-section">
-			<div class="trees-row">
-				@foreach (var key in orderedKeys)
-				{
-					if (!trees.TryGetValue(key, out var vm)) { continue; }
+                    var kind = "spec";
+                    if (IsClassKey(key)) kind = "class";
+                    else if (IsHeroKey(key)) kind = "hero";
 
-					var kind = "spec";
-					if (key.Equals("paladin", StringComparison.OrdinalIgnoreCase)) kind = "class";
-					else if (key.Contains("-herald", StringComparison.OrdinalIgnoreCase)
-					|| key.Contains("-lightsmith", StringComparison.OrdinalIgnoreCase)
-					|| key.Contains("-templar", StringComparison.OrdinalIgnoreCase)) kind = "hero";
-
-					<div class="tree-card" data-tree-key="@vm.Key">
-						<div class="tree-title">@vm.Title</div>
-
-						<div class="tree-root @(kind == "hero" ? "tree-root--hero" : kind == "class" ? "tree-root--class" : "tree-root--spec")">
-							@* Lines under the nodes *@
-							@foreach (var e in vm.Edges)
-							{
-								var from = vm.Nodes.FirstOrDefault(n => n.Id == e.FromId);
-								var to = vm.Nodes.FirstOrDefault(n => n.Id == e.ToId);
-								if (from != null && to != null)
-								{
-									@Line(from.Col, from.Row, to.Col, to.Row)
-								}
-							}
-
-							@* Nodes on top *@
-							@foreach (var n in vm.Nodes)
-							{
-								@SpellNode(n)
-							}
-						</div>
-					</div>
-				}
-			</div>
-		</section>
-	</div>
+                    <div class="tree-card" data-tree-key="@vm.Key">
+                        <div class="tree-title">@vm.Title</div>
+                        <div class="tree-root @(kind == "hero" ? "tree-root--hero" : kind == "class" ? "tree-root--class" : "tree-root--spec")">
+                            @foreach (var e in vm.Edges)
+                            {
+                                var from = vm.Nodes.FirstOrDefault(n => n.Id == e.FromId);
+                                var to = vm.Nodes.FirstOrDefault(n => n.Id == e.ToId);
+                                if (from != null && to != null)
+                                {
+                                    @Line(from.Col, from.Row, to.Col, to.Row)
+                                }
+                            }
+                            @foreach (var n in vm.Nodes)
+                            {
+                                @SpellNode(n)
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
 </div>
 
 @if (User?.IsInRole("Admin") == true)
 {
-	<script>
-		(function(){
-			const root = document.getElementById('@uid');
-			if (!root) return;
+    <script>
+        (function(){
+            const root = document.getElementById('@uid');
+            if (!root) return;
 
-			const editBtn = root.querySelector('.js-edit');
-			const saveBtn = root.querySelector('.js-save');
-			let editMode = false;
+            const editBtn = root.querySelector('.js-edit');
+            const saveBtn = root.querySelector('.js-save');
+            let editMode = false;
 
-			function setEditMode(on) {
-				editMode = on;
-				root.classList.toggle('edit-mode', on);
-				if (editBtn) {
-					editBtn.textContent = on ? 'Exit edit' : 'Edit';
-					editBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
-				}
-				if (saveBtn) {
-					saveBtn.classList.toggle('d-none', !on);
-				}
-			}
+            function setEditMode(on) {
+                editMode = on;
+                root.classList.toggle('edit-mode', on);
+                if (editBtn) {
+                    editBtn.textContent = on ? 'Exit edit' : 'Edit';
+                    editBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+                }
+                if (saveBtn) {
+                    saveBtn.classList.toggle('d-none', !on);
+                }
+            }
 
-			// Toggle edit
-			if (editBtn) {
-				editBtn.addEventListener('click', () => setEditMode(!editMode));
-			}
+            if (editBtn) {
+                editBtn.addEventListener('click', () => setEditMode(!editMode));
+            }
 
-			// Click on node in edit mode
-			root.addEventListener('click', (e) => {
-				if (!editMode) return;
+            root.addEventListener('click', (e) => {
+                if (!editMode) return;
+                const node = e.target.closest('.node');
+                if (!node || !root.contains(node)) return;
+                e.preventDefault();
+                if (node.classList.contains('selected')) {
+                    node.classList.remove('selected');
+                    return;
+                }
+                const requires = (node.dataset.requires || '').split(',').map(s => s.trim()).filter(Boolean);
+                if (requires.length === 0) {
+                    node.classList.add('selected');
+                    return;
+                }
+                const treeCard = node.closest('.tree-card') || root;
+                const ok = requires.some(id => {
+                    const dep = treeCard.querySelector(`.node[data-id="${CSS.escape(id)}"]`);
+                    return dep && dep.classList.contains('selected');
+                });
+                if (ok) {
+                    node.classList.add('selected');
+                } else {
+                    node.classList.remove('shake');
+                    void node.offsetWidth;
+                    node.classList.add('shake');
+                    setTimeout(() => node.classList.remove('shake'), 260);
+                }
+            }, true);
 
-				const node = e.target.closest('.node');
-				if (!node || !root.contains(node)) return;
-
-				// block navigation (anchors disabled via CSS too)
-				e.preventDefault();
-
-				// Toggle off if already selected
-				if (node.classList.contains('selected')) {
-					node.classList.remove('selected');
-					return;
-				}
-
-				// Check prerequisites
-				const requires = (node.dataset.requires || '').split(',').map(s => s.trim()).filter(Boolean);
-				if (requires.length === 0) {
-					node.classList.add('selected');
-					return;
-				}
-
-				// limit the search within current tree-card
-				const treeCard = node.closest('.tree-card') || root;
-				const ok = requires.some(id => {
-					const dep = treeCard.querySelector(`.node[data-id="${CSS.escape(id)}"]`);
-					return dep && dep.classList.contains('selected');
-				});
-
-				if (ok) {
-					node.classList.add('selected');
-				} else {
-					// tiny shake feedback
-					node.classList.remove('shake');
-					void node.offsetWidth; // reflow to restart animation
-					node.classList.add('shake');
-					setTimeout(() => node.classList.remove('shake'), 260);
-				}
-			}, true);
-
-			// Save – gather per tree and persist (localStorage + optional POST)
-			if (saveBtn) {
-				saveBtn.addEventListener('click', async () => {
-					const payload = [];
-					root.querySelectorAll('.tree-card').forEach(card => {
-						const key = card.getAttribute('data-tree-key');
-						const ids = Array.from(card.querySelectorAll('.node.selected'))
-										.map(n => n.getAttribute('data-id'))
-										.filter(Boolean);
-						payload.push({ key, selected: ids });
-						// local storage per tree
-						try { localStorage.setItem(`ph_tree_${key}`, JSON.stringify(ids)); } catch(e) {}
-					});
-
-					// Optional POST (ignore errors if endpoint doesn't exist)
-					try {
-						await fetch('/api/talents/selection', {
-							method: 'POST',
-							headers: { 'Content-Type': 'application/json' },
-							body: JSON.stringify({ trees: payload })
-						});
-					} catch (err) {
-						// silent; console for devs
-						console.warn('Save endpoint missing or failed:', err);
-					}
-
-					setEditMode(false);
-				});
-			}
-		})();
-	</script>
+            if (saveBtn) {
+                saveBtn.addEventListener('click', async () => {
+                    const payload = [];
+                    root.querySelectorAll('.tree-card').forEach(card => {
+                        const key = card.getAttribute('data-tree-key');
+                        const ids = Array.from(card.querySelectorAll('.node.selected'))
+                                        .map(n => n.getAttribute('data-id'))
+                                        .filter(Boolean);
+                        payload.push({ key, selected: ids });
+                        try { localStorage.setItem(`ph_tree_${key}`, JSON.stringify(ids)); } catch(e) {}
+                    });
+                    try {
+                        await fetch('/api/talents/selection', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ trees: payload })
+                        });
+                    } catch (err) {
+                        console.warn('Save endpoint missing or failed:', err);
+                    }
+                    setEditMode(false);
+                });
+            }
+        })();
+    </script>
 }

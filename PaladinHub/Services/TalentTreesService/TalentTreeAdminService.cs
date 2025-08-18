@@ -12,18 +12,21 @@ namespace PaladinHub.Services.TalentTrees
 		private readonly AppDbContext _db;
 		public TalentTreeAdminService(AppDbContext db) => _db = db;
 
-		public async Task<IDictionary<string, bool>> GetStatesAsync(string treeKey)
+		public async Task<Dictionary<string, bool>> GetStatesAsync(string treeKey)
 		{
-			return await _db.TalentNodeStates
+			var dict = await _db.TalentNodeStates
 				.Where(x => x.TreeKey == treeKey)
 				.ToDictionaryAsync(x => x.NodeId, x => x.IsActive);
+
+			return new Dictionary<string, bool>(dict, System.StringComparer.OrdinalIgnoreCase);
 		}
 
-		public async Task SetStatesAsync(string treeKey, IDictionary<string, bool> states)
+		public async Task SaveStatesAsync(string treeKey, IDictionary<string, bool> states)
 		{
-			var existing = await _db.TalentNodeStates.Where(x => x.TreeKey == treeKey).ToListAsync();
+			var existing = await _db.TalentNodeStates
+				.Where(x => x.TreeKey == treeKey)
+				.ToListAsync();
 
-			// update + insert
 			foreach (var kv in states)
 			{
 				var row = existing.FirstOrDefault(x => x.NodeId == kv.Key);
@@ -42,7 +45,6 @@ namespace PaladinHub.Services.TalentTrees
 				}
 			}
 
-			// по желание: чистим записи за нодове, които вече не съществуват в states
 			foreach (var row in existing)
 			{
 				if (!states.ContainsKey(row.NodeId))
