@@ -1,11 +1,10 @@
-﻿@inherits PaladinHub.Helpers.SpellsAndItemsView
-@model PaladinHub.Models.CombinedViewModel
-
+﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
 @{
 	ViewData["Title"] = "Holy Paladin Consumables";
-	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*
+<link rel="stylesheet" href="~/css/holy/holyStats.css" />
+<link rel="stylesheet" href="~/css/holy/holyTalents.css" />
 <link rel="stylesheet" href="~/css//holy/holyConsumables.css" />
 *@
 
@@ -39,10 +38,10 @@
 								Head
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Greater Rune of the Void Ritual"]
+								@Item("Greater Rune of the Void Ritual")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Lesser Rune of the Void Ritual"]
+								@Item("Lesser Rune of the Void Ritual")
 							</td>
 						</tr>
 						<tr>
@@ -50,10 +49,10 @@
 								Weapon
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Weapon - Authority of Fiery Resolve"]
+								@Item("Enchant Weapon - Authority of Fiery Resolve")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Weapon - Stonebound Artistry"]
+								@Item("Enchant Weapon - Stonebound Artistry")
 							</td>
 						</tr>
 						<tr>
@@ -61,16 +60,16 @@
 								Cloak
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Cloak - Chant of Leeching Fangs"]
+								@Item("Enchant Cloak - Chant of Leeching Fangs")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Cloak - Whisper of Silken Leech"]
+								@Item("Enchant Cloak - Whisper of Silken Leech")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Chest</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Chest - Crystalline Radiance"]
+								@Item("Enchant Chest - Crystalline Radiance")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
 								-
@@ -79,25 +78,25 @@
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Bracers</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Bracer - Chant of Armored Leech"]
+								@Item("Enchant Bracer - Chant of Armored Leech")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Bracer - Whisper of Armored Leech"]
+								@Item("Enchant Bracer - Whisper of Armored Leech")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Legs</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Daybreak Spellthread"]
+								@Item("Daybreak Spellthread")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Weavercloth Spellthread"]
+								@Item("Weavercloth Spellthread")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Boots</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Boots - Defender's March"]
+								@Item("Enchant Boots - Defender's March")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
 								-
@@ -106,10 +105,10 @@
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Ring</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Ring - Radiant Haste"]
+								@Item("Enchant Ring - Radiant Haste")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Enchant Ring - Glimmering Haste"]
+								@Item("Enchant Ring - Glimmering Haste")
 							</td>
 						</tr>
 					</tbody>
@@ -123,7 +122,7 @@
 					Holy Paladin Head Enchant in The War Within Season 2
 				</h2>
 
-				<p>@Model["Greater Rune of the Void Ritual"] will be your corruption of choice as it is the only option that provides a healing increase. You can use @Model["Lesser Rune of the Void Ritual"] until you unlock its greater version.</p>
+				<p>@Item("Greater Rune of the Void Ritual") will be your corruption of choice as it is the only option that provides a healing increase. You can use @Item("Lesser Rune of the Void Ritual") until you unlock its greater version.</p>
 			</section>
 
 			<div class="separator-container">
@@ -156,66 +155,67 @@
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Flask</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Flask of Tempered Swiftness"]
+								@Item("Flask of Tempered Swiftness")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Flask of Tempered Mastery"]
+								@Item("Flask of Tempered Mastery")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Mana Potion</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Algari Mana Potion"]
+								@Item("Algari Mana Potion")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Slumbering Soul Serum"]
+								@Item("Slumbering Soul Serum")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Health Potion</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Algari Healing Potion"]
+								@Item("Algari Healing Potion")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">-</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Weapon Buff</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Algari Mana Oil"] as Herald<br>
-								@Model["Rite of Sanctification"] as Lightsmith
+
+								@Item("Algari Mana Oil") as Herald<br>
+								@Spell("Rite of Sanctification") as Lightsmith
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">-</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Augment Rune</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Crystallized Augment Rune"]
+								@Item("Crystallized Augment Rune")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;"></td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Food</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Feast of the Divine Day"]
+								@Item("Feast of the Divine Day")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Jester's Board"]
+								@Item("Jester's Board")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Diamond</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Elusive Blasphemite"]
+								@Item("Elusive Blasphemite")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">-</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Other Gems</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Quick Onyx"]
+								@Item("Quick Onyx")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Model["Deadly Emerald"]
+								@Item("Deadly Emerald")
 							</td>
 						</tr>
 					</tbody>
@@ -227,7 +227,7 @@
 					Holy Paladin Phials in The War Within Season 2
 				</h2>
 
-				<p>The best phial for Holy Paladin is @Model["Flask of Tempered Swiftness"] for both Raiding and Mythic+</p>
+				<p>The best phial for Holy Paladin is @Item("Flask of Tempered Swiftness") for both Raiding and Mythic+</p>
 
 				<h2 class="section-header" style="text-align: left;">
 					<img src="/images/itemIcons/inv_flask_blue.jpg" alt="Crafting Icon" class="section-icon small-icon">
@@ -236,10 +236,10 @@
 				There are a couple different potions that have different useful scenarios for Holy Paladin:
 				<ul>
 					<li>
-						<strong>Best Mana Potion:</strong> @Model["Algari Mana Potion"], or @Model["Slumbering Soul Serum"] if you are able to find a good time to use it.
+						<strong>Best Mana Potion:</strong> @Item("Algari Mana Potion"), or @Item("Slumbering Soul Serum") if you are able to find a good time to use it.
 					</li>
 					<li>
-						<strong>Best Throughput Potion:</strong> @Model["Tempered Potion"].
+						<strong>Best Throughput Potion:</strong> @Item("Tempered Potion").
 					</li>
 				</ul>
 				<br>
@@ -248,14 +248,14 @@
 					Holy Paladin Health Potions in The War Within Season 2
 				</h2>
 
-				<p>The best healing potion is @Model["Algari Healing Potion"].</p>
+				<p>The best healing potion is @Item("Algari Healing Potion").</p>
 				<br>
 				<h2 class="section-header" style="text-align: left;">
 					<img src="/images/itemIcons/trade_alchemy_potiond1.jpg" alt="Crafting Icon" class="section-icon small-icon">
 					Holy Paladin Weapon Buff in The War Within Season 2
 				</h2>
 
-				<p>@Model["Algari Mana Oil"] is the best weapon buff to use in all scenarios as Herald of the Sun, and Rite of Sanctification as Lightsmith.</p>
+				<p>@Item("Algari Mana Oil") is the best weapon buff to use in all scenarios as Herald of the Sun, and  Rite of Sanctification as Lightsmith.</p>
 
 				<br>
 
@@ -264,7 +264,7 @@
 					Holy Paladin Augment Rune in The War Within Season 2
 				</h2>
 
-				<p>@Model["Crystallized Augment Rune"] is the best augment rune for Holy Paladin.</p>
+				<p>@Item("Crystallized Augment Rune") is the best augment rune for Holy Paladin.</p>
 				<br>
 			</section>
 
@@ -279,11 +279,11 @@
 				</h2>
 
 				<ul>
-					<li>Feast: @Model["Feast of the Divine Day"] or @Model["Feast of the Midnight Masquerade"]</li>
-					<li>Personal Food: @Model["Jester's Board"], @Model["Outsider's Provisions"], @Model["Empress' Farewell"], or @Model["Beledar's Bounty"]</li>
+					<li>Feast: @Item("Feast of the Divine Day") or @Item("Feast of the Midnight Masquerade").</li>
+					<li>Personal Food: @Item("Jester's Board"), @Item("Outsider's Provisions"), @Item("Empress' Farewell"), or @Item("Beledar's Bounty").</li>
 				</ul>
 
-				<p>All of the Personal Food options grant the same buff, but @Model["Feast of the Divine Day"] or @Model["Feast of the Midnight Masquerade"] are the best option.</p>
+				<p>All of the Personal Food options grant the same buff, but @Item("Feast of the Divine Day") or @Item("Feast of the Midnight Masquerade") are the best option.</p>
 			</section>
 
 			<div class="separator-container">
@@ -297,10 +297,11 @@
 				</h2>
 
 
-				<p>The best Algari Diamond is @Model["Elusive Blasphemite"] as it gives a bit of movement speed. @Model["Culminating Blasphemite"] provides more direct throughput increase, but it is <strong>extremely</strong> minor as it's just weak and the crit effect increase is halved for healing effects.</p>
-				<p>To maximize the effect of @Model["Elusive Blasphemite"], it is recommended you use at least four different gem colours in the rest of your sockets. @Model["Quick Onyx"] is the best gem for Raiding, but you should use <strong>one each</strong> of the following too; @Model["Masterful Emerald"], @Model["Masterful Ruby"], and @Model["Masterful Sapphire"]. This will grant you 8% extra movement speed permanently.</p>
-				<p>@Model["Deadly Emerald"] is the best gem for Mythic+, and you should use one each of the following too; @Model["Quick Onyx"], @Model["Quick Sapphire"], and @Model["Quick Ruby"].</p>
+				<p>The best Algari Diamond is @Item("Elusive Blasphemite")  as it gives a bit of movement speed. @Item("Culminating Blasphemite") provides more direct throughput increase, but it is <strong>extremely</strong> minor as it's just weak and the crit effect increase is halved for healing effects.</p>
+				<p>To maximize the effect of @Item("Elusive Blasphemite"), it is recommended you use at least four different gem colours in the rest of your sockets. @Item("Quick Onyx") is the best gem for Raiding, but you should use <strong>one each</strong> of the following too; @Item("Masterful Emerald") , @Item("Masterful Ruby"), and @Item("Masterful Sapphire")". This will grant you 8% extra movement speed permanently.</p>
+				<p>@Item("Deadly Emerald") is the best gem for Mythic+, and you should use one each of the following too; @Item("Quick Onyx"), @Item("Quick Sapphire"), and @Item("Quick Ruby").</p>
 			</section>
 		</div>
 	</div>
 </div>
+

@@ -1,70 +1,68 @@
 # PaladinHub
 
-## ⚠️ Конфигурация
+## ⚠️ Edit `appsettings.json` File
 
-1. Уверете се, че сте обновили файла **`appsettings.json`** с вашите настройки, иначе приложението няма да стартира.  
-2. Попълнете:
-   - Connection string за PostgreSQL база данни.
-   - Redis connection string (ако се ползва кеш).
-   - JWT ключове, API ключове и други специфични конфигурации.
+> **Important**: Ensure the `appsettings.json` file is updated with your custom configuration or the app will not run.
 
----
+## Overview
 
-## 📝 Описание
-
-**PaladinHub** е модулен и скалируем .NET 8 уеб проект с вграден Talent Tree Builder. Следва принципите на **Clean Architecture** и съдържа:
-
-- Уеб интерфейс с Razor Pages / MVC
-- Админ панел за управление на страници, база данни и продукти
-- API и бизнес логика в отделни слоеве
-- Работа с PostgreSQL и Redis
-- Docker съвместимост
+The **PaladinHub** project is a modular and scalable .NET 8 website with in-build talent tree builder. It adheres to clean architecture principles and includes components for API, data management, domain logic, shared utilities, and unit tests.
 
 ---
 
-## 📂 Структура на проекта
+## Table of Contents
 
-1. **PaladinHub.Web**  
-   - Основният уеб проект (MVC + Razor Pages) с UI и админ панел.
-
-2. **PaladinHub.Data**  
-   - База данни, DbContext, ентитети и репозитории (EF Core).
-
-3. **PaladinHub.Domain**  
-   - Бизнес логика и домейн модели.
-
-4. **PaladinHub.Services**  
-   - Сървис слой за интеграции и бизнес операции.
-
-5. **PaladinHub.Tests**  
-   - Unit тестове.
-
-6. **Конфигурационни файлове**  
-   - `.editorconfig`, `.gitignore`, `Directory.Packages.props`, `LICENSE`, `README.md`.
+- [Structure](#structure)
+- [Requirements](#requirements)
 
 ---
 
-## 🖥️ Изисквания
+## Structure
+
+This solution follows a **layered architecture** to separate concerns:
+
+1. **PaladinHub.API**
+
+   - The main Web API project that serves HTTP endpoints.
+   - Built using ASP.NET Core Minimal APIs or Controllers.
+
+2. **PaladinHub.Common**
+
+   - Contains shared request/response models.
+
+3. **PaladinHub.Data**
+
+   - Handles database context, repositories, and entity configuration.
+   - Built using Entity Framework Core.
+
+4. **PaladinHub.Domain**
+
+   - Represents the core business logic.
+
+5. **PaladinHub.Tests**
+
+   - Contains partial unit tests for validating the solution.
+
+6. **Configuration Files**
+   - `.editorconfig`: Coding style configuration.
+   - `.gitignore`: Specifies files and directories to exclude from source control.
+   - `Directory.Packages.props`: Shared package versions for the solution.
+   - `PaladinHub.sln`: Visual Studio solution file.
+   - `LICENSE`: Project license file.
+   - `README.md`: Project documentation.
+
+---
+
+## Requirements
 
 - **.NET 8 SDK**  
-  [Изтегли от тук](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- **IDE**  
+   Download and install the latest version from [here](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
+
+- **IDE**
   - Visual Studio 2022+
-  - Rider
-  - VS Code с C# разширение
-- **Docker** (за бързо стартиране на база данни и кеш)
+  - JetBrains Rider
+  - VS Code (with C# Extension)
 
----
+To run the application, you need to have a local SQL Server instance or connection string to a remote database. You need to update the connection string in the `appsettings.json` file.
 
-## 🚀 Стартиране с Docker
-
-Стартирайте Redis и PostgreSQL локално:
-
-```bash
-docker run -d --name redisdb -p 6379:6379 redis:7
-
-docker run -d --name postgresdb \
-  -e POSTGRES_DB=paladinhubdb \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -p 5432:5432 postgres:16
+When running the application, the database will be created.

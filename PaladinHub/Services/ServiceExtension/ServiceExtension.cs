@@ -4,7 +4,6 @@ using PaladinHub.Services.Carts;
 using PaladinHub.Services.Products;
 using PaladinHub.Services.Roles;
 using PaladinHub.Services.SectionServices;
-using PaladinHub.Services.TalentTrees;
 
 namespace PaladinHub.Services.ServiceExtension
 {
@@ -28,7 +27,7 @@ namespace PaladinHub.Services.ServiceExtension
 			services.AddTransient<HolySectionService>();
 			services.AddTransient<ProtectionSectionService>();
 			services.AddTransient<RetributionSectionService>();
-			services.AddScoped<ITalentTreeAdminService, TalentTreeAdminService>();
+
 
 
 			return services;

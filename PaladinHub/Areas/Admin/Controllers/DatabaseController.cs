@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using PaladinHub.Areas.Admin.ViewModels;
 using PaladinHub.Data;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PaladinHub.Areas.Admin.Controllers
 {
@@ -21,7 +24,7 @@ namespace PaladinHub.Areas.Admin.Controllers
 			if (!Enum.TryParse(entity, true, out AdminEntity which))
 				which = AdminEntity.Spells;
 
-			var vm = new AdminDatabaseIndexViewModel
+			var vm = new AdminDatabaseIndexVM
 			{
 				Entity = which,
 				Search = search ?? "",

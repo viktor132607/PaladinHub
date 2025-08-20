@@ -1,6 +1,7 @@
 ﻿@model PaladinHub.Data.Entities.Item
+
 @{
-    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Create Item";
 }
 
@@ -24,7 +25,6 @@
     </div>
 
     <div class="mb-3">
-        dotnet add package Microsoft.Extensions.Caching.Postgresdotnet add package Microsoft.Extensions.Caching.Postgres
         <label asp-for="Description" class="form-label"></label>
         <textarea asp-for="Description" class="form-control"></textarea>
     </div>

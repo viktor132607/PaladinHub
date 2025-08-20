@@ -1,79 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
-		<ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
 
 	<ItemGroup>
-		<Compile Remove="Services\CartStore\RedisCartStore.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Remove="Views\Shared\Blocks\_Callout.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_ColumnsText.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_Divider.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_Heading.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_ItemGrid.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_PageHeader.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_RotationCard.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_Section.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_SpellList.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_Switcher.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_Table.Consumables.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_Table.Gear.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_Table.Generic.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_Tabs.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_TalentBuildMenu.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_TalentTree.cshtml" />
-		<Content Remove="Views\Shared\Blocks\_TierList.cshtml" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Community.Microsoft.Extensions.Caching.PostgreSql" Version="5.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.16" />
+		<PackageReference Include="DotNetEnv" Version="3.1.1" />
+		<PackageReference Include="MailKit" Version="4.12.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.16" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.16" />
-		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.16" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.16">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.16" />
-		<PackageReference Include="DotNetEnv" Version="3.1.1" />
-		<PackageReference Include="HtmlSanitizer" Version="9.0.886" />
-		<PackageReference Include="MailKit" Version="4.12.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
 		<PackageReference Include="MimeKit" Version="4.12.0" />
-		<PackageReference Include="Moq" Version="4.20.72" />
-		<PackageReference Include="NUnit" Version="4.4.0" />
-		<PackageReference Include="xunit" Version="2.9.3" />
-		<PackageReference Include="xunit.abstractions" Version="2.0.3" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.3">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<None Include="Views\Shared\Blocks\_Table.Consumables.cshtml" />
-		<None Include="Views\Shared\Blocks\_Table.Generic.cshtml" />
-		<None Include="Views\Shared\Blocks\_TierList.cshtml" />
-		<None Include="Views\Shared\Blocks\_ColumnsText.cshtml" />
-		<None Include="Views\Shared\Blocks\_TalentTree.cshtml" />
-		<None Include="Views\Shared\Blocks\_TalentBuildMenu.cshtml" />
-		<None Include="Views\Shared\Blocks\_ItemGrid.cshtml" />
-		<None Include="Views\Shared\Blocks\_SpellList.cshtml" />
-		<None Include="Views\Shared\Blocks\_Callout.cshtml" />
-		<None Include="Views\Shared\Blocks\_RotationCard.cshtml" />
-		<None Include="Views\Shared\Blocks\_Switcher.cshtml" />
-		<None Include="Views\Shared\Blocks\_Section.cshtml" />
-		<None Include="Views\Shared\Blocks\_Divider.cshtml" />
-		<None Include="Views\Shared\Blocks\_Heading.cshtml" />
-		<None Include="Views\Shared\Blocks\_PageHeader.cshtml" />
-		<None Include="Views\Shared\Blocks\_Table.Gear.cshtml" />
-		<None Include="Views\Shared\Blocks\_Tabs.cshtml" />
-	</ItemGroup>
 
 </Project>

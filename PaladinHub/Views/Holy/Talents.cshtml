@@ -1,41 +1,984 @@
-﻿@inherits PaladinHub.Helpers.SpellsAndItemsView
-@model PaladinHub.Models.CombinedViewModel
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewData["Title"] = "Holy Paladin Talents";
-}
+﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
+@{ViewData["Title"] = "Holy Paladin Talents";}
+@*<link rel="stylesheet" href="~/css/holy/holyStats.css" />
+<link rel="stylesheet" href="~/css/holy/holyTalents.css" />*@
 
 <body>
-    <div class="outer-wrapper">
-        <div class="page-container">
-            <div class="main-wrapper">
+	<div class="outer-wrapper">
+		<div class="page-container">
+			<div class="main-wrapper">
 
-                <section class="mb-4" id="talent-tree-1">
-                    <h2 style="text-align:center;margin-top: 10px">Holy + Herald of the Sun</h2>
-                    @await Html.PartialAsync(
-                        "~/Views/Shared/TalentTrees/_SectionTalentTrees.cshtml",
-                        Model,
-                        new ViewDataDictionary(ViewData) {
-                            ["keys"] = new[] { "paladin", "holy-herald", "holy" }
-                        })
-                </section>
+				<h1>Holy Paladin Talents - The War Within</h1>
 
-                <div class="separator-container">
-                    <img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
-                </div>
+				<p>
+					Beacon of Light се поставя върху танк и генерира пасивно лечение. @Spell("Beacon of Light") се поставя върху танк и генерира пасивно лечение.
+				</p>
+				<p>
+					Beacon of Light се поставя върху танк и генерира пасивно лечение. @Item("Greater Rune of the Void Ritual") се поставя върху танк и генерира пасивно лечение.
+				</p>
 
-                <section class="mb-4" id="talent-tree-2">
-                    <h2 style="text-align:center;margin-top: 10px">Holy + Lightsmith</h2>
-                    @await Html.PartialAsync(
-                        "~/Views/Shared/TalentTrees/_SectionTalentTrees.cshtml",
-                        Model,
-                        new ViewDataDictionary(ViewData) {
-                            ["keys"] = new[] { "paladin", "holy-lightsmith", "holy" }
-                        })
-                </section>
+				<div class="separator-container">
+					<img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
+				</div>
 
-            </div>
-        </div>
-    </div>
+				<section id="overview">
+					<p><strong>Holy Paladin</strong> remains a powerhouse healer in both dungeons and raids. Our strengths lie in high throughput, extremely durable survivability, and strong utility offerings. In <em>The War Within</em>, we're looking at a very solid toolkit with minor talent shifts but the core gameplay remains familiar and strong.</p>
+
+
+					<h3>Sections Covered:</h3>
+					<div class="section-buttons">
+						<a href="#builds">Talent Builds</a>
+						<a href="#hero-talents">Hero Talents</a>
+						<a href="#rotation">Rotation</a>
+						<a href="#gear">Gear</a>
+						<a href="#leveling">Leveling</a>
+						<a href="#abilities">Abilities & Talents</a>
+						<a href="#stats">Stats</a>
+						<a href="#consumables">Consumables</a>
+						<a href="#addons">WA & Addons</a>
+					</div>
+				</section>
+
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+				</div>
+
+				<div class="content-columns">
+					<div>
+						<h2>Strengths</h2>
+						<ul>
+							<li>Very strong single-target and group healing output.</li>
+							<li>Excellent defensives and personal survivability.</li>
+							<li>High mobility through <strong>Divine Steed</strong> and instant casts.</li>
+							<li>Powerful utility tools like <strong>Lay on Hands</strong>, <strong>Blessing of Freedom</strong>, and <strong>Cleanse</strong>.</li>
+							<li>Beacon healing makes damage patterns more manageable.</li>
+						</ul>
+					</div>
+					<div>
+						<h2>Weaknesses</h2>
+						<ul>
+							<li>Somewhat reliant on good positioning and being in melee range.</li>
+							<li>Resource (Holy Power) management is important and can be punishing if neglected.</li>
+							<li>Limited raid-wide cooldowns compared to some other healers.</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D3.png" alt="Separator 3" class="separator" />
+				</div>
+
+				<h2 class="hero-talents-title">Hero Talents</h2>
+
+				<div class="content-columns">
+					<div class="hero-talent-entry">
+						<img src="~/images/Herald.jpg" alt="Herald of the Sun" />
+						<h2>Herald Of The Sun</h2>
+						<ul>
+							<li>Very strong single-target and group healing output.</li>
+							<li>Excellent defensives and personal survivability.</li>
+							<li>High mobility through <strong>Divine Steed</strong> and instant casts.</li>
+							<li>Powerful utility tools like <strong>Lay on Hands</strong>, <strong>Blessing of Freedom</strong>, and <strong>Cleanse</strong>.</li>
+							<li>Beacon healing makes damage patterns more manageable.</li>
+						</ul>
+					</div>
+					<div class="hero-talent-entry">
+						<img src="~/images/Lightsmith.jpg" alt="Lightsmith" />
+						<h2>Lightsmith</h2>
+						<ul>
+							<li>Somewhat reliant on good positioning and being in melee range.</li>
+							<li>Resource (Holy Power) management is important and can be punishing if neglected.</li>
+							<li>Limited raid-wide cooldowns compared to some other healers.</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
+				</div>
+
+				<h2>Playstyle Overview</h2>
+				<p>Holy Paladins focus on generating <strong>Holy Power</strong> through abilities like <strong>Holy Shock</strong> and <strong>Crusader Strike</strong>, and spending it on powerful finishers like <strong>Word of Glory</strong> or <strong>Light of Dawn</strong>. Melee uptime is key for maximizing your generation and efficiency, but you have strong ranged options when needed.</p>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D5.png" alt="Separator 5" class="separator" />
+				</div>
+
+				<h2>Key Talents and Changes</h2>
+				<ul>
+					<li><strong>Infusion of Light</strong> procs are crucial for free and empowered heals.</li>
+					<li><strong>Barrier of Faith</strong> remains a strong tool for focused healing targets.</li>
+					<li><strong>Daybreak</strong> lets you reset your Beacon healing, adding burst power during key moments.</li>
+					<li><strong>Hand of Divinity</strong> improves your healing rotation significantly.</li>
+				</ul>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
+				</div>
+
+				<h2>Stat Priority</h2>
+				<p><strong>Primary Stat:</strong> Intellect</p>
+				<p><strong>Secondary Stats:</strong> Haste &gt; Crit &gt; Versatility &gt; Mastery</p>
+
+				<h2>Summary</h2>
+				<p>Overall, Holy Paladin is in a very strong spot in <em>The War Within</em>. It's a top-tier option for players who enjoy a mobile, aggressive healing style with a ton of clutch playmaking potential through smart cooldown use and positioning.</p>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+				</div>
+
+				<h1>Core Build - The Faithful Martyr</h1>
+
+				<p>The Faithful Martyr is an aggressive, powerful instant cast-focused build that will usher in a new golden age for Holy Paladins in Season 2. In Mythic+, you spend Holy Power on Eternal Flame for healing and Shield of the Righteous for damage, while in raid you'll use both Eternal Flame and Light of Dawn depending on if you want AoE or spot healing.</p>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
+				</div>
+
+				<h2>Mythic+ Version</h2>
+				<p>In Mythic+ you will spend Holy Power on Eternal Flame for healing and Shield of the Righteous for damage. Here is what your talent priority will look like:</p>
+
+				<div class="build-images">
+					<img src="~/images/TalentBuildsHoly/the-faithful-martyr-mplus-s2-v1.jpg" alt="Mythic+ Build" />
+				</div>
+
+				<div class="content-columns">
+					<div>
+						<ul>
+							<li>1. Divine Toll</li>
+							<li>2. Holy Prism</li>
+							<li>3. Spend Holy Power (don’t overcap)</li>
+							<li>4. Holy Shock (2 Charges)</li>
+							<li>5. Judgment</li>
+						</ul>
+					</div>
+					<div>
+						<ul>
+							<li>6. Hammer of Wrath</li>
+							<li>7. Holy Shock (1 Charge)</li>
+							<li>8. Crusader Strike</li>
+							<li>9. Keep your Consecration down at all times</li>
+							<li>10. Holy Light with Divine Favor for spot healing</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
+				</div>
+
+				<h2>Raid Version</h2>
+				<p>In raid, this build plays very similar to Mythic+, and your beacons should similarly go on either high HPS requirement tanks like Brewmasters, or squishy ranged like hunters/evokers/mages.</p>
+
+				<div class="build-images">
+					<img src="~/images/TalentBuildsHoly/the-faithful-martyr-raid-s2-v2.jpg" alt="Raid Build" />
+				</div>
+
+				<div class="content-columns">
+					<div>
+						<ul>
+							<li>1. Holy Prism</li>
+							<li>2. Spend Holy Power (don’t overcap)</li>
+							<li>3. Holy Shock</li>
+							<li>4. Judgment</li>
+						</ul>
+					</div>
+					<div>
+						<ul>
+							<li>5. Crusader Strike</li>
+							<li>6. Holy Light w/ Infusion (if needed for spot healing)</li>
+							<li>7. Hammer of Wrath</li>
+							<li>8. Consecration</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D3.png" alt="Separator 3" class="separator" />
+				</div>
+
+				<!-- Updated Tier Set Section - Centered -->
+				<div class="tier-set-section">
+					<h3>Tier Set - Best in Slot</h3>
+					<p><strong>Set Pieces:</strong></p>
+					<ul class="tier-set-list">
+						<li>
+							<img src="~/images/TierSets/undermine-tier-helm.png" alt="Helmet" class="tier-set-img" />
+							Helmet
+						</li>
+						<li>
+							<img src="~/images/TierSets/undermine-tier-shoulders.png" alt="Shoulders" class="tier-set-img" />
+							Shoulders
+						</li>
+						<li>
+							<img src="~/images/TierSets/undermine-tier-chest.png" alt="Chestplate" class="tier-set-img" />
+							Chestplate
+						</li>
+						<li>
+							<img src="~/images/TierSets/undermine-tier-gloves.png" alt="Gloves" class="tier-set-img" />
+							Gloves
+						</li>
+						<li>
+							<img src="~/images/TierSets/undermine-tier-pants.png" alt="Pants" class="tier-set-img" />
+							Pants
+						</li>
+					</ul>
+				</div>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
+				</div>
+
+				
+
+
+				<section holy-herald>
+					<div class="trees-container">
+
+
+						<section paladin>
+							<h2 style="text-align:center;margin-top: 20px">Paladin</h2>
+							<div class="paladin-tree-container">
+								<br>
+								<!-- Row 1 -->
+								@SpellNode("Lay on Hands", 2, 1, "square")
+								@SpellNode("Auras of the Resolute", 4, 1, "square")
+								@SpellNode("Hammer of Wrath", 6, 1, "square")
+
+								<!-- Row 2 -->
+								@SpellNode("Improved Cleanse", 1, 2)
+								@SpellNode("Empyreal Ward", 2, 2)
+								@SpellNode("Fist of Justice", 3, 2)
+								@SpellNode("Blinding Light", 5, 2, "hexagon")
+								@SpellNode("Turn Evil", 7, 2, "square")
+
+								<!-- Row 3 -->
+								@SpellNode("A Just Reward", 1, 3)
+								@SpellNode("Afterimage", 2, 3)
+								@SpellNode("Divine Steed", 4, 3, "square")
+								@SpellNode("Light's Countenance", 5, 3)
+								@SpellNode("Greater Judgment", 6, 3)
+								@SpellNode("Wrench Evil", 7, 3, "hexagon")
+
+								<!-- Row 4 -->
+								@SpellNode("Holy Reprieve", 1, 4)
+								@SpellNode("Cavalier", 3, 4)
+								@SpellNode("Divine Spurs", 4, 4)
+								@SpellNode("Blessing of Freedom", 5, 4, "hexagon")
+								@SpellNode("Rebuke", 7, 4, "square")
+
+								<!-- Row 5 -->
+								@SpellNode("Obduracy", 2, 5)
+								@SpellNode("Divine Toll", 4, 5, "square")
+								@SpellNode("Echoing Blessings", 5, 5, "hexagon")
+								@SpellNode("Sanctified Plates", 6, 5)
+								@SpellNode("Punishment", 7, 5)
+
+								<!-- Row 6 -->
+								@SpellNode("Divine Reach", 1, 6)
+								@SpellNode("Blessing of Sacrifice", 3, 6, "square")
+								@SpellNode("Quickened Invocation", 4, 6, "hexagon")
+								@SpellNode("Blessing of Protection", 5, 6, "square")
+								@SpellNode("Consecrated Ground", 7, 6)
+
+								<!-- Row 7 -->
+								@SpellNode("Holy Aegis", 2, 7)
+								@SpellNode("Sacrifice of the Just", 3, 7, "hexagon")
+								@SpellNode("Divine Purpose", 4, 7)
+								@SpellNode("Improved Blessing of Protection", 5, 7)
+								@SpellNode("Unbreakable Spirit", 6, 7)
+
+								<!-- Row 8 -->
+								@SpellNode("Lightforged Blessing", 1, 8)
+								@SpellNode("Lead the Charge", 2, 8)
+								@SpellNode("Righteous Protection", 3, 8, "hexagon")
+								@SpellNode("Holy Ritual", 4, 8)
+								@SpellNode("Blessed Calling", 5, 8)
+								@SpellNode("Inspired Guard", 6, 8)
+								@SpellNode("Judgment of Light", 7, 8)
+
+								<!-- Row 9 -->
+								@SpellNode("Faith's Armor", 1, 9)
+								@SpellNode("Stoicism", 2, 9)
+								@SpellNode("Seal of Might", 3, 9)
+								@SpellNode("Seal of the Crusader", 4, 9)
+								@SpellNode("Vengeful Wrath", 5, 9)
+								@SpellNode("Eye for an Eye", 6, 9)
+								@SpellNode("Golden Path", 7, 9, "hexagon")
+
+								<!-- Row 10 -->
+								@SpellNode("Of Dusk and Dawn", 2, 10)
+								@SpellNode("Lightbearer", 4, 10)
+								@SpellNode("Light's Revocation", 6, 10)
+
+
+								@Line(2, 1, 1, 2)
+								@Line(2, 1, 2, 2)
+								@Line(2, 1, 3, 2)
+								@Line(4, 1, 3, 2)
+								@Line(4, 1, 5, 2)
+								@Line(4, 1, 4, 3)
+								@Line(6, 1, 5, 2)
+								@Line(6, 1, 7, 2)
+								@Line(6, 1, 6, 3)
+
+								@Line(1, 2, 1, 3)
+								@Line(1, 2, 2, 3)
+								@Line(2, 2, 2, 3)
+								@Line(3, 2, 2, 3)
+								@Line(3, 2, 4, 3)
+								@Line(5, 2, 4, 3)
+								@Line(5, 2, 5, 3)
+								@Line(5, 2, 6, 3)
+								@Line(7, 2, 7, 3)
+
+								@Line(1, 3, 1, 4)
+								@Line(2, 3, 1, 4)
+								@Line(2, 3, 2, 5)
+								@Line(4, 3, 3, 4)
+								@Line(4, 3, 4, 4)
+								@Line(4, 3, 5, 4)
+								@Line(6, 3, 6, 5)
+								@Line(6, 3, 7, 4)
+								@Line(7, 3, 7, 4)
+
+								@Line(1, 4, 2, 5)
+								@Line(1, 4, 1, 6)
+								@Line(3, 4, 2, 5)
+								@Line(3, 4, 4, 5)
+								@Line(3, 4, 3, 6)
+								@Line(5, 4, 4, 5)
+								@Line(5, 4, 5, 5)
+								@Line(5, 4, 6, 5)
+								@Line(7, 4, 6, 5)
+								@Line(7, 4, 7, 5)
+
+								@Line(2, 5, 1, 6)
+								@Line(2, 5, 3, 6)
+								@Line(2, 5, 2, 7)
+								@Line(4, 5, 3, 6)
+								@Line(4, 5, 4, 6)
+								@Line(4, 5, 5, 6)
+								@Line(5, 5, 5, 6)
+								@Line(6, 5, 5, 6)
+								@Line(6, 5, 7, 6)
+								@Line(6, 5, 6, 7)
+								@Line(7, 5, 7, 6)
+
+								@Line(1, 6, 2, 7)
+								@Line(1, 6, 1, 8)
+								@Line(3, 6, 2, 7)
+								@Line(3, 6, 3, 7)
+								@Line(3, 6, 4, 7)
+								@Line(5, 6, 5, 7)
+								@Line(5, 6, 6, 7)
+								@Line(5, 6, 4, 7)
+								@Line(7, 6, 6, 7)
+								@Line(7, 6, 7, 8)
+
+								@Line(2, 7, 1, 8)
+								@Line(2, 7, 2, 8)
+								@Line(3, 7, 2, 8)
+								@Line(3, 7, 3, 8)
+								@Line(3, 7, 4, 8)
+								@Line(4, 7, 4, 8)
+								@Line(4, 7, 5, 8)
+								@Line(5, 7, 5, 8)
+								@Line(5, 7, 6, 8)
+								@Line(6, 7, 6, 8)
+								@Line(6, 7, 7, 8)
+
+								@Line(1, 8, 1, 9)
+								@Line(2, 8, 1, 9)
+								@Line(2, 8, 2, 9)
+								@Line(2, 8, 3, 9)
+								@Line(3, 8, 3, 9)
+								@Line(4, 8, 3, 9)
+								@Line(4, 8, 4, 9)
+								@Line(4, 8, 5, 9)
+								@Line(5, 8, 5, 9)
+								@Line(6, 8, 5, 9)
+								@Line(6, 8, 6, 9)
+								@Line(6, 8, 7, 9)
+								@Line(7, 8, 7, 9)
+
+								@Line(1, 9, 2, 10)
+								@Line(2, 9, 2, 10)
+								@Line(3, 9, 2, 10)
+								@Line(3, 9, 4, 10)
+								@Line(4, 9, 4, 10)
+								@Line(5, 9, 4, 10)
+								@Line(5, 9, 6, 10)
+								@Line(6, 9, 6, 10)
+								@Line(7, 9, 6, 10)
+
+							</div>
+
+						</section>
+						<section herald>
+							<h2 style="text-align:center;margin-top: 20px">Herald of the Sun</h2>
+							<div class="hero-tree-container">
+								<!-- Row 1 -->
+								@SpellNode("Dawnlight", 2, 1)
+
+								<!-- Row 2 -->
+								@SpellNode("Gleaming Rays", 1, 2)
+								@SpellNode("Eternal Flame", 2, 2)
+								@SpellNode("Luminosity", 3, 2)
+
+								<!-- Row 3 -->
+								@SpellNode("Will of the Dawn", 1, 3, "square")
+								@SpellNode("Blessing of An'she", 2, 3, "hexagon")
+								@SpellNode("Sun Sear", 3, 3)
+
+								<!-- Row 4 -->
+								@SpellNode("Aurora", 1, 4)
+								@SpellNode("Solar Grace", 2, 4)
+								@SpellNode("Second Sunrise", 3, 4)
+
+								<!-- Row 5 -->
+								@SpellNode("Sun's Avatar", 2, 5)
+
+								@Line(2, 1, 1, 2)
+								@Line(2, 1, 2, 2)
+								@Line(2, 1, 3, 2)
+								@Line(1, 2, 1, 3)
+								@Line(2, 2, 2, 3)
+								@Line(3, 2, 3, 3)
+								@Line(1, 3, 1, 4)
+								@Line(2, 3, 2, 4)
+								@Line(3, 3, 3, 4)
+								@Line(1, 4, 2, 5)
+								@Line(2, 4, 2, 5)
+								@Line(3, 4, 2, 5)
+
+							</div>
+						</section>
+						<section holy>
+							<h2 style="text-align:center;margin-top: 20px">Holy</h2>
+							<div class="holy-tree-container">
+								<br>
+								<!-- Row 1 -->
+								@SpellNode("Holy Shock", 5, 1, "square")
+
+								<!-- Row 2 -->
+								@SpellNode("Extrication", 4, 2)
+								@SpellNode("Light of Dawn", 6, 2, "square")
+
+								<!-- Row 3 -->
+								@SpellNode("Light's Conviction", 3, 3)
+								@SpellNode("Aura Mastery", 5, 3, "square")
+								@SpellNode("Beacon of the Lightbringer", 7, 3)
+
+								<!-- Row 4 -->
+								@SpellNode("Tower of Radiance", 2, 4)
+								@SpellNode("Tirion's Devotion", 4, 4)
+								@SpellNode("Unending Light", 6, 4)
+								@SpellNode("Awestruck", 8, 4)
+
+								<!-- Row 5 -->
+								@SpellNode("Moment of Compassion", 1, 5, "hexagon")
+								@SpellNode("Holy Prism", 3, 5, "hexagon")
+								@SpellNode("Protection of Tyr", 5, 5, "hexagon")
+								@SpellNode("Imbued Infusions", 7, 5)
+								@SpellNode("Light of the Martyr", 9, 5)
+
+								<!-- Row 6 -->
+								@SpellNode("Righteous Judgment", 2, 6)
+								@SpellNode("Divine Favor", 3, 6, "hexagon")
+								@SpellNode("Saved by the Light", 4, 6)
+								@SpellNode("Light's Protection", 6, 6)
+								@SpellNode("Overflowing Light", 7, 6)
+								@SpellNode("Shining Righteousness", 8, 6)
+
+								<!-- Row 7 -->
+								@SpellNode("Liberation", 1, 7)
+								@SpellNode("Commanding Light", 3, 7)
+								@SpellNode("Glistening Radiance", 4, 7)
+								@SpellNode("Breaking Dawn", 5, 7)
+								@SpellNode("Divine Revelations", 6, 7)
+								@SpellNode("Divine Glimpse", 7, 7)
+								@SpellNode("Bestow Light", 9, 7)
+
+								<!-- Row 8 -->
+								@SpellNode("Beacon of Faith", 2, 8, "hexagon")
+								@SpellNode("Empyrean Legacy", 3, 8)
+								@SpellNode("Veneration", 4, 8)
+								@SpellNode("Avenging Wrath", 6, 8, "hexagon")
+								@SpellNode("Power of the Silver Hand", 7, 8)
+								@SpellNode("Tyr's Deliverance", 8, 8, "square")
+
+								<!-- Row 9 -->
+								@SpellNode("Truth Prevails", 1, 9)
+								@SpellNode("Crusader's Might", 3, 9)
+								@SpellNode("Awakening", 5, 9, "hexagon")
+								@SpellNode("Reclamation", 7, 9)
+								@SpellNode("Relentless Inquisitor", 9, 9)
+
+								<!-- Row 10 -->
+								@SpellNode("Rising Sunlight", 2, 10)
+								@SpellNode("Glorious Dawn", 4, 10)
+								@SpellNode("Blessing of Summer", 5, 10, "hexagon")
+								@SpellNode("Inflorescence of the Sunwell", 6, 10)
+								@SpellNode("Boundless Salvation", 8, 10)
+
+
+								@Line(5, 1, 4, 2)
+								@Line(5, 1, 6, 2)
+								@Line(4, 2, 3, 3)
+								@Line(4, 2, 5, 3)
+								@Line(6, 2, 5, 3)
+								@Line(6, 2, 7, 3)
+
+								@Line(3, 3, 2, 4)
+								@Line(3, 3, 4, 4)
+								@Line(3, 3, 3, 5)
+								@Line(5, 3, 5, 5)
+								@Line(7, 3, 6, 4)
+								@Line(7, 3, 8, 4)
+								@Line(7, 3, 7, 5)
+
+								@Line(2, 4, 1, 5)
+								@Line(2, 4, 2, 6)
+								@Line(4, 4, 4, 6)
+								@Line(6, 4, 6, 6)
+								@Line(8, 4, 9, 5)
+								@Line(8, 4, 8, 6)
+
+								@Line(1, 5, 1, 7)
+								@Line(3, 5, 2, 6)
+								@Line(3, 5, 3, 6)
+								@Line(3, 5, 4, 6)
+								@Line(5, 5, 4, 6)
+								@Line(5, 5, 6, 6)
+								@Line(7, 5, 6, 6)
+								@Line(7, 5, 7, 6)
+								@Line(7, 5, 8, 6)
+								@Line(9, 5, 9, 7)
+
+								@Line(2, 6, 1, 7)
+								@Line(2, 6, 3, 7)
+								@Line(3, 6, 3, 7)
+								@Line(4, 6, 3, 7)
+								@Line(4, 6, 4, 7)
+								@Line(4, 6, 5, 7)
+								@Line(6, 6, 5, 7)
+								@Line(6, 6, 6, 7)
+								@Line(6, 6, 7, 7)
+								@Line(7, 6, 7, 7)
+								@Line(8, 6, 7, 7)
+
+								@Line(1, 7, 2, 8)
+								@Line(3, 7, 2, 8)
+								@Line(3, 7, 3, 8)
+								@Line(3, 7, 4, 8)
+								@Line(4, 7, 4, 8)
+								@Line(5, 7, 4, 8)
+								@Line(5, 7, 6, 8)
+								@Line(6, 7, 6, 8)
+								@Line(7, 7, 6, 8)
+								@Line(7, 7, 7, 8)
+								@Line(7, 7, 8, 8)
+								@Line(9, 7, 8, 8)
+
+								@Line(2, 8, 1, 9)
+								@Line(2, 8, 3, 9)
+								@Line(2, 8, 2, 10)
+								@Line(3, 8, 3, 9)
+								@Line(4, 8, 3, 9)
+								@Line(6, 8, 5, 9)
+								@Line(6, 8, 7, 9)
+								@Line(7, 8, 7, 9)
+
+								@Line(8, 8, 7, 9)
+								@Line(8, 8, 8, 10)
+								@Line(8, 8, 9, 9)
+
+								@Line(3, 9, 4, 10)
+								@Line(5, 9, 4, 10)
+								@Line(5, 9, 5, 10)
+								@Line(5, 9, 6, 10)
+								@Line(7, 9, 6, 10)
+
+							</div>
+						</section>
+
+					</div>
+				</section>
+
+				<section holy-lightsmith>
+					<div class="trees-container">
+						<section paladin>
+							<h2 style="text-align:center;margin-top: 20px">Paladin</h2>
+							<div class="paladin-tree-container">
+								<br>
+								<!-- Row 1 -->
+								@SpellNode("Lay on Hands", 2, 1, "square")
+								@SpellNode("Auras of the Resolute", 4, 1, "square")
+								@SpellNode("Hammer of Wrath", 6, 1, "square")
+
+								<!-- Row 2 -->
+								@SpellNode("Improved Cleanse", 1, 2)
+								@SpellNode("Empyreal Ward", 2, 2)
+								@SpellNode("Fist of Justice", 3, 2)
+								@SpellNode("Blinding Light", 5, 2, "hexagon")
+								@SpellNode("Turn Evil", 7, 2, "square")
+
+								<!-- Row 3 -->
+								@SpellNode("A Just Reward", 1, 3)
+								@SpellNode("Afterimage", 2, 3)
+								@SpellNode("Divine Steed", 4, 3, "square")
+								@SpellNode("Light's Countenance", 5, 3)
+								@SpellNode("Greater Judgment", 6, 3)
+								@SpellNode("Wrench Evil", 7, 3, "hexagon")
+
+								<!-- Row 4 -->
+								@SpellNode("Holy Reprieve", 1, 4)
+								@SpellNode("Cavalier", 3, 4)
+								@SpellNode("Divine Spurs", 4, 4)
+								@SpellNode("Blessing of Freedom", 5, 4, "hexagon")
+								@SpellNode("Rebuke", 7, 4, "square")
+
+								<!-- Row 5 -->
+								@SpellNode("Obduracy", 2, 5)
+								@SpellNode("Divine Toll", 4, 5, "square")
+								@SpellNode("Echoing Blessings", 5, 5, "hexagon")
+								@SpellNode("Sanctified Plates", 6, 5)
+								@SpellNode("Punishment", 7, 5)
+
+								<!-- Row 6 -->
+								@SpellNode("Divine Reach", 1, 6)
+								@SpellNode("Blessing of Sacrifice", 3, 6, "square")
+								@SpellNode("Quickened Invocation", 4, 6, "hexagon")
+								@SpellNode("Blessing of Protection", 5, 6, "square")
+								@SpellNode("Consecrated Ground", 7, 6)
+
+								<!-- Row 7 -->
+								@SpellNode("Holy Aegis", 2, 7)
+								@SpellNode("Sacrifice of the Just", 3, 7, "hexagon")
+								@SpellNode("Divine Purpose", 4, 7)
+								@SpellNode("Improved Blessing of Protection", 5, 7)
+								@SpellNode("Unbreakable Spirit", 6, 7)
+
+								<!-- Row 8 -->
+								@SpellNode("Lightforged Blessing", 1, 8)
+								@SpellNode("Lead the Charge", 2, 8)
+								@SpellNode("Righteous Protection", 3, 8, "hexagon")
+								@SpellNode("Holy Ritual", 4, 8)
+								@SpellNode("Blessed Calling", 5, 8)
+								@SpellNode("Inspired Guard", 6, 8)
+								@SpellNode("Judgment of Light", 7, 8)
+
+								<!-- Row 9 -->
+								@SpellNode("Faith's Armor", 1, 9)
+								@SpellNode("Stoicism", 2, 9)
+								@SpellNode("Seal of Might", 3, 9)
+								@SpellNode("Seal of the Crusader", 4, 9)
+								@SpellNode("Vengeful Wrath", 5, 9)
+								@SpellNode("Eye for an Eye", 6, 9)
+								@SpellNode("Golden Path", 7, 9, "hexagon")
+
+								<!-- Row 10 -->
+								@SpellNode("Of Dusk and Dawn", 2, 10)
+								@SpellNode("Lightbearer", 4, 10)
+								@SpellNode("Light's Revocation", 6, 10)
+
+
+								@Line(2, 1, 1, 2)
+								@Line(2, 1, 2, 2)
+								@Line(2, 1, 3, 2)
+								@Line(4, 1, 3, 2)
+								@Line(4, 1, 5, 2)
+								@Line(4, 1, 4, 3)
+								@Line(6, 1, 5, 2)
+								@Line(6, 1, 7, 2)
+								@Line(6, 1, 6, 3)
+
+								@Line(1, 2, 1, 3)
+								@Line(1, 2, 2, 3)
+								@Line(2, 2, 2, 3)
+								@Line(3, 2, 2, 3)
+								@Line(3, 2, 4, 3)
+								@Line(5, 2, 4, 3)
+								@Line(5, 2, 5, 3)
+								@Line(5, 2, 6, 3)
+								@Line(7, 2, 7, 3)
+
+								@Line(1, 3, 1, 4)
+								@Line(2, 3, 1, 4)
+								@Line(2, 3, 2, 5)
+								@Line(4, 3, 3, 4)
+								@Line(4, 3, 4, 4)
+								@Line(4, 3, 5, 4)
+								@Line(6, 3, 6, 5)
+								@Line(6, 3, 7, 4)
+								@Line(7, 3, 7, 4)
+
+								@Line(1, 4, 2, 5)
+								@Line(1, 4, 1, 6)
+								@Line(3, 4, 2, 5)
+								@Line(3, 4, 4, 5)
+								@Line(3, 4, 3, 6)
+								@Line(5, 4, 4, 5)
+								@Line(5, 4, 5, 5)
+								@Line(5, 4, 6, 5)
+								@Line(7, 4, 6, 5)
+								@Line(7, 4, 7, 5)
+
+								@Line(2, 5, 1, 6)
+								@Line(2, 5, 3, 6)
+								@Line(2, 5, 2, 7)
+								@Line(4, 5, 3, 6)
+								@Line(4, 5, 4, 6)
+								@Line(4, 5, 5, 6)
+								@Line(5, 5, 5, 6)
+								@Line(6, 5, 5, 6)
+								@Line(6, 5, 7, 6)
+								@Line(6, 5, 6, 7)
+								@Line(7, 5, 7, 6)
+
+								@Line(1, 6, 2, 7)
+								@Line(1, 6, 1, 8)
+								@Line(3, 6, 2, 7)
+								@Line(3, 6, 3, 7)
+								@Line(3, 6, 4, 7)
+								@Line(5, 6, 5, 7)
+								@Line(5, 6, 6, 7)
+								@Line(5, 6, 4, 7)
+								@Line(7, 6, 6, 7)
+								@Line(7, 6, 7, 8)
+
+								@Line(2, 7, 1, 8)
+								@Line(2, 7, 2, 8)
+								@Line(3, 7, 2, 8)
+								@Line(3, 7, 3, 8)
+								@Line(3, 7, 4, 8)
+								@Line(4, 7, 4, 8)
+								@Line(4, 7, 5, 8)
+								@Line(5, 7, 5, 8)
+								@Line(5, 7, 6, 8)
+								@Line(6, 7, 6, 8)
+								@Line(6, 7, 7, 8)
+
+								@Line(1, 8, 1, 9)
+								@Line(2, 8, 1, 9)
+								@Line(2, 8, 2, 9)
+								@Line(2, 8, 3, 9)
+								@Line(3, 8, 3, 9)
+								@Line(4, 8, 3, 9)
+								@Line(4, 8, 4, 9)
+								@Line(4, 8, 5, 9)
+								@Line(5, 8, 5, 9)
+								@Line(6, 8, 5, 9)
+								@Line(6, 8, 6, 9)
+								@Line(6, 8, 7, 9)
+								@Line(7, 8, 7, 9)
+
+								@Line(1, 9, 2, 10)
+								@Line(2, 9, 2, 10)
+								@Line(3, 9, 2, 10)
+								@Line(3, 9, 4, 10)
+								@Line(4, 9, 4, 10)
+								@Line(5, 9, 4, 10)
+								@Line(5, 9, 6, 10)
+								@Line(6, 9, 6, 10)
+								@Line(7, 9, 6, 10)
+
+							</div>
+
+						</section>
+						<section lightsmith>
+							<h2 style="text-align:center;margin-top: 20px">Lightsmith</h2>
+							<div class="hero-tree-container">
+								<!-- Row 1 -->
+								@SpellNode("Holy Bulwark", 2, 1, "square")
+
+								<!-- Row 2 -->
+								@SpellNode("Rite of Sanctification", 1, 2, "hexagon")
+								@SpellNode("Solidarity", 2, 2)
+								@SpellNode("Divine Guidance", 3, 2, "hexagon")
+
+								<!-- Row 3 -->
+								@SpellNode("Laying Down Arms", 1, 3)
+								@SpellNode("Divine Inspiration", 2, 3, "hexagon")
+								@SpellNode("Authoritative Rebuke", 3, 3, "hexagon")
+
+								<!-- Row 4 -->
+								@SpellNode("Shared Resolve", 1, 4)
+								@SpellNode("Valiance", 2, 4)
+								@SpellNode("Hammer and Anvil", 3, 4)
+
+								<!-- Row 5 -->
+								@SpellNode("Blessing of the Forge", 2, 5)
+
+								@Line(2, 1, 1, 2)
+								@Line(2, 1, 2, 2)
+								@Line(2, 1, 3, 2)
+								@Line(1, 2, 1, 3)
+								@Line(2, 2, 2, 3)
+								@Line(3, 2, 3, 3)
+								@Line(1, 3, 1, 4)
+								@Line(2, 3, 2, 4)
+								@Line(3, 3, 3, 4)
+								@Line(1, 4, 2, 5)
+								@Line(2, 4, 2, 5)
+								@Line(3, 4, 2, 5)
+
+							</div>
+						</section>
+						<section holy>
+							<h2 style="text-align:center;margin-top: 20px">Holy</h2>
+							<div class="holy-tree-container">
+								<br>
+								<!-- Row 1 -->
+								@SpellNode("Holy Shock", 5, 1, "square")
+
+								<!-- Row 2 -->
+								@SpellNode("Extrication", 4, 2)
+								@SpellNode("Light of Dawn", 6, 2, "square")
+
+								<!-- Row 3 -->
+								@SpellNode("Light's Conviction", 3, 3)
+								@SpellNode("Aura Mastery", 5, 3, "square")
+								@SpellNode("Beacon of the Lightbringer", 7, 3)
+
+								<!-- Row 4 -->
+								@SpellNode("Tower of Radiance", 2, 4)
+								@SpellNode("Tirion's Devotion", 4, 4)
+								@SpellNode("Unending Light", 6, 4)
+								@SpellNode("Awestruck", 8, 4)
+
+								<!-- Row 5 -->
+								@SpellNode("Moment of Compassion", 1, 5, "hexagon")
+								@SpellNode("Holy Prism", 3, 5, "hexagon")
+								@SpellNode("Protection of Tyr", 5, 5, "hexagon")
+								@SpellNode("Imbued Infusions", 7, 5)
+								@SpellNode("Light of the Martyr", 9, 5)
+
+								<!-- Row 6 -->
+								@SpellNode("Righteous Judgment", 2, 6)
+								@SpellNode("Divine Favor", 3, 6, "hexagon")
+								@SpellNode("Saved by the Light", 4, 6)
+								@SpellNode("Light's Protection", 6, 6)
+								@SpellNode("Overflowing Light", 7, 6)
+								@SpellNode("Shining Righteousness", 8, 6)
+
+								<!-- Row 7 -->
+								@SpellNode("Liberation", 1, 7)
+								@SpellNode("Commanding Light", 3, 7)
+								@SpellNode("Glistening Radiance", 4, 7)
+								@SpellNode("Breaking Dawn", 5, 7)
+								@SpellNode("Divine Revelations", 6, 7)
+								@SpellNode("Divine Glimpse", 7, 7)
+								@SpellNode("Bestow Light", 9, 7)
+
+								<!-- Row 8 -->
+								@SpellNode("Beacon of Faith", 2, 8, "hexagon")
+								@SpellNode("Empyrean Legacy", 3, 8)
+								@SpellNode("Veneration", 4, 8)
+								@SpellNode("Avenging Wrath", 6, 8, "hexagon")
+								@SpellNode("Power of the Silver Hand", 7, 8)
+								@SpellNode("Tyr's Deliverance", 8, 8, "square")
+
+								<!-- Row 9 -->
+								@SpellNode("Truth Prevails", 1, 9)
+								@SpellNode("Crusader's Might", 3, 9)
+								@SpellNode("Awakening", 5, 9, "hexagon")
+								@SpellNode("Reclamation", 7, 9)
+								@SpellNode("Relentless Inquisitor", 9, 9)
+
+								<!-- Row 10 -->
+								@SpellNode("Rising Sunlight", 2, 10)
+								@SpellNode("Glorious Dawn", 4, 10)
+								@SpellNode("Blessing of Summer", 5, 10, "hexagon")
+								@SpellNode("Inflorescence of the Sunwell", 6, 10)
+								@SpellNode("Boundless Salvation", 8, 10)
+
+
+								@Line(5, 1, 4, 2)
+								@Line(5, 1, 6, 2)
+								@Line(4, 2, 3, 3)
+								@Line(4, 2, 5, 3)
+								@Line(6, 2, 5, 3)
+								@Line(6, 2, 7, 3)
+
+								@Line(3, 3, 2, 4)
+								@Line(3, 3, 4, 4)
+								@Line(3, 3, 3, 5)
+								@Line(5, 3, 5, 5)
+								@Line(7, 3, 6, 4)
+								@Line(7, 3, 8, 4)
+								@Line(7, 3, 7, 5)
+
+								@Line(2, 4, 1, 5)
+								@Line(2, 4, 2, 6)
+								@Line(4, 4, 4, 6)
+								@Line(6, 4, 6, 6)
+								@Line(8, 4, 9, 5)
+								@Line(8, 4, 8, 6)
+
+								@Line(1, 5, 1, 7)
+								@Line(3, 5, 2, 6)
+								@Line(3, 5, 3, 6)
+								@Line(3, 5, 4, 6)
+								@Line(5, 5, 4, 6)
+								@Line(5, 5, 6, 6)
+								@Line(7, 5, 6, 6)
+								@Line(7, 5, 7, 6)
+								@Line(7, 5, 8, 6)
+								@Line(9, 5, 9, 7)
+
+								@Line(2, 6, 1, 7)
+								@Line(2, 6, 3, 7)
+								@Line(3, 6, 3, 7)
+								@Line(4, 6, 3, 7)
+								@Line(4, 6, 4, 7)
+								@Line(4, 6, 5, 7)
+								@Line(6, 6, 5, 7)
+								@Line(6, 6, 6, 7)
+								@Line(6, 6, 7, 7)
+								@Line(7, 6, 7, 7)
+								@Line(8, 6, 7, 7)
+
+								@Line(1, 7, 2, 8)
+								@Line(3, 7, 2, 8)
+								@Line(3, 7, 3, 8)
+								@Line(3, 7, 4, 8)
+								@Line(4, 7, 4, 8)
+								@Line(5, 7, 4, 8)
+								@Line(5, 7, 6, 8)
+								@Line(6, 7, 6, 8)
+								@Line(7, 7, 6, 8)
+								@Line(7, 7, 7, 8)
+								@Line(7, 7, 8, 8)
+								@Line(9, 7, 8, 8)
+
+								@Line(2, 8, 1, 9)
+								@Line(2, 8, 3, 9)
+								@Line(2, 8, 2, 10)
+								@Line(3, 8, 3, 9)
+								@Line(4, 8, 3, 9)
+								@Line(6, 8, 5, 9)
+								@Line(6, 8, 7, 9)
+								@Line(7, 8, 7, 9)
+
+								@Line(8, 8, 7, 9)
+								@Line(8, 8, 8, 10)
+								@Line(8, 8, 9, 9)
+
+								@Line(3, 9, 4, 10)
+								@Line(5, 9, 4, 10)
+								@Line(5, 9, 5, 10)
+								@Line(5, 9, 6, 10)
+								@Line(7, 9, 6, 10)
+
+							</div>
+						</section>
+					</div>
+				</section>
+
+			</div>
+		</div>
+	</div>
 </body>

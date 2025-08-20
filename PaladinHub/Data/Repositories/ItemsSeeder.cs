@@ -624,7 +624,7 @@ namespace PaladinHub.Data
 			{
 				Id = 52,
 				Name = "Strapped Rescue-Keg",
-				Icon = "Strapped Rescue-Keg.jpg",
+				Icon = "inv_11_0_earthen_earthennecklace01_color2.jpg",
 				ItemLevel = 678,
 				Quality = "Epic",
 				RequiredLevel = 80,
@@ -690,7 +690,7 @@ namespace PaladinHub.Data
 			{
 				Id = 58,
 				Name = "Venture Contractor’s Floodlight",
-				Icon = "Venture Contractors Floodlight.jpg",
+				Icon = "Venture Contractor's Floodlight.jpg",
 				ItemLevel = 676,
 				Quality = "Epic",
 				RequiredLevel = 70,
@@ -712,7 +712,7 @@ namespace PaladinHub.Data
 			{
 				Id = 60,
 				Name = "Rik's Walkin' Boots",
-				Icon = "RiksWalkinBoots.jpg",
+				Icon = "inv_plate_raiddeathknightgoblin_d_01_boot.jpg",
 				ItemLevel = 678,
 				Quality = "Epic",
 				RequiredLevel = 80,
@@ -745,7 +745,7 @@ namespace PaladinHub.Data
 			{
 				Id = 63,
 				Name = "Eye of Kezan",
-				Icon = "EyeOfKezan.jpg",
+				Icon = "EyeOfKezan.png",
 				ItemLevel = 676,
 				Quality = "Epic",
 				RequiredLevel = 70,
@@ -778,7 +778,7 @@ namespace PaladinHub.Data
 				{
 					Id = 66,
 					Name = "Titan of Industry",
-					Icon = "TitanOfIndustry.jpg",
+					Icon = "inv_shield_1h_goblinraid_d_01.jpg",
 					ItemLevel = 678,
 					Quality = "Epic",
 					RequiredLevel = 80,
@@ -910,7 +910,7 @@ namespace PaladinHub.Data
 			{
 				Id = 78,
 				Name = "Gobfather's Gifted Bling",
-				Icon = "inv_11_0_ventureco_necklace01_color2.jpg", 
+				Icon = "StrappedRescue-keg.png", // Да, същата иконка се ползва за този предмет
 			    ItemLevel = 676,
 				Quality = "Epic",
 				RequiredLevel = 70,
@@ -943,7 +943,7 @@ namespace PaladinHub.Data
 			{
 				Id = 81,
 				Name = "Test Pilot’s Go-Pack",
-				Icon = "Test Pilot.jpg",
+				Icon = "Test Pilot's Go-Pack.jpg",
 				ItemLevel = 676,
 				Quality = "Epic",
 				RequiredLevel = 70,
@@ -1261,24 +1261,24 @@ namespace PaladinHub.Data
 			new Item
 			{
 				Id = 110,
-				Name = "",
-				Icon = ".jpg",
+				Name = "Test Pilot's Go-Pack",
+				Icon = "inv_cape_special_mechanicalflyer_d_01.jpg",
 				ItemLevel = 678,
 				Quality = "Epic",
 				RequiredLevel = 80,
-				Url = "",
-				Description = ""
+				Url = "https://www.wowhead.com/item=228844/test-pilots-go-pack?bonus=7981:12042:5878:11996",
+				Description = "+2286 Armor, +3070 Agility/Strength/Intellect, +22487 Stamina, +953 Haste (1.58% @ L80), +957 Mastery (1.37% @ L80)\nUse: Greatly increases movement speed (2.5 min CD)"
 			},
 			new Item
 			{
 				Id = 111,
-				Name = "",
-				Icon = ".jpg",
+				Name = "Revved-Up Vambraces",
+				Icon = "inv_plate_raiddeathknightgoblin_d_01_bracer.jpg",
 				ItemLevel = 678,
 				Quality = "Epic",
 				RequiredLevel = 80,
-				Url = "",
-				Description = ""
+				Url = "https://www.wowhead.com/item=228866/revved-up-vambraces?bonus=7981:12042:5878:11996",
+				Description = "+6331 Armor, +3070 Strength/Intellect, +22487 Stamina, +346 Crit (0.67% @ L80), +904 Haste (1.37% @ L80)"
 			},
 			new Item
 			{
@@ -1393,8 +1393,8 @@ namespace PaladinHub.Data
 			new Item
 			{
 				Id = 122,
-				Name = "",
-				Icon = ".jpg",
+				Name = "Eye of Kezan",
+				Icon = "spell_azerite_essence08.jpg",
 				ItemLevel = 678,
 				Quality = "Epic",
 				RequiredLevel = 80,

@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace PaladinHub.Areas.Admin.Controllers
 {
@@ -12,7 +14,7 @@ namespace PaladinHub.Areas.Admin.Controllers
 		public SpellsController(AppDbContext db) => _db = db;
 
 		[HttpGet]
-		public IActionResult Create() => View(new Spell());
+		public async Task<IActionResult> Create() => View(new Spell());
 
 		[HttpPost, ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(Spell spell)

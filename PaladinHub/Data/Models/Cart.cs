@@ -22,7 +22,5 @@ namespace PaladinHub.Data.Models
 		public ICollection<CartProduct> CartProducts { get; set; } = new List<CartProduct>();
 
 		public ICollection<Product> Products { get; set; } = new List<Product>();
-
-		public DateTime UpdatedOn { get; set; } = DateTime.UtcNow;
 	}
 }
