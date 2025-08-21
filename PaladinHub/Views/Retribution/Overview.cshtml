@@ -1,91 +1,39 @@
-﻿@{
-	ViewData["Title"] = "Retribution Paladin Guide";
-}
+﻿@inherits PaladinHub.Helpers.SpellsAndItemsView
 @model PaladinHub.Models.CombinedViewModel
-
-
-<link rel="stylesheet" href="~/css/site.css" />
-@*<link rel="stylesheet" href="~/css/retribution/retributionOverview.css" />*@
-
-@using PaladinHub.Models
-@using System.Collections.Generic
-@using Microsoft.AspNetCore.Html
-@using PaladinHub.Data.Entities
 @{
-	var spells = ViewBag.AllSpells as List<PaladinHub.Data.Entities.Spell>;
-	var items = ViewBag.AllItems as List<PaladinHub.Data.Entities.Item>;
-
-	var spellsByName = spells?
-	.Where(s => !string.IsNullOrWhiteSpace(s.Name))
-	.GroupBy(s => s.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
-	.Select(g => g.First())
-	.ToDictionary(s => s.Name!, s => s, StringComparer.OrdinalIgnoreCase);
-
-	var itemsByName = items?
-	.Where(i => !string.IsNullOrWhiteSpace(i.Name))
-	.GroupBy(i => i.Name!.Trim(), StringComparer.OrdinalIgnoreCase)
-	.Select(g => g.First())
-	.ToDictionary(i => i.Name!, i => i, StringComparer.OrdinalIgnoreCase);
+	ViewData["Title"] = "Retribution Paladin Consumables";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*<link rel="stylesheet" href="~/css/Retribution/RetributionOverview.css" />*@
 
 <body>
 	<div class="outer-wrapper">
 		<div class="page-container">
+
 			<div class="main-wrapper">
 
-				<h1>Retribution Paladin Overview - The War Within</h1>
 
-				<!-- Separator 1 -->
-				<div class="separator-container">
-					<img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
-				</div>
+					<h2>War Within Season 2</h2>
 
-				<p>
-					<strong>Retribution Paladin</strong> are holy crusaders who use a Two-Handed weapon to turn the
-					power of the Light into powerful damaging abilities and bring justice and vengeance to their
-					enemies. Retribution is the damage specialization of Paladin and is a melee spec, although it has
-					many abilities that can be cast from range as well.
+					<p>Retribution Paladin remains a powerhouse healer in both dungeons and raids. Our strengths lie in high throughput, extremely durable survivability, and strong utility offerings. In The War Within, we're looking at a very solid toolkit with minor talent shifts but the core gameplay remains familiar and strong.</p>
 
-					The core of our rotation is centered around using abilities like Blade of Justice and Judgment to
-					generate Holy Power, which is consumed to deal potent damage with abilities like Final Verdict or
-					Divine Storm. Although Paladin's mobility options are somewhat limited, you will have access to a
-					large array of buffs for yourself and your party to help you throughout a fight, as well as strong
-					defensive and healing capabilities for your role.
-
-					If playing a melee DPS with strong group support and healing options, along with some powerful burst
-					damage cooldowns, sounds appealing, then Retribution might be for you..
-				</p>
-
-				<!-- Separator 2 -->
-				<div class="separator-container">
-					<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
-				</div>
-
-				<!-- Strengths and Weaknesses Section (2 Columns) -->
 				<div class="content-columns">
-					<!-- Left Column (Strengths) -->
 					<div>
 						<h2>Strengths</h2>
 						<ul>
-							<li>Easy to learn playstyle that doesn't punish mistakes harshly.
-							<li>
-							<li>Many strong defensive tools, which include both passive abilities and active ones like
-								Divine Shield and Divine Protection.
-							<li>
-							<li>Plenty of utility options that will usually find uses in any type of content.
-							<li>
-							<li>Strong options for both self-healing and off-healing for your group if needed.
-							<li>
+							<li>Very strong single-target and group healing output.</li>
+							<li>Excellent defensives and personal survivability.</li>
+							<li>High mobility through Divine Steed and instant casts.</li>
+							<li>Powerful utility tools like Lay on Hands, Blessing of Freedom, and Cleanse.</li>
+							<li>Beacon healing makes damage patterns more manageable.</li>
 						</ul>
 					</div>
-
-					<!-- Right Column (Weaknesses) -->
 					<div>
 						<h2>Weaknesses</h2>
 						<ul>
-							<li>On the low side for mobility; Divine Steed is your main option.</li>
-							<li>Utility options can be redundant in high-end content.</li>
-							<li>Low skill ceiling; there's not much nuance to master once you learn the basics.</li>
+							<li>Somewhat reliant on good positioning and being in melee range.</li>
+							<li>Resource (Retribution Power) management is important and can be punishing if neglected.</li>
+							<li>Limited raid-wide cooldowns compared to some other healers.</li>
 						</ul>
 					</div>
 				</div>
@@ -94,78 +42,54 @@
 					<img src="~/images/Separators/D3.png" alt="Separator 3" class="separator" />
 				</div>
 
+				<h2>Retribution Paladin Talent Builds</h2>
 				<h2 class="hero-talents-title">Hero Talents</h2>
-				<div>
 
-					<p>Retribution has access to two Hero Talent trees: Herald of the Sun and Templar.</p>
-
-				</div>
 				<div class="content-columns">
 					<div class="hero-talent-entry">
 						<img src="~/images/Herald.jpg" alt="Herald of the Sun" />
 						<h2>Herald Of The Sun</h2>
 						<ul>
-							<li>
-								Herald of the Sun Retribution Paladins are focused on periodic damage effects,
-								especially their signature, Dawnlight.
-								These effects also trigger automatically during your cooldowns. On top of that, Herald
-								of the Sun also features buffs to Divine Storm and Hammer of Wrath.
-							</li>
+							<li>Strong Beacon synergy.</li>
+							<li>Excellent spot healing burst.</li>
+							<li>Boosts Retribution Shock uptime and value.</li>
 						</ul>
 					</div>
 					<div class="hero-talent-entry">
-						<img src="~/images/Templar.jpg" alt="Templar" />
-						<h2>Templar</h2>
+						<img src="~/images/Lightsmith.jpg" alt="Lightsmith" />
+						<h2>Lightsmith</h2>
 						<ul>
-							<li>
-								Templar Retribution Paladins gain access to Hammer of Light, a powerful Holy Power
-								spender that you can use during your burst windows.
-								You'll also rain down Empyrean Hammers from the sky upon your enemies, which are
-								automatically cast through different spells and buffs.
-							</li>
-
+							<li>Empowers group healing & shielding.</li>
+							<li>More forgiving ranged options.</li>
+							<li>Excellent raid-wide mitigation tools.</li>
 						</ul>
 					</div>
 				</div>
-
-
-				<p>Currently, Templar is significantly ahead on damage compared to Herald of the Sun. You can still play
-					Herald of the Sun in most content, but the damage gap is very noticeable.</p>
-
 
 				<div class="separator-container">
 					<img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
 				</div>
 
 				<h2>Playstyle Overview</h2>
-				<p>
-					Retribution Paladins use a priority system rather than a strict rotation. The important things to
-					keep in mind in most situations are:
-				<p>
-
-				</p>Try to not waste Holy Power. This is the most important thing to remember when playing Retribution.
-				A significant portion of our damage comes from spending our Holy Power, hence, overcapping it will
-				reduce your damage significantly.<p>
-
-				<p>Keep Expurgation active and Judgment debuffs applied to enemies. These effects significantly buff
-					your other damage.
-				<p>
-
-				</p>Prioritize using Holy Power spenders when able, since many effects generate extra Holy Power that
-				could otherwise be wasted, and using spenders procs many important effects like Radiant Glory.<p>
+				<p>Retribution Paladins focus on generating Retribution Power through abilities like Retribution Shock and Crusader Strike, and spending it on powerful finishers like Word of Glory or Light of Dawn. Melee uptime is key for maximizing your generation and efficiency, but you have strong ranged options when needed.</p>
 
 				<div class="separator-container">
 					<img src="~/images/Separators/D5.png" alt="Separator 5" class="separator" />
 				</div>
 
+				<h2>Retribution Paladin Changes in Patch 11.1.5</h2>
+				<p>Retribution Paladins saw some talent reworks and minor tuning in 11.1.5, but their playstyle remains largely intact. Daybreak, Infusion, and Beacon interactions are even more emphasized, rewarding smart Retribution Power management.</p>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
+				</div>
 				<h2>Key Talents and Changes</h2>
-				<ol>
+				<ul>
 					<li><strong>Infusion of Light</strong> procs are crucial for free and empowered heals.</li>
 					<li><strong>Barrier of Faith</strong> remains a strong tool for focused healing targets.</li>
-					<li><strong>Daybreak</strong> lets you reset your Beacon healing, adding burst power during key
-						moments.</li>
+					<li><strong>Daybreak</strong> lets you reset your Beacon healing, adding burst power during key moments.</li>
 					<li><strong>Hand of Divinity</strong> improves your healing rotation significantly.</li>
-				</ol>
+				</ul>
 
 				<div class="separator-container">
 					<img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
@@ -176,50 +100,45 @@
 				<p><strong>Secondary Stats:</strong> Haste &gt; Crit &gt; Versatility &gt; Mastery</p>
 
 				<h2>Summary</h2>
-				<p>Overall, Holy Paladin is in a very strong spot in <em>The War Within</em>. It's a top-tier option for
-					players who enjoy a mobile, aggressive healing style with a ton of clutch playmaking potential
-					through smart cooldown use and positioning.</p>
+				<p>Overall, Retribution Paladin is in a very strong spot in <em>The War Within</em>. It's a top-tier option for players who enjoy a mobile, aggressive healing style with a ton of clutch playmaking potential through smart cooldown use and positioning.</p>
 
 				<div class="separator-container">
 					<img src="~/images/Separators/D2.png" alt="Separator 2" class="separator" />
 				</div>
 
 				<h1>Core Build - The Faithful Martyr</h1>
+				<h2>Raiding & Mythic+ Retribution Builds for The War Within Season 2</h2>
 
-				<p>The Faithful Martyr is an aggressive, powerful instant cast-focused build that will usher in a new
-					golden age for Holy Paladins in Season 2. In Mythic+, you spend Holy Power on Eternal Flame for
-					healing and Shield of the Righteous for damage, while in raid you'll use both Eternal Flame and
-					Light of Dawn depending on if you want AoE or spot healing.</p>
+				<p>The Faithful Martyr is an aggressive, powerful instant cast-focused build that will usher in a new golden age for Retribution Paladins in Season 2. In Mythic+, you spend Retribution Power on Eternal Flame for healing and Shield of the Righteous for damage, while in raid you'll use both Eternal Flame and Light of Dawn depending on if you want AoE or spot healing.</p>
 
 				<div class="separator-container">
 					<img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
 				</div>
 
 				<h2>Mythic+ Version</h2>
-				<p>In Mythic+ you will spend Holy Power on Eternal Flame for healing and Shield of the Righteous for
-					damage. Here is what your talent priority will look like:</p>
+				<p>In Mythic+ you will spend Retribution Power on Eternal Flame for healing and Shield of the Righteous for damage. Here is what your talent priority will look like:</p>
 
 				<div class="build-images">
-					<img src="~/images/TalentBuildsHoly/the-faithful-martyr-mplus-s2-v1.jpg" alt="Mythic+ Build" />
+					<img src="~/images/TalentBuildsRetribution/the-faithful-martyr-mplus-s2-v1.jpg" alt="Mythic+ Build" />
 				</div>
 
 				<div class="content-columns">
 					<div>
 						<ul>
 							<li>1. Divine Toll</li>
-							<li>2. Holy Prism</li>
-							<li>3. Spend Holy Power (don’t overcap)</li>
-							<li>4. Holy Shock (2 Charges)</li>
+							<li>2. Retribution Prism</li>
+							<li>3. Spend Retribution Power (don’t overcap)</li>
+							<li>4. Retribution Shock (2 Charges)</li>
 							<li>5. Judgment</li>
 						</ul>
 					</div>
 					<div>
 						<ul>
 							<li>6. Hammer of Wrath</li>
-							<li>7. Holy Shock (1 Charge)</li>
+							<li>7. Retribution Shock (1 Charge)</li>
 							<li>8. Crusader Strike</li>
 							<li>9. Keep your Consecration down at all times</li>
-							<li>10. Holy Light with Divine Favor for spot healing</li>
+							<li>10. Retribution Light with Divine Favor for spot healing</li>
 						</ul>
 					</div>
 				</div>
@@ -229,26 +148,25 @@
 				</div>
 
 				<h2>Raid Version</h2>
-				<p>In raid, this build plays very similar to Mythic+, and your beacons should similarly go on either
-					high HPS requirement tanks like Brewmasters, or squishy ranged like hunters/evokers/mages.</p>
+				<p>In raid, this build plays very similar to Mythic+, and your beacons should similarly go on either high HPS requirement tanks like Brewmasters, or squishy ranged like hunters/evokers/mages.</p>
 
 				<div class="build-images">
-					<img src="~/images/TalentBuildsHoly/the-faithful-martyr-raid-s2-v2.jpg" alt="Raid Build" />
+					<img src="~/images/TalentBuildsRetribution/the-faithful-martyr-raid-s2-v2.jpg" alt="Raid Build" />
 				</div>
 
 				<div class="content-columns">
 					<div>
 						<ul>
-							<li>1. Holy Prism</li>
-							<li>2. Spend Holy Power (don’t overcap)</li>
-							<li>3. Holy Shock</li>
+							<li>1. Retribution Prism</li>
+							<li>2. Spend Retribution Power (don’t overcap)</li>
+							<li>3. Retribution Shock</li>
 							<li>4. Judgment</li>
 						</ul>
 					</div>
 					<div>
 						<ul>
 							<li>5. Crusader Strike</li>
-							<li>6. Holy Light w/ Infusion (if needed for spot healing)</li>
+							<li>6. Retribution Light w/ Infusion (if needed for spot healing)</li>
 							<li>7. Hammer of Wrath</li>
 							<li>8. Consecration</li>
 						</ul>
@@ -259,35 +177,124 @@
 					<img src="~/images/Separators/D3.png" alt="Separator 3" class="separator" />
 				</div>
 
-				<!-- Updated Tier Set Section - Centered -->
 				<div class="tier-set-section">
-					<h3>Tier Set - Best in Slot</h3>
-					<p><strong>Set Pieces:</strong></p>
+					<h3>Season 2 Tier Set Bonuses</h3>
 					<ul class="tier-set-list">
-						<li>
-							<img src="~/images/TierSets/undermine-tier-helm.png" alt="Helmet" class="tier-set-img" />
-							Helmet
-						</li>
-						<li>
-							<img src="~/images/TierSets/undermine-tier-shoulders.png" alt="Shoulders"
-								class="tier-set-img" />
-							Shoulders
-						</li>
-						<li>
-							<img src="~/images/TierSets/undermine-tier-chest.png" alt="Chestplate"
-								class="tier-set-img" />
-							Chestplate
-						</li>
-						<li>
-							<img src="~/images/TierSets/undermine-tier-gloves.png" alt="Gloves" class="tier-set-img" />
-							Gloves
-						</li>
-						<li>
-							<img src="~/images/TierSets/undermine-tier-pants.png" alt="Pants" class="tier-set-img" />
-							Pants
-						</li>
+						<li><img src="~/images/TierSets/undermine-tier-helm.png" alt="Helmet" class="tier-set-img" />Helmet</li>
+						<li><img src="~/images/TierSets/undermine-tier-shoulders.png" alt="Shoulders" class="tier-set-img" />Shoulders</li>
+						<li><img src="~/images/TierSets/undermine-tier-chest.png" alt="Chestplate" class="tier-set-img" />Chestplate</li>
+						<li><img src="~/images/TierSets/undermine-tier-gloves.png" alt="Gloves" class="tier-set-img" />Gloves</li>
+						<li><img src="~/images/TierSets/undermine-tier-pants.png" alt="Pants" class="tier-set-img" />Pants</li>
 					</ul>
 				</div>
+
+				<div class="separator-container">
+					<img src="~/images/Separators/D4.png" alt="Separator 4" class="separator" />
+				</div>
+
+				<h2>Retribution Paladin Gear Cheat Sheet</h2>
+
+
+
+				<section>
+					<div class="gear-container">
+						<div class="talent-wrapper">
+
+							<div class="talent-header">
+								<div class="spec-title">
+									<img src="path-to-paladin-icon.png" alt="Retribution Paladin Icon" class="spec-icon">
+									<span>Retribution Paladin</span>
+								</div>
+								<div class="talent-modes">
+									<button class="mode-button">Raid</button>
+									<button class="mode-button active">Mythic+</button>
+									<button class="mode-button">Delves</button>
+
+
+
+								</div>
+							</div>
+						</div>
+
+						<div class="stat-priority">
+							<strong>Stat Priority:</strong>
+							<span class="strength">Strength</span> >
+							<span class="haste">Haste</span> >
+							<span class="mastery">Mastery</span> >
+							<span class="crit">Crit</span> =
+							<span class="vers">Versatility</span>
+						</div>
+
+						<div class="gear-section">
+							<div class="section-title">Weapons</div>
+							<div class="gear-split">
+								<div>
+									<div class="label">Best in Slot</div>
+									<img src="path-to-icon1.png" alt="Weapon 1">
+									<img src="path-to-icon2.png" alt="Weapon 2">
+									<img src="path-to-icon3.png" alt="Weapon 3">
+								</div>
+								<div>
+									<div class="label">Alternatives</div>
+									<img src="path-to-icon4.png" alt="Alt Weapon 1">
+									<img src="path-to-icon5.png" alt="Alt Weapon 2">
+								</div>
+							</div>
+						</div>
+
+						<div class="gear-section">
+							<div class="section-title">Trinkets</div>
+							<div class="gear-split">
+								<div>
+									<div class="label">Best in Slot</div>
+									<img src="path-to-trinket1.png" alt="Trinket 1">
+									<img src="path-to-trinket2.png" alt="Trinket 2">
+								</div>
+								<div>
+									<div class="label">Alternatives</div>
+									<img src="path-to-trinket3.png" alt="Trinket 3">
+									<img src="path-to-trinket4.png" alt="Trinket 4">
+								</div>
+							</div>
+						</div>
+
+						<div class="gear-section">
+							<div class="section-title">Consumables</div>
+							<div class="gear-split">
+								<img src="path-to-consumable1.png" alt="Potion 1">
+								<img src="path-to-consumable2.png" alt="Flask">
+								<img src="path-to-consumable3.png" alt="Food">
+							</div>
+						</div>
+
+						<div class="gear-section">
+							<div class="section-title">Corruption</div>
+							<div class="gear-split">
+								<div class="label">Best in Slot</div>
+								<img src="path-to-corruption1.png" alt="Corruption 1">
+								<img src="path-to-corruption2.png" alt="Corruption 2">
+							</div>
+						</div>
+
+						<div class="gear-section">
+							<div class="section-title">Tier</div>
+							<div class="gear-split">
+								<div class="label">Best in Slot</div>
+								<img src="path-to-tier1.png" alt="Tier 1">
+								<img src="path-to-tier2.png" alt="Tier 2">
+								<img src="path-to-tier3.png" alt="Tier 3">
+								<img src="path-to-tier4.png" alt="Tier 4">
+								<img src="path-to-tier5.png" alt="Tier 5">
+							</div>
+						</div>
+
+						<div class="tier-bonus">
+							<strong>2 Set:</strong> Each time you take damage you have a chance to activate Luck of the Draw / causing you to cast Guardian of Ancient Kings for 4.0 sec. Your damage done is increased by 15% for 10 sec after Luck of the Draw! activates.<br><br>
+							<strong>4 Set:</strong> While you have Luck of the Draw / Shield of the Righteous refunds 1-3 Retribution Power and extends the duration of Luck of the Draw! by 0.5 sec, up to 10 sec.
+						</div>
+					</div>
+				</section>
+
 			</div>
 		</div>
 	</div>

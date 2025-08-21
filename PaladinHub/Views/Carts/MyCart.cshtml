@@ -1,121 +1,258 @@
 ﻿@model PaladinHub.Models.Carts.MyCartViewModel
+@{
+    ViewData["Title"] = "My Cart";
+}
 
-<style>
-    .alert-floating {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1050;
-        min-width: 300px;
-        max-width: 500px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-
-    .cart-table {
-        background-color: #1a1a1a;
-        border: 1px solid #FFD700;
-        color: white;
-    }
-
-        .cart-table th, .cart-table td {
-            vertical-align: middle;
-        }
-
-        .cart-table thead th {
-            background-color: #292940;
-            color: #FFD700;
-            text-align: center;
-        }
-
-    .cart-actions a {
-        min-width: 36px;
-        text-align: center;
-    }
-</style>
-
-@if (Model.TotalPrice != 0)
+@if (TempData["PurchaseSuccess"] != null)
 {
-    @if (TempData["AddedSuccessfully"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="alert">
-            <i class="fa fa-check"></i>
-            The product is added successfully to your cart.
+    <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="purchaseAlert">
+        <i class="fa fa-check"></i>
+        Thank you for your purchase!
+    </div>
+    <script>
+        (function(){
+            function hide(){
+                var el = document.getElementById('purchaseAlert');
+                if (!el) return;
+                if (window.jQuery) { try { jQuery(el).delay(1000).fadeOut(300); return; } catch(e){} }
+                setTimeout(function(){ el.classList.remove('show'); }, 1000);
+            }
+            setTimeout(hide, 100);
+        })();
+    </script>
+}
+@if (TempData["CartCleared"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="clearedAlert">
+        <i class="fa fa-check"></i>
+        Cart was cleared.
+    </div>
+    <script>
+        (function(){
+            function hide(){
+                var el = document.getElementById('clearedAlert');
+                if (!el) return;
+                if (window.jQuery) { try { jQuery(el).delay(1000).fadeOut(300); return; } catch(e){} }
+                setTimeout(function(){ el.classList.remove('show'); }, 1000);
+            }
+            setTimeout(hide, 100);
+        })();
+    </script>
+}
+
+<h2 class="mb-4 text-center" style="color:#ff5fb3">My Cart</h2>
+
+@Html.AntiForgeryToken()
+
+<div id="cart-empty" class="alert alert-info @(Model.MyProducts.Any() ? "d-none" : "")">
+    Your cart is empty.
+</div>
+
+<div id="cart-wrap" class="@(Model.MyProducts.Any() ? "" : "d-none")">
+    <table class="table table-dark table-striped align-middle">
+        <thead>
+            <tr>
+                <th style="width:60px;"></th>
+                <th>Product</th>
+                <th style="width:150px;">Quantity</th>
+                <th style="width:120px;">Price</th>
+                <th style="width:150px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody id="cart-table-body">
+            @foreach (var item in Model.MyProducts)
+            {
+                <tr data-id="@item.Id">
+                    <td>
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">
+                            <img src="@item.ImageUrl" alt="@item.Name" style="max-width:50px;height:auto;" />
+                        </a>
+                    </td>
+                    <td>
+                        <a class="text-white text-decoration-none"
+                           asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">
+                            @item.Name
+                        </a>
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Quantity">
+                            <button class="btn btn-sm btn-outline-light decrease-btn" type="button">-</button>
+                            <span class="px-2">@item.Quantity</span>
+                            <button class="btn btn-sm btn-outline-light increase-btn" type="button">+</button>
+                        </div>
+                    </td>
+                    <td>$@item.Price.ToString("F2")</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger remove-btn" type="button">Remove</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div id="cart-actions" class="d-flex justify-content-between align-items-center mt-3">
+        <h4>Total: <span id="cart-total">$@Model.TotalPrice.ToString("F2")</span></h4>
+        <div class="d-flex gap-2">
+            <button id="buy-btn" class="btn btn-success" type="button">Buy</button>
+            <button id="cancel-btn" class="btn btn-danger" type="button">Cancel</button>
         </div>
-    }
-    @if (TempData["RemovedFromCart"] != null)
-    {
-        <div class="alert alert-success alert-dismissible fade show alert-floating" role="alert" id="alert">
-            <i class="fa fa-check"></i>
-            The product is removed successfully from your cart.
-        </div>
-    }
+    </div>
+</div>
 
-    <main class="mt-3">
-        <div class="container justify-content-center">
-            <h3 class="text-center mb-4"><i class="fa-solid fa-shopping-cart"></i> My Cart</h3>
-            <table class="table table-hover text-center cart-table">
-                <thead>
-                    <tr class="row">
-                        <th scope="col" class="col-lg-5">Name</th>
-                        <th scope="col" class="col-lg-1"></th>
-                        <th scope="col" class="col-lg-1">Quantity</th>
-                        <th scope="col" class="col-lg-1">Price</th>
-                        <th scope="col" class="col-lg-1"></th>
-                        <th scope="col" class="col-lg-1"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var product in Model.MyProducts)
-                    {
-                        <tr class="row">
-                            <td class="col-lg-5">@product.Name</td>
-                            <td class="col-lg-1 cart-actions">
-                                <a asp-controller="Carts"
-                                   asp-action="IncreaseProduct"
-                                   asp-route-id="@product.Id"
-                                   class="btn btn-outline-primary">+</a>
-                            </td>
-
-                            @if (product.Quantity >= 1)
-                            {
-                                <th class="col-lg-1">@product.Quantity</th>
-                                <td class="col-lg-1">$@product.Price</td>
-                            }
-
-                            <td class="col-lg-1 cart-actions">
-                                <a asp-controller="Carts"
-                                   asp-action="DecreaseProduct"
-                                   asp-route-id="@product.Id"
-                                   class="btn btn-outline-primary">-</a>
-                            </td>
-                            <td class="col-lg-1 cart-actions">
-                                <a asp-controller="Carts"
-                                   asp-action="RemoveProductFromCart"
-                                   asp-route-id="@product.Id"
-                                   class="btn btn-outline-danger">Remove</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-
-            <h3 class="text-center mt-4">Total Cost: <span class="highlight">$@Model.TotalPrice</span></h3>
-            <div class="button-holder text-center mt-3">
-                <a asp-controller="Carts" asp-action="Buy" class="btn btn-success me-2">Buy</a>
-                <a asp-controller="Carts" asp-action="Cancel" class="btn btn-danger">Cancel</a>
+<div class="modal fade" id="confirmPurchaseModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background:#171a21;color:#e6e6e6;border:1px solid #272b35;">
+            <div class="modal-header" style="border-color:#272b35;">
+                <h5 class="modal-title">Complete purchase?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Please confirm you want to complete your purchase.
+            </div>
+            <div class="modal-footer" style="border-color:#272b35;">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="confirmPurchaseYes" class="btn btn-success">Confirm</button>
             </div>
         </div>
-    </main>
-}
-else
-{
-    <div class="text-center">
-        <h1>Your cart is empty!</h1>
     </div>
-}
+</div>
 
-<script>
-    setTimeout(function () {
-        $('#alert').delay(1000).fadeOut(300);
-    }, 1000);
-</script>
+<div class="modal fade" id="confirmCancelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background:#171a21;color:#e6e6e6;border:1px solid #272b35;">
+            <div class="modal-header" style="border-color:#272b35;">
+                <h5 class="modal-title">Cancel and clear cart?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                This will remove all items from your cart.
+            </div>
+            <div class="modal-footer" style="border-color:#272b35;">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="confirmCancelYes" class="btn btn-danger">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartTableBody = document.getElementById("cart-table-body");
+            const cartTotalEl   = document.getElementById("cart-total");
+            const wrapEl        = document.getElementById("cart-wrap");
+            const actionsEl     = document.getElementById("cart-actions");
+            const emptyEl       = document.getElementById("cart-empty");
+            const antiForgery   = document.querySelector("input[name='__RequestVerificationToken']")?.value;
+
+            function setCartEmptyUI() {
+                emptyEl?.classList.remove("d-none");
+                wrapEl?.classList.add("d-none");
+                if (cartTotalEl) cartTotalEl.textContent = "$0.00";
+                if (cartTableBody) cartTableBody.innerHTML = "";
+                document.dispatchEvent(new CustomEvent('cart:changed'));
+            }
+
+            function showToast(message) {
+                const el = document.createElement('div');
+                el.className = 'alert alert-success alert-dismissible fade show alert-floating';
+                el.role = 'alert';
+                el.innerHTML = '<i class="fa fa-check"></i> ' + message;
+                document.body.appendChild(el);
+                setTimeout(function(){
+                    if (window.jQuery) { try { jQuery(el).delay(1000).fadeOut(300); return; } catch(e){} }
+                    el.classList.remove('show');
+                    setTimeout(()=>el.remove(), 1000);
+                }, 100);
+            }
+
+            async function sendCartAction(url, row = null) {
+                try {
+                    const resp = await fetch(url, {
+                        method: "POST",
+                        credentials: "same-origin",
+                        headers: Object.assign({
+                            "X-Requested-With": "XMLHttpRequest"
+                        }, antiForgery ? { "RequestVerificationToken": antiForgery } : {})
+                    });
+                    if (!resp.ok) throw new Error("HTTP " + resp.status);
+                    const data = await resp.json();
+
+                    if (data?.ok) {
+                        if (typeof data.cartTotal === "number") {
+                            cartTotalEl.textContent = `$${data.cartTotal.toFixed(2)}`;
+                        }
+                        if (data.removed === true && row) {
+                            row.remove();
+                        } else if (row && typeof data.quantity === "number") {
+                            const qtySpan = row.querySelector("td:nth-child(3) span");
+                            if (qtySpan) qtySpan.textContent = data.quantity;
+                        }
+                        const tbodyEmpty = !cartTableBody || cartTableBody.querySelectorAll("tr").length === 0;
+                        if (data.cleared === true || (typeof data.cartTotal === "number" && data.cartTotal <= 0) || tbodyEmpty) {
+                            setCartEmptyUI();
+                        }
+                        if (data.purchaseSuccess === true) {
+                            showToast("Thank you for your purchase!");
+                        }
+                        if (data.message && data.purchaseSuccess !== true) {
+                            showToast(data.message);
+                        }
+                        document.dispatchEvent(new CustomEvent('cart:changed'));
+                    }
+                } catch (e) {
+                    console.error("Cart action failed:", e);
+                }
+            }
+
+            document.querySelectorAll(".increase-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const row = btn.closest("tr");
+                    const id  = row.dataset.id;
+                    sendCartAction(`/Cart/Increase?id=${encodeURIComponent(id)}`, row);
+                });
+            });
+
+            document.querySelectorAll(".decrease-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const row = btn.closest("tr");
+                    const id  = row.dataset.id;
+                    sendCartAction(`/Cart/Decrease?id=${encodeURIComponent(id)}`, row);
+                });
+            });
+
+            document.querySelectorAll(".remove-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const row = btn.closest("tr");
+                    const id  = row.dataset.id;
+                    sendCartAction(`/Cart/RemoveProduct?id=${encodeURIComponent(id)}`, row);
+                });
+            });
+
+            const buyBtn = document.getElementById("buy-btn");
+            const cancelBtn = document.getElementById("cancel-btn");
+            const modalPurchase = document.getElementById('confirmPurchaseModal');
+            const modalCancel = document.getElementById('confirmCancelModal');
+            const confirmPurchaseYes = document.getElementById('confirmPurchaseYes');
+            const confirmCancelYes = document.getElementById('confirmCancelYes');
+
+            if (buyBtn && modalPurchase && confirmPurchaseYes) {
+                const bsPurchase = new bootstrap.Modal(modalPurchase);
+                buyBtn.addEventListener("click", () => { bsPurchase.show(); });
+                confirmPurchaseYes.addEventListener("click", () => {
+                    bsPurchase.hide();
+                    sendCartAction("/Cart/Buy");
+                });
+            }
+
+            if (cancelBtn && modalCancel && confirmCancelYes) {
+                const bsCancel = new bootstrap.Modal(modalCancel);
+                cancelBtn.addEventListener("click", () => { bsCancel.show(); });
+                confirmCancelYes.addEventListener("click", () => {
+                    bsCancel.hide();
+                    sendCartAction("/Cart/Cancel");
+                });
+            }
+        });
+    </script>
+}

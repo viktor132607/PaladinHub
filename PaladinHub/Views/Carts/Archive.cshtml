@@ -48,7 +48,9 @@
                 {
                     <tr class="row">
                         <td class="col-lg-4">@cart.Id</td>
-                        <td class="col-lg-4"><span class="highlight">@cart.User.UserName</span></td>
+                        <td class="col-lg-4">
+                            <span class="highlight">@cart.User?.UserName ?? "Unknown"</span>
+                        </td>
                         <td class="col-lg-3">@cart.OrderDate</td>
                         <td class="col-lg-1">
                             <div class="button-holder">

@@ -1,7 +1,6 @@
 ﻿@model PaladinHub.Data.Entities.Spell
-
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     ViewData["Title"] = "Spell Details";
 }
 
@@ -11,8 +10,28 @@
     <dt class="col-sm-3">Name</dt>
     <dd class="col-sm-9">@Model.Name</dd>
 
+    <dt class="col-sm-3">Icon</dt>
+    <dd class="col-sm-9">
+        @if (!string.IsNullOrWhiteSpace(Model.Icon))
+        {
+            <img src="~/images/SpellIcons/@Model.Icon" alt="@Model.Name" class="img-thumbnail" style="max-width:64px;" />
+            <div>@Model.Icon</div>
+        }
+    </dd>
+
     <dt class="col-sm-3">Description</dt>
     <dd class="col-sm-9">@Model.Description</dd>
+
+    <dt class="col-sm-3">Url</dt>
+    <dd class="col-sm-9">
+        @if (!string.IsNullOrWhiteSpace(Model.Url))
+        {
+            <a href="@Model.Url" target="_blank" rel="noopener">@Model.Url</a>
+        }
+    </dd>
+
+    <dt class="col-sm-3">Quality</dt>
+    <dd class="col-sm-9">@Model.Quality</dd>
 </dl>
 
 <a asp-area="Admin" asp-controller="Database" asp-action="Index" asp-route-entity="Spells" class="btn btn-secondary">Back</a>

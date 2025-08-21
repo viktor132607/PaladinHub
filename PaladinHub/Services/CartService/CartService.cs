@@ -6,13 +6,17 @@ using PaladinHub.Data.Models;
 using PaladinHub.Models.Carts;
 using PaladinHub.Models.Products;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace PaladinHub.Services.Carts
 {
 	public class CartService : ICartService
 	{
-		private AppDbContext context;
-		private UserManager<User> userManager;
+		private readonly AppDbContext context;
+		private readonly UserManager<User> userManager;
+
 		public CartService(AppDbContext context, UserManager<User> userManager)
 		{
 			this.context = context;
@@ -21,253 +25,215 @@ namespace PaladinHub.Services.Carts
 
 		public async Task<bool> AddProduct(string id, string userId)
 		{
-			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
-			if (product == null)
-			{
-				return false;
-			}
+			var product = await context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+			if (product is null) return false;
 
-			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
-			if (user == null)
-			{
-				return false;
-			}
+			var user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
+			if (user is null) return false;
 
-			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
-
-			if (myCart == null)
+			var cart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
+			if (cart is null)
 			{
-				myCart = new Cart
+				cart = new Cart
 				{
+					Id = Guid.NewGuid(),
 					UserId = user.Id,
-					User = user
+					User = user,
+					UpdatedOn = DateTime.UtcNow
 				};
-
-				user.Cart = myCart;
-				user.CartId = myCart.Id;
-
-				await context.Carts.AddAsync(myCart);
-
-				var newCartProduct = new CartProduct
-				{
-					CartId = myCart.Id,
-					ProductId = product.Id,
-					Quantity = 1
-				};
-				context.CartProduct.Add(newCartProduct);
-
-				await context.SaveChangesAsync();
-				return true;
+				user.CartId = cart.Id;
+				user.Cart = cart;
+				await context.Carts.AddAsync(cart);
 			}
 
-			CartProduct cartProduct = await context.CartProduct
-				.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
+			var cartProduct = await context.CartProduct
+				.FirstOrDefaultAsync(x => x.CartId == cart.Id && x.ProductId == product.Id);
 
 			if (cartProduct is null)
 			{
 				cartProduct = new CartProduct
 				{
-					CartId = myCart.Id,
+					CartId = cart.Id,
 					ProductId = product.Id,
-					Quantity = 0,
+					Quantity = 1
 				};
-				context.CartProduct.Add(cartProduct);
+				await context.CartProduct.AddAsync(cartProduct);
 			}
-			cartProduct.Quantity++;
-			await context.SaveChangesAsync();
+			else
+			{
+				cartProduct.Quantity++;
+			}
 
+			cart.UpdatedOn = DateTime.UtcNow;
+			await context.SaveChangesAsync();
 			return true;
 		}
 
 		public async Task ArchiveCart(User user)
 		{
-			Cart cart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
-			if (cart != null)
+			if (user is null) return;
+
+			var cart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
+			if (cart is null) return;
+
+			cart.IsArchived = true;
+			cart.OrderDate = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+			cart.UpdatedOn = DateTime.UtcNow;
+
+			var newCart = new Cart
 			{
-				cart.IsArchived = true;
-				cart.OrderDate = DateTime.Now.ToString("dd - MM - yyyy  -->  HH:mm:ss");
+				Id = Guid.NewGuid(),
+				UserId = user.Id,
+				User = user,
+				UpdatedOn = DateTime.UtcNow
+			};
 
-				Cart newCart = new Cart();
-				newCart.User = user;
-				newCart.UserId = user.Id;
+			user.CartId = newCart.Id;
+			user.Cart = newCart;
 
-				user.Cart = newCart;
-				user.CartId = newCart.Id;
-
-				await context.Carts.AddAsync(newCart);
-				await context.SaveChangesAsync();
-			}
+			await context.Carts.AddAsync(newCart);
+			await context.SaveChangesAsync();
 		}
 
 		public async Task CleanCart(User user)
 		{
-			ICollection<CartProduct> myCartProducts = await context.CartProduct
-				.Include(x => x.Product)
-				.Include(x => x.Cart)
+			if (user is null) return;
+
+			var products = await context.CartProduct
 				.Where(x => x.CartId == user.CartId)
 				.ToListAsync();
 
-			foreach (CartProduct cartProduct in myCartProducts)
-			{
-				context.CartProduct.Remove(cartProduct);
-			}
+			if (products.Count > 0)
+				context.CartProduct.RemoveRange(products);
+
+			var cart = await context.Carts.FirstOrDefaultAsync(c => c.Id == user.CartId);
+			if (cart is not null)
+				cart.UpdatedOn = DateTime.UtcNow;
+
 			await context.SaveChangesAsync();
 		}
 
 		public async Task<bool> IncreaseProduct(string id, string userId)
 		{
-			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
-			if (product == null)
-			{
-				return false;
-			}
+			var user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
+			if (user is null) return false;
 
-			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
-			if (user == null)
-			{
-				return false;
-			}
+			var cart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
+			if (cart is null) return false;
 
-			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
-			if (myCart != null)
-			{
-				CartProduct cartProduct = await context.CartProduct
-					.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
+			var cartProduct = await context.CartProduct
+				.FirstOrDefaultAsync(x => x.CartId == cart.Id && x.ProductId == id);
 
-				if (cartProduct != null)
-				{
-					cartProduct.Quantity++;
-				}
-				await context.SaveChangesAsync();
-			}
+			if (cartProduct is null) return false;
+
+			cartProduct.Quantity++;
+			cart.UpdatedOn = DateTime.UtcNow;
+
+			await context.SaveChangesAsync();
 			return true;
 		}
 
 		public async Task<bool> DecreaseProduct(string id, string userId)
 		{
-			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
-			if (product == null)
+			var user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
+			if (user is null) return false;
+
+			var cart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
+			if (cart is null) return false;
+
+			var cartProduct = await context.CartProduct
+				.FirstOrDefaultAsync(x => x.CartId == cart.Id && x.ProductId == id);
+
+			if (cartProduct is null) return false;
+
+			if (cartProduct.Quantity > 1)
 			{
-				return false;
+				cartProduct.Quantity--;
+			}
+			else
+			{
+				context.CartProduct.Remove(cartProduct);
 			}
 
-			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
-			if (user == null)
-			{
-				return false;
-			}
-
-			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
-			if (myCart != null)
-			{
-				CartProduct cartProduct = await context.CartProduct
-					.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
-
-				if (cartProduct != null && cartProduct.Quantity > 1)
-				{
-					cartProduct.Quantity--;
-				}
-				else if (cartProduct != null && cartProduct.Quantity == 1)
-				{
-					context.CartProduct.Remove(cartProduct);
-				}
-				await context.SaveChangesAsync();
-			}
+			cart.UpdatedOn = DateTime.UtcNow;
+			await context.SaveChangesAsync();
 			return true;
 		}
 
 		public async Task<bool> RemoveProduct(string id, string userId)
 		{
-			Product product = await context.Products.FirstOrDefaultAsync(x => x.Id == id);
-			if (product == null)
-			{
-				return false;
-			}
+			var user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
+			if (user is null) return false;
 
-			User user = await context.User.FirstOrDefaultAsync(x => x.Id == userId);
-			if (user == null)
-			{
-				return false;
-			}
+			var cart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
+			if (cart is null) return false;
 
-			Cart myCart = await context.Carts.FirstOrDefaultAsync(x => x.Id == user.CartId);
-			if (myCart != null)
-			{
-				CartProduct cartProduct = await context.CartProduct
-					.FirstOrDefaultAsync(x => x.CartId == myCart.Id && x.ProductId == product.Id);
+			var cartProduct = await context.CartProduct
+				.FirstOrDefaultAsync(x => x.CartId == cart.Id && x.ProductId == id);
 
-				if (cartProduct != null)
-				{
-					context.CartProduct.Remove(cartProduct);
-				}
-				await context.SaveChangesAsync();
-			}
+			if (cartProduct is null) return false;
+
+			context.CartProduct.Remove(cartProduct);
+			cart.UpdatedOn = DateTime.UtcNow;
+
+			await context.SaveChangesAsync();
 			return true;
 		}
 
 		public async Task<ICollection<CartViewModel>> GetArchive()
 		{
-			ICollection<CartViewModel> archive = await context.Carts
+			var archive = await context.Carts
+				.AsNoTracking()
 				.Include(x => x.User)
 				.Include(x => x.CartProducts)
-				.Include(x => x.Products)
 				.Where(x => x.IsArchived)
 				.Select(x => new CartViewModel
 				{
 					Id = x.Id,
 					UserId = x.UserId,
+					User = x.User!,
 					CartProducts = x.CartProducts,
-					OrderDate = x.OrderDate,
-					Products = x.Products,
+					OrderDate = x.OrderDate ?? string.Empty,
+					Products = x.CartProducts.Select(cp => cp.Product!).Where(p => p != null!).ToList()
 				})
 				.OrderByDescending(x => x.OrderDate)
 				.ToListAsync();
 
-			foreach (var cart in archive)
-			{
-				cart.User = await userManager.FindByIdAsync(cart.UserId);
-			}
 			return archive;
 		}
 
-		public async Task<MyCartViewModel?> GetCartById(Guid cartId)
+		public async Task<MyCartViewModel> GetCartById(Guid cartId)
 		{
 			var myCartProducts = await context.CartProduct
 				.Include(x => x.Product)
-				.Include(x => x.Cart)
 				.Where(x => x.CartId == cartId)
 				.ToListAsync();
 
-			if (!myCartProducts.Any())
-				return null;
-
-			var myCartViewModel = new MyCartViewModel
+			var vm = new MyCartViewModel
 			{
 				MyProducts = new List<ProductViewModel>(),
 				TotalPrice = 0m
 			};
 
-			foreach (var cartProduct in myCartProducts)
+			if (myCartProducts.Count == 0)
+				return vm;
+
+			foreach (var cp in myCartProducts)
 			{
-				if (!myCartViewModel.MyProducts.Any(p => p.Id == cartProduct.ProductId))
+				vm.MyProducts.Add(new ProductViewModel
 				{
-					var productViewModel = new ProductViewModel
-					{
-						Id = cartProduct.ProductId,
-						Name = cartProduct.Product?.Name,
-						Price = cartProduct.Product?.Price ?? 0m,
-						Quantity = cartProduct.Quantity,
-						CartId = cartProduct.CartId,
-						Cart = cartProduct.Cart
-					};
+					Id = cp.ProductId,
+					Name = cp.Product?.Name ?? string.Empty,
+					Price = cp.Product?.Price ?? 0m,
+					Quantity = cp.Quantity,
+					CartId = cp.CartId,
+					Cart = null
+				});
 
-					myCartViewModel.MyProducts.Add(productViewModel);
-				}
-
-				myCartViewModel.TotalPrice += (cartProduct.Product?.Price ?? 0m) * cartProduct.Quantity;
+				vm.TotalPrice += (cp.Product?.Price ?? 0m) * cp.Quantity;
 			}
 
-			return myCartViewModel;
+			return vm;
 		}
 	}
 }

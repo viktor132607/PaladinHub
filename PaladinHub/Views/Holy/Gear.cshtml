@@ -1,6 +1,8 @@
-﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
+﻿@inherits PaladinHub.Helpers.SpellsAndItemsView
+@model PaladinHub.Models.CombinedViewModel
 @{
 	ViewData["Title"] = "Holy Paladin Consumables";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*<link rel="stylesheet" href="~/css//holy/holyGear.css" />*@
 
@@ -126,24 +128,23 @@
 					<div class="bis-overall">
 						<h2>
 							<img src="/images/icons/inv_plate_raidpaladingoblin_d_01_helm.jpg" alt="Cartel Chip Icon"
-								class="section-icon" style="text-align:center; color:#ff66cc;">
-
+								 class="section-icon" style="text-align:center; color:#ff66cc;">
 							Overall Holy Paladin Best in Slot Gear
 						</h2>
 
 						<p style="font-size: 16px; line-height: 1.6;">
 							This list consists of gear from both
 							<a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/overview"
-								target="_blank" rel="noopener noreferrer" style="color:#ffc400; text-decoration: none;">
+							   target="_blank" rel="noopener noreferrer" style="color:#ffc400; text-decoration: none;">
 								Mythic+
 							</a> and
 							<a href="https://www.wowhead.com/guide/raids/liberation-of-undermine/overview"
-								target="_blank" rel="noopener noreferrer" style="color:#9bff9b; text-decoration: none;">
+							   target="_blank" rel="noopener noreferrer" style="color:#9bff9b; text-decoration: none;">
 								Liberation of Undermine
 							</a>, and attempts to create a list of gear that will work well in both types of content.
 							As always, <strong>you should not follow BiS lists blindly</strong> and use
 							<a href="https://questionablyepic.com/live/" target="_blank" rel="noopener noreferrer"
-								style="color:#66ccff; text-decoration: none;">
+							   style="color:#66ccff; text-decoration: none;">
 								Questionably Epic
 							</a> to ensure each item is an actual upgrade for you.
 						</p>
@@ -159,210 +160,131 @@
 							<tbody>
 								<tr>
 									<td>Head</td>
+									<td>@Item("Aureate Sentry’s Pledge")</td>
 									<td>
-										@Item("Aureate Sentry’s Pledge")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
-											alt="Aureate Sentry’s Pledge" />
-										<a href="https://www.wowhead.com/item=229244/aureate-sentrys-pledge?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Aureate Sentry’s Pledge</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
+										   class="source-link" target="_blank">One-Armed Bandit</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-											class="source-link" target="_blank">One-Armed Bandit</a></td>
 								</tr>
 								<tr>
 									<td>Neck</td>
+									<td>@Item("Strapped Rescue-Keg")</td>
 									<td>
-										@Item("Strapped Rescue-Keg")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
-											alt="Strapped Rescue-Keg" />
-										<a href="https://www.wowhead.com/item=221060/strapped-rescue-keg?bonus=657:12042:5878:7981:11996"
-											class="item-link q3" target="_blank">Strapped Rescue-Keg</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
+										   class="source-link" target="_blank">Cinderbrew Meadery</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
-											class="source-link" target="_blank">Cinderbrew Meadery</a></td>
 								</tr>
 								<tr>
 									<td>Shoulders</td>
+									<td>@Item("Aureate Sentry’s Roaring Will")</td>
 									<td>
-										@Item("Aureate Sentry’s Roaring Will")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
-											alt="Aureate Sentry’s Roaring Will" />
-										<a href="https://www.wowhead.com/item=229242/aureate-sentrys-roaring-will?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Aureate Sentry’s Roaring Will</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
+										   class="source-link" target="_blank">Rik Reverb</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-											class="source-link" target="_blank">Rik Reverb</a></td>
 								</tr>
 								<tr>
 									<td>Cloak</td>
+									<td>@Item("Test Pilot’s Go-Pack")</td>
 									<td>
-										@Item("Test Pilot’s Go-Pack")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/Test Pilot's Go-Pack.jpg")"
-											alt="Test Pilot’s Go-Pack" />
-										<a href="https://www.wowhead.com/item=228844/test-pilots-go-pack?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Test Pilot’s Go-Pack</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
+										   class="source-link" target="_blank">Sprocketmonger</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-											class="source-link" target="_blank">Sprocketmonger</a></td>
 								</tr>
 								<tr>
 									<td>Chest</td>
+									<td>@Item("Aureate Sentry’s Encasement")</td>
 									<td>
-										@Item("Aureate Sentry’s Encasement")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_chest.jpg")"
-											alt="Aureate Sentry’s Encasement" />
-										<a href="https://www.wowhead.com/item=229247/aureate-sentrys-encasement?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Aureate Sentry’s Encasement</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
+										   class="source-link" target="_blank">Sprocketmonger</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-											class="source-link" target="_blank">Sprocketmonger</a></td>
 								</tr>
 								<tr>
 									<td>Wrist</td>
+									<td>@Item("Revved-Up Vambraces")</td>
 									<td>
-										@Item("Revved-Up Vambraces")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/Revved-Up Vambraces.jpg")"
-											alt="Revved-Up Vambraces" />
-										<a href="https://www.wowhead.com/item=228868/revved-up-vambraces?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Revved-Up Vambraces</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/vexie-boss-strategy-abilities"
+										   class="source-link" target="_blank">Vexie</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/vexie-boss-strategy-abilities"
-											class="source-link" target="_blank">Vexie</a></td>
 								</tr>
 								<tr>
 									<td>Gloves</td>
+									<td>@Item("Jumpstarter’s Scaffold-Scrapers")</td>
 									<td>
-										@Item("Jumpstarter’s Scaffold-Scrapers")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/inv_plate_outdoorundermine_c_01_glove.jpg")"
-											alt="Jumpstarter’s Scaffold-Scrapers" />
-										<a href="https://www.wowhead.com/item=234504/jumpstarters-scaffold-scrapers?bonus=657:12042:5878:7981:11996"
-											class="item-link q3" target="_blank">Jumpstarter’s Scaffold-Scrapers</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
+										   class="source-link" target="_blank">Operation: Floodgate</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
-											class="source-link" target="_blank">Operation: Floodgate</a></td>
 								</tr>
 								<tr>
 									<td>Belt</td>
+									<td>@Item("Venture Contractor’s Floodlight")</td>
 									<td>
-										@Item("Venture Contractor’s Floodlight")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/Venture Contractor's Floodlight.jpg")"
-											alt="Venture Contractor’s Floodlight" />
-										<a href="https://www.wowhead.com/item=234505/venture-contractors-floodlight?bonus=657:12042:5878:7981:11996"
-											class="item-link q3" target="_blank">Venture Contractor’s Floodlight</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
+										   class="source-link" target="_blank">Operation: Floodgate</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
-											class="source-link" target="_blank">Operation: Floodgate</a></td>
 								</tr>
 								<tr>
 									<td>Legs</td>
+									<td>@Item("Aureate Sentry’s Legguards")</td>
 									<td>
-										@Item("Aureate Sentry’s Legguards")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
-											alt="Aureate Sentry’s Legguards" />
-										<a href="https://www.wowhead.com/item=229243/aureate-sentrys-legguards?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Aureate Sentry’s Legguards</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
+										   class="source-link" target="_blank">Stix Bunkjunker</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
-											class="source-link" target="_blank">Stix Bunkjunker</a></td>
 								</tr>
 								<tr>
 									<td>Boots</td>
+									<td>@Item("Rik’s Walkin’ Boots")</td>
 									<td>
-										@Item("Rik’s Walkin’ Boots")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/Rik's Walkin' Boots.jpg")"
-											alt="Rik’s Walkin’ Boots" />
-										<a href="https://www.wowhead.com/item=228874/riks-walkin-boots?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Rik’s Walkin’ Boots</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
+										   class="source-link" target="_blank">Rik Reverb</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-											class="source-link" target="_blank">Rik Reverb</a></td>
 								</tr>
 								<tr>
 									<td>Ring</td>
+									<td>@Item("The Jastor Diamond")</td>
 									<td>
-										@Item("The Jastor Diamond")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/TheJastorDiamond.png")"
-											alt="The Jastor Diamond" />
-										<a href="https://www.wowhead.com/item=231265/the-jastor-diamond?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">The Jastor Diamond</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
+										   class="source-link" target="_blank">Chrome King Gallywix</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-											class="source-link" target="_blank">Chrome King Gallywix</a></td>
 								</tr>
 								<tr>
 									<td>Ring</td>
+									<td>@Item("Miniature Roulette Wheel")</td>
 									<td>
-										@Item("Miniature Roulette Wheel")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/MiniatureRouletteWheel.png")"
-											alt="Miniature Roulette Wheel" />
-										<a href="https://www.wowhead.com/item=228843/miniature-roulette-wheel?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Miniature Roulette Wheel</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
+										   class="source-link" target="_blank">One-Armed Bandit</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-											class="source-link" target="_blank">One-Armed Bandit</a></td>
 								</tr>
 								<tr>
 									<td>Trinket</td>
+									<td>@Item("Eye of Kezan")</td>
 									<td>
-										@Item("Eye of Kezan")
-										<img class="item-icon" src="@Url.Content("~/images/itemIcons/EyeOfKezan.png")"
-											alt="Eye of Kezan" />
-										<a href="https://www.wowhead.com/item=230198/eye-of-kezan?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Eye of Kezan</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
+										   class="source-link" target="_blank">Chrome King Gallywix</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-											class="source-link" target="_blank">Chrome King Gallywix</a></td>
 								</tr>
 								<tr>
 									<td>Trinket</td>
+									<td>@Item("Mister Pick-Me-Up")</td>
 									<td>
-										@Item("Mister Pick-Me-Up")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/Misterpick-me-up.png")"
-											alt="Mister Pick-Me-Up" />
-										<a href="https://www.wowhead.com/item=230186/mister-pick-me-up?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Mister Pick-Me-Up</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
+										   class="source-link" target="_blank">Sprocketmonger</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-											class="source-link" target="_blank">Sprocketmonger</a></td>
 								</tr>
 								<tr>
 									<td>Main Hand</td>
+									<td>@Item("Big Earner’s Bludgeon")</td>
 									<td>
-										@Item("Big Earner’s Bludgeon")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/BigEarner'sBludgeon.png")"
-											alt="Big Earner’s Bludgeon" />
-										<a href="https://www.wowhead.com/item=228901/big-earners-bludgeon?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Big Earner’s Bludgeon</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
+										   class="source-link" target="_blank">Mug’zee, Heads of Security</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
-											class="source-link" target="_blank">Mug’zee, Heads of Security</a></td>
 								</tr>
 								<tr>
 									<td>Shield</td>
+									<td>@Item("Titan of Industry")</td>
 									<td>
-										@Item("Titan of Industry")
-										<img class="item-icon"
-											src="@Url.Content("~/images/itemIcons/TitanOfIndustry.png")"
-											alt="Titan of Industry" />
-										<a href="https://www.wowhead.com/item=228889/titan-of-industry?bonus=7981:12042:5878:11996"
-											class="item-link q3" target="_blank">Titan of Industry</a>
+										<a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
+										   class="source-link" target="_blank">Chrome King Gallywix</a>
 									</td>
-									<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-											class="source-link" target="_blank">Chrome King Gallywix</a></td>
 								</tr>
 							</tbody>
 						</table>
@@ -371,21 +293,22 @@
 
 				<section id="bis-tabs">
 					<div class="bis-tabs">
-						<!-- Main Buttons -->
+
 						<div class="tab-header">
-							<button class="tab-button active" onclick="showTab('raid-tab', event)">Raid</button>
-							<button class="tab-button" onclick="showTab('mythic-tab', event)">Mythic+</button>
+							<button class="tab-button active" onclick="showTab('raid-tab', this)">Raid</button>
+							<button class="tab-button" onclick="showTab('mythic-tab', this)">Mythic+</button>
 						</div>
 
-						<!-- RAID TAB CONTENT -->
 						<div id="raid-tab" class="tab-content" style="display: block;">
 							<h2>Best in Slot Gear from Liberation of Undermine for Holy Paladin</h2>
+
 							<p>
 								While <strong><span style="color:#9bff9b;">Liberation of Undermine</span></strong> raid
 								items are more deterministically obtainable than Mythic+,
 								there can usually be heavy competition for them. Always aim for the highest item level,
 								as secondary stats are extremely close in value.
 							</p>
+
 							<table class="bis-table">
 								<thead>
 									<tr>
@@ -397,225 +320,161 @@
 								<tbody>
 									<tr>
 										<td>Head</td>
-										<td>
-											@Item("Aureate Sentry’s Pledge")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
-												alt="Aureate Sentry’s Pledge" />
-											<a href="https://www.wowhead.com/item=229244/aureate-sentrys-pledge?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Aureate Sentry’s Pledge</a>
+										<td>@Item("Aureate Sentry’s Pledge")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy">
+												One-Armed Bandit
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-												class="source-link" target="_blank">One-Armed Bandit</a></td>
 									</tr>
 									<tr>
 										<td>Neck</td>
-										<td>
-											@Item("Gobfather's Gifted Bling")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
-												alt="Gobfather's Gifted Bling" />
-											<a href="https://www.wowhead.com/item=228842/gobfathers-gifted-bling?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Gobfather's Gifted Bling</a>
+										<td>@Item("Gobfather's Gifted Bling")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities">
+												Mug’zee, Heads of Security
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
-												class="source-link" target="_blank">Mug’zee, Heads of Security</a></td>
 									</tr>
 									<tr>
 										<td>Shoulders</td>
-										<td>
-											@Item("Aureate Sentry’s Roaring Will")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
-												alt="Aureate Sentry’s Roaring Will" />
-											<a href="https://www.wowhead.com/item=229242/aureate-sentrys-roaring-will?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Aureate Sentry’s Roaring Will</a>
+										<td>@Item("Aureate Sentry’s Roaring Will")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities">
+												Rik Reverb
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-												class="source-link" target="_blank">Rik Reverb</a></td>
 									</tr>
 									<tr>
 										<td>Cloak</td>
-										<td>
-											@Item("Test Pilot’s Go-Pack")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/Test Pilot's Go-Pack.jpg")"
-												alt="Test Pilot’s Go-Pack" />
-											<a href="https://www.wowhead.com/item=228844/test-pilots-go-pack?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Test Pilot’s Go-Pack</a>
+										<td>@Item("Test Pilot’s Go-Pack")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy">
+												Sprocketmonger
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-												class="source-link" target="_blank">Sprocketmonger</a></td>
 									</tr>
 									<tr>
 										<td>Chest</td>
-										<td>
-											@Item("Aureate Sentry’s Encasement")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_chest.jpg")"
-												alt="Aureate Sentry’s Encasement" />
-											<a href="https://www.wowhead.com/item=229247/aureate-sentrys-encasement?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Aureate Sentry’s Encasement</a>
+										<td>@Item("Aureate Sentry’s Encasement")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy">
+												Sprocketmonger
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-												class="source-link" target="_blank">Sprocketmonger</a></td>
 									</tr>
 									<tr>
 										<td>Wrist</td>
-										<td>
-											@Item("Revved-Up Vambraces")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/Revved-Up Vambraces.jpg")"
-												alt="Revved-Up Vambraces" />
-											<a href="https://www.wowhead.com/item=228868/revved-up-vambraces?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Revved-Up Vambraces</a>
+										<td>@Item("Revved-Up Vambraces")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/vexie-boss-strategy-abilities">
+												Vexie
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/vexie-boss-strategy-abilities"
-												class="source-link" target="_blank">Vexie</a></td>
 									</tr>
 									<tr>
 										<td>Gloves</td>
-										<td>
-											@Item("Dumpmech Compactors")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_glove_plate_raidwarriorgoblin_d_01.jpg")"
-												alt="Dumpmech Compactors" />
-											<a href="https://www.wowhead.com/item=228849/dumpmech-compactors?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Dumpmech Compactors</a>
+										<td>@Item("Dumpmech Compactors")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy">
+												Stix Bunkjunker
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
-												class="source-link" target="_blank">Stix Bunkjunker</a></td>
 									</tr>
 									<tr>
-										@Item("Coin-Operated Girdle")
 										<td>Belt</td>
-										<td>
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_belt.jpg")"
-												alt="Coin-Operated Girdle" />
-											<a href="https://www.wowhead.com/item=228886/coin-operated-girdle?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Coin-Operated Girdle</a>
+										<td>@Item("Coin-Operated Girdle")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy">
+												One-Armed Bandit
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-												class="source-link" target="_blank">One-Armed Bandit</a></td>
 									</tr>
 									<tr>
 										<td>Legs</td>
-										<td>
-											@Item("Aureate Sentry’s Legguards")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
-												alt="Aureate Sentry’s Legguards" />
-											<a href="https://www.wowhead.com/item=229243/aureate-sentrys-legguards?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Aureate Sentry’s Legguards</a>
+										<td>@Item("Aureate Sentry’s Legguards")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy">
+												Stix Bunkjunker
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
-												class="source-link" target="_blank">Stix Bunkjunker</a></td>
 									</tr>
 									<tr>
 										<td>Boots</td>
-										<td>
-											@Item("Rik’s Walkin’ Boots")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/Rik's Walkin' Boots.jpg")"
-												alt="Rik’s Walkin’ Boots" />
-											<a href="https://www.wowhead.com/item=228874/riks-walkin-boots?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Rik’s Walkin’ Boots</a>
+										<td>@Item("Rik’s Walkin’ Boots")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities">
+												Rik Reverb
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-												class="source-link" target="_blank">Rik Reverb</a></td>
 									</tr>
 									<tr>
 										<td>Ring</td>
-										<td>
-											@Item("The Jastor Diamond")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/TheJastorDiamond.png")"
-												alt="The Jastor Diamond" />
-											<a href="https://www.wowhead.com/item=231265/the-jastor-diamond?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">The Jastor Diamond</a>
+										<td>@Item("The Jastor Diamond")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy">
+												Chrome King Gallywix
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-												class="source-link" target="_blank">Chrome King Gallywix</a></td>
 									</tr>
 									<tr>
 										<td>Ring</td>
-										<td>
-											@Item("Miniature Roulette Wheel")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/MiniatureRouletteWheel.png")"
-												alt="Miniature Roulette Wheel" />
-											<a href="https://www.wowhead.com/item=228843/miniature-roulette-wheel?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Miniature Roulette Wheel</a>
+										<td>@Item("Miniature Roulette Wheel")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy">
+												One-Armed Bandit
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-												class="source-link" target="_blank">One-Armed Bandit</a></td>
 									</tr>
 									<tr>
 										<td>Trinket</td>
-										<td>
-											@Item("Eye of Kezan")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/EyeOfKezan.png")"
-												alt="Eye of Kezan" />
-											<a href="https://www.wowhead.com/item=230198/eye-of-kezan?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Eye of Kezan</a>
+										<td>@Item("Eye of Kezan")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy">
+												Chrome King Gallywix
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-												class="source-link" target="_blank">Chrome King Gallywix</a></td>
 									</tr>
 									<tr>
 										<td>Trinket</td>
-										<td>
-											@Item("Mister Pick-Me-Up")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/Misterpick-me-up.png")"
-												alt="Mister Pick-Me-Up" />
-											<a href="https://www.wowhead.com/item=230186/mister-pick-me-up?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Mister Pick-Me-Up</a>
+										<td>@Item("Mister Pick-Me-Up")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy">
+												Sprocketmonger
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/sprocketmonger-boss-strategy"
-												class="source-link" target="_blank">Sprocketmonger</a></td>
 									</tr>
 									<tr>
 										<td>Main Hand</td>
-										<td>
-											@Item("Big Earner’s Bludgeon")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/BigEarner'sBludgeon.png")"
-												alt="Big Earner’s Bludgeon" />
-											<a href="https://www.wowhead.com/item=228901/big-earners-bludgeon?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Big Earner’s Bludgeon</a>
+										<td>@Item("Big Earner’s Bludgeon")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities">
+												Mug’zee, Heads of Security
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/mugzee-boss-strategy-abilities"
-												class="source-link" target="_blank">Mug’zee, Heads of Security</a></td>
 									</tr>
 									<tr>
 										<td>Shield</td>
-										<td>
-											@Item("Titan of Industry")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/TitanOfIndustry.png")"
-												alt="Titan of Industry" />
-											<a href="https://www.wowhead.com/item=228889/titan-of-industry?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Titan of Industry</a>
+										<td>@Item("Titan of Industry")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy">
+												Chrome King Gallywix
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/chrome-king-gallywix-boss-strategy"
-												class="source-link" target="_blank">Chrome King Gallywix</a></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 
-						<!-- MYTHIC+ TAB CONTENT -->
 						<div id="mythic-tab" class="tab-content" style="display: none;">
 							<h2>Best in Slot Gear from Mythic+ for Holy Paladin</h2>
+
 							<p>
-								Use <strong><a href="https://questionablyepic.com/live/" style="color:#9bff9b;"
-										target="_blank" rel="noopener noreferrer">Questionably Epic</a></strong> to
+								Use <strong><a href="https://questionablyepic.com/live/" style="color:#9bff9b;" target="_blank" rel="noopener noreferrer">Questionably Epic</a></strong> to
 								verify upgrades. This Mythic+ BiS list focuses on healing-centric dungeons. Stat value
 								can vary per build.
 							</p>
+
 							<table class="bis-table">
 								<thead>
 									<tr>
@@ -627,236 +486,172 @@
 								<tbody>
 									<tr>
 										<td>Head</td>
-										<td>
-											@Item("Aureate Sentry’s Pledge")"
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_helm.jpg")"
-												alt="Aureate Sentry’s Pledge" />
-											<a href="https://www.wowhead.com/item=229244/aureate-sentrys-pledge?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Aureate Sentry’s Pledge</a>
+										<td>@Item("Aureate Sentry’s Pledge")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy">
+												One-Armed Bandit
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/one-armed-bandit-boss-strategy"
-												class="source-link" target="_blank">One-Armed Bandit</a></td>
 									</tr>
 									<tr>
 										<td>Neck</td>
-										<td>
-											@Item("Strapped Rescue - Keg")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/StrappedRescue-keg.png")"
-												alt="Strapped Rescue-Keg" />
-											<a href="https://www.wowhead.com/item=221060/strapped-rescue-keg?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Strapped Rescue-Keg</a>
+										<td>@Item("Strapped Rescue-Keg")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview">
+												Cinderbrew Meadery
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
-												class="source-link" target="_blank">Cinderbrew Meadery</a></td>
 									</tr>
 									<tr>
 										<td>Shoulders</td>
-										<td>
-											@Item("Aureate Sentry’s Roaring Will")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_shoulder.jpg")"
-												alt="Aureate Sentry’s Roaring Will" />
-											<a href="https://www.wowhead.com/item=229242/aureate-sentrys-roaring-will?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Aureate Sentry’s Roaring Will</a>
+										<td>@Item("Aureate Sentry’s Roaring Will")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities">
+												Rik Reverb
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/rik-reverb-boss-strategy-abilities"
-												class="source-link" target="_blank">Rik Reverb</a></td>
 									</tr>
 									<tr>
 										<td>Cloak</td>
-										<td>
-											@Item("Cloak of Questionable Intent")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_bracer_plate_earthendungeon_c_01.jpg")"
-												alt="Cloak of Questionable Intent" />
-											<a href="https://www.wowhead.com/item=159287/cloak-of-questionable-intent?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Cloak of Questionable Intent</a>
+										<td>@Item("Cloak of Questionable Intent")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=159287/cloak-of-questionable-intent?bonus=657:12042:5878:7981:11996">
+												The MOTHERLODE!!
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/the-motherlode"
-												class="source-link" target="_blank">The MOTHERLODE!!</a></td>
 									</tr>
 									<tr>
 										<td>Chest</td>
-										<td>
-											@Item("Slashproof Business Plate")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_chest_plate_earthendungeon_c_01.jpg")"
-												alt="Slashproof Business Plate" />
-											<a href="https://www.wowhead.com/item=221069/slashproof-business-plate?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Slashproof Business Plate</a>
+										<td>@Item("Slashproof Business Plate")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=221069/slashproof-business-plate?bonus=657:12042:5878:7981:11996">
+												Cinderbrew Meadery
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
-												class="source-link" target="_blank">Cinderbrew Meadery</a></td>
 									</tr>
 									<tr>
 										<td>Wrist</td>
-										<td>
-											@Item("Fuzzy Cindercuffs")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_bracer_plate_earthendungeon_c_01.jpg")"
-												alt="Fuzzy Cindercuffs" />
-											<a href="https://www.wowhead.com/item=221064/fuzzy-cindercuffs?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Fuzzy Cindercuffs</a>
+										<td>@Item("Fuzzy Cindercuffs")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=221064/fuzzy-cindercuffs?bonus=657:12042:5878:7981:11996">
+												Cinderbrew Meadery
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/cinderbrew-meadery-overview"
-												class="source-link" target="_blank">Cinderbrew Meadery</a></td>
 									</tr>
 									<tr>
 										<td>Gloves</td>
-										<td>
-											@Item("Aureate Sentry's Gauntlets")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_glove.jpg")"
-												alt="Aureate Sentry's Gauntlets" />
-											<a href="https://www.wowhead.com/item=229245/aureate-sentrys-gauntlets?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Aureate Sentry's Gauntlets</a>
+										<td>@Item("Aureate Sentry's Gauntlets")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=229245/aureate-sentrys-gauntlets?bonus=7981:12042:5878:11996">
+												Cauldron of Carnage
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/cauldron-of-carnage-boss-strategy"
-												class="source-link" target="_blank">Cauldron of Carnage</a></td>
 									</tr>
 									<tr>
 										<td>Belt</td>
-										<td>
-											@Item("Venture Contractor’s Floodlight")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/Venture Contractor's Floodlight.jpg")"
-												alt="Venture Contractor’s Floodlight" />
-											<a href="https://www.wowhead.com/item=234505/venture-contractors-floodlight?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Venture Contractor’s Floodlight</a>
+										<td>@Item("Venture Contractor’s Floodlight")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=234505/venture-contractors-floodlight?bonus=657:12042:5878:7981:11996">
+												Operation: Floodgate
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/patch-11-1-operation-floodgate-dungeon-overview"
-												class="source-link" target="_blank">Operation: Floodgate</a></td>
 									</tr>
 									<tr>
 										<td>Legs</td>
-										<td>
-											@Item("Aureate Sentry’s Legguards")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_plate_raidpaladingoblin_d_01_pant.jpg")"
-												alt="Aureate Sentry’s Legguards" />
-											<a href="https://www.wowhead.com/item=229243/aureate-sentrys-legguards?bonus=7981:12042:5878:11996"
-												class="item-link q3" target="_blank">Aureate Sentry’s Legguards</a>
+										<td>@Item("Aureate Sentry’s Legguards")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=229243/aureate-sentrys-legguards?bonus=7981:12042:5878:11996">
+												Stix Bunkjunker
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/raids/liberation-of-undermine/stix-bunkjunker-boss-strategy"
-												class="source-link" target="_blank">Stix Bunkjunker</a></td>
 									</tr>
 									<tr>
 										<td>Boots</td>
-										<td>
-											@Item("Sabatons of Rampaging Elements")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_boot_plate_zandalardungeon_c_01.jpg")"
-												alt="Sabatons of Rampaging Elements" />
-											<a href="https://www.wowhead.com/item=159679/sabatons-of-rampaging-elements?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Sabatons of Rampaging Elements</a>
+										<td>@Item("Sabatons of Rampaging Elements")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=159679/sabatons-of-rampaging-elements?bonus=657:12042:5878:7981:11996">
+												The MOTHERLODE!!
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/the-motherlode"
-												class="source-link" target="_blank">The MOTHERLODE!!</a></td>
 									</tr>
 									<tr>
 										<td>Ring</td>
-										<td>
-											@Item("Wick's Golden Loop")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_11_0_earthen_earthenring_color2.jpg")"
-												alt="Wick's Golden Loop" />
-											<a href="https://www.wowhead.com/item=221099/wicks-golden-loop?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Wick's Golden Loop</a>
+										<td>@Item("Wick's Golden Loop")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=221099/wicks-golden-loop?bonus=657:12042:5878:7981:11996">
+												Darkflame Cleft
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/darkflame-cleft-overview"
-												class="source-link" target="_blank">Darkflame Cleft</a></td>
-
 									</tr>
 									<tr>
 										<td>Ring</td>
-										<td>
-											@Item("Bloodoath Signet")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_ring_maldraxxus_01_red.jpg")"
-												alt="Bloodoath Signet" />
-											<a href="https://www.wowhead.com/item=178871/bloodoath-signet?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Bloodoath Signet</a>
+										<td>@Item("Bloodoath Signet")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=178871/bloodoath-signet?bonus=657:12042:5878:7981:11996">
+												Theater of Pain
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/theater-of-pain"
-												class="source-link" target="_blank">Theater of Pain</a></td>
 									</tr>
 									<tr>
 										<td>Trinket</td>
-										<td>
-											@Item("Signet of the Priory")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/Signetofthepriory.png")"
-												alt="Signet of the Priory" />
-											<a href="https://www.wowhead.com/item=219308/signet-of-the-priory?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Signet of the Priory</a>
+										<td>@Item("Signet of the Priory")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=219308/signet-of-the-priory?bonus=657:12042:5878:7981:11996">
+												Priory of the Sacred Flame
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/priory-of-the-sacred-flame-overview"
-												class="source-link" target="_blank">Priory of the Sacred Flame</a></td>
 									</tr>
 									<tr>
 										<td>Trinket</td>
-										<td>
-											@Item("Carved Blazikon Wax")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_misc_candlekobold_color1.jpg")"
-												alt="Carved Blazikon Wax" />
-											<a href="https://www.wowhead.com/item=219305/carved-blazikon-wax?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Carved Blazikon Wax</a>
+										<td>@Item("Carved Blazikon Wax")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=219305/carved-blazikon-wax?bonus=657:12042:5878:7981:11996">
+												Darkflame Cleft
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/darkflame-cleft-overview"
-												class="source-link" target="_blank">Darkflame Cleft</a></td>
 									</tr>
 									<tr>
 										<td>Main Hand</td>
-										<td>
-											@Item("Electrifying Cognitive Amplifier")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_mace_1h_enprofession_c_01.jpg")"
-												alt="Electrifying Cognitive Amplifier" />
-											<a href="https://www.wowhead.com/item=168955/electrifying-cognitive-amplifier?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Electrifying Cognitive
-												Amplifier</a>
+										<td>@Item("Electrifying Cognitive Amplifier")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/operation-mechagon-workshop">
+												Operation: Mechagon
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/mythic-plus-dungeons/the-war-within-season-2/operation-mechagon-workshop"
-												class="source-link" target="_blank">Operation: Mechagon</a></td>
 									</tr>
 									<tr>
 										<td>Shield</td>
-										<td>
-											@Item("Galebreaker Bulwark")
-											<img class="item-icon"
-												src="@Url.Content("~/images/itemIcons/inv_shield_1h_earthendungeon_c_02.jpg")"
-												alt="Galebreaker Bulwark" />
-											<a href="https://www.wowhead.com/item=221045/galebreaker-bulwark?bonus=657:12042:5878:7981:11996"
-												class="item-link q3" target="_blank">Galebreaker Bulwark</a>
+										<td>@Item("Galebreaker Bulwark")</td>
+										<td class="source">
+											<a class="source-link" target="_blank" href="https://www.wowhead.com/item=221045/galebreaker-bulwark?bonus=657:12042:5878:7981:11996">
+												The Rookery
+											</a>
 										</td>
-										<td><a href="https://www.wowhead.com/guide/the-war-within/dungeons/the-rookery-overview"
-												class="source-link" target="_blank">The Rookery</a></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
+
 					</div>
 				</section>
 
-				<!-- Tab Script -->
 				<script>
-					function showTab(tabId, event) {
+					function showTab(tabId, btn) {
 						const tabs = document.querySelectorAll(".bis-tabs .tab-content");
 						const buttons = document.querySelectorAll(".bis-tabs .tab-button");
 
 						tabs.forEach(tab => tab.style.display = "none");
-						buttons.forEach(btn => btn.classList.remove("active"));
+						buttons.forEach(b => b.classList.remove("active"));
 
 						const activeTab = document.getElementById(tabId);
 						if (activeTab) {
 							activeTab.style.display = "block";
-							event.target.classList.add("active");
+							btn.classList.add("active");
 						}
 					}
 				</script>
+
+
 
 				<div class="separator-container">
 					<img src="~/images/Separators/D1.png" alt="Separator 1" class="separator" />
@@ -874,7 +669,6 @@
 
 					<div class="tier-list">
 
-						<!-- S TIER -->
 						<div class="tier-row">
 							<div class="tier-label tier-S">S</div>
 							<div class="trinket-icons">
@@ -890,7 +684,6 @@
 						</div>
 					</div>
 
-					<!-- A TIER -->
 					<div class="tier-row">
 						<div class="tier-label tier-A">A</div>
 						<div class="trinket-icons">
@@ -923,7 +716,6 @@
 						</div>
 					</div>
 
-					<!-- B TIER -->
 					<div class="tier-row">
 						<div class="tier-label tier-B">B</div>
 						<div class="trinket-icons">
@@ -947,7 +739,6 @@
 						</div>
 					</div>
 
-					<!-- C TIER -->
 					<div class="tier-row">
 						<div class="tier-label tier-C">C</div>
 						<div class="trinket-icons">
@@ -1282,7 +1073,7 @@
 
 					<ol class="crafting-order-list">
 						<li>
-							<img src="/images/itemIcons/BigEarner'sBludgeon.png" alt="Big Earner Icon"
+							<img src="/images/itemIcons/BigEarnersBludgeon.jpg" alt="Big Earner Icon"
 								class="item-icon">
 							<a href="https://www.wowhead.com/item=228901/big-earners-bludgeon" target="_blank"
 								class="item epic">Big Earner's Bludgeon</a> – Only worth buying if you lack a max item
@@ -1307,7 +1098,7 @@
 				</div>
 
 				<section id="best-items-to-upgrade">
-					<h2 class="section-title">
+					<h2 class="section-header">
 						<img src="/images/icons/inv_spark_whole_orange (1).jpg" alt="Crafted Gear Icon"
 							class="section-icon">
 						Best Crafted Gear for Holy Paladin
@@ -1402,7 +1193,7 @@
 						<p style="margin-top: 10px;">
 							<strong>Note:</strong> While crafting a weapon is a great idea early on for the biggest
 							immediate boost, your eventual goal will be to pick up
-							<img src="/images/itemIcons/BigEarner'sBludgeon.png" alt="Big Earner Icon"
+							<img src="/images/itemIcons/BigEarnersBludgeon.jpg" alt="Big Earner Icon"
 								class="item-icon">
 							<a href="https://www.wowhead.com/item=228901/big-earners-bludgeon" target="_blank"
 								class="item epic">Big Earner’s Bludgeon</a> and

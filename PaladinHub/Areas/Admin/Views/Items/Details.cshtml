@@ -1,7 +1,6 @@
 ﻿@model PaladinHub.Data.Entities.Item
-
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
     ViewData["Title"] = "Item Details";
 }
 
@@ -11,8 +10,40 @@
     <dt class="col-sm-3">Name</dt>
     <dd class="col-sm-9">@Model.Name</dd>
 
+    <dt class="col-sm-3">Icon</dt>
+    <dd class="col-sm-9">
+        @if (!string.IsNullOrWhiteSpace(Model.Icon))
+        {
+            <img src="~/images/ItemIcons/@Model.Icon" alt="@Model.Name" class="img-thumbnail" style="max-width: 64px;" />
+            <div>@Model.Icon</div>
+        }
+    </dd>
+
+    <dt class="col-sm-3">Second Icon</dt>
+    <dd class="col-sm-9">
+        @if (!string.IsNullOrWhiteSpace(Model.SecondIcon))
+        {
+            <img src="~/images/ItemIcons/@Model.SecondIcon" alt="@Model.Name" class="img-thumbnail" style="max-width: 64px;" />
+            <div>@Model.SecondIcon</div>
+        }
+    </dd>
+
     <dt class="col-sm-3">Description</dt>
     <dd class="col-sm-9">@Model.Description</dd>
+
+    <dt class="col-sm-3">Url</dt>
+    <dd class="col-sm-9">
+        @if (!string.IsNullOrWhiteSpace(Model.Url))
+        {
+            <a href="@Model.Url" target="_blank">@Model.Url</a>
+        }
+    </dd>
+
+    <dt class="col-sm-3">Item Level</dt>
+    <dd class="col-sm-9">@Model.ItemLevel</dd>
+
+    <dt class="col-sm-3">Required Level</dt>
+    <dd class="col-sm-9">@Model.RequiredLevel</dd>
 
     <dt class="col-sm-3">Quality</dt>
     <dd class="col-sm-9">@Model.Quality</dd>

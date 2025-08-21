@@ -1,96 +1,63 @@
 ﻿using DotNetEnv;
+using Ganss.Xss;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
+using Microsoft.IdentityModel.Tokens;
+using PaladinHub.Controllers;
 using PaladinHub.Data;
 using PaladinHub.Data.Entities;
 using PaladinHub.Data.Repositories.Contracts;
 using PaladinHub.Infrastructure;
+using PaladinHub.Infrastructure.Routing;
 using PaladinHub.Services;
+using PaladinHub.Services.Carts;
 using PaladinHub.Services.Discussions;
+using PaladinHub.Services.PageBuilder;
+using PaladinHub.Services.Presets;
 using PaladinHub.Services.SectionServices;
 using PaladinHub.Services.ServiceExtension;
+using PaladinHub.Services.TalentTrees;
+// ⛔ НЯМА using StackExchange.Redis
+using Community.Microsoft.Extensions.Caching.PostgreSql; // Postgres distributed cache
+using System.Text;
+
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Зареждай .env само локално
-if (builder.Environment.IsDevelopment())
-{
-	Env.Load();
-}
+var conn = Environment.GetEnvironmentVariable("DB_CONNECTION")
+		  ?? throw new InvalidOperationException("DB_CONNECTION is missing from environment/.env");
 
-// MVC + Razor
+// MVC + View locations
 builder.Services
-	.AddControllersWithViews(options => options.Filters.Add<LoadGlobalDataFilter>())
-	.AddRazorOptions(o => o.ViewLocationExpanders.Add(new SectionViewLocationExpander()));
-
-// --- Build connection string ---
-static string BuildPgConnectionString()
-{
-	var cs = Environment.GetEnvironmentVariable("DB_CONNECTION");
-	if (!string.IsNullOrWhiteSpace(cs)) return cs;
-
-	var url = Environment.GetEnvironmentVariable("DATABASE_URL"); // fallback
-	if (!string.IsNullOrWhiteSpace(url))
+	.AddControllersWithViews(options =>
 	{
-		var u = new Uri(url);
-		var ui = (u.UserInfo ?? "").Split(':', 2);
-		var user = ui.Length > 0 ? Uri.UnescapeDataString(ui[0]) : "";
-		var pass = ui.Length > 1 ? Uri.UnescapeDataString(ui[1]) : "";
+		options.Filters.Add<LoadGlobalDataFilter>();
+	})
+	.AddRazorOptions(o =>
+	{
+		o.ViewLocationExpanders.Add(new SectionViewLocationExpander());
+	});
 
-		var b = new NpgsqlConnectionStringBuilder
-		{
-			Host = u.Host,
-			Port = u.IsDefaultPort ? 5432 : u.Port,
-			Username = user,
-			Password = pass,
-			Database = u.AbsolutePath.Trim('/'),
-			SslMode = SslMode.Require,
-			TrustServerCertificate = true,
-			Pooling = true,
-			MinPoolSize = 0,
-			MaxPoolSize = 25,
-			Timeout = 15,
-			KeepAlive = 30
-		};
-		return b.ToString();
-	}
+// EF Core (PostgreSQL)
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(conn));
 
-	throw new InvalidOperationException("DB_CONNECTION/DATABASE_URL is not set.");
-}
-
-var conn = BuildPgConnectionString();
-
-// Безопасен лог (без парола)
-try
+// Distributed Cache → PostgreSQL (без Redis)
+builder.Services.AddDistributedPostgreSqlCache(setup =>
 {
-	var b = new NpgsqlConnectionStringBuilder(conn);
-	Console.WriteLine($"[DB] Host={b.Host}; Db={b.Database}; User={b.Username}");
-}
-catch { }
-
-// DbContext (Postgres) + кратки retry-та
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-	options.UseNpgsql(conn, npg => npg.EnableRetryOnFailure(5, TimeSpan.FromSeconds(2), null));
+	setup.ConnectionString = conn;
+	setup.SchemaName = "public";
+	setup.TableName = "__CacheEntries";
+	setup.CreateInfrastructure = true;
+	setup.ExpiredItemsDeletionInterval = TimeSpan.FromMinutes(30);
 });
 
-// Identity
-builder.Services.AddIdentity<User, IdentityRole>(options =>
-{
-	options.Password.RequireNonAlphanumeric = false;
-	options.Password.RequiredLength = 8;
-	options.Password.RequireUppercase = false;
-	options.Password.RequireLowercase = false;
-	options.User.RequireUniqueEmail = true;
-	options.SignIn.RequireConfirmedAccount = false;
-	options.SignIn.RequireConfirmedEmail = false;
-	options.SignIn.RequireConfirmedPhoneNumber = false;
-})
-.AddEntityFrameworkStores<AppDbContext>()
-.AddDefaultTokenProviders();
+// Sessions ще стъпят върху IDistributedCache (Postgres)
+builder.Services.AddSession();
+builder.Services.AddMemoryCache();
 
-// DI на твоите услуги
+// Твоите услуги
 builder.Services.AddCustomServices();
 builder.Services.AddScoped<IItemsService, ItemsService>();
 builder.Services.AddScoped<ISpellbookService, SpellbookService>();
@@ -99,33 +66,137 @@ builder.Services.AddScoped<ProtectionSectionService>();
 builder.Services.AddScoped<RetributionSectionService>();
 builder.Services.AddScoped<IDiscussionService, DiscussionService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICartSessionService, CartSessionService>();
+builder.Services.AddScoped<ICartStore, MemoryCartStore>(); // 👈 кошницата през distributed cache (Postgres)
+builder.Services.AddScoped<IBlockRenderer, BlockRenderer>();
+builder.Services.AddScoped<ISpecializationTreeBuilder, HolySpecTreeBuilder>();
+builder.Services.AddScoped<ISpecializationTreeBuilder, ProtectionSpecTreeBuilder>();
+builder.Services.AddScoped<ISpecializationTreeBuilder, RetributionSpecTreeBuilder>();
+builder.Services.AddScoped<IClassTreeBuilder, PaladinClassTreeBuilder>();
+builder.Services.AddScoped<IHeroTalentTreesService, HeroTalentTreesService>();
+builder.Services.AddScoped<ITalentTreeService, TalentTreeService>();
+builder.Services.AddHostedService<PaladinHub.Services.Background.CleanupCartService>();
+builder.Services.AddScoped<IPageService, PageService>();
+builder.Services.AddScoped<IJsonLayoutValidator, JsonLayoutValidator>();
+builder.Services.AddScoped<IDataPresetService, DataPresetService>();
 
-// Порт за Render
+builder.Services.AddSingleton<IHtmlSanitizer>(_ =>
+{
+	var s = new HtmlSanitizer();
+	s.AllowedTags.Add("p"); s.AllowedTags.Add("b"); s.AllowedTags.Add("i");
+	s.AllowedTags.Add("ul"); s.AllowedTags.Add("ol"); s.AllowedTags.Add("li");
+	s.AllowedTags.Add("a"); s.AllowedAttributes.Add("href");
+	return s;
+});
+
+builder.Services.Configure<RouteOptions>(opt =>
+{
+	opt.ConstraintMap["palsec"] = typeof(AllowedSectionConstraint);
+});
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+	options.Password.RequireNonAlphanumeric = true;
+	options.Password.RequiredLength = 8;
+	options.Password.RequireUppercase = true;
+	options.Password.RequireLowercase = true;
+	options.User.RequireUniqueEmail = true;
+	options.SignIn.RequireConfirmedAccount = false;
+	options.SignIn.RequireConfirmedEmail = false;
+	options.SignIn.RequireConfirmedPhoneNumber = false;
+})
+.AddEntityFrameworkStores<AppDbContext>()
+.AddDefaultTokenProviders();
+
+var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY")
+			 ?? throw new InvalidOperationException("JWT_KEY is missing from .env");
+var jwtIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER") ?? "DefaultIssuer";
+var jwtAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE") ?? "DefaultAudience";
+
+builder.Services
+	.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	.AddJwtBearer(o =>
+	{
+		o.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateIssuer = true,
+			ValidateAudience = true,
+			ValidateIssuerSigningKey = true,
+			ValidIssuer = jwtIssuer,
+			ValidAudience = jwtAudience,
+			IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+		};
+	});
+
+builder.Services.AddTransient<TalentsController>();
+
 string httpPort = Environment.GetEnvironmentVariable("PORT") ?? "10000";
-builder.WebHost.ConfigureKestrel(o => o.ListenAnyIP(int.Parse(httpPort)));
+builder.WebHost.ConfigureKestrel(options => { options.ListenAnyIP(int.Parse(httpPort)); });
 
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Home/Error");
+	app.UseExceptionHandler("/error/500");
 }
 
+app.UseWhen(ctx => !ctx.Request.Path.StartsWithSegments("/api"),
+	appBranch => appBranch.UseStatusCodePagesWithReExecute("/error/{0}")
+);
+
 app.UseStaticFiles();
+
+// Canonical redirects Holy/Protection/Retribution
+app.Use(async (ctx, next) =>
+{
+	var path = ctx.Request.Path.Value ?? "";
+
+	if (path.StartsWith("/Admin", StringComparison.OrdinalIgnoreCase))
+	{
+		await next();
+		return;
+	}
+
+	string? canonical = path switch
+	{
+		var p when p.StartsWith("/holy/", StringComparison.Ordinal) =>
+			"/Holy/" + p["/holy/".Length..],
+		var p when p.Equals("/holy", StringComparison.Ordinal) =>
+			"/Holy",
+
+		var p when p.StartsWith("/protection/", StringComparison.Ordinal) =>
+			"/Protection/" + p["/protection/".Length..],
+		var p when p.Equals("/protection", StringComparison.Ordinal) =>
+			"/Protection",
+
+		var p when p.StartsWith("/retribution/", StringComparison.Ordinal) =>
+			"/Retribution/" + p["/retribution/".Length..],
+		var p when p.Equals("/retribution", StringComparison.Ordinal) =>
+			"/Retribution",
+
+		_ => null
+	};
+
+	if (canonical is not null)
+	{
+		ctx.Response.Redirect(canonical + ctx.Request.QueryString.ToUriComponent(), permanent: false);
+		return;
+	}
+
+	await next();
+});
+
 app.UseRouting();
+app.UseSession();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Routes
+app.MapControllers();
+
 app.MapControllerRoute(
 	name: "areas",
 	pattern: "{area:exists}/{controller=Database}/{action=Index}/{id?}"
-);
-
-app.MapControllerRoute(
-	name: "paladin-section",
-	pattern: "{section}/{action=Overview}/{id?}",
-	defaults: new { controller = "Paladin" }
 );
 
 app.MapControllerRoute(
@@ -133,8 +204,21 @@ app.MapControllerRoute(
 	pattern: "{controller=Home}/{action=Home}/{id?}"
 );
 
-// Авто-миграции + seed (включи с env APPLY_MIGRATIONS_ON_STARTUP=true)
-if (Environment.GetEnvironmentVariable("APPLY_MIGRATIONS_ON_STARTUP") == "false")
+app.MapControllerRoute(
+	name: "talents-section",
+	pattern: "{section:regex(^Holy|Protection|Retribution$)}/Talents",
+	defaults: new { controller = "Talents", action = "SectionPage" }
+);
+
+app.MapGet("/", () => Results.Redirect("/Home/Home"));
+
+app.MapControllerRoute(
+	name: "paladin-pages",
+	pattern: "{section:regex(^Holy|Protection|Retribution$)}/{slug:regex(^(?!Overview$|Gear$|Talents$|Consumables$|Rotation$|Stats$).+)}",
+	defaults: new { controller = "Paladin", action = "Page" }
+);
+
+if (Environment.GetEnvironmentVariable("APPLY_MIGRATIONS_ON_STARTUP") == "true")
 {
 	using var scope = app.Services.CreateScope();
 	try
@@ -154,7 +238,7 @@ if (Environment.GetEnvironmentVariable("APPLY_MIGRATIONS_ON_STARTUP") == "false"
 	}
 	catch (Exception ex)
 	{
-		Console.WriteLine($"\n[DB][Migrate] {ex.GetType().Name}: {ex.Message}\n{ex}\n");
+		Console.WriteLine($"\n\n{ex.InnerException}  {ex.Message}  {ex}\n\n");
 	}
 }
 

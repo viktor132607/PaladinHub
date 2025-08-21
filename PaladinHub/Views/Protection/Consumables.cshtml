@@ -1,8 +1,13 @@
-﻿@inherits PaladinHub.Views.Shared.SpellsAndItemsView
+﻿@inherits PaladinHub.Helpers.SpellsAndItemsView
+@model PaladinHub.Models.CombinedViewModel
+
 @{
 	ViewData["Title"] = "Protection Paladin Consumables";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@*
+<link rel="stylesheet" href="~/css//Protection/ProtectionConsumables.css" />
+*@
 
 <div class="outer-wrapper">
 	<div class="page-container">
@@ -11,11 +16,11 @@
 			<section id="enchants">
 				<h2 class="section-header">
 					<img src="/images/itemIcons/inv_misc_enchantedscroll.jpg" alt="Trinkets Icon" class="section-icon">
-					BEST HOLY PALADIN ENCHANTS IN THE WAR WITHIN SEASON
+					BEST Protection PALADIN ENCHANTS IN THE WAR WITHIN SEASON
 				</h2>
 
 				<p>
-					Below is a list of the recommended enchants to use on your Retribution Paladin gear during The War Within Season 2.
+					Below is a list of the recommended enchants to use on your gear during The War Within Season 2.
 				</p>
 
 				<br>
@@ -74,25 +79,25 @@
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Bracers</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Item("Enchant Bracer - Chant of Armored Avoidance")
+								@Item("Enchant Bracer - Chant of Armored Leech")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Item("Enchant Bracer - Chant of Armored Speed")
+								@Item("Enchant Bracer - Whisper of Armored Leech")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Legs</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Item("Stormbound Armor Kit")
+								@Item("Daybreak Spellthread")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								-
+								@Item("Weavercloth Spellthread")
 							</td>
 						</tr>
 						<tr>
 							<td style="padding: 8px; border: 1px solid #555;">Boots</td>
 							<td style="padding: 8px; border: 1px solid #555;">
-								@Item("Enchant Boots - Scout's March")
+								@Item("Enchant Boots - Defender's March")
 							</td>
 							<td style="padding: 8px; border: 1px solid #555;">
 								-
@@ -115,7 +120,7 @@
 
 				<h2 class="section-header" style="text-align: left;">
 					<img src="/images/icons/inv_eyeofnzothpet.jpg" alt="Crafting Icon" class="section-icon small-icon">
-					Holy Paladin Head Enchant in The War Within Season 2
+					Protection Paladin Head Enchant in The War Within Season 2
 				</h2>
 
 				<p>@Item("Greater Rune of the Void Ritual") will be your corruption of choice as it is the only option that provides a healing increase. You can use @Item("Lesser Rune of the Void Ritual") until you unlock its greater version.</p>
@@ -128,14 +133,14 @@
 			<section id="consumables">
 				<h2 class="section-header">
 					<img src="/images/itemIcons/inv_potion_green.jpg" alt="Trinkets Icon" class="section-icon">
-					BEST HOLY PALADIN CONSUMABLES IN THE WAR WITHIN SEASON 2
+					BEST Protection PALADIN CONSUMABLES IN THE WAR WITHIN SEASON 2
 				</h2>
 
-				<p>There are many consumables that players can use in combat in The War Within Season 2. Here are the best phials, potions, and weapon buffs that Holy Paladins can use in PvE content.</p>
+				<p>There are many consumables that players can use in combat in The War Within Season 2. Here are the best phials, potions, and weapon buffs that Protection Paladins can use in PvE content.</p>
 
 				<h2 class="section-header" style="text-align: left;">
 					<img src="/images/itemIcons/inv_potion_24.jpg" alt="Crafting Icon" class="section-icon small-icon">
-					Best Consumables for Holy Paladin
+					Best Consumables for Protection Paladin
 				</h2>
 
 
@@ -220,16 +225,16 @@
 				<br />
 				<h2 class="section-header" style="text-align: left;">
 					<img src="/images/itemIcons/inv_flask_green.jpg" alt="Crafting Icon" class="section-icon small-icon">
-					Holy Paladin Phials in The War Within Season 2
+					Protection Paladin Phials in The War Within Season 2
 				</h2>
 
-				<p>The best phial for Holy Paladin is @Item("Flask of Tempered Swiftness") for both Raiding and Mythic+</p>
+				<p>The best phial for Protection Paladin is @Item("Flask of Tempered Swiftness") for both Raiding and Mythic+</p>
 
 				<h2 class="section-header" style="text-align: left;">
 					<img src="/images/itemIcons/inv_flask_blue.jpg" alt="Crafting Icon" class="section-icon small-icon">
-					Holy Paladin Combat Potions in The War Within Season 2
+					Protection Paladin Combat Potions in The War Within Season 2
 				</h2>
-				There are a couple different potions that have different useful scenarios for Holy Paladin:
+				There are a couple different potions that have different useful scenarios for Protection Paladin:
 				<ul>
 					<li>
 						<strong>Best Mana Potion:</strong> @Item("Algari Mana Potion"), or @Item("Slumbering Soul Serum") if you are able to find a good time to use it.
@@ -241,14 +246,14 @@
 				<br>
 				<h2 class="section-header" style="text-align: left;">
 					<img src="/images/itemIcons/inv_flask_red.jpg" alt="Crafting Icon" class="section-icon small-icon">
-					Holy Paladin Health Potions in The War Within Season 2
+					Protection Paladin Health Potions in The War Within Season 2
 				</h2>
 
 				<p>The best healing potion is @Item("Algari Healing Potion").</p>
 				<br>
 				<h2 class="section-header" style="text-align: left;">
 					<img src="/images/itemIcons/trade_alchemy_potiond1.jpg" alt="Crafting Icon" class="section-icon small-icon">
-					Holy Paladin Weapon Buff in The War Within Season 2
+					Protection Paladin Weapon Buff in The War Within Season 2
 				</h2>
 
 				<p>@Item("Algari Mana Oil") is the best weapon buff to use in all scenarios as Herald of the Sun, and  Rite of Sanctification as Lightsmith.</p>
@@ -257,10 +262,10 @@
 
 				<h2 class="section-header" style="text-align: left;">
 					<img src="/images/itemIcons/inv_10_enchanting_crystal_color5.jpg" alt="Crafting Icon" class="section-icon small-icon">
-					Holy Paladin Augment Rune in The War Within Season 2
+					Protection Paladin Augment Rune in The War Within Season 2
 				</h2>
 
-				<p>@Item("Crystallized Augment Rune") is the best augment rune for Holy Paladin.</p>
+				<p>@Item("Crystallized Augment Rune") is the best augment rune for Protection Paladin.</p>
 				<br>
 			</section>
 
@@ -271,7 +276,7 @@
 			<section id="food">
 				<h2 class="section-header">
 					<img src="/images/itemIcons/inv_misc_food_03.jpg" alt="Trinkets Icon" class="section-icon">
-					BEST HOLY PALADIN FOOD IN THE WAR WITHIN SEASON 2
+					BEST Protection PALADIN FOOD IN THE WAR WITHIN SEASON 2
 				</h2>
 
 				<ul>
@@ -289,7 +294,7 @@
 			<section id="gems">
 				<h2 class="section-header">
 					<img src="/images/itemIcons/inv_10_jewelcrafting_gem3primal_cut_red.jpg" alt="Trinkets Icon" class="section-icon">
-					BEST HOLY PALADIN GEMS IN THE WAR WITHIN SEASON 2
+					BEST Protection PALADIN GEMS IN THE WAR WITHIN SEASON 2
 				</h2>
 
 
@@ -300,3 +305,4 @@
 		</div>
 	</div>
 </div>
+
