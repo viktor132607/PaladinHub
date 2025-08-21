@@ -134,7 +134,7 @@ app.MapControllerRoute(
 );
 
 // Авто-миграции + seed (включи с env APPLY_MIGRATIONS_ON_STARTUP=true)
-if (Environment.GetEnvironmentVariable("APPLY_MIGRATIONS_ON_STARTUP") == "true")
+if (Environment.GetEnvironmentVariable("APPLY_MIGRATIONS_ON_STARTUP") == "false")
 {
 	using var scope = app.Services.CreateScope();
 	try
