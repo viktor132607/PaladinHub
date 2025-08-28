@@ -1,70 +1,61 @@
 # PaladinHub
 
-## ⚠️ Конфигурация
+## 📝 Overview
+**PaladinHub** is a **.NET 8 web application** (MVC + Razor Pages) featuring a built-in **Talent Tree Builder** for World of Warcraft Paladin specializations (Holy / Protection / Retribution).  
 
-1. Уверете се, че сте обновили файла **`appsettings.json`** с вашите настройки, иначе приложението няма да стартира.  
-2. Попълнете:
-   - Connection string за PostgreSQL база данни.
-   - Redis connection string (ако се ползва кеш).
-   - JWT ключове, API ключове и други специфични конфигурации.
+The project follows clean separation of concerns, uses **Entity Framework Core with PostgreSQL** for persistence, **ASP.NET Core Identity** for authentication/authorization (cookie-based and JWT bearer), and **PostgreSQL-backed `IDistributedCache`** for caching (Redis support exists but is not enabled by default).  
 
----
-
-## 📝 Описание
-
-**PaladinHub** е модулен и скалируем .NET 8 уеб проект с вграден Talent Tree Builder. Следва принципите на **Clean Architecture** и съдържа:
-
-- Уеб интерфейс с Razor Pages / MVC
-- Админ панел за управление на страници, база данни и продукти
-- API и бизнес логика в отделни слоеве
-- Работа с PostgreSQL и Redis
-- Docker съвместимост
+An **Admin area** is included to manage content, products, pages, and discussions.
 
 ---
 
-## 📂 Структура на проекта
+## 📦 Technologies
+- **.NET 8** – ASP.NET Core MVC + Razor Pages  
+- **Entity Framework Core (Npgsql provider)**  
+- **ASP.NET Core Identity** with roles (`Admin`, `User`)  
+- **IDistributedCache via PostgreSQL** (`__CacheEntries` table)  
+- **Docker / Docker Compose** for easy deployment  
 
-1. **PaladinHub.Web**  
-   - Основният уеб проект (MVC + Razor Pages) с UI и админ панел.
-
-2. **PaladinHub.Data**  
-   - База данни, DbContext, ентитети и репозитории (EF Core).
-
-3. **PaladinHub.Domain**  
-   - Бизнес логика и домейн модели.
-
-4. **PaladinHub.Services**  
-   - Сървис слой за интеграции и бизнес операции.
-
-5. **PaladinHub.Tests**  
-   - Unit тестове.
-
-6. **Конфигурационни файлове**  
-   - `.editorconfig`, `.gitignore`, `Directory.Packages.props`, `LICENSE`, `README.md`.
+Optional integrations:
+- JWT Bearer for API authentication (mobile/SPA clients)  
+- PostgreSQL seeding and auto migrations on startup  
 
 ---
 
-## 🖥️ Изисквания
+## 📂 Project Structure
+The repository contains **one web project**: `PaladinHub/PaladinHub`.  
 
-- **.NET 8 SDK**  
-  [Изтегли от тук](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- **IDE**  
-  - Visual Studio 2022+
-  - Rider
-  - VS Code с C# разширение
-- **Docker** (за бързо стартиране на база данни и кеш)
+Key folders:
+- `Areas/Admin` → Controllers and views for the admin dashboard  
+- `Controllers` (+ `Controllers/Api`) → Public controllers and API endpoints (Talents, Products, Discussions, Spellbook, etc.)  
+- `Data` → EF Core `AppDbContext`, entities, seeders, repository implementations  
+- `Services` → Business logic layer (Talents, Spellbook, Items, Cart, Discussions, PageBuilder)  
+- `Views` → Razor Views for Home, Talent Trees, Products, Discussions, etc.  
+- `wwwroot` → Static assets (CSS, JS, images). Includes `talents-editor.js` and `talentstrees.js` for the builder.  
+- `Migrations` → EF Core migrations  
+- `Tests` → Unit tests with xUnit  
+
+> 🔎 Unlike multi-project solutions (Web/Domain/Services/Data), everything here is consolidated in a single project with clear folder separation.
 
 ---
 
-## 🚀 Стартиране с Docker
+## ⚙️ Configuration
+Configuration is managed via `appsettings.json`. Example:
 
-Стартирайте Redis и PostgreSQL локално:
-
-```bash
-docker run -d --name redisdb -p 6379:6379 redis:7
-
-docker run -d --name postgresdb \
-  -e POSTGRES_DB=paladinhubdb \
-  -e POSTGRES_USER=postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -p 5432:5432 postgres:16
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=paladinhubdb;Username=postgres;Password=postgres;"
+  },
+  "PostgresCache": {
+    "SchemaName": "public",
+    "TableName": "__CacheEntries",
+    "CreateInfrastructure": true,
+    "ExpiredItemsDeletionInterval": "00:30:00"
+  },
+  "Jwt": {
+    "Issuer": "PaladinHub",
+    "Audience": "PaladinHubUsers",
+    "Key": "<long-random-secret-key>"
+  }
+}
